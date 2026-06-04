@@ -4,9 +4,31 @@ import { SiteHeader } from "@/components/site-header";
 
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://eleven-dj.vercel.app";
+const ogDescription =
+  "Request any track in plain words and hear it generated live on the floor — powered by ElevenLabs Music.";
+
 export const metadata: Metadata = {
-  title: "ElevenDJ — live request line",
-  description: "A live AI music request line powered by ElevenLabs Music.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "ElevenDJ — live AI music request line",
+    template: "%s · ElevenDJ",
+  },
+  description:
+    "Scan the code, request any track in plain words, and hear it generated live on the floor — powered by ElevenLabs Music.",
+  applicationName: "ElevenDJ",
+  openGraph: {
+    type: "website",
+    siteName: "ElevenDJ",
+    url: siteUrl,
+    title: "ElevenDJ — live AI music request line",
+    description: ogDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ElevenDJ — live AI music request line",
+    description: ogDescription,
+  },
 };
 
 export default function RootLayout({

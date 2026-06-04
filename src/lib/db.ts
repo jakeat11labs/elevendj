@@ -45,6 +45,8 @@ export type SongRequestRecord = {
   metadata: Record<string, unknown>;
   force_instrumental: boolean;
   lyrics: Lyrics | null;
+  title: string | null;
+  is_explicit: boolean;
 };
 
 type PlaylistSettings = {
@@ -107,6 +109,8 @@ function mapQueueItem(row: SongRequestRecord): QueueItem {
     position: row.position,
     durationMs: row.duration_ms,
     audioUrl: row.audio_url,
+    title: row.title ?? null,
+    isExplicit: row.is_explicit ?? false,
     promptSuggestion: row.prompt_suggestion,
     errorMessage: row.error_message,
     lyrics: row.lyrics ?? null,
@@ -359,7 +363,7 @@ export async function getQueueSnapshot(): Promise<QueueSnapshot> {
     getSupabaseAdmin()
       .from("song_requests")
       .select(
-        "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics"
+        "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics,title,is_explicit"
       )
       .eq("session_id", activeSession.id)
       .in("status", activeStatuses)
@@ -398,7 +402,7 @@ export async function getAdminOverview() {
     getSupabaseAdmin()
       .from("song_requests")
       .select(
-        "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics"
+        "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics,title,is_explicit"
       )
       .order("created_at", { ascending: false })
       .limit(75),
@@ -542,7 +546,7 @@ export async function getRequestByClientToken(id: string, clientToken: string) {
   const { data, error } = await getSupabaseAdmin()
     .from("song_requests")
     .select(
-      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics"
+      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics,title,is_explicit"
     )
     .eq("id", id)
     .eq("client_token_hash", tokenHash)
@@ -559,7 +563,7 @@ export async function claimRequestForGeneration(id: string) {
   const { data: existing, error: readError } = await getSupabaseAdmin()
     .from("song_requests")
     .select(
-      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics"
+      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics,title,is_explicit"
     )
     .eq("id", id)
     .single();
@@ -608,7 +612,12 @@ export async function markRequestReady(
   audioUrl: string,
   blobPath: string,
   songId: string | null,
-  lyrics: Lyrics | null = null
+  lyrics: Lyrics | null = null,
+  meta: {
+    title?: string | null;
+    isExplicit?: boolean;
+    songMetadata?: Record<string, unknown>;
+  } = {}
 ) {
   const { error } = await getSupabaseAdmin()
     .from("song_requests")
@@ -618,6 +627,10 @@ export async function markRequestReady(
       blob_path: blobPath,
       song_id: songId,
       lyrics,
+      title: meta.title ?? null,
+      is_explicit: meta.isExplicit ?? false,
+      // genres/languages/description live in the metadata jsonb column.
+      ...(meta.songMetadata ? { metadata: meta.songMetadata } : {}),
       completed_at: new Date().toISOString(),
       error_code: null,
       error_message: null,
@@ -628,7 +641,11 @@ export async function markRequestReady(
     throw databaseUnavailable(error);
   }
 
-  await recordEvent(id, "generation_completed", { audioUrl, songId });
+  await recordEvent(id, "generation_completed", {
+    audioUrl,
+    songId,
+    title: meta.title ?? null,
+  });
 }
 
 export async function markRequestFailed(
@@ -681,6 +698,8 @@ export async function requeueRequest(id: string) {
       audio_url: null,
       blob_path: null,
       song_id: null,
+      title: null,
+      is_explicit: false,
       error_code: null,
       error_message: null,
       prompt_suggestion: null,
@@ -807,7 +826,7 @@ export async function listFiles(sessionId?: string): Promise<QueueItem[]> {
   let query = getSupabaseAdmin()
     .from("song_requests")
     .select(
-      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics"
+      "id,client_token_hash,requester_name,prompt,normalized_prompt,status,position,duration_ms,audio_url,blob_path,song_id,prompt_suggestion,error_code,error_message,ip_hash,idempotency_key,generation_attempts,started_at,completed_at,created_at,updated_at,metadata,force_instrumental,lyrics,title,is_explicit"
     )
     .not("audio_url", "is", null);
 

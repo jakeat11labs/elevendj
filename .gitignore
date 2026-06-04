@@ -16,3 +16,7 @@ pnpm-debug.log*
 
 # Local npm registry workaround (machine-specific); not for the repo
 .npmrc
+
+# Build artifacts / caches
+.swc/
+*.tsbuildinfo

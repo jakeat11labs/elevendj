@@ -8,12 +8,32 @@ import { QRCodeSVG } from "qrcode.react";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
-import type { QueueItem, QueueSnapshot } from "@/lib/status";
+import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
 
 import styles from "./stage.module.css";
 
 const TOKEN_KEY = "elevendj-admin-token";
+
+// Render a lyric line as karaoke: words fill from dim to bright as playback
+// passes each word's start. Punctuation-only tokens (no startMs) inherit the
+// state of the word before them so commas don't flicker ahead of their word.
+function renderKaraokeLine(words: LyricWord[], posMs: number) {
+  let lastSung = false;
+  return words.map((word, wi) => {
+    if (typeof word.startMs === "number") lastSung = posMs >= word.startMs;
+    return (
+      <span
+        key={wi}
+        className={lastSung ? "text-white" : "text-white/30"}
+        style={{ transition: "color 150ms linear" }}
+      >
+        {word.text}
+        {wi < words.length - 1 ? " " : ""}
+      </span>
+    );
+  });
+}
 
 export function StageScreen() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -273,19 +293,42 @@ export function StageScreen() {
   // ── Lyrics (timed blocks synced to playback position) ────────
   const [posMs, setPosMs] = useState(0);
 
+  // `onTimeUpdate` fires only ~4×/sec; drive posMs off rAF while playing so
+  // per-word karaoke fill stays smooth. Idle/paused falls back to timeupdate.
+  useEffect(() => {
+    if (!isPlaying) return;
+    let raf = 0;
+    const tick = () => {
+      const audio = audioRef.current;
+      if (audio) setPosMs(audio.currentTime * 1000);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isPlaying]);
+
   const lyricView = useMemo(() => {
     const sections = current?.lyrics?.sections;
     if (!sections || sections.length === 0) return null;
-    // Pick the section currently being sung by cumulative section duration.
-    let acc = 0;
     let chosen = 0;
-    for (let i = 0; i < sections.length; i++) {
-      const dur = sections[i].durationMs || 0;
-      if (posMs < acc + dur || i === sections.length - 1) {
-        chosen = i;
-        break;
+    const hasAbsolute = sections.some((s) => typeof s.startMs === "number");
+    if (hasAbsolute) {
+      // Word-timestamp path: the active block is the last one that has started.
+      for (let i = 0; i < sections.length; i++) {
+        const start = sections[i].startMs;
+        if (typeof start === "number" && start <= posMs) chosen = i;
       }
-      acc += dur;
+    } else {
+      // Fallback: advance blocks by cumulative section duration.
+      let acc = 0;
+      for (let i = 0; i < sections.length; i++) {
+        const dur = sections[i].durationMs || 0;
+        if (posMs < acc + dur || i === sections.length - 1) {
+          chosen = i;
+          break;
+        }
+        acc += dur;
+      }
     }
     return { section: sections[chosen], index: chosen, total: sections.length };
   }, [current?.lyrics, posMs]);
@@ -301,14 +344,15 @@ export function StageScreen() {
       <div className={styles.bgVignette} aria-hidden />
       <div className={styles.bgGrain} aria-hidden />
 
-      {/* Brand lockup — matches site header, inverted for hero background */}
+      {/* Brand lockup — icon + DJ, inverted for hero background */}
       <div className={`${styles.brandLockup} absolute left-6 top-6 z-20 sm:left-9 sm:top-8`}>
         <Image
-          src="/brand/logo-white.png"
+          src="/brand/icon-white.svg"
           alt="ElevenLabs"
-          width={150}
-          height={26}
+          width={101}
+          height={160}
           priority
+          unoptimized
           className={styles.brandLogo}
         />
         <span className="brand-dj brand-dj--hero" aria-hidden>
@@ -356,17 +400,19 @@ export function StageScreen() {
                 {lyricView.section.lines.map((line, i) => (
                   <p
                     key={i}
-                    className="text-balance text-2xl leading-tight text-white sm:text-4xl"
+                    className="text-balance text-2xl leading-tight sm:text-4xl"
                     style={{ fontFamily: "var(--font-brand)", fontWeight: 300 }}
                   >
-                    {line.text}
+                    {line.words?.length
+                      ? renderKaraokeLine(line.words, posMs)
+                      : line.text}
                   </p>
                 ))}
               </div>
               {/* Shrunk title + attribution beneath the lyrics */}
               <div className="flex flex-col items-center gap-1">
                 <p className="max-w-xl truncate text-sm text-white/55 sm:text-base">
-                  {current.prompt}
+                  {current.title || current.prompt}
                 </p>
                 <p className="text-xs uppercase tracking-[0.18em] text-white/40">
                   Requested by {current.requesterName || "Anonymous"}
@@ -376,7 +422,12 @@ export function StageScreen() {
           ) : (
             <>
               <p className={styles.eyebrow}>Now playing</p>
-              <h1 className={styles.title}>{current.prompt}</h1>
+              <h1 className={styles.title}>{current.title || current.prompt}</h1>
+              {current.title ? (
+                <p className="max-w-xl truncate text-sm text-white/55 sm:text-base">
+                  {current.prompt}
+                </p>
+              ) : null}
               {current.requesterName ? (
                 <p className={styles.requester}>
                   Requested by {current.requesterName}

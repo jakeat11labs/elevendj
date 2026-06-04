@@ -62,15 +62,18 @@ h1, h2, h3 {
   font-family: var(--font-mono);
 }
 
-/* ElevenLabs wordmark lockup — KMR Waldenburg, matched to logo image cap height */
+/* ElevenLabs icon lockup — KMR Waldenburg, matched to icon cap height */
 .brand-dj {
   font-family: var(--font-brand);
-  font-weight: 300;
-  font-size: 22px;
+  font-weight: 400;
+  font-size: 30px;
   line-height: 1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--mid-gray);
+  color: var(--graphite);
+  /* Crop the half-leading so the caps/baseline sit flush with the icon edges */
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
 }
 
 .brand-dj--hero {

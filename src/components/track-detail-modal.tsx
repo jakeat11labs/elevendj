@@ -82,15 +82,25 @@ export function TrackDetailModal({
         {/* Header */}
         <div className="flex items-start justify-between gap-3 border-b border-[var(--light-gray)] p-5">
           <div className="min-w-0">
-            <div className="mb-2">
+            <div className="mb-2 flex items-center gap-2">
               <StatusBadge status={item.status} />
+              {item.isExplicit && (
+                <span className="rounded bg-[var(--graphite)] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
+                  Explicit
+                </span>
+              )}
             </div>
             <h2
               className="text-lg leading-snug text-[var(--graphite)]"
               style={{ fontFamily: "var(--font-brand)" }}
             >
-              {item.prompt}
+              {item.title || item.prompt}
             </h2>
+            {item.title && (
+              <p className="mt-1 truncate text-sm text-[var(--mid-gray)]">
+                {item.prompt}
+              </p>
+            )}
           </div>
           <button
             type="button"

@@ -16,13 +16,14 @@ export function SiteHeader() {
 
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center px-5 py-6 sm:px-8">
-      <Link href="/" className="flex items-end gap-3">
+      <Link href="/" className="flex items-end gap-1.5">
         <Image
-          src="/brand/logo-black.png"
+          src="/brand/icon-black.svg"
           alt="ElevenLabs"
-          width={150}
-          height={26}
+          width={101}
+          height={160}
           priority
+          unoptimized
           className="h-[22px] w-auto"
         />
         <span className="brand-dj" aria-hidden>
