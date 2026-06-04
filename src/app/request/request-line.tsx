@@ -154,7 +154,7 @@ export function RequestLine() {
       return "Generating your track now.";
     }
     if (displayStatus === "ready") {
-      return "Ready — your track is in the player.";
+      return "Your track is finished and added to the queue.";
     }
     if (displayStatus === "rejected") {
       return status?.promptSuggestion || status?.errorMessage || "Request rejected.";
@@ -203,10 +203,10 @@ export function RequestLine() {
             >
               {statusCopy}
             </p>
-            {status?.audioUrl && (
-              <audio className="mt-6 w-full" controls src={status.audioUrl}>
-                <track kind="captions" />
-              </audio>
+            {displayStatus === "ready" && (
+              <p className="mt-3 text-sm leading-6 text-[var(--mid-gray)]">
+                You can now safely close this window.
+              </p>
             )}
           </div>
 
