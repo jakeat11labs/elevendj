@@ -1,7 +1,19 @@
 import "server-only";
 
+import { timingSafeEqual } from "crypto";
+
 import { AppError } from "@/lib/errors";
 import { optionalEnv } from "@/lib/env";
+
+/** Constant-time string compare to avoid leaking the token via timing. */
+function safeEqual(a: string, b: string) {
+  const ab = Buffer.from(a);
+  const bb = Buffer.from(b);
+  if (ab.length !== bb.length) {
+    return false;
+  }
+  return timingSafeEqual(ab, bb);
+}
 
 export function assertAdmin(request: Request) {
   const expected = optionalEnv("ADMIN_ACCESS_TOKEN");
@@ -13,14 +25,14 @@ export function assertAdmin(request: Request) {
     );
   }
 
+  // Accept the admin token via the Authorization header only — never the query
+  // string (tokens in URLs leak into logs, proxies, and Referer headers).
   const authHeader = request.headers.get("authorization");
   const bearer = authHeader?.startsWith("Bearer ")
     ? authHeader.slice("Bearer ".length)
     : null;
-  const url = new URL(request.url);
-  const queryToken = url.searchParams.get("token");
 
-  if (bearer !== expected && queryToken !== expected) {
+  if (!bearer || !safeEqual(bearer, expected)) {
     throw new AppError(401, "unauthorized", "Admin token required.");
   }
 }
