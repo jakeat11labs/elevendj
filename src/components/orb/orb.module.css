@@ -1,0 +1,12 @@
+/* OrbShader mounts its OGL <canvas> as a child of this element. */
+.shaderRoot {
+  position: absolute;
+  inset: 0;
+}
+
+.shaderRoot > canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}

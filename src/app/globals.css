@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+ * ElevenDJ — ElevenLabs brand, LIGHT "Content mode"
+ * Brand tokens + fonts come from /public/tokens.css (linked in layout).
+ * This file maps those tokens into Tailwind's theme and defines the
+ * clean off-white editorial surface used across the app.
+ * ───────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --color-background: var(--off-white);
+  --color-foreground: var(--graphite);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-brand);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--off-white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Content mode: clean off-white surface, graphite ink, generous whitespace.
+ * No dark gradient, no grain, no orb. */
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--graphite);
+  background: var(--off-white);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+/* Brand display headings — KMR Waldenburg, light, tight. */
+.display {
+  font-family: var(--font-brand);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+h1, h2, h3 {
+  font-family: var(--font-brand);
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin: 0;
+}
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: var(--fs-small);
+  color: var(--mid-gray);
+}
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* ElevenLabs wordmark lockup — KMR Waldenburg, matched to logo image cap height */
+.brand-dj {
+  font-family: var(--font-brand);
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mid-gray);
+}
+
+.brand-dj--hero {
+  color: #ffffff;
+  opacity: 0.95;
+  transform: translateY(0.5px);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+/* ───────── Cards ───────── */
+/* Cream content card — primary surface for grouped content.
+ * Subtle soft shadow gives depth against the off-white page. */
+.card {
+  background: var(--cream);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* White nested surface — for rows/items sitting inside a .card. */
+.card-soft {
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-md);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.card-soft:hover {
+  border-color: var(--mid-gray);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ───────── Form controls ───────── */
+/* Inputs must read clearly as editable fields on the off-white page:
+ * crisp white fill, a darker-than-page border, an inset hairline for
+ * depth, graphite ink, and legible placeholder text. */
+.control {
+  background: var(--white);
+  color: var(--graphite);
+  border: 1.5px solid var(--mid-gray);
+  border-radius: var(--radius-md);
+  outline: none;
+  box-shadow: inset 0 1px 2px rgba(30, 25, 22, 0.05);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.control::placeholder {
+  color: var(--mid-gray);
+  opacity: 1;
+}
+.control:hover:not(:disabled):not(:focus) {
+  border-color: var(--dark-gray);
+}
+.control:focus {
+  border-color: var(--graphite);
+  box-shadow: 0 0 0 3px rgba(30, 25, 22, 0.14);
+}
+.control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--cream);
+}
+
+/* ───────── Buttons (token-based, no invented accent) ───────── */
+.btn-primary {
+  background: var(--graphite);
+  color: var(--off-white);
+  font-weight: 600;
+  border: 1px solid var(--graphite);
+  border-radius: var(--radius-full);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-primary:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(30, 25, 22, 0.18);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: var(--white);
+  color: var(--graphite);
+  border: 1px solid var(--light-gray);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.btn-ghost:not(:disabled):hover {
+  border-color: var(--graphite);
+  background: var(--cream);
+}
+.btn-ghost:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  background: var(--white);
+  color: var(--destructive);
+  border: 1px solid var(--destructive);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: background 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-danger:not(:disabled):hover {
+  background: rgba(180, 35, 24, 0.06);
+  box-shadow: 0 10px 28px rgba(180, 35, 24, 0.14);
+}
+.btn-danger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ───────── Equalizer meters (graphite/gray for light bg) ───────── */
+.meters span {
+  animation: meter 1.15s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.meters span:nth-child(2) { animation-delay: 130ms; }
+.meters span:nth-child(3) { animation-delay: 260ms; }
+.meters span:nth-child(4) { animation-delay: 390ms; }
+.meters[data-idle="true"] span { animation-play-state: paused; }
+
+@keyframes meter {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* ───────── Utilities (additive — no existing class touched) ───────── */
+/* Hairline divider that reads on both cream and white surfaces. */
+.divider {
+  height: 1px;
+  border: 0;
+  background: var(--light-gray);
+}
+
+/* Small monospace-friendly tag/chip for metadata (e.g. session, count). */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-full);
+  background: var(--white);
+  color: var(--dark-gray);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* ───────── Entrance ───────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .meters span, .rise { animation: none; }
+}

@@ -1,0 +1,18 @@
+.DS_Store
+.env
+.env*.local
+.next/
+node_modules/
+out/
+coverage/
+.vercel/
+.firecrawl/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vercel
+.env*
+
+# Local npm registry workaround (machine-specific); not for the repo
+.npmrc

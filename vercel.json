@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "src/app/api/jobs/generate/route.ts": {
+      "maxDuration": 800,
+      "experimentalTriggers": [
+        {
+          "type": "queue/v2beta",
+          "topic": "song-generation"
+        }
+      ]
+    }
+  }
+}
