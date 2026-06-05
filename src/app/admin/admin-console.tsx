@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { AdminStoragePanel } from "@/components/admin-storage-panel";
 import type { Session } from "@/lib/status";
 
 type AdminUser = {
@@ -353,6 +354,8 @@ export function AdminConsole({ currentUserId }: { currentUserId: string }) {
           </div>
         )}
       </section>
+
+      <AdminStoragePanel />
     </main>
   );
 }

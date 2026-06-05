@@ -914,6 +914,19 @@ export async function rejectRequest(
 
 export async function requeueRequest(hostId: string, id: string) {
   await dbCall(async () => {
+    // Grab the current audio first (host-scoped) so we can drop the stale blob
+    // after clearing the row.
+    const [existing] = await db
+      .select({ audioUrl: songRequests.audioUrl })
+      .from(songRequests)
+      .where(
+        and(
+          eq(songRequests.id, id),
+          inArray(songRequests.sessionId, ownedSessionIds(hostId))
+        )
+      )
+      .limit(1);
+
     await db
       .update(songRequests)
       .set({
@@ -935,6 +948,18 @@ export async function requeueRequest(hostId: string, id: string) {
           inArray(songRequests.sessionId, ownedSessionIds(hostId))
         )
       );
+
+    // Delete the now-unreferenced blob so a requeued-but-not-yet-regenerated
+    // track doesn't leave an orphan behind. Best-effort — a missing blob must
+    // not block the requeue. Regeneration writes the same deterministic path.
+    if (existing?.audioUrl) {
+      try {
+        await del(existing.audioUrl);
+      } catch (error) {
+        console.error("Failed to delete stale blob on requeue", error);
+      }
+    }
+
     await recordEvent(id, "request_requeued", {});
   });
 }
