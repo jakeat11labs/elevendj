@@ -1,14 +1,14 @@
-import { assertAdmin } from "@/lib/admin-auth";
+import { requireHost } from "@/lib/auth/admin";
 import { getAdminOverview } from "@/lib/db";
 import { errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    assertAdmin(request);
-    const overview = await getAdminOverview();
+    const user = await requireHost();
+    const overview = await getAdminOverview(user.id);
     return Response.json(overview, {
       headers: {
         "Cache-Control": "no-store",

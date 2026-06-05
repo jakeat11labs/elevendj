@@ -1,35 +1,54 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-import { getBrowserSupabase } from "@/lib/supabase/browser";
-import { REALTIME_TOPIC } from "@/lib/status";
+const DEFAULT_INTERVAL_MS = 2500;
 
-export function useRealtimeRefresh(onRefresh: () => void, filterId?: string) {
+/**
+ * Polling-based live refresh (replaces Supabase Realtime, which left with the
+ * Neon migration). Calls `onRefresh` on an interval, pausing while the tab is
+ * hidden and firing once on return so the view catches up immediately.
+ *
+ * `filterId` is accepted for call-site compatibility but unused by polling.
+ */
+export function useRealtimeRefresh(
+  onRefresh: () => void,
+  filterId?: string,
+  intervalMs: number = DEFAULT_INTERVAL_MS
+) {
+  const cb = useRef(onRefresh);
+
   useEffect(() => {
-    const supabase = getBrowserSupabase();
-    if (!supabase) {
-      return;
-    }
+    cb.current = onRefresh;
+  }, [onRefresh]);
 
-    const channel = supabase
-      .channel(REALTIME_TOPIC)
-      .on("broadcast", { event: "*" }, (payload) => {
-        const changedId =
-          typeof payload.payload === "object" &&
-          payload.payload !== null &&
-          "id" in payload.payload
-            ? String(payload.payload.id)
-            : null;
+  useEffect(() => {
+    let timer: number | undefined;
 
-        if (!filterId || changedId === filterId) {
-          onRefresh();
-        }
-      })
-      .subscribe();
+    const tick = () => {
+      if (document.visibilityState === "visible") {
+        cb.current();
+      }
+    };
+
+    const start = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(tick, intervalMs);
+    };
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        cb.current();
+        start();
+      }
+    };
+
+    start();
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
-      supabase.removeChannel(channel);
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [filterId, onRefresh]);
+  }, [filterId, intervalMs]);
 }

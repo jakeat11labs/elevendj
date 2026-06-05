@@ -99,8 +99,7 @@ export function generateClientToken() {
 export function hashValue(value: string, purpose: string) {
   const salt =
     optionalEnv("REQUEST_HASH_SECRET") ||
-    optionalEnv("SUPABASE_JWT_SECRET") ||
-    optionalEnv("ADMIN_ACCESS_TOKEN") ||
+    optionalEnv("NEON_AUTH_COOKIE_SECRET") ||
     "elevendj-local-development";
 
   return createHash("sha256")

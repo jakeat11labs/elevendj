@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { NextStepShell } from "@/components/nextstep-shell";
 import { SiteHeader } from "@/components/site-header";
 
 import "./globals.css";
@@ -46,10 +47,12 @@ export default function RootLayout({
         <link rel="stylesheet" href="/tokens.css" />
       </head>
       <body className="antialiased">
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          {children}
-        </div>
+        <NextStepShell>
+          <div className="flex min-h-screen flex-col">
+            <SiteHeader />
+            {children}
+          </div>
+        </NextStepShell>
       </body>
     </html>
   );

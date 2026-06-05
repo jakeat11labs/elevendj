@@ -13,12 +13,19 @@ interface ReactiveOrbProps {
   analyserRef: RefObject<AnalyserNode | null>;
   /** Optional gradient texture URL (served from /public). */
   texture?: string;
+  /** Saturation boost for the gradient (per-colorway; defaults to 1.25). */
+  saturation?: number;
   className?: string;
 }
 
 const DEFAULT_TEXTURE = "/orb/creative-coral.jpg";
 
-export function ReactiveOrb({ analyserRef, texture = DEFAULT_TEXTURE, className }: ReactiveOrbProps) {
+export function ReactiveOrb({
+  analyserRef,
+  texture = DEFAULT_TEXTURE,
+  saturation = 1.25,
+  className,
+}: ReactiveOrbProps) {
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
 
   useEffect(() => {
@@ -42,7 +49,7 @@ export function ReactiveOrb({ analyserRef, texture = DEFAULT_TEXTURE, className 
       className={className}
       style={{ position: "absolute", inset: 0, borderRadius: "50%", overflow: "hidden" }}
     >
-      <OrbShader texture={texture} outputAnalyser={analyser} saturation={1.25} animated />
+      <OrbShader texture={texture} outputAnalyser={analyser} saturation={saturation} animated />
       {/* Film-grain overlay — matches the source orb's noiseOpacity: 0.5 look. */}
       <div
         aria-hidden

@@ -30,7 +30,7 @@ const SUGGESTIONS = [
   "Funky disco with slap bass",
 ] as const;
 
-export function RequestLine() {
+export function RequestLine({ code }: { code: string | null }) {
   const [prompt, setPrompt] = useState("");
   const [requesterName, setRequesterName] = useState("");
   const [submittedName, setSubmittedName] = useState<string | null>(null);
@@ -43,10 +43,16 @@ export function RequestLine() {
   // Poll the public now-playing endpoint for the open/closed flag so the form
   // reflects the host pausing requests (the server also enforces this).
   useEffect(() => {
+    if (!code) {
+      return;
+    }
     let cancelled = false;
     const check = async () => {
       try {
-        const res = await fetch("/api/now-playing", { cache: "no-store" });
+        const res = await fetch(
+          `/api/now-playing?code=${encodeURIComponent(code)}`,
+          { cache: "no-store" }
+        );
         if (!res.ok) return;
         const body = await res.json();
         if (!cancelled && typeof body?.requestsOpen === "boolean") {
@@ -62,7 +68,7 @@ export function RequestLine() {
       cancelled = true;
       window.clearInterval(interval);
     };
-  }, []);
+  }, [code]);
 
   const remaining = 800 - prompt.length;
   const canSubmit =
@@ -109,6 +115,7 @@ export function RequestLine() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          code,
           prompt,
           requesterName: requesterName.trim(),
         }),
@@ -180,6 +187,26 @@ export function RequestLine() {
   // Name the submitter gave at request time — shown as attribution in the
   // status panel even before the first status fetch returns it.
   const attribution = status?.requesterName ?? submittedName;
+
+  // ── Missing/invalid code — no session to scope to, so don't fetch ──
+  if (!code) {
+    return (
+      <main className="mx-auto flex w-full max-w-[560px] flex-1 flex-col px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-6 sm:px-8 sm:pb-16 sm:pt-14">
+        <div className="card rise flex flex-1 flex-col items-center justify-center text-center">
+          <p className="eyebrow mb-2">Live request line</p>
+          <h1
+            className="display leading-tight"
+            style={{ fontSize: "clamp(1.5rem, 3.2vw, 2rem)" }}
+          >
+            Link expired or invalid
+          </h1>
+          <p className="mt-3 text-base leading-7 text-[var(--dark-gray)]">
+            Ask the DJ for a fresh request link or scan their current QR code.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   // ── Confirmation screen — shown once a request is in flight ──────
   if (submission && displayStatus) {

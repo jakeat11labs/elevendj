@@ -73,6 +73,8 @@ export type QueueSnapshot = {
   autoDj: boolean;
   defaultDurationMs: number;
   forceInstrumental: boolean;
+  // Selected orb gradient colorway name (see src/components/orb/colorways.ts).
+  orbColorway: string;
   items: QueueItem[];
   counts: Record<RequestStatus, number>;
 };
@@ -83,6 +85,9 @@ export type Session = {
   createdAt: string;
   isActive: boolean;
   trackCount?: number;
+  // Present on host-scoped session payloads — the unguessable slug behind the
+  // session's public request link/QR.
+  publicCode?: string;
 };
 
 export type NowPlaying = {

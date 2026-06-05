@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { assertAdmin } from "@/lib/admin-auth";
+import { requireHost } from "@/lib/auth/admin";
 import { reorderQueue } from "@/lib/db";
 import { AppError, errorResponse } from "@/lib/errors";
 
@@ -13,7 +13,7 @@ const reorderSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    assertAdmin(request);
+    const user = await requireHost();
     const body = await request.json().catch(() => null);
     const parsed = reorderSchema.safeParse(body);
 
@@ -21,15 +21,11 @@ export async function POST(request: Request) {
       throw new AppError(400, "invalid_reorder", "Invalid reorder payload.");
     }
 
-    await reorderQueue(parsed.data.orderedIds);
+    await reorderQueue(user.id, parsed.data.orderedIds);
 
     return Response.json(
       { ok: true },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     return errorResponse(error);

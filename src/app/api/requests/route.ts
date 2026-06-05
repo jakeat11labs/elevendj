@@ -1,12 +1,12 @@
+import { createSongRequest, requireSessionByCode } from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
-import { errorResponse } from "@/lib/errors";
+import { AppError, errorResponse } from "@/lib/errors";
 import {
   assertPromptAllowed,
   clientIpFromRequest,
   hashValue,
   parseRequestBody,
 } from "@/lib/security";
-import { createSongRequest } from "@/lib/db";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -14,11 +14,25 @@ export const maxDuration = 300;
 export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => null);
+
+    // The request link carries a session `code`; requests attach to that host's
+    // session. Accept it from the body or the query string.
+    const url = new URL(request.url);
+    const code =
+      (body && typeof body === "object" && "code" in body
+        ? String((body as { code?: unknown }).code ?? "")
+        : "") || (url.searchParams.get("code") ?? "");
+    if (!code) {
+      throw new AppError(400, "missing_code", "This request link is missing its session code.");
+    }
+    const session = await requireSessionByCode(code);
+
     const input = parseRequestBody(body);
     assertPromptAllowed(input.prompt);
 
     const ipHash = hashValue(clientIpFromRequest(request), "ip");
     const { request: songRequest, clientToken } = await createSongRequest(
+      session.id,
       input,
       ipHash
     );

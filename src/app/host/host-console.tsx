@@ -9,28 +9,43 @@ import {
 } from "react";
 import {
   Check,
+  ChevronDown,
   Copy,
   Disc3,
   Download,
   GripVertical,
   Inbox,
+  Layers,
   ListMusic,
+  LogOut,
   Monitor,
+  Music2,
+  Palette,
   Pause,
   Play,
   Plus,
+  QrCode,
   RefreshCcw,
-  Shield,
+  ShieldCheck,
   SkipForward,
   Sparkles,
   Trash2,
   Wand2,
   X,
 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 import { AudioMeters } from "@/components/audio-meters";
+import {
+  COLORWAY_NAMES,
+  COLORWAYS,
+  resolveColorway,
+} from "@/components/orb/colorways";
+import { HostTourButton } from "@/components/host-tour-button";
+import { SessionsModal } from "@/components/sessions-modal";
 import { StatusBadge } from "@/components/status-badge";
 import { TrackDetailModal } from "@/components/track-detail-modal";
+import { authClient } from "@/lib/auth/client";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
 import {
@@ -39,13 +54,28 @@ import {
   type HostAction,
 } from "@/lib/stage-sync";
 
-const TOKEN_KEY = "elevendj-admin-token";
+// Starter prompts for the host's own composer — DJ-flavored, not the
+// audience-facing suggestions on the public form.
+const HOST_IDEAS = [
+  "Peak-time tech house, rolling bassline, big filtered build",
+  "Smooth jazz-funk transition groove",
+  "Crowd-hype anthem with a huge drop",
+  "Downtempo cooldown, warm analog pads",
+] as const;
 
 type Overview = {
+  activeSession?: Session;
   queue: QueueSnapshot;
   recent: QueueItem[];
   files: QueueItem[];
   sessions: Session[];
+};
+
+type HostUser = {
+  id: string;
+  email: string;
+  displayName: string | null;
+  isAdmin: boolean;
 };
 
 type RequestAction =
@@ -56,9 +86,16 @@ type RequestAction =
   | "remove_from_queue"
   | "add_to_queue";
 
-type BulkAction = "delete" | "remove_from_queue" | "add_to_queue";
+type BulkAction = "delete" | "remove_from_queue" | "add_to_queue" | "approve";
 
 /** Build a safe filename from a user-provided prompt. */
+// Prefer the AI-generated song title; fall back to the prompt only before a
+// title exists (e.g. while still pending/generating). Full prompt lives in the
+// track detail modal.
+function trackName(item: { title: string | null; prompt: string }): string {
+  return item.title?.trim() || item.prompt;
+}
+
 function slugify(input: string): string {
   const slug = input
     .toLowerCase()
@@ -82,13 +119,11 @@ function formatDate(iso: string): string {
   }
 }
 
-export function HostConsole() {
+export function HostConsole({ user }: { user: HostUser }) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // ── Auth / gate ──────────────────────────────────────────────
-  const [tokenInput, setTokenInput] = useState("");
-  const [token, setToken] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
+  // ── Session link regeneration ────────────────────────────────
+  const [regenerating, setRegenerating] = useState(false);
 
   // ── Data ─────────────────────────────────────────────────────
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -129,6 +164,7 @@ export function HostConsole() {
 
   // ── Sessions ─────────────────────────────────────────────────
   const [creatingSession, setCreatingSession] = useState(false);
+  const [sessionsModalOpen, setSessionsModalOpen] = useState(false);
   // Files library session view: null = active session (overview.files),
   // a uuid = that session's files, "all" = every session.
   const [filesSessionId, setFilesSessionId] = useState<string | null>(null);
@@ -147,40 +183,30 @@ export function HostConsole() {
   const [queueSel, setQueueSel] = useState<Set<string>>(new Set());
   const [filesSel, setFilesSel] = useState<Set<string>>(new Set());
 
-  // ── Host composer ────────────────────────────────────────────
-  const [hostPrompt, setHostPrompt] = useState("");
-  const [hostInstrumental, setHostInstrumental] = useState(false);
-  const [hostBusy, setHostBusy] = useState(false);
-  const [hostNotice, setHostNotice] = useState<
-    { tone: "ok" | "err"; text: string } | null
-  >(null);
-
   // ── Misc UI ──────────────────────────────────────────────────
   const [requestLink, setRequestLink] = useState("");
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const stored = window.localStorage.getItem(TOKEN_KEY) || "";
-    if (stored) {
-      setToken(stored);
-      setTokenInput(stored);
-      setUnlocked(true);
-    }
-    setRequestLink(`${window.location.origin}/request`);
-  }, []);
+  // ── Host prompt composer ─────────────────────────────────────
+  const [hostPrompt, setHostPrompt] = useState("");
+  const [hostName, setHostName] = useState("Host");
+  const [hostInstrumental, setHostInstrumental] = useState(false);
+  const [hostIdeasOpen, setHostIdeasOpen] = useState(false);
+  const [hostSubmitting, setHostSubmitting] = useState(false);
+  // In-flight host-authored track: tracks the submission so we can show live
+  // generation progress under the composer until it lands in the queue.
+  const [hostJob, setHostJob] = useState<{
+    requestId: string;
+    clientToken: string;
+  } | null>(null);
+  const [hostJobItem, setHostJobItem] = useState<QueueItem | null>(null);
 
-  const authHeader = useMemo<Record<string, string>>(() => {
-    const headers: Record<string, string> = {};
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-    return headers;
-  }, [token]);
+  // Cookie-based Neon Auth — no Authorization header needed; the host session
+  // travels with the request. Kept as an empty object so the existing
+  // `...authHeader` spreads on fetches stay valid.
+  const authHeader = useMemo<Record<string, string>>(() => ({}), []);
 
   const refresh = useCallback(async () => {
-    if (!token) {
-      return;
-    }
     try {
       const response = await fetch("/api/admin/overview", {
         headers: authHeader,
@@ -188,10 +214,9 @@ export function HostConsole() {
       const body = await response.json().catch(() => null);
       if (!response.ok) {
         if (response.status === 401) {
-          setUnlocked(false);
-          setError(null);
+          window.location.href = "/sign-in?redirect=/host";
         } else {
-          setError(body?.message || "Admin overview unavailable.");
+          setError(body?.message || "Console overview unavailable.");
         }
         return;
       }
@@ -200,38 +225,59 @@ export function HostConsole() {
     } catch {
       setError("Network error reaching the console.");
     }
-  }, [authHeader, token]);
+  }, [authHeader]);
 
   useRealtimeRefresh(refresh);
 
   useEffect(() => {
-    if (!unlocked || !token) {
-      return;
-    }
     refresh();
-    const interval = window.setInterval(refresh, 5000);
-    return () => window.clearInterval(interval);
-  }, [refresh, unlocked, token]);
+  }, [refresh]);
 
-  function unlock() {
-    const value = tokenInput.trim();
-    if (!value) {
+  // Keep the public request link + QR in sync with the active session's code.
+  useEffect(() => {
+    const code = overview?.activeSession?.publicCode;
+    if (code) {
+      setRequestLink(`${window.location.origin}/request?code=${code}`);
+    } else {
+      setRequestLink("");
+    }
+  }, [overview?.activeSession?.publicCode]);
+
+  async function signOut() {
+    try {
+      await authClient.signOut();
+    } catch {
+      /* ignore */
+    }
+    window.location.href = "/sign-in";
+  }
+
+  const regenerateLink = useCallback(async () => {
+    if (
+      !window.confirm(
+        "Generate a new request link? The current link and QR code will stop working immediately."
+      )
+    ) {
       return;
     }
-    window.localStorage.setItem(TOKEN_KEY, value);
-    setToken(value);
-    setUnlocked(true);
-    setError(null);
-  }
-
-  function lock() {
-    window.localStorage.removeItem(TOKEN_KEY);
-    setToken("");
-    setTokenInput("");
-    setUnlocked(false);
-    setOverview(null);
-    setIsPlaying(false);
-  }
+    setRegenerating(true);
+    try {
+      const response = await fetch("/api/admin/sessions/regenerate", {
+        method: "POST",
+        headers: authHeader,
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not regenerate the link.");
+        return;
+      }
+      await refresh();
+    } catch {
+      setError("Network error regenerating the link.");
+    } finally {
+      setRegenerating(false);
+    }
+  }, [authHeader, refresh]);
 
   // ── Derived data ─────────────────────────────────────────────
   const readyItems = useMemo(
@@ -251,8 +297,11 @@ export function HostConsole() {
 
   const sessions = useMemo(() => overview?.sessions ?? [], [overview]);
   const activeSession = useMemo(
-    () => sessions.find((session) => session.isActive) ?? null,
-    [sessions]
+    () =>
+      overview?.activeSession ??
+      sessions.find((session) => session.isActive) ??
+      null,
+    [overview?.activeSession, sessions]
   );
 
   // Files shown in the library: default/active uses overview.files; picking a
@@ -356,48 +405,6 @@ export function HostConsole() {
     [authHeader, refresh]
   );
 
-  // Drop a host-authored track straight into the live queue. Bypasses approval
-  // mode server-side and starts generating immediately.
-  const submitHostTrack = useCallback(async () => {
-    const prompt = hostPrompt.trim();
-    if (prompt.length < 10) {
-      setHostNotice({ tone: "err", text: "Add at least 10 characters of detail." });
-      return;
-    }
-    setHostBusy(true);
-    setHostNotice(null);
-    try {
-      const response = await fetch("/api/admin/requests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({
-          prompt,
-          requesterName: "Host",
-          instrumental: hostInstrumental,
-        }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setHostNotice({
-          tone: "err",
-          text: body?.suggestion || body?.message || "Could not drop the track.",
-        });
-        return;
-      }
-      setHostPrompt("");
-      setHostInstrumental(false);
-      setHostNotice({
-        tone: "ok",
-        text: "Generating now — it'll drop into the queue when ready.",
-      });
-      await refresh();
-    } catch {
-      setHostNotice({ tone: "err", text: "Network error dropping the track." });
-    } finally {
-      setHostBusy(false);
-    }
-  }, [authHeader, hostInstrumental, hostPrompt, refresh]);
-
   const deleteRow = useCallback(
     async (id: string) => {
       setBusyId(id);
@@ -477,6 +484,102 @@ export function HostConsole() {
     [authHeader, refresh]
   );
 
+  // ── Host prompt composer ─────────────────────────────────────
+  // Spin a track straight into the live queue from the console. Hits the
+  // admin-only endpoint, which skips the public open/rate-limit gates and
+  // queues immediately (no approval step, even in approval mode).
+  const submitHostPrompt = useCallback(async () => {
+    const prompt = hostPrompt.trim();
+    if (prompt.length < 10 || hostSubmitting) {
+      return;
+    }
+    setHostSubmitting(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/admin/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader },
+        body: JSON.stringify({
+          prompt,
+          requesterName: hostName.trim() || "Host",
+          instrumental: hostInstrumental,
+        }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not add your track.");
+        return;
+      }
+      setHostPrompt("");
+      if (body?.requestId && body?.clientToken) {
+        setHostJobItem(null);
+        setHostJob({ requestId: body.requestId, clientToken: body.clientToken });
+      }
+      await refresh();
+    } catch {
+      setError("Network error sending your track.");
+    } finally {
+      setHostSubmitting(false);
+    }
+  }, [authHeader, hostInstrumental, hostName, hostPrompt, hostSubmitting, refresh]);
+
+  // Poll the in-flight host track's status so the composer can show live
+  // progress (queued → generating → ready), then auto-dismiss once it lands.
+  useEffect(() => {
+    if (!hostJob) {
+      return;
+    }
+    let cancelled = false;
+    let hideTimer: number | undefined;
+
+    async function poll() {
+      try {
+        const res = await fetch(
+          `/api/requests/${hostJob!.requestId}?token=${encodeURIComponent(
+            hostJob!.clientToken
+          )}`,
+          { cache: "no-store" }
+        );
+        if (!res.ok || cancelled) {
+          return;
+        }
+        const item = (await res.json()) as QueueItem;
+        if (cancelled) {
+          return;
+        }
+        setHostJobItem(item);
+        const terminal =
+          item.status === "ready" ||
+          item.status === "played" ||
+          item.status === "archived" ||
+          item.status === "failed" ||
+          item.status === "rejected";
+        if (terminal) {
+          window.clearInterval(interval);
+          hideTimer = window.setTimeout(() => {
+            if (!cancelled) {
+              setHostJob(null);
+              setHostJobItem(null);
+            }
+          }, 6000);
+        }
+      } catch {
+        /* keep last known state, try again next tick */
+      }
+    }
+
+    const interval = window.setInterval(poll, 3000);
+    poll();
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+      if (hideTimer) {
+        window.clearTimeout(hideTimer);
+      }
+    };
+  }, [hostJob]);
+
   // ── Session actions ──────────────────────────────────────────
   const [togglingRequests, setTogglingRequests] = useState(false);
   const toggleRequests = useCallback(async () => {
@@ -523,6 +626,39 @@ export function HostConsole() {
       setTogglingAutoDj(false);
     }
   }, [authHeader, refresh, overview]);
+
+  // ── Orb colorway picker ──────────────────────────────────────
+  const [orbPickerOpen, setOrbPickerOpen] = useState(false);
+  const [settingOrb, setSettingOrb] = useState<string | null>(null);
+
+  const chooseOrbColorway = useCallback(
+    async (name: string) => {
+      if (name === (overview?.queue.orbColorway ?? "creative-1")) {
+        setOrbPickerOpen(false);
+        return;
+      }
+      setSettingOrb(name);
+      try {
+        const response = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeader },
+          body: JSON.stringify({ orbColorway: name }),
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          setError(body?.message || "Could not update the orb.");
+          return;
+        }
+        await refresh();
+        setOrbPickerOpen(false);
+      } catch {
+        setError("Network error updating the orb.");
+      } finally {
+        setSettingOrb(null);
+      }
+    },
+    [authHeader, overview?.queue.orbColorway, refresh]
+  );
 
   const createSession = useCallback(async () => {
     if (
@@ -603,9 +739,6 @@ export function HostConsole() {
 
   // ── Publish now-playing (drives request banner + stage) ──────
   useEffect(() => {
-    if (!unlocked || !token) {
-      return;
-    }
     // When a stage is connected, it owns publishing now-playing.
     if (stageConnected) {
       return;
@@ -624,7 +757,7 @@ export function HostConsole() {
       // A failed publish shouldn't block playback; allow a retry next change.
       lastPublishedRef.current = "";
     });
-  }, [authHeader, current?.id, isPlaying, token, unlocked, stageConnected]);
+  }, [authHeader, current?.id, isPlaying, stageConnected]);
 
   // ── Track details modal ──────────────────────────────────────
   const [detailItem, setDetailItem] = useState<QueueItem | null>(null);
@@ -731,7 +864,7 @@ export function HostConsole() {
       const objectUrl = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = objectUrl;
-      anchor.download = `${slugify(item.prompt)}.mp3`;
+      anchor.download = `${slugify(trackName(item))}.mp3`;
       document.body.appendChild(anchor);
       anchor.click();
       anchor.remove();
@@ -773,56 +906,46 @@ export function HostConsole() {
       .catch(() => setError("Could not copy link."));
   }
 
-  // ── Gate screen ──────────────────────────────────────────────
-  if (!unlocked) {
-    return (
-      <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center px-5 pb-14 pt-2 sm:px-8">
-        <section className="card rise w-full max-w-md p-7 sm:p-9">
-          <p className="eyebrow mb-3">Host console</p>
-          <h1 className="display text-3xl sm:text-4xl">Unlock to DJ</h1>
-          <p className="mt-3 text-sm text-[var(--dark-gray)]">
-            Enter the host token to control the queue and play tracks over your
-            call.
-          </p>
-          <form
-            className="mt-6 flex flex-col gap-3"
-            onSubmit={(event) => {
-              event.preventDefault();
-              unlock();
-            }}
-          >
-            <label>
-              <span className="sr-only">Host token</span>
-              <input
-                type="password"
-                value={tokenInput}
-                onChange={(event) => setTokenInput(event.target.value)}
-                className="control h-12 w-full px-4"
-                placeholder="Host token"
-                autoFocus
-              />
-            </label>
-            <button
-              type="submit"
-              className="btn-primary inline-flex h-12 items-center justify-center gap-2 px-6"
-            >
-              <Shield size={18} />
-              Unlock
-            </button>
-          </form>
-          {error && (
-            <p className="mt-4 text-sm text-[var(--destructive)]">{error}</p>
-          )}
-        </section>
-      </main>
-    );
-  }
-
   // ── Console ──────────────────────────────────────────────────
   const counts = overview?.queue.counts;
   const requestsOpen = overview?.queue.requestsOpen ?? true;
 
   const autoDj = overview?.queue.autoDj ?? true;
+
+  const orbColorway = overview?.queue.orbColorway ?? "creative-1";
+  const currentColorway = resolveColorway(orbColorway);
+
+  const hostRemaining = 800 - hostPrompt.length;
+  const hostTrimmed = hostPrompt.trim();
+  const canHostSubmit =
+    hostTrimmed.length >= 10 && hostRemaining >= 0 && !hostSubmitting;
+
+  // Live progress for the host's in-flight track (null when nothing is cooking).
+  const hostJobStatus = hostJobItem?.status;
+  const hostJobFailed =
+    hostJobStatus === "failed" || hostJobStatus === "rejected";
+  const hostJobDone =
+    hostJobStatus === "ready" ||
+    hostJobStatus === "played" ||
+    hostJobStatus === "archived";
+  const hostJobStep = hostJobFailed
+    ? -1
+    : hostJobStatus === "generating"
+      ? 1
+      : hostJobDone
+        ? 2
+        : 0;
+  const hostJobMessage = !hostJobItem
+    ? "Sending your track…"
+    : hostJobFailed
+      ? hostJobItem.promptSuggestion ||
+        hostJobItem.errorMessage ||
+        "That track couldn’t be generated."
+      : hostJobDone
+        ? "Song finished and added to the queue."
+        : hostJobStatus === "generating"
+          ? "Generating your track now…"
+          : "Queued — generating shortly…";
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-5 pb-16 pt-2 sm:px-8">
@@ -839,9 +962,18 @@ export function HostConsole() {
             <span className="tag mono text-xs">{activeSession?.name ?? "—"}</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <HostTourButton userId={user.id} />
             <button
               type="button"
-              onClick={() => window.open("/stage", "_blank")}
+              id="tour-stage-button"
+              onClick={() =>
+                window.open(
+                  activeSession?.publicCode
+                    ? `/stage?code=${activeSession.publicCode}`
+                    : "/stage",
+                  "_blank"
+                )
+              }
               className="btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-sm"
             >
               <Monitor size={15} />
@@ -849,13 +981,39 @@ export function HostConsole() {
             </button>
             <button
               type="button"
-              onClick={createSession}
-              disabled={creatingSession}
+              onClick={() => setOrbPickerOpen(true)}
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+              title="Choose the stage orb color"
+            >
+              <span
+                className="size-4 shrink-0 rounded-full ring-1 ring-black/10"
+                style={{
+                  backgroundImage: `url(${currentColorway.src})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+                aria-hidden
+              />
+              Orb
+            </button>
+            <button
+              type="button"
+              onClick={() => setSessionsModalOpen(true)}
               className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
             >
-              <Sparkles size={15} />
-              {creatingSession ? "Starting…" : "New session"}
+              <Layers size={15} />
+              Sessions
             </button>
+            {user.isAdmin && (
+              <a
+                href="/admin"
+                className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+                title="User management"
+              >
+                <ShieldCheck size={15} />
+                Admin
+              </a>
+            )}
             <button
               type="button"
               onClick={refresh}
@@ -866,11 +1024,11 @@ export function HostConsole() {
             </button>
             <button
               type="button"
-              onClick={lock}
+              onClick={signOut}
               className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
-              title="Lock"
+              title={`Sign out (${user.email})`}
             >
-              <Shield size={15} />
+              <LogOut size={15} />
             </button>
           </div>
         </div>
@@ -916,10 +1074,213 @@ export function HostConsole() {
       <div className="mt-4 grid gap-4 lg:grid-cols-12 lg:items-start">
         {/* Left column — controls + transport */}
         <div className="space-y-4 lg:col-span-4">
+          {/* DJ booth — host spins a track straight into the queue */}
+          <section id="tour-dj-booth" className="card rise overflow-hidden p-0">
+            <div className="flex items-center gap-2.5 bg-[var(--graphite)] px-4 py-3 sm:px-5">
+              <span
+                className="flex size-7 shrink-0 items-center justify-center rounded-full text-[var(--off-white)]"
+                style={{ background: "rgba(255,255,255,0.12)" }}
+              >
+                <Wand2 size={15} />
+              </span>
+              <div className="min-w-0">
+                <p
+                  className="text-sm font-semibold text-[var(--off-white)]"
+                  style={{ fontFamily: "var(--font-brand)" }}
+                >
+                  DJ booth
+                </p>
+                <p
+                  className="truncate text-[11px]"
+                  style={{ color: "rgba(255,255,255,0.6)" }}
+                >
+                  Spin your own track straight into the queue
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-5">
+              <label className="block">
+                <span className="eyebrow mb-2 flex items-center justify-between gap-3">
+                  <span>Prompt</span>
+                  <span
+                    className={`mono text-xs ${
+                      hostRemaining < 0
+                        ? "text-[var(--destructive)]"
+                        : "text-[var(--mid-gray)]"
+                    }`}
+                  >
+                    {hostRemaining}
+                  </span>
+                </span>
+                <textarea
+                  value={hostPrompt}
+                  onChange={(event) => setHostPrompt(event.target.value)}
+                  maxLength={800}
+                  rows={3}
+                  className="control min-h-[92px] w-full resize-none rounded-[var(--radius-lg)] p-3.5 text-sm leading-6"
+                  placeholder="Driving peak-time tech house with a deep rolling bassline and a big filtered build"
+                  onKeyDown={(event) => {
+                    if (
+                      (event.metaKey || event.ctrlKey) &&
+                      event.key === "Enter"
+                    ) {
+                      event.preventDefault();
+                      void submitHostPrompt();
+                    }
+                  }}
+                />
+              </label>
+
+              {/* Quick ideas — collapsed by default to save space */}
+              <div className="mt-2">
+                <button
+                  type="button"
+                  onClick={() => setHostIdeasOpen((open) => !open)}
+                  aria-expanded={hostIdeasOpen}
+                  className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--mid-gray)] transition hover:text-[var(--graphite)]"
+                >
+                  <ChevronDown
+                    size={12}
+                    className={`shrink-0 transition-transform ${hostIdeasOpen ? "rotate-180" : ""}`}
+                  />
+                  Quick ideas
+                </button>
+                {hostIdeasOpen && (
+                  <div className="mt-1.5 flex flex-wrap gap-1">
+                    {HOST_IDEAS.map((idea) => (
+                      <button
+                        key={idea}
+                        type="button"
+                        onClick={() => setHostPrompt(idea)}
+                        className="rounded-full border border-[var(--light-gray)] bg-[var(--white)] px-2 py-0.5 text-[10px] leading-snug text-[var(--dark-gray)] transition hover:border-[var(--graphite)] hover:text-[var(--graphite)]"
+                      >
+                        {idea}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Credit name + instrumental */}
+              <div className="mt-3 flex items-center gap-2">
+                <label className="min-w-0 flex-1">
+                  <span className="sr-only">Credit name</span>
+                  <input
+                    value={hostName}
+                    onChange={(event) => setHostName(event.target.value)}
+                    maxLength={40}
+                    className="control h-10 w-full px-3 text-sm"
+                    placeholder="Host"
+                  />
+                </label>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={hostInstrumental}
+                  onClick={() => setHostInstrumental((value) => !value)}
+                  title="Instrumental only"
+                  className={`inline-flex h-10 shrink-0 items-center gap-1.5 rounded-[var(--radius-md)] border px-3 text-xs font-medium transition ${
+                    hostInstrumental
+                      ? "border-[var(--graphite)] bg-[var(--graphite)] text-[var(--off-white)]"
+                      : "border-[var(--light-gray)] bg-[var(--white)] text-[var(--dark-gray)] hover:border-[var(--graphite)]"
+                  }`}
+                >
+                  <Music2 size={14} />
+                  Instrumental
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={submitHostPrompt}
+                disabled={!canHostSubmit}
+                className="btn-primary mt-3 inline-flex h-11 w-full items-center justify-center gap-2 text-sm"
+              >
+                {hostSubmitting ? (
+                  <Disc3 className="animate-spin" size={17} />
+                ) : (
+                  <Sparkles size={17} />
+                )}
+                {hostSubmitting ? "Spinning up…" : "Drop into queue"}
+              </button>
+
+              {hostJob ? (
+                <div
+                  className={`rise mt-3 rounded-[var(--radius-md)] border p-3 ${
+                    hostJobFailed
+                      ? "border-[var(--destructive)] bg-[rgba(180,35,24,0.05)]"
+                      : hostJobDone
+                        ? "border-[var(--graphite)] bg-[var(--cream)]"
+                        : "border-[var(--light-gray)] bg-[var(--white)]"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex size-6 shrink-0 items-center justify-center rounded-full ${
+                        hostJobFailed
+                          ? "bg-[var(--destructive)] text-[var(--off-white)]"
+                          : hostJobDone
+                            ? "bg-[var(--graphite)] text-[var(--off-white)]"
+                            : "bg-[var(--light-gray)] text-[var(--graphite)]"
+                      }`}
+                    >
+                      {hostJobFailed ? (
+                        <X size={13} />
+                      ) : hostJobDone ? (
+                        <Check size={13} />
+                      ) : (
+                        <Disc3 size={13} className="animate-spin" />
+                      )}
+                    </span>
+                    <p className="min-w-0 flex-1 text-xs font-medium text-[var(--graphite)]">
+                      {hostJobMessage}
+                    </p>
+                  </div>
+
+                  {!hostJobFailed && (
+                    <div className="mt-2.5 flex gap-1">
+                      {["Queued", "Generating", "Ready"].map((label, index) => {
+                        const reached = hostJobStep >= index;
+                        const active = hostJobStep === index && !hostJobDone;
+                        return (
+                          <div key={label} className="flex-1">
+                            <div
+                              className={`h-1 rounded-full transition-colors ${
+                                reached
+                                  ? "bg-[var(--graphite)]"
+                                  : "bg-[var(--light-gray)]"
+                              } ${active ? "animate-pulse" : ""}`}
+                            />
+                            <span className="mt-1 block text-[9px] uppercase tracking-[0.12em] text-[var(--mid-gray)]">
+                              {label}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              ) : hostTrimmed.length > 0 && hostTrimmed.length < 10 ? (
+                <p className="mt-2.5 text-xs text-[var(--mid-gray)]">
+                  A few more words — at least 10 characters.
+                </p>
+              ) : (
+                <p className="mt-2.5 text-[11px] text-[var(--mid-gray)]">
+                  Queues instantly, even with the line paused or in approval
+                  mode. <span className="mono">⌘↵</span> to send.
+                </p>
+              )}
+            </div>
+          </section>
+
           {/* Controls — request line, AutoDJ, public link */}
           <section className="card rise p-4 sm:p-5">
             {/* Request line toggle */}
-            <div className="card-soft flex items-center justify-between gap-3 p-4">
+            <div
+              id="tour-request-line"
+              className="card-soft flex items-center justify-between gap-3 p-4"
+            >
               <div className="min-w-0">
                 <p className="eyebrow">Request line</p>
                 <p className="mt-1 text-sm text-[var(--dark-gray)]">
@@ -950,7 +1311,10 @@ export function HostConsole() {
             </div>
 
             {/* AutoDJ toggle */}
-            <div className="card-soft mt-3 flex items-center justify-between gap-3 p-4">
+            <div
+              id="tour-autodj"
+              className="card-soft mt-3 flex items-center justify-between gap-3 p-4"
+            >
               <div className="min-w-0">
                 <p className="eyebrow">AutoDJ</p>
                 <p className="mt-1 text-sm text-[var(--dark-gray)]">
@@ -978,112 +1342,161 @@ export function HostConsole() {
               </button>
             </div>
 
-            {/* Public request link */}
-            <div className="card-soft mt-3 flex flex-col gap-3 p-4">
-              <div className="min-w-0">
-                <p className="eyebrow">Public request link</p>
-                <p className="mono mt-1 truncate text-sm text-[var(--dark-gray)]">
-                  {requestLink}
-                </p>
+            {/* Public request link + QR (unique to this session) */}
+            <div
+              id="tour-public-link"
+              className="card-soft mt-3 flex flex-col gap-3 p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="eyebrow">Public request link</p>
+                  <p className="mono mt-1 truncate text-sm text-[var(--dark-gray)]">
+                    {requestLink || "Starting your session…"}
+                  </p>
+                </div>
+                {requestLink ? (
+                  <div className="shrink-0 rounded-[var(--radius-md)] bg-white p-1.5 ring-1 ring-[var(--light-gray)]">
+                    <QRCodeSVG value={requestLink} size={84} marginSize={0} />
+                  </div>
+                ) : null}
               </div>
-              <button
-                type="button"
-                onClick={copyLink}
-                className="btn-ghost inline-flex h-10 shrink-0 items-center justify-center gap-2 px-4 text-sm"
-              >
-                {copied ? <Check size={16} /> : <Copy size={16} />}
-                {copied ? "Copied" : "Copy link"}
-              </button>
+              <p className="text-[11px] text-[var(--mid-gray)]">
+                Unique to this session — scanning the QR opens your request line.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={copyLink}
+                  disabled={!requestLink}
+                  className="btn-ghost inline-flex h-10 shrink-0 items-center justify-center gap-2 px-4 text-sm"
+                >
+                  {copied ? <Check size={16} /> : <Copy size={16} />}
+                  {copied ? "Copied" : "Copy link"}
+                </button>
+                <button
+                  type="button"
+                  onClick={regenerateLink}
+                  disabled={regenerating || !requestLink}
+                  className="btn-ghost inline-flex h-10 shrink-0 items-center justify-center gap-2 px-4 text-sm"
+                  title="Issue a new link + QR (the old one stops working)"
+                >
+                  <QrCode size={16} />
+                  {regenerating ? "Regenerating…" : "New link"}
+                </button>
+              </div>
             </div>
           </section>
 
-          {/* Player — compact transport */}
-          <section className="card rise p-4 sm:p-5">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <p className="eyebrow">Now playing</p>
-            {stageConnected && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--light-gray)] bg-[var(--cream)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--graphite)]">
-                <span className="size-1.5 rounded-full bg-[var(--graphite)]" />
-                On stage
-              </span>
-            )}
-          </div>
-          <AudioMeters active={isPlaying} />
-        </div>
-
-        <div className="mt-3 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={isPlaying ? pauseCurrent : playCurrent}
-            disabled={!current?.audioUrl}
-            className="btn-primary inline-flex h-10 shrink-0 items-center gap-2 px-5"
-          >
-            {isPlaying ? <Pause size={17} /> : <Play size={17} />}
-            {isPlaying ? "Pause" : "Play"}
-          </button>
-          <button
-            type="button"
-            onClick={() => advance(false)}
-            disabled={readyItems.length < 2}
-            className="btn-ghost inline-flex h-10 shrink-0 items-center gap-2 px-4"
-            title="Next"
-          >
-            <SkipForward size={17} />
-          </button>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-[var(--graphite)]">
-              {current ? current.prompt : "No ready track selected"}
-            </p>
-            <p className="truncate text-xs text-[var(--dark-gray)]">
-              {current?.requesterName
-                ? `Generated by ${current.requesterName}`
-                : current
-                  ? "Anonymous"
-                  : "Queue is empty"}
-              {current?.position ? (
-                <span className="mono text-[var(--mid-gray)]">
-                  {" · #"}
-                  {current.position}
-                </span>
-              ) : null}
-            </p>
-          </div>
-        </div>
-
-        {stageConnected ? (
-          <p className="mt-3 text-xs text-[var(--mid-gray)]">
-            Audio plays from the stage tab — share that tab (with audio) in Zoom.
-            These controls drive it.
-          </p>
-        ) : (
-          <audio
-            ref={audioRef}
-            className="mt-3 w-full"
-            controls
-            onPause={() => setIsPlaying(false)}
-            onPlay={() => setIsPlaying(true)}
-            onEnded={() => advance(true)}
-          >
-            <track kind="captions" />
-          </audio>
-        )}
-          </section>
         </div>
 
         {/* Middle column — pending approvals + live queue */}
         <div className="space-y-4 lg:col-span-5">
-          {/* Pending approval (shown in approval mode or whenever anything waits) */}
+          {/* Player — compact transport */}
+          <section id="tour-player" className="card rise p-4 sm:p-5">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <p className="eyebrow">Now playing</p>
+                {stageConnected && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--light-gray)] bg-[var(--cream)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--graphite)]">
+                    <span className="size-1.5 rounded-full bg-[var(--graphite)]" />
+                    On stage
+                  </span>
+                )}
+              </div>
+              <AudioMeters active={isPlaying} />
+            </div>
+
+            <div className="mt-3 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={isPlaying ? pauseCurrent : playCurrent}
+                disabled={!current?.audioUrl}
+                className="btn-primary inline-flex h-10 shrink-0 items-center gap-2 px-5"
+              >
+                {isPlaying ? <Pause size={17} /> : <Play size={17} />}
+                {isPlaying ? "Pause" : "Play"}
+              </button>
+              <button
+                type="button"
+                onClick={() => advance(false)}
+                disabled={readyItems.length < 2}
+                className="btn-ghost inline-flex h-10 shrink-0 items-center gap-2 px-4"
+                title="Next"
+              >
+                <SkipForward size={17} />
+              </button>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-[var(--graphite)]">
+                  {current ? trackName(current) : "No ready track selected"}
+                </p>
+                <p className="truncate text-xs text-[var(--dark-gray)]">
+                  {current?.requesterName
+                    ? `Generated by ${current.requesterName}`
+                    : current
+                      ? "Anonymous"
+                      : "Queue is empty"}
+                  {current?.position ? (
+                    <span className="mono text-[var(--mid-gray)]">
+                      {" · #"}
+                      {current.position}
+                    </span>
+                  ) : null}
+                </p>
+              </div>
+            </div>
+
+            {stageConnected ? (
+              <p className="mt-3 text-xs text-[var(--mid-gray)]">
+                Audio plays from the stage tab — share that tab (with audio) in
+                Zoom. These controls drive it.
+              </p>
+            ) : (
+              <audio
+                ref={audioRef}
+                className="mt-3 w-full"
+                controls
+                onPause={() => setIsPlaying(false)}
+                onPlay={() => setIsPlaying(true)}
+                onEnded={() => advance(true)}
+              >
+                <track kind="captions" />
+              </audio>
+            )}
+          </section>
+
+          {/* Pending approval (shown in approval mode or whenever anything waits).
+              The wrapper is always rendered so the onboarding tour has a stable
+              anchor even when the panel itself is hidden. */}
+          <div id="tour-approvals">
           {(!autoDj || pendingItems.length > 0) && (
             <section className="card rise p-4 sm:p-5">
-              <div className="mb-4 flex items-center justify-between gap-3">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <h2 className="flex items-center gap-2 text-xl">
                   <Inbox size={18} />
                   Pending approval
+                  <span className="mono text-sm font-normal text-[var(--mid-gray)]">
+                    {pendingItems.length}
+                  </span>
                 </h2>
-                <span className="mono text-sm text-[var(--mid-gray)]">
-                  {pendingItems.length}
-                </span>
+                {pendingItems.length > 0 && (
+                  <button
+                    type="button"
+                    disabled={bulkBusy}
+                    onClick={() =>
+                      runBulk(
+                        "approve",
+                        pendingItems.map((item) => item.id)
+                      )
+                    }
+                    className="btn-primary inline-flex h-9 items-center gap-2 px-4 text-sm"
+                    title="Approve every pending request"
+                  >
+                    <Check size={15} />
+                    {bulkBusy
+                      ? "Approving…"
+                      : `Approve all (${pendingItems.length})`}
+                  </button>
+                )}
               </div>
               <div className="space-y-2.5">
                 {pendingItems.map((item) => (
@@ -1135,9 +1548,10 @@ export function HostConsole() {
               </div>
             </section>
           )}
+          </div>
 
           {/* Queue */}
-          <section className="card rise p-4 sm:p-5">
+          <section id="tour-queue" className="card rise p-4 sm:p-5">
         <div className="mb-3 flex items-center justify-between gap-3">
           <h2 className="flex items-center gap-2 text-base font-semibold">
             <ListMusic size={16} />
@@ -1234,7 +1648,7 @@ export function HostConsole() {
                     className="block w-full truncate text-left text-sm text-[var(--graphite)] hover:underline"
                     title="View details"
                   >
-                    {item.prompt}
+                    {trackName(item)}
                   </button>
                   <p className="truncate text-xs text-[var(--mid-gray)]">
                     {item.requesterName
@@ -1283,7 +1697,10 @@ export function HostConsole() {
         {/* Right column — file library */}
         <div className="min-w-0 space-y-4 lg:col-span-3">
           {/* Files / library */}
-          <section className="card rise min-w-0 overflow-hidden p-4 sm:p-5">
+          <section
+            id="tour-files"
+            className="card rise min-w-0 overflow-hidden p-4 sm:p-5"
+          >
         <div className="mb-5 min-w-0 space-y-3">
           <div className="flex min-w-0 items-center justify-between gap-2">
             <h2 className="flex min-w-0 items-center gap-2 text-xl">
@@ -1391,7 +1808,7 @@ export function HostConsole() {
                 />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-2 text-sm font-medium leading-snug text-[var(--graphite)]">
-                    {item.prompt}
+                    {trackName(item)}
                   </p>
                   <p className="mt-1 truncate text-[11px] text-[var(--mid-gray)]">
                     {item.requesterName ?? "Anonymous"}
@@ -1465,6 +1882,97 @@ export function HostConsole() {
       </div>
 
       <TrackDetailModal item={detailItem} onClose={() => setDetailItem(null)} />
+
+      <SessionsModal
+        open={sessionsModalOpen}
+        sessions={sessions}
+        onClose={() => setSessionsModalOpen(false)}
+        onChanged={refresh}
+        onCreateSession={createSession}
+        creatingSession={creatingSession}
+      />
+
+      {/* Orb colorway picker */}
+      {orbPickerOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setOrbPickerOpen(false)}
+        >
+          <div
+            className="card rise w-full max-w-lg p-5"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Stage orb color"
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h2 className="flex items-center gap-2 text-base font-semibold">
+                <Palette size={16} />
+                Stage orb
+              </h2>
+              <button
+                type="button"
+                onClick={() => setOrbPickerOpen(false)}
+                className="btn-ghost inline-flex size-8 items-center justify-center"
+                aria-label="Close"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <p className="mb-4 text-xs text-[var(--mid-gray)]">
+              Pick the gradient for the orb on the stage screen. The background
+              tints to match automatically.
+            </p>
+            <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
+              {COLORWAY_NAMES.map((name) => {
+                const cw = COLORWAYS[name];
+                const selected = name === orbColorway;
+                const busy = settingOrb === name;
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => chooseOrbColorway(name)}
+                    disabled={!!settingOrb}
+                    title={cw.label}
+                    className={`flex flex-col items-center gap-1.5 rounded-[var(--radius-md)] p-1.5 transition disabled:cursor-default ${
+                      selected
+                        ? "ring-2 ring-[var(--graphite)]"
+                        : "hover:bg-[var(--cream)]"
+                    }`}
+                  >
+                    <span
+                      className="relative size-14 rounded-full ring-1 ring-black/10"
+                      style={{
+                        backgroundImage: `url(${cw.src})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {busy && (
+                        <span className="absolute inset-0 grid place-items-center rounded-full bg-black/30">
+                          <Disc3
+                            size={16}
+                            className="animate-spin text-white"
+                          />
+                        </span>
+                      )}
+                      {selected && !busy && (
+                        <span className="absolute -right-0.5 -top-0.5 grid size-5 place-items-center rounded-full bg-[var(--graphite)] text-[var(--off-white)]">
+                          <Check size={11} />
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-[10px] leading-tight text-[var(--dark-gray)]">
+                      {cw.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

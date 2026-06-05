@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { assertAdmin } from "@/lib/admin-auth";
+import { requireHost } from "@/lib/auth/admin";
 import { setPlaybackState } from "@/lib/db";
 import { AppError, errorResponse } from "@/lib/errors";
 
@@ -14,7 +14,7 @@ const playbackSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    assertAdmin(request);
+    const user = await requireHost();
 
     const body = await request.json().catch(() => null);
     const parsed = playbackSchema.safeParse(body);
@@ -22,15 +22,11 @@ export async function POST(request: Request) {
       throw new AppError(400, "invalid_request", "Invalid playback payload.");
     }
 
-    await setPlaybackState(parsed.data.requestId, parsed.data.isPlaying);
+    await setPlaybackState(user.id, parsed.data.requestId, parsed.data.isPlaying);
 
     return Response.json(
       { ok: true },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     return errorResponse(error);

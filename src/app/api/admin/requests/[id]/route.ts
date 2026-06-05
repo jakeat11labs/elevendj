@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { assertAdmin } from "@/lib/admin-auth";
+import { requireHost } from "@/lib/auth/admin";
 import {
   addToQueue,
   approveRequest,
@@ -32,7 +32,7 @@ export async function PATCH(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    assertAdmin(request);
+    const user = await requireHost();
     const { id } = await context.params;
     const body = await request.json().catch(() => null);
     const parsed = actionSchema.safeParse(body);
@@ -42,31 +42,31 @@ export async function PATCH(
     }
 
     if (parsed.data.action === "approve") {
-      const approved = await approveRequest(id);
+      const approved = await approveRequest(user.id, id);
       if (approved) {
         await enqueueGeneration(id);
       }
     }
 
     if (parsed.data.action === "reject") {
-      await rejectRequest(id, parsed.data.reason || "Rejected by DJ.");
+      await rejectRequest(user.id, id, parsed.data.reason || "Rejected by DJ.");
     }
 
     if (parsed.data.action === "retry") {
-      await requeueRequest(id);
+      await requeueRequest(user.id, id);
       await enqueueGeneration(id);
     }
 
     if (parsed.data.action === "mark_played") {
-      await markRequestPlayed(id);
+      await markRequestPlayed(user.id, id);
     }
 
     if (parsed.data.action === "remove_from_queue") {
-      await removeFromQueue(id);
+      await removeFromQueue(user.id, id);
     }
 
     if (parsed.data.action === "add_to_queue") {
-      await addToQueue(id);
+      await addToQueue(user.id, id);
     }
 
     return Response.json({ ok: true });
@@ -80,9 +80,9 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    assertAdmin(request);
+    const user = await requireHost();
     const { id } = await context.params;
-    await deleteRequest(id);
+    await deleteRequest(user.id, id);
     return Response.json({ ok: true });
   } catch (error) {
     return errorResponse(error);

@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import { assertAdmin } from "@/lib/admin-auth";
-import { setAutoDj, setRequestsOpen } from "@/lib/db";
+import { requireHost } from "@/lib/auth/admin";
+import { setAutoDj, setOrbColorway, setRequestsOpen } from "@/lib/db";
+import { COLORWAY_NAMES } from "@/components/orb/colorways";
 import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
@@ -11,15 +12,21 @@ const settingsSchema = z
   .object({
     requestsOpen: z.boolean().optional(),
     autoDj: z.boolean().optional(),
+    // Constrained to the colorway registry allowlist — only a known name can be
+    // persisted, so the value is safe to map to a texture/CSS reference later.
+    orbColorway: z.enum(COLORWAY_NAMES).optional(),
   })
   .refine(
-    (value) => value.requestsOpen !== undefined || value.autoDj !== undefined,
+    (value) =>
+      value.requestsOpen !== undefined ||
+      value.autoDj !== undefined ||
+      value.orbColorway !== undefined,
     { message: "No settings provided." }
   );
 
 export async function POST(request: Request) {
   try {
-    assertAdmin(request);
+    const user = await requireHost();
 
     const body = await request.json().catch(() => null);
     const parsed = settingsSchema.safeParse(body);
@@ -28,10 +35,13 @@ export async function POST(request: Request) {
     }
 
     if (parsed.data.requestsOpen !== undefined) {
-      await setRequestsOpen(parsed.data.requestsOpen);
+      await setRequestsOpen(user.id, parsed.data.requestsOpen);
     }
     if (parsed.data.autoDj !== undefined) {
-      await setAutoDj(parsed.data.autoDj);
+      await setAutoDj(user.id, parsed.data.autoDj);
+    }
+    if (parsed.data.orbColorway !== undefined) {
+      await setOrbColorway(user.id, parsed.data.orbColorway);
     }
 
     return Response.json(
@@ -39,12 +49,9 @@ export async function POST(request: Request) {
         ok: true,
         requestsOpen: parsed.data.requestsOpen,
         autoDj: parsed.data.autoDj,
+        orbColorway: parsed.data.orbColorway,
       },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     return errorResponse(error);

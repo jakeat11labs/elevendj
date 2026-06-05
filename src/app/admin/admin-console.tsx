@@ -1,205 +1,357 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Ban, Check, RefreshCcw, RotateCcw, Shield } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import {
+  ChevronDown,
+  ListMusic,
+  Monitor,
+  Radio,
+  RefreshCcw,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 
-import { StatusBadge } from "@/components/status-badge";
-import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
-import type { QueueItem, QueueSnapshot } from "@/lib/status";
+import type { Session } from "@/lib/status";
 
-type Overview = {
-  queue: QueueSnapshot;
-  recent: QueueItem[];
+type AdminUser = {
+  id: string;
+  email: string;
+  displayName: string | null;
+  isAdmin: boolean;
+  createdAt: string;
+  sessionCount: number;
+  trackCount: number;
+  liveSessionCode: string | null;
+  liveSessionName: string | null;
 };
 
-export function AdminConsole() {
-  const [token, setToken] = useState("");
-  const [overview, setOverview] = useState<Overview | null>(null);
+/** Open a session's public stage (audio + big screen) in a new tab. */
+function openStage(code: string) {
+  window.open(`/stage?code=${encodeURIComponent(code)}`, "_blank");
+}
+
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+}
+
+export function AdminConsole({ currentUserId }: { currentUserId: string }) {
+  const [users, setUsers] = useState<AdminUser[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
 
-  useEffect(() => {
-    setToken(window.sessionStorage.getItem("elevendj-admin-token") || "");
+  // Expanded user → its sessions (lazily fetched).
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [sessionsByUser, setSessionsByUser] = useState<
+    Record<string, Session[]>
+  >({});
+  const [sessionsLoading, setSessionsLoading] = useState(false);
+
+  const load = useCallback(async () => {
+    try {
+      const response = await fetch("/api/admin/users", { cache: "no-store" });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          window.location.href = "/host";
+          return;
+        }
+        setError(body?.message || "Could not load users.");
+        return;
+      }
+      setUsers((body?.users as AdminUser[]) ?? []);
+      setError(null);
+    } catch {
+      setError("Network error loading users.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const authHeader = useMemo<Record<string, string>>(() => {
-    const headers: Record<string, string> = {};
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-    return headers;
-  }, [token]);
-
-  const refresh = useCallback(async () => {
-    if (!token) {
-      return;
-    }
-
-    window.sessionStorage.setItem("elevendj-admin-token", token);
-    const response = await fetch("/api/admin/overview", {
-      headers: authHeader,
-    });
-    const body = await response.json().catch(() => null);
-    if (!response.ok) {
-      setError(body?.message || "Admin overview unavailable.");
-      return;
-    }
-    setOverview(body as Overview);
-    setError(null);
-  }, [authHeader, token]);
-
-  useRealtimeRefresh(refresh);
-
   useEffect(() => {
-    refresh();
-    const interval = window.setInterval(refresh, 5000);
-    return () => window.clearInterval(interval);
-  }, [refresh]);
+    load();
+  }, [load]);
 
-  async function runAction(id: string, action: "reject" | "retry" | "mark_played") {
-    setBusyId(id);
+  const loadSessions = useCallback(async (userId: string) => {
+    setSessionsLoading(true);
     try {
-      const response = await fetch(`/api/admin/requests/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          ...authHeader,
-        },
-        body: JSON.stringify({ action }),
+      const response = await fetch(`/api/admin/users/${userId}/sessions`, {
+        cache: "no-store",
       });
       const body = await response.json().catch(() => null);
       if (!response.ok) {
-        setError(body?.message || "Admin action failed.");
+        setError(body?.message || "Could not load that user's sessions.");
         return;
       }
-      await refresh();
+      setSessionsByUser((prev) => ({
+        ...prev,
+        [userId]: (body?.sessions as Session[]) ?? [],
+      }));
+    } catch {
+      setError("Network error loading sessions.");
     } finally {
-      setBusyId(null);
+      setSessionsLoading(false);
+    }
+  }, []);
+
+  function toggleExpand(userId: string) {
+    setError(null);
+    if (expandedId === userId) {
+      setExpandedId(null);
+      return;
+    }
+    setExpandedId(userId);
+    if (!sessionsByUser[userId]) {
+      void loadSessions(userId);
     }
   }
 
+  const setAdmin = useCallback(
+    async (user: AdminUser, isAdmin: boolean) => {
+      setBusyId(user.id);
+      setError(null);
+      try {
+        const response = await fetch(`/api/admin/users/${user.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isAdmin }),
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          setError(body?.message || "Could not update admin access.");
+          return;
+        }
+        const updated = body?.user as AdminUser | undefined;
+        setUsers((prev) =>
+          prev.map((u) => (u.id === user.id ? updated ?? { ...u, isAdmin } : u))
+        );
+      } catch {
+        setError("Network error updating admin access.");
+      } finally {
+        setBusyId(null);
+      }
+    },
+    []
+  );
+
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-5 pb-14 pt-2 sm:px-8">
-      <section className="card-glass rise rounded-[1.5rem] p-6 sm:p-9">
-        <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-          <div>
-            <p className="eyebrow mb-3">Admin</p>
-            <h1 className="display text-4xl sm:text-5xl">Queue control</h1>
+    <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-16 pt-2 sm:px-8">
+      <section className="card rise p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck size={18} />
+            <h1
+              className="text-base font-semibold"
+              style={{ fontFamily: "var(--font-brand)" }}
+            >
+              User management
+            </h1>
+            <span className="tag mono text-xs">{users.length} users</span>
           </div>
-          <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
-            <label className="flex-1">
-              <span className="sr-only">Admin token</span>
-              <input
-                type="password"
-                value={token}
-                onChange={(event) => setToken(event.target.value)}
-                className="control h-12 w-full px-4 lg:w-80"
-                placeholder="Admin token"
-              />
-            </label>
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={refresh}
-              className="btn-primary inline-flex h-12 items-center justify-center gap-2 px-6"
+              onClick={load}
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
+              title="Refresh"
             >
-              <Shield size={18} />
-              Unlock
+              <RefreshCcw size={15} />
             </button>
+            <a
+              href="/host"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+            >
+              Back to host
+            </a>
           </div>
         </div>
 
         {error && (
-          <div className="mt-5 rounded-[var(--radius-lg)] border border-[var(--destructive)]/45 bg-[var(--destructive)]/12 p-4 text-sm text-white/90">
+          <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--destructive)] bg-[rgba(180,35,24,0.06)] p-3 text-sm text-[var(--destructive)]">
             {error}
           </div>
         )}
       </section>
 
-      <section className="mt-6 grid gap-6 lg:grid-cols-[360px_1fr]">
-        <div className="card-glass rise rounded-[1.5rem] p-5 sm:p-6" style={{ animationDelay: "90ms" }}>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl" style={{ fontFamily: "var(--font-brand)" }}>
-              Live counts
-            </h2>
-            <button
-              type="button"
-              onClick={refresh}
-              className="btn-ghost grid size-10 place-items-center"
-              title="Refresh"
-            >
-              <RefreshCcw size={18} />
-            </button>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {overview &&
-              Object.entries(overview.queue.counts).map(([status, count]) => (
-                <div key={status} className="card-flat rounded-[var(--radius-md)] p-3">
-                  <p className="mono text-2xl text-white/90">{count}</p>
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">
-                    {status}
-                  </p>
-                </div>
-              ))}
-          </div>
+      <section className="card rise mt-4 p-4 sm:p-5">
+        <div className="mb-3 flex items-center gap-2">
+          <Users size={16} />
+          <h2 className="text-base font-semibold">Users</h2>
         </div>
 
-        <div className="card-glass rise rounded-[1.5rem] p-5 sm:p-6" style={{ animationDelay: "140ms" }}>
-          <h2 className="mb-4 text-xl" style={{ fontFamily: "var(--font-brand)" }}>
-            Recent requests
-          </h2>
-          <div className="space-y-3">
-            {(overview?.recent ?? []).map((item) => (
-              <div key={item.id} className="card-flat rounded-[var(--radius-lg)] p-4">
-                <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="mono text-xs text-white/40">
-                      {item.position ? `#${item.position}` : item.id.slice(0, 8)}
-                    </p>
-                    <p className="font-medium text-white/90">
-                      {item.requesterName || "Anonymous"}
-                    </p>
+        {loading ? (
+          <p className="py-8 text-center text-sm text-[var(--mid-gray)]">
+            Loading…
+          </p>
+        ) : users.length === 0 ? (
+          <p className="py-8 text-center text-sm text-[var(--mid-gray)]">
+            No users yet.
+          </p>
+        ) : (
+          <div className="space-y-2.5">
+            {users.map((user) => {
+              const isExpanded = expandedId === user.id;
+              const isSelf = user.id === currentUserId;
+              const sessions = sessionsByUser[user.id];
+              return (
+                <div key={user.id} className="card-soft p-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="truncate text-sm font-medium text-[var(--graphite)]">
+                          {user.displayName || user.email}
+                        </p>
+                        {user.isAdmin && (
+                          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--light-gray)] bg-[var(--cream)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--graphite)]">
+                            <ShieldCheck size={10} />
+                            Admin
+                          </span>
+                        )}
+                        {isSelf && (
+                          <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--mid-gray)]">
+                            You
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-1 truncate text-xs text-[var(--mid-gray)]">
+                        {user.displayName ? `${user.email} · ` : ""}
+                        {user.sessionCount} session
+                        {user.sessionCount === 1 ? "" : "s"} · {user.trackCount}{" "}
+                        track{user.trackCount === 1 ? "" : "s"}
+                        <span className="mono">
+                          {" · joined "}
+                          {formatDate(user.createdAt)}
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="flex shrink-0 items-center gap-2">
+                      {user.liveSessionCode && (
+                        <button
+                          type="button"
+                          onClick={() => openStage(user.liveSessionCode!)}
+                          className="btn-primary inline-flex h-8 items-center gap-1.5 px-3 text-xs"
+                          title={`Listen to “${
+                            user.liveSessionName ?? "live session"
+                          }” on the stage`}
+                        >
+                          <Monitor size={14} />
+                          Listen
+                        </button>
+                      )}
+                      <label className="flex items-center gap-2 text-xs text-[var(--dark-gray)]">
+                        Admin
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked={user.isAdmin}
+                          disabled={busyId === user.id || (isSelf && user.isAdmin)}
+                          title={
+                            isSelf && user.isAdmin
+                              ? "You can’t remove your own admin access"
+                              : user.isAdmin
+                                ? "Revoke admin"
+                                : "Grant admin"
+                          }
+                          onClick={() => setAdmin(user, !user.isAdmin)}
+                          className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors disabled:opacity-50 ${
+                            user.isAdmin
+                              ? "bg-[var(--graphite)]"
+                              : "bg-[var(--light-gray)]"
+                          }`}
+                        >
+                          <span
+                            className={`inline-block size-4 transform rounded-full bg-white shadow transition-transform ${
+                              user.isAdmin ? "translate-x-6" : "translate-x-1"
+                            }`}
+                          />
+                        </button>
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => toggleExpand(user.id)}
+                        aria-expanded={isExpanded}
+                        className="btn-ghost inline-flex h-8 items-center gap-1 px-2.5 text-xs"
+                      >
+                        Sessions
+                        <ChevronDown
+                          size={13}
+                          className={`transition-transform ${
+                            isExpanded ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                   </div>
-                  <StatusBadge status={item.status} />
+
+                  {isExpanded && (
+                    <div className="mt-3 border-t border-[var(--light-gray)] pt-3">
+                      {sessionsLoading && !sessions ? (
+                        <p className="py-3 text-center text-xs text-[var(--mid-gray)]">
+                          Loading sessions…
+                        </p>
+                      ) : sessions && sessions.length > 0 ? (
+                        <div className="space-y-1.5">
+                          {sessions.map((session) => (
+                            <div
+                              key={session.id}
+                              className="flex items-center justify-between gap-3 rounded-[var(--radius-md)] bg-[var(--white)] px-3 py-2"
+                            >
+                              <div className="flex min-w-0 items-center gap-2">
+                                <span className="truncate text-sm text-[var(--graphite)]">
+                                  {session.name}
+                                </span>
+                                {session.isActive && (
+                                  <span className="inline-flex items-center gap-1 rounded-full border border-[var(--light-gray)] bg-[var(--cream)] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[var(--graphite)]">
+                                    <Radio size={9} />
+                                    Live
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex shrink-0 items-center gap-2.5">
+                                <span className="mono inline-flex items-center gap-1 text-xs text-[var(--mid-gray)]">
+                                  <ListMusic size={13} />
+                                  {session.trackCount ?? 0}
+                                </span>
+                                {session.publicCode && (
+                                  <button
+                                    type="button"
+                                    onClick={() => openStage(session.publicCode!)}
+                                    className={`inline-flex h-7 items-center gap-1.5 px-2.5 text-xs ${
+                                      session.isActive
+                                        ? "btn-primary"
+                                        : "btn-ghost"
+                                    }`}
+                                    title="Open this session's stage"
+                                  >
+                                    <Monitor size={13} />
+                                    Stage
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="py-3 text-center text-xs text-[var(--mid-gray)]">
+                          No sessions.
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <p className="text-sm leading-6 text-white/75">{item.prompt}</p>
-                {(item.errorMessage || item.promptSuggestion) && (
-                  <p className="mt-3 text-sm text-white/55">
-                    {item.promptSuggestion || item.errorMessage}
-                  </p>
-                )}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    disabled={busyId === item.id}
-                    onClick={() => runAction(item.id, "retry")}
-                    className="btn-ghost inline-flex h-10 items-center gap-2 px-4 text-sm disabled:opacity-40"
-                  >
-                    <RotateCcw size={16} />
-                    Retry
-                  </button>
-                  <button
-                    type="button"
-                    disabled={busyId === item.id}
-                    onClick={() => runAction(item.id, "mark_played")}
-                    className="btn-ghost inline-flex h-10 items-center gap-2 px-4 text-sm disabled:opacity-40"
-                  >
-                    <Check size={16} />
-                    Played
-                  </button>
-                  <button
-                    type="button"
-                    disabled={busyId === item.id}
-                    onClick={() => runAction(item.id, "reject")}
-                    className="inline-flex h-10 items-center gap-2 rounded-full border border-[var(--destructive)]/45 bg-[var(--destructive)]/14 px-4 text-sm text-white/90 transition-colors hover:bg-[var(--destructive)]/22 disabled:opacity-40"
-                  >
-                    <Ban size={16} />
-                    Reject
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </div>
+        )}
       </section>
     </main>
   );

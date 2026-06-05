@@ -1,6 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import Image from "next/image";
 import { Maximize, Minimize, Pause, Play, SkipForward } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
@@ -8,6 +16,8 @@ import { QRCodeSVG } from "qrcode.react";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
+import { resolveColorway } from "@/components/orb/colorways";
+import { useColorwayPalette } from "@/components/orb/use-colorway-palette";
 import { AudioProgressSlider } from "@/components/ui/audio-progress-slider";
 import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
@@ -45,7 +55,7 @@ function formatClock(ms: number) {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-export function StageScreen() {
+export function StageScreen({ code }: { code: string | null }) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const { analyserRef, resume } = useStageAudio(audioRef);
@@ -59,8 +69,14 @@ export function StageScreen() {
 
   // ── Data polling ─────────────────────────────────────────────
   const refreshQueue = useCallback(async () => {
+    if (!code) {
+      return;
+    }
     try {
-      const response = await fetch("/api/queue", { cache: "no-store" });
+      const response = await fetch(
+        `/api/queue?code=${encodeURIComponent(code)}`,
+        { cache: "no-store" }
+      );
       if (!response.ok) {
         return;
       }
@@ -68,7 +84,7 @@ export function StageScreen() {
     } catch {
       /* keep last good snapshot; the orb idles gracefully */
     }
-  }, []);
+  }, [code]);
 
   useRealtimeRefresh(refreshQueue);
 
@@ -388,40 +404,141 @@ export function StageScreen() {
     return () => cancelAnimationFrame(raf);
   }, [isPlaying]);
 
-  const lyricView = useMemo(() => {
+  // Flatten every lyric line into one timed list with an absolute startMs, so
+  // the stage can run a continuous karaoke scroll instead of swapping whole
+  // blocks. Prefers real per-line/word timestamps; falls back to spreading each
+  // section's duration evenly across its lines.
+  const lyricLines = useMemo(() => {
     const sections = current?.lyrics?.sections;
     if (!sections || sections.length === 0) return null;
-    let chosen = 0;
-    const hasAbsolute = sections.some((s) => typeof s.startMs === "number");
-    if (hasAbsolute) {
-      // Word-timestamp path: the active block is the last one that has started.
-      for (let i = 0; i < sections.length; i++) {
-        const start = sections[i].startMs;
-        if (typeof start === "number" && start <= posMs) chosen = i;
-      }
-    } else {
-      // Fallback: advance blocks by cumulative section duration.
-      let acc = 0;
-      for (let i = 0; i < sections.length; i++) {
-        const dur = sections[i].durationMs || 0;
-        if (posMs < acc + dur || i === sections.length - 1) {
-          chosen = i;
-          break;
+
+    const out: {
+      key: string;
+      words?: LyricWord[];
+      text: string;
+      startMs: number;
+    }[] = [];
+
+    let cumulative = 0;
+    sections.forEach((section, si) => {
+      const sectionStart =
+        typeof section.startMs === "number" ? section.startMs : cumulative;
+      const lineCount = section.lines.length || 1;
+      const per = (section.durationMs || 0) / lineCount;
+
+      section.lines.forEach((line, li) => {
+        let startMs: number;
+        if (typeof line.startMs === "number") {
+          startMs = line.startMs;
+        } else {
+          const firstWord = line.words?.find(
+            (w) => typeof w.startMs === "number"
+          );
+          startMs =
+            typeof firstWord?.startMs === "number"
+              ? firstWord.startMs
+              : sectionStart + per * li;
         }
-        acc += dur;
+        out.push({ key: `${si}-${li}`, words: line.words, text: line.text, startMs });
+      });
+
+      cumulative = sectionStart + (section.durationMs || 0);
+    });
+
+    // Keep timestamps monotonic so the active-line scan can't jump backwards.
+    for (let i = 1; i < out.length; i++) {
+      if (out[i].startMs < out[i - 1].startMs) {
+        out[i].startMs = out[i - 1].startMs;
       }
     }
-    return { section: sections[chosen], index: chosen, total: sections.length };
-  }, [current?.lyrics, posMs]);
+
+    return out;
+  }, [current?.lyrics]);
+
+  // Index of the line currently being sung (last line whose start has passed).
+  const activeLineIndex = useMemo(() => {
+    if (!lyricLines || lyricLines.length === 0) return 0;
+    let idx = 0;
+    for (let i = 0; i < lyricLines.length; i++) {
+      if (lyricLines[i].startMs <= posMs) idx = i;
+    }
+    return idx;
+  }, [lyricLines, posMs]);
+
+  // ── Karaoke scroll: slide the line stack so the active line sits in a fixed
+  //    slot, keeping a couple of sung lines above and upcoming lines below. ──
+  const lyricViewportRef = useRef<HTMLDivElement>(null);
+  const lyricScrollRef = useRef<HTMLDivElement>(null);
+  const lineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+
+  const positionLyrics = useCallback(() => {
+    const viewport = lyricViewportRef.current;
+    const scroll = lyricScrollRef.current;
+    const active = lineRefs.current[activeLineIndex];
+    if (!viewport || !scroll || !active) return;
+    // Anchor the active line ~38% down the window.
+    const target = viewport.clientHeight * 0.38 - active.offsetHeight / 2;
+    scroll.style.transform = `translateY(${target - active.offsetTop}px)`;
+  }, [activeLineIndex]);
+
+  useLayoutEffect(() => {
+    positionLyrics();
+  }, [positionLyrics, lyricLines]);
+
+  useEffect(() => {
+    window.addEventListener("resize", positionLyrics);
+    return () => window.removeEventListener("resize", positionLyrics);
+  }, [positionLyrics]);
 
   const idle = !current;
+
+  // ── Orb colorway + background tint ───────────────────────────
+  // The host's selected colorway drives both the orb texture and the stage
+  // background: we sample the gradient's colors and expose them as CSS vars so
+  // the neutral grey base recolors to match the orb.
+  const colorway = resolveColorway(snapshot?.orbColorway);
+  const palette = useColorwayPalette(colorway.src);
+  const stageStyle = {
+    "--orb-bg-primary": palette.primary,
+    "--orb-bg-accent": palette.accent,
+  } as CSSProperties;
+
+  // No session code in the URL — render a friendly notice and fetch nothing.
+  if (!code) {
+    return (
+      <div className={styles.stage} style={stageStyle}>
+        {/* Background layers */}
+        <div className={styles.bgBase} aria-hidden />
+        <div className={styles.bgTint} aria-hidden />
+        <div className={styles.bgGlow} aria-hidden />
+        <div className={styles.bgVignette} aria-hidden />
+        <div className={styles.bgGrain} aria-hidden />
+
+        <div className={`${styles.heroStack} absolute inset-0 z-10`}>
+          <div className="flex flex-col items-center gap-3 text-center">
+            <p className={styles.eyebrow}>ElevenDJ</p>
+            <h1 className={`${styles.title} ${styles.titleIdle}`}>
+              No session linked
+            </h1>
+            <p className="mt-2 max-w-xl text-sm text-white/55 sm:text-base">
+              Open the stage from your host console so it knows which room to
+              display.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       className={`${styles.stage} ${controlsVisible ? "" : styles.cursorHidden}`}
+      style={stageStyle}
     >
-      {/* Background layers */}
-      <div className={styles.bgGradient} aria-hidden />
+      {/* Background layers — neutral grey base recolored to match the orb */}
+      <div className={styles.bgBase} aria-hidden />
+      <div className={styles.bgTint} aria-hidden />
+      <div className={styles.bgGlow} aria-hidden />
       <div className={styles.bgVignette} aria-hidden />
       <div className={styles.bgGrain} aria-hidden />
 
@@ -454,8 +571,26 @@ export function StageScreen() {
       {/* Centerpiece — orb sits in the upper area; wordmark lives in the bg image */}
       <div className={`${styles.heroStack} absolute inset-0 z-10`}>
         <div className={styles.orbWrap}>
-          <ReactiveOrb analyserRef={analyserRef} className={styles.orbGl} />
+          <ReactiveOrb
+            analyserRef={analyserRef}
+            texture={colorway.src}
+            saturation={colorway.saturation}
+            className={styles.orbGl}
+          />
         </div>
+
+        {/* Track title + attribution — sits below the orb, above the progress
+            bar, while lyrics scroll lower in the hero. */}
+        {current && lyricLines && (
+          <div className="flex flex-col items-center gap-1">
+            <p className="max-w-xl truncate text-base text-white/70 sm:text-lg">
+              {current.title || current.prompt}
+            </p>
+            <p className="text-xs uppercase tracking-[0.18em] text-white/40">
+              Requested by {current.requesterName || "Anonymous"}
+            </p>
+          </div>
+        )}
 
         {/* Subtle song progress beneath the orb */}
         {!idle && totalMs > 0 && (
@@ -491,33 +626,57 @@ export function StageScreen() {
                 </p>
               )}
             </>
-          ) : lyricView ? (
-            <div className="flex flex-col items-center gap-6">
-              {/* Lyrics — the whole active block lights up, rotating by section */}
+          ) : lyricLines ? (
+            <div className="flex w-full max-w-4xl flex-col items-center gap-5">
+              {/* Lyrics — a fixed-height karaoke window. Lines stay large; the
+                  stack slides up as the song advances so only a few lines show
+                  at once and long verses never run off-screen. */}
               <div
-                key={lyricView.index}
-                className="rise flex max-w-4xl flex-col items-center gap-2.5 px-4 text-center"
+                ref={lyricViewportRef}
+                className="relative w-full overflow-hidden px-4"
+                style={{
+                  height: "clamp(8.5rem, 40vh, 22rem)",
+                  maskImage:
+                    "linear-gradient(to bottom, transparent 0%, #000 20%, #000 72%, transparent 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to bottom, transparent 0%, #000 20%, #000 72%, transparent 100%)",
+                }}
               >
-                {lyricView.section.lines.map((line, i) => (
-                  <p
-                    key={i}
-                    className="text-balance text-2xl leading-tight sm:text-4xl"
-                    style={{ fontFamily: "var(--font-brand)", fontWeight: 300 }}
-                  >
-                    {line.words?.length
-                      ? renderKaraokeLine(line.words, posMs)
-                      : line.text}
-                  </p>
-                ))}
-              </div>
-              {/* Shrunk title + attribution beneath the lyrics */}
-              <div className="flex flex-col items-center gap-1">
-                <p className="max-w-xl truncate text-sm text-white/55 sm:text-base">
-                  {current.title || current.prompt}
-                </p>
-                <p className="text-xs uppercase tracking-[0.18em] text-white/40">
-                  Requested by {current.requesterName || "Anonymous"}
-                </p>
+                <div
+                  ref={lyricScrollRef}
+                  className="relative flex flex-col items-center gap-[0.45em] text-center will-change-transform"
+                  style={{
+                    fontFamily: "var(--font-brand)",
+                    fontWeight: 300,
+                    fontSize: "clamp(1.6rem, 4vw, 3.25rem)",
+                    lineHeight: 1.18,
+                    transition:
+                      "transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+                  }}
+                >
+                  {lyricLines.map((line, i) => {
+                    const isActive = i === activeLineIndex;
+                    return (
+                      <p
+                        key={line.key}
+                        ref={(el) => {
+                          lineRefs.current[i] = el;
+                        }}
+                        className={`text-balance transition-[color,opacity] duration-500 ${
+                          isActive
+                            ? ""
+                            : i < activeLineIndex
+                              ? "text-white/35"
+                              : "text-white/25"
+                        }`}
+                      >
+                        {isActive && line.words?.length
+                          ? renderKaraokeLine(line.words, posMs)
+                          : line.text}
+                      </p>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ) : (
@@ -599,7 +758,7 @@ export function StageScreen() {
 
       {/* Up Next — stylized upcoming queue (bottom-left) */}
       {upcoming.length > 0 && (
-        <div className={`${styles.queue} absolute bottom-6 left-6 z-20 sm:bottom-9 sm:left-9`}>
+        <div className={`${styles.queue} absolute right-6 top-6 z-20 sm:right-9 sm:top-9`}>
           <div className={styles.queueHeader}>
             <span className={styles.queuePulse} aria-hidden />
             Up Next
