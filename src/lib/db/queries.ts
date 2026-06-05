@@ -539,6 +539,116 @@ export async function setOrbColorway(
 }
 
 // ─────────────────────────────────────────────────────────────────
+// Per-host ElevenLabs API key (encrypted at rest; see src/lib/crypto.ts)
+// ─────────────────────────────────────────────────────────────────
+
+export type ElevenLabsKeyStatus = {
+  hasKey: boolean;
+  hint: string | null;
+  addedAt: string | null;
+};
+
+/** Store the host's encrypted key + masked hint. Caller validates + encrypts. */
+export async function setElevenLabsKey(
+  userId: string,
+  ciphertext: string,
+  hint: string
+): Promise<void> {
+  await dbCall(async () => {
+    await db
+      .update(users)
+      .set({
+        elevenlabsKeyCiphertext: ciphertext,
+        elevenlabsKeyHint: hint,
+        elevenlabsKeyAddedAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId));
+  });
+}
+
+/** Remove the host's stored key. */
+export async function clearElevenLabsKey(userId: string): Promise<void> {
+  await dbCall(async () => {
+    await db
+      .update(users)
+      .set({
+        elevenlabsKeyCiphertext: null,
+        elevenlabsKeyHint: null,
+        elevenlabsKeyAddedAt: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId));
+  });
+}
+
+/** Console-facing status — never returns the ciphertext. */
+export async function getElevenLabsKeyStatus(
+  userId: string
+): Promise<ElevenLabsKeyStatus> {
+  return dbCall(async () => {
+    const [row] = await db
+      .select({
+        hint: users.elevenlabsKeyHint,
+        addedAt: users.elevenlabsKeyAddedAt,
+        ciphertext: users.elevenlabsKeyCiphertext,
+      })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+    return {
+      hasKey: Boolean(row?.ciphertext),
+      hint: row?.hint ?? null,
+      addedAt: toIso(row?.addedAt ?? null),
+    };
+  });
+}
+
+/**
+ * True when a host must connect their own key before generating: a non-admin
+ * with no stored key. Used to fail request creation fast with a clear message.
+ */
+export async function hostNeedsApiKey(hostId: string): Promise<boolean> {
+  return dbCall(async () => {
+    const [row] = await db
+      .select({
+        isAdmin: users.isAdmin,
+        ciphertext: users.elevenlabsKeyCiphertext,
+      })
+      .from(users)
+      .where(eq(users.id, hostId))
+      .limit(1);
+    if (!row) return false; // unknown user — let downstream auth handle it
+    return !row.isAdmin && !row.ciphertext;
+  });
+}
+
+/**
+ * Resolve a session's host key material for the generation pipeline: the host's
+ * encrypted key (to decrypt) plus their admin flag (to decide shared-key
+ * fallback). Joined from a session_id since generation only carries the request.
+ */
+export async function getSessionHostKey(sessionId: string): Promise<{
+  hostId: string;
+  isAdmin: boolean;
+  keyCiphertext: string | null;
+} | null> {
+  return dbCall(async () => {
+    const [row] = await db
+      .select({
+        hostId: users.id,
+        isAdmin: users.isAdmin,
+        keyCiphertext: users.elevenlabsKeyCiphertext,
+      })
+      .from(sessions)
+      .innerJoin(users, eq(sessions.hostId, users.id))
+      .where(eq(sessions.id, sessionId))
+      .limit(1);
+    return row ?? null;
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────
 // Playback (host-scoped) + now-playing (public, by session)
 // ─────────────────────────────────────────────────────────────────
 
@@ -667,7 +777,7 @@ export async function getAdminOverview(hostId: string) {
       .where(eq(sessions.id, active.id))
       .limit(1);
 
-    const [queue, recent, files, sessionList] = await Promise.all([
+    const [queue, recent, files, sessionList, apiKey] = await Promise.all([
       buildQueueSnapshot(sessionRow),
       db
         .select()
@@ -677,6 +787,7 @@ export async function getAdminOverview(hostId: string) {
         .limit(75),
       listFiles(hostId),
       listSessionsForHost(hostId),
+      getElevenLabsKeyStatus(hostId),
     ]);
 
     return {
@@ -685,6 +796,7 @@ export async function getAdminOverview(hostId: string) {
       recent: recent.map(mapQueueItem),
       files,
       sessions: sessionList,
+      apiKey,
     };
   });
 }

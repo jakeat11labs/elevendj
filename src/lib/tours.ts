@@ -95,6 +95,18 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
+        icon: "🔑",
+        title: "Your ElevenLabs key",
+        content:
+          "Tracks generate with your own ElevenLabs key, so usage is billed to your account. Manage it here anytime — replace it or remove it.",
+        selector: "#tour-api-key",
+        side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 8,
+        pointerRadius: 12,
+      },
+      {
         icon: "🎵",
         title: "The live queue",
         content:

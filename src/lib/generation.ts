@@ -5,9 +5,11 @@ import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 
 import {
   claimRequestForGeneration,
+  getSessionHostKey,
   markRequestFailed,
   markRequestReady,
 } from "@/lib/db";
+import { decryptSecret } from "@/lib/crypto";
 import { optionalEnv, requiredEnv } from "@/lib/env";
 import { buildGenerationPrompt } from "@/lib/security";
 import type { Lyrics, LyricSection, LyricWord } from "@/lib/status";
@@ -29,6 +31,15 @@ export async function processGenerationJob(job: GenerationJob) {
     return { ok: true, skipped: true };
   }
 
+  // Resolve which ElevenLabs key powers this generation: the host's own key
+  // when present, the shared app key for admins, otherwise fail with a clear
+  // message (non-admin host hasn't connected one yet).
+  const keyResult = await resolveHostApiKey(request.session_id);
+  if (!keyResult.ok) {
+    await markRequestFailed(request.id, keyResult.code, keyResult.message);
+    return { ok: false, requestId: request.id, error: keyResult.code };
+  }
+
   try {
     // Auto length by default (omit musicLengthMs); songs include sung lyrics
     // unless the requester opted for instrumental.
@@ -37,6 +48,7 @@ export async function processGenerationJob(job: GenerationJob) {
 
     const { audio, songId, lyrics, title, isExplicit, songMetadata } =
       await composeMusic({
+        apiKey: keyResult.apiKey,
         prompt: buildGenerationPrompt(request.prompt, instrumental),
         durationMs: autoDuration ? null : request.duration_ms,
         instrumental,
@@ -68,20 +80,64 @@ export async function processGenerationJob(job: GenerationJob) {
   }
 }
 
-let client: ElevenLabsClient | null = null;
-function getClient(): ElevenLabsClient {
-  if (!client) {
-    requiredEnv("ELEVENLABS_API_KEY"); // fail fast with a clear message
-    client = new ElevenLabsClient();
+// One client per distinct API key (hosts bring their own; admins share one).
+const clients = new Map<string, ElevenLabsClient>();
+function getClient(apiKey: string): ElevenLabsClient {
+  let existing = clients.get(apiKey);
+  if (!existing) {
+    existing = new ElevenLabsClient({ apiKey });
+    clients.set(apiKey, existing);
   }
-  return client;
+  return existing;
+}
+
+type KeyResolution =
+  | { ok: true; apiKey: string }
+  | { ok: false; code: string; message: string };
+
+/**
+ * Resolve the ElevenLabs key for a request's host. Host's own key wins; admins
+ * fall back to the shared app key; everyone else is blocked with a friendly
+ * code so the request fails cleanly instead of hitting ElevenLabs unkeyed.
+ */
+async function resolveHostApiKey(sessionId: string): Promise<KeyResolution> {
+  const host = await getSessionHostKey(sessionId);
+  if (!host) {
+    return {
+      ok: false,
+      code: "session_not_found",
+      message: "This session no longer exists.",
+    };
+  }
+  if (host.keyCiphertext) {
+    try {
+      return { ok: true, apiKey: decryptSecret(host.keyCiphertext) };
+    } catch {
+      return {
+        ok: false,
+        code: "host_key_unreadable",
+        message:
+          "The host's ElevenLabs key couldn't be read. They'll need to reconnect it.",
+      };
+    }
+  }
+  if (host.isAdmin) {
+    return { ok: true, apiKey: requiredEnv("ELEVENLABS_API_KEY") };
+  }
+  return {
+    ok: false,
+    code: "host_key_missing",
+    message: "The host hasn't connected an ElevenLabs API key yet.",
+  };
 }
 
 async function composeMusic({
+  apiKey,
   prompt,
   durationMs,
   instrumental,
 }: {
+  apiKey: string;
   prompt: string;
   durationMs: number | null;
   instrumental: boolean;
@@ -92,7 +148,7 @@ async function composeMusic({
   // size against quality; default (unset) is the API default mp3_44100_128.
   // mp3_44100_64 roughly halves file size; mp3_44100_192 needs Creator tier.
   const outputFormat = optionalEnv("MUSIC_OUTPUT_FORMAT");
-  const result = await getClient().music.composeDetailed({
+  const result = await getClient(apiKey).music.composeDetailed({
     prompt,
     forceInstrumental: instrumental,
     // Word-level timestamps let the stage sync lyric blocks precisely instead

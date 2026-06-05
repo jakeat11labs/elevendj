@@ -1,7 +1,11 @@
 import { requireHost } from "@/lib/auth/admin";
-import { createSongRequest, getActiveSessionForHost } from "@/lib/db";
+import {
+  createSongRequest,
+  getActiveSessionForHost,
+  hostNeedsApiKey,
+} from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
-import { errorResponse } from "@/lib/errors";
+import { AppError, errorResponse } from "@/lib/errors";
 import {
   assertPromptAllowed,
   clientIpFromRequest,
@@ -21,6 +25,15 @@ export const maxDuration = 300;
 export async function POST(request: Request) {
   try {
     const user = await requireHost();
+
+    if (await hostNeedsApiKey(user.id)) {
+      throw new AppError(
+        403,
+        "host_key_missing",
+        "Connect your ElevenLabs API key before generating tracks."
+      );
+    }
+
     const active = await getActiveSessionForHost(user.id);
 
     const body = await request.json().catch(() => null);

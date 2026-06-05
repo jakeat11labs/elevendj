@@ -1,4 +1,8 @@
-import { createSongRequest, requireSessionByCode } from "@/lib/db";
+import {
+  createSongRequest,
+  hostNeedsApiKey,
+  requireSessionByCode,
+} from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
 import { AppError, errorResponse } from "@/lib/errors";
 import {
@@ -26,6 +30,16 @@ export async function POST(request: Request) {
       throw new AppError(400, "missing_code", "This request link is missing its session code.");
     }
     const session = await requireSessionByCode(code);
+
+    // The host must have a usable ElevenLabs key (their own, or the shared key
+    // if they're an admin) before we accept requests we couldn't generate.
+    if (await hostNeedsApiKey(session.hostId)) {
+      throw new AppError(
+        403,
+        "host_key_missing",
+        "This room isn't ready for requests yet — the host needs to connect their ElevenLabs key."
+      );
+    }
 
     const input = parseRequestBody(body);
     assertPromptAllowed(input.prompt);

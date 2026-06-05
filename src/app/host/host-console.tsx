@@ -15,6 +15,7 @@ import {
   Download,
   GripVertical,
   Inbox,
+  KeyRound,
   Layers,
   ListMusic,
   LogOut,
@@ -35,6 +36,7 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
+import { ApiKeySetupModal } from "@/components/api-key-setup-modal";
 import { AudioMeters } from "@/components/audio-meters";
 import {
   COLORWAY_NAMES,
@@ -63,12 +65,19 @@ const HOST_IDEAS = [
   "Downtempo cooldown, warm analog pads",
 ] as const;
 
+type ApiKeyStatus = {
+  hasKey: boolean;
+  hint: string | null;
+  addedAt: string | null;
+};
+
 type Overview = {
   activeSession?: Session;
   queue: QueueSnapshot;
   recent: QueueItem[];
   files: QueueItem[];
   sessions: Session[];
+  apiKey: ApiKeyStatus;
 };
 
 type HostUser = {
@@ -627,6 +636,37 @@ export function HostConsole({ user }: { user: HostUser }) {
     }
   }, [authHeader, refresh, overview]);
 
+  // ── ElevenLabs API key management ────────────────────────────
+  const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false);
+  const [removingKey, setRemovingKey] = useState(false);
+
+  const removeApiKey = useCallback(async () => {
+    if (
+      !window.confirm(
+        "Remove your ElevenLabs key? New tracks won't generate until you reconnect one."
+      )
+    ) {
+      return;
+    }
+    setRemovingKey(true);
+    try {
+      const response = await fetch("/api/admin/api-key", {
+        method: "DELETE",
+        headers: authHeader,
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not remove your key.");
+        return;
+      }
+      await refresh();
+    } catch {
+      setError("Network error removing your key.");
+    } finally {
+      setRemovingKey(false);
+    }
+  }, [authHeader, refresh]);
+
   // ── Orb colorway picker ──────────────────────────────────────
   const [orbPickerOpen, setOrbPickerOpen] = useState(false);
   const [settingOrb, setSettingOrb] = useState<string | null>(null);
@@ -915,6 +955,12 @@ export function HostConsole({ user }: { user: HostUser }) {
   const orbColorway = overview?.queue.orbColorway ?? "creative-1";
   const currentColorway = resolveColorway(orbColorway);
 
+  // ── ElevenLabs API key ───────────────────────────────────────
+  // Non-admin hosts must connect their own key before they can use the console.
+  // Admins fall back to the shared app key, so they're never gated.
+  const apiKey = overview?.apiKey;
+  const needsKeySetup = Boolean(overview) && !user.isAdmin && !apiKey?.hasKey;
+
   const hostRemaining = 800 - hostPrompt.length;
   const hostTrimmed = hostPrompt.trim();
   const canHostSubmit =
@@ -962,7 +1008,7 @@ export function HostConsole({ user }: { user: HostUser }) {
             <span className="tag mono text-xs">{activeSession?.name ?? "—"}</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <HostTourButton userId={user.id} />
+            <HostTourButton userId={user.id} autoStart={!needsKeySetup} />
             <button
               type="button"
               id="tour-stage-button"
@@ -1383,6 +1429,67 @@ export function HostConsole({ user }: { user: HostUser }) {
                   <QrCode size={16} />
                   {regenerating ? "Regenerating…" : "New link"}
                 </button>
+              </div>
+            </div>
+
+            {/* ElevenLabs API key — host brings their own; generation is billed
+                to their account. Admins fall back to the shared app key. */}
+            <div
+              id="tour-api-key"
+              className="card-soft mt-3 flex flex-col gap-3 p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="eyebrow flex items-center gap-1.5">
+                    <KeyRound size={12} />
+                    ElevenLabs key
+                  </p>
+                  {apiKey?.hasKey ? (
+                    <p className="mt-1 text-sm text-[var(--dark-gray)]">
+                      Connected{" "}
+                      <span className="mono">{apiKey.hint}</span>
+                      {apiKey.addedAt ? (
+                        <span className="text-[var(--mid-gray)]">
+                          {" · added "}
+                          {formatDate(apiKey.addedAt)}
+                        </span>
+                      ) : null}
+                    </p>
+                  ) : (
+                    <p className="mt-1 text-sm text-[var(--dark-gray)]">
+                      {user.isAdmin
+                        ? "Using the shared app key. Add your own to bill generation to your account."
+                        : "Connect your key to generate tracks."}
+                    </p>
+                  )}
+                </div>
+                {apiKey?.hasKey && (
+                  <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[var(--light-gray)] bg-[var(--cream)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--graphite)]">
+                    <span className="size-1.5 rounded-full bg-[var(--graphite)]" />
+                    Connected
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setApiKeyModalOpen(true)}
+                  className="btn-ghost inline-flex h-10 items-center justify-center gap-2 px-4 text-sm"
+                >
+                  <KeyRound size={15} />
+                  {apiKey?.hasKey ? "Replace key" : "Add key"}
+                </button>
+                {apiKey?.hasKey && (
+                  <button
+                    type="button"
+                    onClick={removeApiKey}
+                    disabled={removingKey}
+                    className="btn-danger inline-flex h-10 items-center justify-center gap-2 px-4 text-sm"
+                  >
+                    <Trash2 size={15} />
+                    {removingKey ? "Removing…" : "Remove"}
+                  </button>
+                )}
               </div>
             </div>
           </section>
@@ -1882,6 +1989,21 @@ export function HostConsole({ user }: { user: HostUser }) {
       </div>
 
       <TrackDetailModal item={detailItem} onClose={() => setDetailItem(null)} />
+
+      {/* First-run hard gate: a non-admin host can't use the console until they
+          connect a valid key. Refresh on save clears `needsKeySetup`. */}
+      {needsKeySetup && (
+        <ApiKeySetupModal mode="gate" onSaved={refresh} />
+      )}
+
+      {/* Replace / add key from the management card (dismissible). */}
+      {apiKeyModalOpen && !needsKeySetup && (
+        <ApiKeySetupModal
+          mode="manage"
+          onSaved={refresh}
+          onClose={() => setApiKeyModalOpen(false)}
+        />
+      )}
 
       <SessionsModal
         open={sessionsModalOpen}

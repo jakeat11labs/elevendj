@@ -12,12 +12,21 @@ import { HOST_TOUR_ID, HOST_TOUR_KEY } from "@/lib/tours";
  * The "seen" flag is per-user in localStorage so a shared browser doesn't hide
  * the tour from a second host.
  */
-export function HostTourButton({ userId }: { userId: string }) {
+export function HostTourButton({
+  userId,
+  autoStart = true,
+}: {
+  userId: string;
+  /** When false, suppress the first-run auto-start (e.g. while the API-key
+   * setup gate is open). The manual button still works. Once this flips true
+   * the auto-start runs. */
+  autoStart?: boolean;
+}) {
   const { startNextStep } = useNextStep();
   const started = useRef(false);
 
   useEffect(() => {
-    if (started.current) {
+    if (!autoStart || started.current) {
       return;
     }
     started.current = true;
@@ -39,7 +48,7 @@ export function HostTourButton({ userId }: { userId: string }) {
     // Let the console render its targets before anchoring the first step.
     const timer = window.setTimeout(() => startNextStep(HOST_TOUR_ID), 600);
     return () => window.clearTimeout(timer);
-  }, [startNextStep, userId]);
+  }, [autoStart, startNextStep, userId]);
 
   return (
     <button

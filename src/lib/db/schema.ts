@@ -32,6 +32,14 @@ export const users = pgTable("users", {
   // env var is only a bootstrap fallback (see getCurrentUser). Never clobbered
   // by upsertUser on sign-in.
   isAdmin: boolean("is_admin").notNull().default(false),
+  // Per-host ElevenLabs API key, encrypted at rest (AES-256-GCM; see
+  // src/lib/crypto.ts). The ciphertext is never sent to the client — only the
+  // masked `hint` (last 4 chars) and `addedAt` surface in the host console.
+  elevenlabsKeyCiphertext: text("elevenlabs_key_ciphertext"),
+  elevenlabsKeyHint: text("elevenlabs_key_hint"),
+  elevenlabsKeyAddedAt: timestamp("elevenlabs_key_added_at", {
+    withTimezone: true,
+  }),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
