@@ -10,6 +10,7 @@ import {
 import {
   Check,
   Copy,
+  Disc3,
   Download,
   GripVertical,
   Inbox,
@@ -23,6 +24,7 @@ import {
   SkipForward,
   Sparkles,
   Trash2,
+  Wand2,
   X,
 } from "lucide-react";
 
@@ -144,6 +146,14 @@ export function HostConsole() {
   // ── Selections ───────────────────────────────────────────────
   const [queueSel, setQueueSel] = useState<Set<string>>(new Set());
   const [filesSel, setFilesSel] = useState<Set<string>>(new Set());
+
+  // ── Host composer ────────────────────────────────────────────
+  const [hostPrompt, setHostPrompt] = useState("");
+  const [hostInstrumental, setHostInstrumental] = useState(false);
+  const [hostBusy, setHostBusy] = useState(false);
+  const [hostNotice, setHostNotice] = useState<
+    { tone: "ok" | "err"; text: string } | null
+  >(null);
 
   // ── Misc UI ──────────────────────────────────────────────────
   const [requestLink, setRequestLink] = useState("");
@@ -287,6 +297,7 @@ export function HostConsole() {
       lastBeatRef.current = Date.now();
       if (st.type === "bye") {
         setStageConnected(false);
+        setIsPlaying(false);
         return;
       }
       setStageConnected(true);
@@ -308,6 +319,7 @@ export function HostConsole() {
     const timer = window.setInterval(() => {
       if (lastBeatRef.current && Date.now() - lastBeatRef.current > 6000) {
         setStageConnected(false);
+        setIsPlaying(false);
       }
     }, 2000);
     return () => {
@@ -343,6 +355,48 @@ export function HostConsole() {
     },
     [authHeader, refresh]
   );
+
+  // Drop a host-authored track straight into the live queue. Bypasses approval
+  // mode server-side and starts generating immediately.
+  const submitHostTrack = useCallback(async () => {
+    const prompt = hostPrompt.trim();
+    if (prompt.length < 10) {
+      setHostNotice({ tone: "err", text: "Add at least 10 characters of detail." });
+      return;
+    }
+    setHostBusy(true);
+    setHostNotice(null);
+    try {
+      const response = await fetch("/api/admin/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader },
+        body: JSON.stringify({
+          prompt,
+          requesterName: "Host",
+          instrumental: hostInstrumental,
+        }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setHostNotice({
+          tone: "err",
+          text: body?.suggestion || body?.message || "Could not drop the track.",
+        });
+        return;
+      }
+      setHostPrompt("");
+      setHostInstrumental(false);
+      setHostNotice({
+        tone: "ok",
+        text: "Generating now — it'll drop into the queue when ready.",
+      });
+      await refresh();
+    } catch {
+      setHostNotice({ tone: "err", text: "Network error dropping the track." });
+    } finally {
+      setHostBusy(false);
+    }
+  }, [authHeader, hostInstrumental, hostPrompt, refresh]);
 
   const deleteRow = useCallback(
     async (id: string) => {

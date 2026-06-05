@@ -8,6 +8,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
+import { AudioProgressSlider } from "@/components/ui/audio-progress-slider";
 import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
 
@@ -33,6 +34,15 @@ function renderKaraokeLine(words: LyricWord[], posMs: number) {
       </span>
     );
   });
+}
+
+// mm:ss for the progress readout.
+function formatClock(ms: number) {
+  if (!Number.isFinite(ms) || ms <= 0) return "0:00";
+  const total = Math.floor(ms / 1000);
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
 }
 
 export function StageScreen() {
@@ -204,13 +214,16 @@ export function StageScreen() {
     if (!ch) {
       return;
     }
-    const announce = (type: "hello" | "heartbeat" | "bye") => {
+    const announce = (
+      type: "hello" | "heartbeat" | "bye",
+      playing = syncStateRef.current.isPlaying
+    ) => {
       try {
         ch.postMessage({
           source: "stage",
           type,
           currentId: syncStateRef.current.currentId,
-          isPlaying: syncStateRef.current.isPlaying,
+          isPlaying: playing,
         });
       } catch {
         /* channel closed */
@@ -229,9 +242,14 @@ export function StageScreen() {
     };
     announce("hello");
     const hb = window.setInterval(() => announce("heartbeat"), 3000);
+    const announceBye = () => announce("bye", false);
+    window.addEventListener("pagehide", announceBye);
+    window.addEventListener("beforeunload", announceBye);
     return () => {
-      announce("bye");
+      announceBye();
       window.clearInterval(hb);
+      window.removeEventListener("pagehide", announceBye);
+      window.removeEventListener("beforeunload", announceBye);
       ch.close();
       channelRef.current = null;
     };
@@ -270,6 +288,34 @@ export function StageScreen() {
     return () => document.removeEventListener("fullscreenchange", onChange);
   }, []);
 
+  // ── Keyboard remote (complements the auto-hiding control chip) ─
+  // Space / K → play-pause, N / → → next, F → fullscreen. Space also serves as
+  // the user-gesture that unlocks audio playback on the stage tab.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.getAttribute("role") === "slider")
+      ) {
+        return;
+      }
+      if (event.code === "Space" || event.key === "k") {
+        event.preventDefault();
+        if (isPlaying) pauseCurrent();
+        else void playCurrent();
+      } else if (event.key === "ArrowRight" || event.key === "n") {
+        advance();
+      } else if (event.key === "f") {
+        toggleFullscreen();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isPlaying, playCurrent, advance, toggleFullscreen]);
+
   // ── Auto-hiding controls ─────────────────────────────────────
   useEffect(() => {
     let timer: number | undefined;
@@ -292,6 +338,41 @@ export function StageScreen() {
 
   // ── Lyrics (timed blocks synced to playback position) ────────
   const [posMs, setPosMs] = useState(0);
+  const [durationMs, setDurationMs] = useState(0);
+
+  // Prefer the live audio duration; fall back to the stored track length.
+  const totalMs = durationMs || current?.durationMs || 0;
+
+  const seekToSeconds = useCallback(
+    (seconds: number) => {
+      if (totalMs <= 0) return;
+      const nextMs = Math.min(totalMs, Math.max(0, seconds * 1000));
+      const audio = audioRef.current;
+
+      if (audio) {
+        if (current?.audioUrl && audio.src !== current.audioUrl) {
+          audio.src = current.audioUrl;
+        }
+        audio.currentTime = nextMs / 1000;
+      }
+      setPosMs(nextMs);
+    },
+    [current?.audioUrl, totalMs]
+  );
+
+  // Upcoming tracks in play order (wraps, excludes the current track).
+  const upcoming = useMemo(() => {
+    if (readyItems.length === 0) return [];
+    const startIndex = current
+      ? readyItems.findIndex((item) => item.id === current.id) + 1
+      : 0;
+    const span = current ? readyItems.length - 1 : readyItems.length;
+    const out: QueueItem[] = [];
+    for (let k = 0; k < span && out.length < 4; k++) {
+      out.push(readyItems[(startIndex + k) % readyItems.length]);
+    }
+    return out;
+  }, [readyItems, current]);
 
   // `onTimeUpdate` fires only ~4×/sec; drive posMs off rAF while playing so
   // per-word karaoke fill stays smooth. Idle/paused falls back to timeupdate.
@@ -360,8 +441,8 @@ export function StageScreen() {
         </span>
       </div>
 
-      {/* QR corner — scan to reach the public request page */}
-      {requestUrl && (
+      {/* QR corner — scan to reach the public request page (only while requests are open) */}
+      {requestUrl && snapshot?.requestsOpen && (
         <div className="absolute bottom-6 right-6 z-20 flex flex-col items-center gap-2 rounded-2xl bg-white/95 p-3 shadow-2xl sm:bottom-9 sm:right-9">
           <QRCodeSVG value={requestUrl} size={108} bgColor="#ffffff" fgColor="#1E1916" level="M" />
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#1E1916]">
@@ -376,6 +457,26 @@ export function StageScreen() {
           <ReactiveOrb analyserRef={analyserRef} className={styles.orbGl} />
         </div>
 
+        {/* Subtle song progress beneath the orb */}
+        {!idle && totalMs > 0 && (
+          <div className={styles.progress}>
+            <AudioProgressSlider
+              aria-label="Song progress"
+              value={posMs / 1000}
+              duration={totalMs / 1000}
+              onSeek={seekToSeconds}
+              className={styles.progressSlider}
+              trackClassName={styles.progressTrack}
+              rangeClassName={styles.progressFill}
+              thumbClassName={styles.progressThumb}
+            />
+            <div className={styles.progressMeta}>
+              <span>{formatClock(posMs)}</span>
+              <span>{formatClock(totalMs)}</span>
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-col items-center gap-3">
           {idle ? (
             <>
@@ -383,7 +484,7 @@ export function StageScreen() {
               <h1 className={`${styles.title} ${styles.titleIdle}`}>
                 Waiting for the next track&hellip;
               </h1>
-              {requestUrl && (
+              {requestUrl && snapshot?.requestsOpen && (
                 <p className="mt-2 flex flex-col items-center gap-2">
                   <span className={styles.eyebrow}>Request a track</span>
                   <span className={styles.requestUrl}>{requestUrl}</span>
@@ -446,7 +547,15 @@ export function StageScreen() {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onEnded={advance}
-        onLoadedMetadata={() => setPosMs(0)}
+        onLoadedMetadata={(event) => {
+          setPosMs(0);
+          const d = event.currentTarget.duration;
+          setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
+        }}
+        onDurationChange={(event) => {
+          const d = event.currentTarget.duration;
+          setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
+        }}
         onTimeUpdate={(event) =>
           setPosMs(event.currentTarget.currentTime * 1000)
         }
@@ -454,7 +563,7 @@ export function StageScreen() {
         <track kind="captions" />
       </audio>
 
-      {/* Auto-hiding controls */}
+      {/* Auto-hiding control chip — appears on mouse/touch/key, fades when idle */}
       <div
         className={`${styles.controls} ${
           controlsVisible ? "" : styles.hidden
@@ -487,6 +596,34 @@ export function StageScreen() {
           {isFullscreen ? <Minimize size={20} /> : <Maximize size={20} />}
         </button>
       </div>
+
+      {/* Up Next — stylized upcoming queue (bottom-left) */}
+      {upcoming.length > 0 && (
+        <div className={`${styles.queue} absolute bottom-6 left-6 z-20 sm:bottom-9 sm:left-9`}>
+          <div className={styles.queueHeader}>
+            <span className={styles.queuePulse} aria-hidden />
+            Up Next
+            <span className={styles.queueCount}>{upcoming.length}</span>
+          </div>
+          <ul className={styles.queueList}>
+            {upcoming.map((item, i) => (
+              <li key={item.id} className={styles.queueItem}>
+                <span className={styles.queueIndex}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className={styles.queueText}>
+                  <span className={styles.queueTitle}>
+                    {item.title || item.prompt}
+                  </span>
+                  <span className={styles.queueBy}>
+                    {item.requesterName || "Anonymous"}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
