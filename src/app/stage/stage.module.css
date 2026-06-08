@@ -235,6 +235,51 @@
   background: rgba(255, 255, 255, 0.86);
 }
 
+/* ── Volume — slider pops in beside the mute button on hover/focus ──── */
+
+.volume {
+  display: inline-flex;
+  align-items: center;
+}
+
+.volumePanel {
+  display: flex;
+  align-items: center;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    width 0.28s ease,
+    opacity 0.28s ease,
+    margin 0.28s ease;
+}
+
+.volume:hover .volumePanel,
+.volume:focus-within .volumePanel {
+  width: 92px;
+  opacity: 1;
+  margin-left: 0.15rem;
+  margin-right: 0.4rem;
+}
+
+.volumeSlider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 84px;
+  height: 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  outline: none;
+  touch-action: none;
+}
+
+.volumeSlider:hover .progressThumb,
+.volumeSlider .progressThumb:focus-visible {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
 /* ── Song progress (subtle, beneath the orb) ───────────────────────── */
 
 .progress {

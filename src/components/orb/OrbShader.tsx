@@ -140,8 +140,9 @@ function OrbShaderInner({
     }
   }, [inputAnalyser]);
 
-  // Store initial texture URL to avoid re-loading on first render
+  // Store initial texture URL + saturation to avoid re-instantiating on change
   const initialTextureUrlRef = useRef(texture);
+  const initialSaturationRef = useRef(saturation);
 
   // Initialize WebGL on mount
   useEffect(() => {
@@ -154,7 +155,7 @@ function OrbShaderInner({
         rafId: ORB_RENDER_ID_BASE + id,
         animated,
         cornerRadius: cornerRadius * (parseFloat(window.getComputedStyle(document.documentElement).fontSize) / 16),
-        saturation,
+        saturation: initialSaturationRef.current,
         fadeInDuration,
         preserveDrawingBuffer,
       });
@@ -192,7 +193,6 @@ function OrbShaderInner({
     id,
     releaseContextAfterRender,
     cornerRadius,
-    saturation,
     fadeInDuration,
     preserveDrawingBuffer,
     handleWebglError,
@@ -209,6 +209,15 @@ function OrbShaderInner({
       orbPlayerRef.current.loadTexture(texture).catch(handleWebglError);
     }
   }, [texture, handleWebglError]);
+
+  // Apply saturation changes live so colorway switches recolor the orb without
+  // tearing down the player — the audio-reactive loop keeps running.
+  useEffect(() => {
+    if (saturation === initialSaturationRef.current) return;
+
+    initialSaturationRef.current = saturation;
+    orbPlayerRef.current?.setSaturation(saturation);
+  }, [saturation]);
 
   // Audio analysis loop (separate from WebGL render loop, using RAF singleton)
   useEffect(() => {

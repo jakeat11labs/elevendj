@@ -824,6 +824,16 @@ class OrbPlayerLight {
     this.config[key] = value;
   }
 
+  /**
+   * Update the gradient saturation live. The render loop reads
+   * `this.options.saturation` every frame, so this takes effect next frame
+   * without rebuilding the player — letting colorway switches recolor the orb
+   * while the audio-reactive loop keeps running uninterrupted.
+   */
+  setSaturation(value: number): void {
+    this.options.saturation = value;
+  }
+
   resize(): void {
     if (!this.renderer || !this.program) return;
 
