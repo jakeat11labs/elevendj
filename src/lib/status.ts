@@ -75,6 +75,8 @@ export type QueueSnapshot = {
   forceInstrumental: boolean;
   // Selected orb gradient colorway name (see src/components/orb/colorways.ts).
   orbColorway: string;
+  // Host-controlled room master volume (0..1). The stage screen obeys this.
+  masterVolume: number;
   items: QueueItem[];
   counts: Record<RequestStatus, number>;
 };

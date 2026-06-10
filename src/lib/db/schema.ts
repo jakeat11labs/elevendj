@@ -8,6 +8,7 @@ import {
   integer,
   jsonb,
   pgTable,
+  real,
   text,
   timestamp,
   uniqueIndex,
@@ -78,6 +79,10 @@ export const sessions = pgTable(
     // Stored as the colorway name; validated against the registry allowlist at
     // the settings API before it's written.
     orbColorway: text("orb_colorway").notNull().default("creative-1"),
+    // Host-controlled master playback volume (0..1) for the room. Edited only
+    // by the authenticated host (settings API); the public stage screen reads
+    // it from the queue snapshot and obeys it live — listeners can't change it.
+    masterVolume: real("master_volume").notNull().default(1),
     maxPendingRequests: integer("max_pending_requests").notNull().default(25),
     maxReadyQueue: integer("max_ready_queue").notNull().default(50),
     // Per-session playback state.
@@ -108,6 +113,10 @@ export const sessions = pgTable(
     check(
       "sessions_duration_check",
       sql`${table.defaultDurationMs} between 3000 and 300000`
+    ),
+    check(
+      "sessions_master_volume_check",
+      sql`${table.masterVolume} between 0 and 1`
     ),
   ]
 );

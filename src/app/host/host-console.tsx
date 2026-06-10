@@ -31,9 +31,13 @@ import {
   SkipForward,
   Sparkles,
   Trash2,
+  Volume1,
+  Volume2,
+  VolumeX,
   Wand2,
   X,
 } from "lucide-react";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 import { QRCodeSVG } from "qrcode.react";
 
 import { ApiKeySetupModal } from "@/components/api-key-setup-modal";
@@ -636,6 +640,35 @@ export function HostConsole({ user }: { user: HostUser }) {
     }
   }, [authHeader, refresh, overview]);
 
+  // ── Master volume ────────────────────────────────────────────
+  // While dragging we hold a local value so the slider stays responsive; the
+  // committed value is POSTed on release and the snapshot becomes the source of
+  // truth again (pending cleared). The stage screen obeys it on its next poll.
+  const [pendingVolume, setPendingVolume] = useState<number | null>(null);
+  const commitMasterVolume = useCallback(
+    async (value: number) => {
+      const clamped = Math.min(1, Math.max(0, value));
+      try {
+        const response = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeader },
+          body: JSON.stringify({ masterVolume: clamped }),
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          setError(body?.message || "Could not update the volume.");
+          return;
+        }
+        await refresh();
+      } catch {
+        setError("Network error updating the volume.");
+      } finally {
+        setPendingVolume(null);
+      }
+    },
+    [authHeader, refresh]
+  );
+
   // ── ElevenLabs API key management ────────────────────────────
   const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false);
   const [removingKey, setRemovingKey] = useState(false);
@@ -954,6 +987,10 @@ export function HostConsole({ user }: { user: HostUser }) {
 
   const orbColorway = overview?.queue.orbColorway ?? "creative-1";
   const currentColorway = resolveColorway(orbColorway);
+
+  // Live master volume — the pending drag value wins while the slider is held.
+  const masterVolume = pendingVolume ?? overview?.queue.masterVolume ?? 1;
+  const masterVolumePct = Math.round(masterVolume * 100);
 
   // ── ElevenLabs API key ───────────────────────────────────────
   // Non-admin hosts must connect their own key before they can use the console.
@@ -1386,6 +1423,56 @@ export function HostConsole({ user }: { user: HostUser }) {
                   }`}
                 />
               </button>
+            </div>
+
+            {/* Master volume — host-controlled room level; the stage obeys it */}
+            <div
+              id="tour-master-volume"
+              className="card-soft mt-3 flex items-center gap-4 p-4"
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  commitMasterVolume(masterVolume === 0 ? 1 : 0)
+                }
+                className="text-[var(--dark-gray)] transition-colors hover:text-[var(--graphite)]"
+                aria-label={masterVolume === 0 ? "Unmute room" : "Mute room"}
+                title={masterVolume === 0 ? "Unmute room" : "Mute room"}
+              >
+                {masterVolume === 0 ? (
+                  <VolumeX size={20} />
+                ) : masterVolume < 0.5 ? (
+                  <Volume1 size={20} />
+                ) : (
+                  <Volume2 size={20} />
+                )}
+              </button>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">Master volume</p>
+                  <span className="text-sm tabular-nums text-[var(--dark-gray)]">
+                    {masterVolumePct}%
+                  </span>
+                </div>
+                <SliderPrimitive.Root
+                  className="relative mt-2 flex h-5 w-full touch-none select-none items-center"
+                  value={[masterVolume]}
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  onValueChange={(vals) => setPendingVolume(vals[0] ?? 0)}
+                  onValueCommit={(vals) => commitMasterVolume(vals[0] ?? 0)}
+                  aria-label="Master volume"
+                >
+                  <SliderPrimitive.Track className="relative h-1.5 grow rounded-full bg-[var(--light-gray)]">
+                    <SliderPrimitive.Range className="absolute h-full rounded-full bg-[var(--graphite)]" />
+                  </SliderPrimitive.Track>
+                  <SliderPrimitive.Thumb className="block size-4 rounded-full bg-white shadow ring-1 ring-[var(--light-gray)] transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--graphite)]" />
+                </SliderPrimitive.Root>
+                <p className="mt-1 text-xs text-[var(--dark-gray)]">
+                  Sets the playback level on the stage screen.
+                </p>
+              </div>
             </div>
 
             {/* Public request link + QR (unique to this session) */}

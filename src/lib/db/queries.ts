@@ -523,6 +523,21 @@ export async function setAutoDj(hostId: string, autoDj: boolean): Promise<void> 
   });
 }
 
+// Host-controlled room master volume (0..1). Caller (settings API) validates
+// the range before this runs; the DB check constraint is the backstop.
+export async function setMasterVolume(
+  hostId: string,
+  volume: number
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    await db
+      .update(sessions)
+      .set({ masterVolume: volume })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
 // Caller (settings API) validates `colorway` against the colorway registry
 // allowlist before this runs, so only a known name reaches the DB.
 export async function setOrbColorway(
@@ -748,6 +763,7 @@ async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
     defaultDurationMs: session.defaultDurationMs,
     forceInstrumental: session.forceInstrumental,
     orbColorway: session.orbColorway,
+    masterVolume: session.masterVolume,
     items,
     counts,
   };

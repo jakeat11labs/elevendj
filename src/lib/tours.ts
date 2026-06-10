@@ -71,6 +71,18 @@ export const tours: Tour[] = [
         pointerRadius: 12,
       },
       {
+        icon: "🔊",
+        title: "Master volume",
+        content:
+          "Set the room's playback level right here — the Stage screen obeys it live, so you can ride the volume from your phone without walking over to the display. Tap the speaker to mute the room.",
+        selector: "#tour-master-volume",
+        side: "right",
+        showControls: true,
+        showSkip: true,
+        pointerPadding: 6,
+        pointerRadius: 12,
+      },
+      {
         icon: "📱",
         title: "Let people request",
         content:

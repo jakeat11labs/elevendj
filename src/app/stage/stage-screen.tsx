@@ -35,17 +35,6 @@ import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
 import styles from "./stage.module.css";
 
 const TOKEN_KEY = "elevendj-admin-token";
-const VOLUME_KEY = "elevendj-stage-volume";
-
-// Read a persisted 0..1 volume, clamped and NaN-safe (defaults to full).
-function readStoredVolume() {
-  if (typeof window === "undefined") return 1;
-  const raw = window.localStorage.getItem(VOLUME_KEY);
-  if (raw == null) return 1;
-  const parsed = Number(raw);
-  if (!Number.isFinite(parsed)) return 1;
-  return Math.min(1, Math.max(0, parsed));
-}
 
 // Render a lyric line as karaoke: words fill from dim to bright as playback
 // passes each word's start. Punctuation-only tokens (no startMs) inherit the
@@ -87,42 +76,28 @@ export function StageScreen({ code }: { code: string | null }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [requestUrl, setRequestUrl] = useState("");
-  const [volume, setVolume] = useState(1);
+  // Local-only mute for this stage device — silences the speaker here without
+  // touching the host's authoritative master volume (which other clients see).
   const [muted, setMuted] = useState(false);
 
-  // Restore the host's last volume on mount (clamped, NaN-safe).
-  useEffect(() => {
-    setVolume(readStoredVolume());
-  }, []);
+  // Master volume is host-controlled (set from the console) and arrives in the
+  // queue snapshot. The stage obeys it — the slider below is a read-only mirror.
+  const masterVolume = snapshot?.masterVolume ?? 1;
 
-  // Mirror volume/mute onto the single audio element and persist the level.
+  // Drive the single audio element from the authoritative master + local mute.
   // The element keeps its volume across src changes, so this is the only place
-  // that needs to drive it.
+  // that needs to set it.
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = volume;
+      audio.volume = masterVolume;
       audio.muted = muted;
     }
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(VOLUME_KEY, String(volume));
-    }
-  }, [volume, muted]);
-
-  // Slider drag: clamp, and treat any move above zero as unmute.
-  const changeVolume = useCallback((next: number) => {
-    const clamped = Math.min(1, Math.max(0, next));
-    setVolume(clamped);
-    if (clamped > 0) setMuted(false);
-  }, []);
+  }, [masterVolume, muted]);
 
   const toggleMute = useCallback(() => {
-    setMuted((prev) => {
-      // Unmuting a track that was dragged to zero should give it audible volume.
-      if (prev && volume === 0) setVolume(1);
-      return !prev;
-    });
-  }, [volume]);
+    setMuted((prev) => !prev);
+  }, []);
 
   // ── Data polling ─────────────────────────────────────────────
   const refreshQueue = useCallback(async () => {
@@ -804,17 +779,18 @@ export function StageScreen({ code }: { code: string | null }) {
           <SkipForward size={20} />
         </button>
 
-        {/* Volume — button toggles mute; the slider pops in on hover/focus */}
+        {/* Volume — button is a local mute; the slider mirrors the host's
+            master volume (set from the console) and is read-only here. */}
         <div className={styles.volume}>
           <button
             type="button"
             onClick={toggleMute}
             className={styles.ctrlBtn}
-            aria-label={muted || volume === 0 ? "Unmute" : "Mute"}
+            aria-label={muted || masterVolume === 0 ? "Unmute" : "Mute"}
           >
-            {muted || volume === 0 ? (
+            {muted || masterVolume === 0 ? (
               <VolumeX size={20} />
-            ) : volume < 0.5 ? (
+            ) : masterVolume < 0.5 ? (
               <Volume1 size={20} />
             ) : (
               <Volume2 size={20} />
@@ -823,12 +799,12 @@ export function StageScreen({ code }: { code: string | null }) {
           <div className={styles.volumePanel}>
             <SliderPrimitive.Root
               className={styles.volumeSlider}
-              value={[muted ? 0 : volume]}
+              value={[muted ? 0 : masterVolume]}
               min={0}
               max={1}
               step={0.01}
-              onValueChange={(vals) => changeVolume(vals[0] ?? 0)}
-              aria-label="Volume"
+              disabled
+              aria-label="Master volume (set on the host console)"
             >
               <SliderPrimitive.Track className={styles.progressTrack}>
                 <SliderPrimitive.Range className={styles.progressFill} />

@@ -1,7 +1,12 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
-import { setAutoDj, setOrbColorway, setRequestsOpen } from "@/lib/db";
+import {
+  setAutoDj,
+  setMasterVolume,
+  setOrbColorway,
+  setRequestsOpen,
+} from "@/lib/db";
 import { COLORWAY_NAMES } from "@/components/orb/colorways";
 import { AppError, errorResponse } from "@/lib/errors";
 
@@ -15,12 +20,15 @@ const settingsSchema = z
     // Constrained to the colorway registry allowlist — only a known name can be
     // persisted, so the value is safe to map to a texture/CSS reference later.
     orbColorway: z.enum(COLORWAY_NAMES).optional(),
+    // Host-controlled room master volume, clamped to 0..1 (DB check is backstop).
+    masterVolume: z.number().min(0).max(1).optional(),
   })
   .refine(
     (value) =>
       value.requestsOpen !== undefined ||
       value.autoDj !== undefined ||
-      value.orbColorway !== undefined,
+      value.orbColorway !== undefined ||
+      value.masterVolume !== undefined,
     { message: "No settings provided." }
   );
 
@@ -43,6 +51,9 @@ export async function POST(request: Request) {
     if (parsed.data.orbColorway !== undefined) {
       await setOrbColorway(user.id, parsed.data.orbColorway);
     }
+    if (parsed.data.masterVolume !== undefined) {
+      await setMasterVolume(user.id, parsed.data.masterVolume);
+    }
 
     return Response.json(
       {
@@ -50,6 +61,7 @@ export async function POST(request: Request) {
         requestsOpen: parsed.data.requestsOpen,
         autoDj: parsed.data.autoDj,
         orbColorway: parsed.data.orbColorway,
+        masterVolume: parsed.data.masterVolume,
       },
       { headers: { "Cache-Control": "no-store" } }
     );
