@@ -1,0 +1,41 @@
+src/app/api/admin/settings/route.ts
+  s_2f936f95766f3b::t_cdc86d61953c5a 23-24,30-31
+  s_2f936f95766f3b::t_3e4672149f69b3 4-9
+  s_2f936f95766f3b::t_a53c4017d8fcf3 54-56,64
+src/lib/db/schema.ts
+  s_2f936f95766f3b::t_ca0c8f6717fa2c 11
+  s_2f936f95766f3b::t_c3193b0a87a5fd 82-85
+  s_2f936f95766f3b::t_738de6c6a53e29 117-119
+src/app/host/host-console.tsx
+  s_2f936f95766f3b::t_5aad1f7fbcef43 991-994
+  s_2f936f95766f3b::t_f33ceefc3510b9 34-36,40
+  s_2f936f95766f3b::t_4763129978863f 1428,1433-1477
+  s_2f936f95766f3b::t_f0e2047f5fd3db 643-671
+  s_2f936f95766f3b::t_f7ba0f51befa75 1429-1432
+src/lib/status.ts
+  s_2f936f95766f3b::t_1f0714b4aeffb9 78-79
+src/lib/db/queries.ts
+  s_2f936f95766f3b::t_f2d29a9be0de42 526-540
+  s_2f936f95766f3b::t_b53e08f213353f 766
+src/lib/tours.ts
+  s_2f936f95766f3b::t_5a07d7756bc86a 74-84
+src/app/stage/stage-screen.tsx
+  s_2f936f95766f3b::t_6c92fd0c3e88e4 79-80,83-85,87,89,93,96,99-100
+  s_2f936f95766f3b::t_09c98c109477fa 782-783,789,791,793,802,806-807
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "dc8bdddf09ec2fb411c80ebf24484110a2d5b667",
+  "prompts": {},
+  "sessions": {
+    "s_2f936f95766f3b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "92681b31-f720-4bbd-a54f-7452351369cf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
