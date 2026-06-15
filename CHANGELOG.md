@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - June 15, 2026
+
+### Added
+- Generate songs with ElevenLabs **Music v2** by default — the current flagship
+  model (richer vocals and arrangement, better multilingual reliability,
+  mid-song genre switching). Override per environment with `MUSIC_MODEL`
+  (`music_v1` pins the legacy model).
+- Optional C2PA content-provenance signing for generated MP3s via the
+  `MUSIC_SIGN_C2PA` env flag.
+- A tracked `.env.example` documenting the music generation env vars.
+
+### Changed
+- Word-synced karaoke now parses both Music v1 (`sections`) and Music v2
+  (`chunks`) composition plans, so lyrics render and highlight regardless of the
+  generating model.
+- Upgraded `@elevenlabs/elevenlabs-js` to `^2.53.0`.
+- Hardened generation error handling: surface ElevenLabs 422 validation
+  messages and map 401/403/429 to clear, specific failure reasons.
+- `MUSIC_OUTPUT_FORMAT` is validated against the supported mp3 formats; an
+  unknown value is ignored (with a warning) instead of failing generation.
+- Lyric alignment logs when it falls back from word-level timing (the
+  divergence guard) instead of doing so silently.
+
+### Removed
+- Dropped the unused `song_id` field from song requests — it was only ever
+  populated by an enterprise-only inpainting flag the app never set.
+
 ## [0.1.1] - June 05, 2026
 
 ### Added

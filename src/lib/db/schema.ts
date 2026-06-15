@@ -139,7 +139,6 @@ export const songRequests = pgTable(
     durationMs: integer("duration_ms").notNull().default(60000),
     audioUrl: text("audio_url"),
     blobPath: text("blob_path"),
-    songId: text("song_id"),
     promptSuggestion: text("prompt_suggestion"),
     errorCode: text("error_code"),
     errorMessage: text("error_message"),
