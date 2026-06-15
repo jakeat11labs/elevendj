@@ -1,0 +1,31 @@
+src/lib/db/schema.ts
+  s_fd998aaec67ab4::t_0470e3ba2d4058 142-145
+src/lib/generation.ts
+  s_fd998aaec67ab4::t_01aeba2077cbea 49,64
+  s_fd998aaec67ab4::t_ff3869b1e8f28e 200-205,216,223,235-238,249
+CHANGELOG.md
+  s_fd998aaec67ab4::t_b9695f65b500b8 17-19
+.env.example
+  s_fd998aaec67ab4::t_6cd8ee38ce0fac 25-28
+src/lib/db/queries.ts
+  s_fd998aaec67ab4::t_fa9df4db156299 62
+  s_fd998aaec67ab4::t_0f57093f3994eb 1064
+  s_fd998aaec67ab4::t_9637bcaa155f3a 141
+  s_fd998aaec67ab4::t_c37771add4996c 1428,1443,1456
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "2d0162dd4288c30bbea8443f6a76e485c1e5040d",
+  "prompts": {},
+  "sessions": {
+    "s_fd998aaec67ab4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0000500d-bb39-4852-ac9f-407d25da3012",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
