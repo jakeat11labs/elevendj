@@ -46,7 +46,7 @@ export async function processGenerationJob(job: GenerationJob) {
     const autoDuration = optionalEnv("MUSIC_AUTO_DURATION") !== "false";
     const instrumental = request.force_instrumental;
 
-    const { audio, lyrics, title, isExplicit, songMetadata } =
+    const { audio, songId, lyrics, title, isExplicit, songMetadata } =
       await composeMusic({
         apiKey: keyResult.apiKey,
         prompt: buildGenerationPrompt(request.prompt, instrumental),
@@ -61,7 +61,7 @@ export async function processGenerationJob(job: GenerationJob) {
       addRandomSuffix: false,
     });
 
-    await markRequestReady(request.id, blob.url, blob.pathname, lyrics, {
+    await markRequestReady(request.id, blob.url, blob.pathname, songId, lyrics, {
       title,
       isExplicit,
       songMetadata,
@@ -197,6 +197,12 @@ async function composeMusic({
   // Sign generated mp3s with C2PA content-provenance metadata when enabled —
   // a useful trust/labeling signal for public, listener-generated music.
   const signWithC2Pa = optionalEnv("MUSIC_SIGN_C2PA") === "true";
+  // Retain the generated song server-side so its songId can later be referenced
+  // for inpainting / remix. Default OFF: this is an enterprise-gated feature, and
+  // setting it on a host's non-enterprise key would fail the whole generation.
+  // The songId header is captured regardless; this only controls retention.
+  const storeForInpainting =
+    optionalEnv("MUSIC_STORE_FOR_INPAINTING") === "true";
   const result = await getClient(apiKey).music.composeDetailed({
     prompt,
     modelId: resolveModel(),
@@ -207,12 +213,14 @@ async function composeMusic({
     ...(durationMs != null ? { musicLengthMs: durationMs } : {}),
     ...(outputFormat ? { outputFormat } : {}),
     ...(signWithC2Pa ? { signWithC2Pa: true } : {}),
+    ...(storeForInpainting ? { storeForInpainting: true } : {}),
   });
 
   const res = result as unknown as {
     audio: unknown;
     json?: unknown;
     filename?: string;
+    songId?: string;
   };
 
   const audio = await toBuffer(res.audio);
@@ -224,6 +232,10 @@ async function composeMusic({
   // not a live code path today.
   const words = parseWordTimestamps(meta);
   const lyrics = instrumental ? null : normalizeLyrics(meta, words);
+  // The `song-id` response header is returned for normal generations too (kept
+  // for a future remix/inpainting feature); it's only usable for inpainting
+  // when the song was retained via storeForInpainting above.
+  const songId = typeof res.songId === "string" ? res.songId : null;
   const { title, isExplicit, songMetadata } = normalizeMetadata(meta);
 
   if (!instrumental && !lyrics) {
@@ -234,7 +246,7 @@ async function composeMusic({
     );
   }
 
-  return { audio, lyrics, title, isExplicit, songMetadata };
+  return { audio, songId, lyrics, title, isExplicit, songMetadata };
 }
 
 export type WordTimestamp = { word: string; startMs: number; endMs: number };

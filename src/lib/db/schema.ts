@@ -139,6 +139,10 @@ export const songRequests = pgTable(
     durationMs: integer("duration_ms").notNull().default(60000),
     audioUrl: text("audio_url"),
     blobPath: text("blob_path"),
+    // ElevenLabs song id (from the `song-id` response header). Retained for a
+    // future remix/inpainting feature; only usable for inpainting when the song
+    // was stored via storeForInpainting (see MUSIC_STORE_FOR_INPAINTING).
+    songId: text("song_id"),
     promptSuggestion: text("prompt_suggestion"),
     errorCode: text("error_code"),
     errorMessage: text("error_message"),

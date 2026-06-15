@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`music_v1` pins the legacy model).
 - Optional C2PA content-provenance signing for generated MP3s via the
   `MUSIC_SIGN_C2PA` env flag.
+- `MUSIC_STORE_FOR_INPAINTING` env to opt into server-side retention of
+  generated songs (default off) so their `song_id` can be reused for a future
+  remix/inpainting feature.
 - A tracked `.env.example` documenting the music generation env vars.
 
 ### Changed
@@ -27,10 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   unknown value is ignored (with a warning) instead of failing generation.
 - Lyric alignment logs when it falls back from word-level timing (the
   divergence guard) instead of doing so silently.
-
-### Removed
-- Dropped the unused `song_id` field from song requests — it was only ever
-  populated by an enterprise-only inpainting flag the app never set.
 
 ## [0.1.1] - June 05, 2026
 
