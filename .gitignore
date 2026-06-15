@@ -13,6 +13,8 @@ yarn-error.log*
 pnpm-debug.log*
 .vercel
 .env*
+# ...but keep the committed env template (documents required vars).
+!.env.example
 
 # Local npm registry workaround (machine-specific); not for the repo
 .npmrc

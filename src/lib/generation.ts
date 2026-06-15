@@ -46,7 +46,7 @@ export async function processGenerationJob(job: GenerationJob) {
     const autoDuration = optionalEnv("MUSIC_AUTO_DURATION") !== "false";
     const instrumental = request.force_instrumental;
 
-    const { audio, songId, lyrics, title, isExplicit, songMetadata } =
+    const { audio, lyrics, title, isExplicit, songMetadata } =
       await composeMusic({
         apiKey: keyResult.apiKey,
         prompt: buildGenerationPrompt(request.prompt, instrumental),
@@ -61,7 +61,7 @@ export async function processGenerationJob(job: GenerationJob) {
       addRandomSuffix: false,
     });
 
-    await markRequestReady(request.id, blob.url, blob.pathname, songId, lyrics, {
+    await markRequestReady(request.id, blob.url, blob.pathname, lyrics, {
       title,
       isExplicit,
       songMetadata,
@@ -131,6 +131,55 @@ async function resolveHostApiKey(sessionId: string): Promise<KeyResolution> {
   };
 }
 
+type ComposeDetailedBody = NonNullable<
+  Parameters<ElevenLabsClient["music"]["composeDetailed"]>[0]
+>;
+type MusicModel = ComposeDetailedBody["modelId"];
+type OutputFormat = ComposeDetailedBody["outputFormat"];
+
+/**
+ * Generation model. Defaults to music_v2 (the current flagship — richer vocals,
+ * arrangement, multilingual reliability, mid-song genre switching). Set
+ * MUSIC_MODEL=music_v1 to pin the legacy model. Pinning explicitly also keeps
+ * us deterministic against the server-side flip of the omitted-model default.
+ * NOTE: v2 returns a chunk-based composition plan — normalizeLyrics handles both
+ * the v1 `sections` and v2 `chunks` shapes, so karaoke works either way.
+ */
+function resolveModel(): MusicModel {
+  return (optionalEnv("MUSIC_MODEL") === "music_v1"
+    ? "music_v1"
+    : "music_v2") as MusicModel;
+}
+
+// Output format (codec_samplerate_bitrate) trades blob size against quality.
+// Only mp3 formats are valid here: the blob is written as .mp3 / audio/mpeg and
+// C2PA signing is mp3-only. An unknown/typo'd value is ignored (falls back to
+// the API default mp3_44100_128) instead of being sent blind and failing the
+// whole generation. mp3_44100_64 ~halves blob size; mp3_44100_192 needs the
+// host's key to be Creator tier or above.
+const ALLOWED_MP3_FORMATS = new Set<string>([
+  "mp3_22050_32",
+  "mp3_24000_48",
+  "mp3_44100_32",
+  "mp3_44100_64",
+  "mp3_44100_96",
+  "mp3_44100_128",
+  "mp3_44100_192",
+]);
+function resolveOutputFormat(): OutputFormat | undefined {
+  const fmt = optionalEnv("MUSIC_OUTPUT_FORMAT");
+  if (!fmt) return undefined;
+  if (!ALLOWED_MP3_FORMATS.has(fmt)) {
+    console.warn(
+      `ElevenDJ: ignoring unsupported MUSIC_OUTPUT_FORMAT="${fmt}" (expected one of ${[
+        ...ALLOWED_MP3_FORMATS,
+      ].join(", ")})`
+    );
+    return undefined;
+  }
+  return fmt as OutputFormat;
+}
+
 async function composeMusic({
   apiKey,
   prompt,
@@ -144,41 +193,37 @@ async function composeMusic({
 }) {
   // Detailed compose returns the audio plus the composition plan + metadata,
   // which carries the lyrics (and per-section timing) when the song has vocals.
-  // Output format (codec_samplerate_bitrate) is configurable to trade blob
-  // size against quality; default (unset) is the API default mp3_44100_128.
-  // mp3_44100_64 roughly halves file size; mp3_44100_192 needs Creator tier.
-  const outputFormat = optionalEnv("MUSIC_OUTPUT_FORMAT");
+  const outputFormat = resolveOutputFormat();
+  // Sign generated mp3s with C2PA content-provenance metadata when enabled —
+  // a useful trust/labeling signal for public, listener-generated music.
+  const signWithC2Pa = optionalEnv("MUSIC_SIGN_C2PA") === "true";
   const result = await getClient(apiKey).music.composeDetailed({
     prompt,
+    modelId: resolveModel(),
     forceInstrumental: instrumental,
     // Word-level timestamps let the stage sync lyric blocks precisely instead
     // of approximating from per-section durations. Only meaningful with vocals.
     withTimestamps: !instrumental,
     ...(durationMs != null ? { musicLengthMs: durationMs } : {}),
-    ...(outputFormat
-      ? {
-          outputFormat: outputFormat as NonNullable<
-            Parameters<ElevenLabsClient["music"]["composeDetailed"]>[0]
-          >["outputFormat"],
-        }
-      : {}),
+    ...(outputFormat ? { outputFormat } : {}),
+    ...(signWithC2Pa ? { signWithC2Pa: true } : {}),
   });
 
   const res = result as unknown as {
     audio: unknown;
     json?: unknown;
     filename?: string;
-    songId?: string;
   };
 
   const audio = await toBuffer(res.audio);
   const meta = parseJson(res.json);
-  // The SDK camelCases the multipart JSON, so word timestamps arrive as
-  // `wordsTimestamps: { word, startMs, endMs }[]` even though the wrapper's
-  // TypeScript type omits them.
+  // The wrapper camelCases every key of the multipart JSON at runtime, so word
+  // timestamps arrive as `wordsTimestamps: { word, startMs, endMs }[]` even
+  // though the wrapper's static type omits them. The snake_case reads in the
+  // parsers below are a defensive guard against that normalization changing,
+  // not a live code path today.
   const words = parseWordTimestamps(meta);
   const lyrics = instrumental ? null : normalizeLyrics(meta, words);
-  const songId = typeof res.songId === "string" ? res.songId : null;
   const { title, isExplicit, songMetadata } = normalizeMetadata(meta);
 
   if (!instrumental && !lyrics) {
@@ -189,7 +234,7 @@ async function composeMusic({
     );
   }
 
-  return { audio, songId, lyrics, title, isExplicit, songMetadata };
+  return { audio, lyrics, title, isExplicit, songMetadata };
 }
 
 export type WordTimestamp = { word: string; startMs: number; endMs: number };
@@ -316,9 +361,15 @@ function parseJson(json: unknown): Record<string, unknown> | null {
 }
 
 /**
- * Normalize the SDK composition plan into our timed-block Lyrics shape.
- * Shape: res.json.compositionPlan.sections[] = { sectionName, durationMs,
- * lines: string[] } — `lines` are plain lyric strings.
+ * Normalize the SDK composition plan into our timed-block Lyrics shape, handling
+ * BOTH model plan shapes:
+ *  - music_v1: res.json.compositionPlan.sections[] = { sectionName, durationMs,
+ *    lines: string[] }
+ *  - music_v2: res.json.compositionPlan.chunks[] = { text, durationMs, ... },
+ *    where `text` packs [Section] tags, lyric lines, and {inline directions}.
+ * Both reduce to LyricSection[]; word timestamps (model-independent) are then
+ * aligned for karaoke. The output shape is identical, so the stage and
+ * track-detail UI need no changes regardless of which model generated the song.
  */
 function normalizeLyrics(
   meta: Record<string, unknown> | null,
@@ -328,9 +379,32 @@ function normalizeLyrics(
   const plan = (meta.compositionPlan ?? meta.composition_plan) as
     | Record<string, unknown>
     | undefined;
-  const rawSections = plan?.sections;
-  if (!Array.isArray(rawSections)) return null;
+  if (!plan) return null;
 
+  let sections: LyricSection[];
+  if (Array.isArray(plan.sections)) {
+    sections = parseV1Sections(plan.sections);
+  } else if (Array.isArray(plan.chunks)) {
+    sections = parseV2Chunks(plan.chunks);
+  } else {
+    return null;
+  }
+
+  // Vocal if any line is real lyric text (not an "(instrumental)" marker).
+  const hasVocal = sections.some((s) =>
+    s.lines.some((l) => !isInstrumentalMarker(l.text))
+  );
+  if (!hasVocal) return null;
+
+  // Annotate absolute startMs/endMs from word timestamps when available; this
+  // is best-effort and leaves sections untouched (durationMs fallback) on drift.
+  alignSectionsToWords(sections, words);
+
+  return { sections };
+}
+
+/** music_v1 plan: explicit sections with sectionName / durationMs / lines[]. */
+function parseV1Sections(rawSections: unknown[]): LyricSection[] {
   const sections: LyricSection[] = [];
   for (const entry of rawSections) {
     if (!entry || typeof entry !== "object") continue;
@@ -353,18 +427,52 @@ function normalizeLyrics(
       lines,
     });
   }
+  return sections;
+}
 
-  // Vocal if any line is real lyric text (not an "(instrumental)" marker).
-  const hasVocal = sections.some((s) =>
-    s.lines.some((l) => !isInstrumentalMarker(l.text))
-  );
-  if (!hasVocal) return null;
+/**
+ * music_v2 plan: a chunk list where each generation chunk's `text` carries
+ * [Section] tags, lyric lines, and {inline directions}. Audio-reference chunks
+ * (inpainting) have no `text` and are skipped. A single chunk may pack multiple
+ * [Section] tags, so we emit one LyricSection per tag block and spread the
+ * chunk's duration across them (the durationMs fallback only matters when word
+ * timestamps are absent; with vocals + withTimestamps they drive timing).
+ */
+function parseV2Chunks(chunks: unknown[]): LyricSection[] {
+  const out: LyricSection[] = [];
+  for (const entry of chunks) {
+    if (!entry || typeof entry !== "object") continue;
+    const ch = entry as Record<string, unknown>;
+    const text = typeof ch.text === "string" ? ch.text : "";
+    if (!text) continue; // audio-reference chunk or empty — nothing to render
+    const durationMs = Number(ch.durationMs ?? ch.duration_ms ?? 0) || 0;
 
-  // Annotate absolute startMs/endMs from word timestamps when available; this
-  // is best-effort and leaves sections untouched (durationMs fallback) on drift.
-  alignSectionsToWords(sections, words);
+    const chunkSections: LyricSection[] = [];
+    let current: LyricSection | null = null;
+    for (const rawLine of text.split(/\r?\n/)) {
+      const tag = rawLine.match(/^\s*\[([^\]]+)\]\s*$/);
+      if (tag) {
+        current = { name: tag[1].trim(), durationMs: 0, lines: [] };
+        chunkSections.push(current);
+        continue;
+      }
+      // Drop {inline directions} (e.g. {scratching}); keep the rest as a line.
+      const clean = rawLine.replace(/\{[^}]*\}/g, "").trim();
+      if (!clean) continue;
+      if (!current) {
+        current = { durationMs: 0, lines: [] };
+        chunkSections.push(current);
+      }
+      current.lines.push({ text: clean });
+    }
 
-  return { sections };
+    const withLines = chunkSections.filter((s) => s.lines.length > 0);
+    if (withLines.length === 0) continue;
+    const per = Math.round(durationMs / withLines.length);
+    for (const s of withLines) s.durationMs = per;
+    out.push(...withLines);
+  }
+  return out;
 }
 
 function isInstrumentalMarker(text: string): boolean {
@@ -389,6 +497,15 @@ function splitDisplayTokens(text: string): DisplayToken[] {
 }
 
 /**
+ * Max relative difference between the lyric token count and the word-timestamp
+ * count before we abandon karaoke alignment and fall back to the durationMs
+ * path. Tuned against observed responses; tune here if the fallback fires too
+ * often. (Note: this is count-based — it can't catch same-count-but-reordered
+ * lyric/word streams, which v2's denser lyrics make more likely.)
+ */
+const LYRIC_ALIGNMENT_MAX_DIVERGENCE = 0.25;
+
+/**
  * Sequentially assign word timestamps to lyric tokens, building per-word timing
  * (`line.words`) for karaoke fill plus each line's startMs/endMs and each
  * section's startMs. Sequential-by-count is tolerant of spelling differences; a
@@ -410,12 +527,21 @@ function alignSectionsToWords(
     .reduce((sum, toks) => sum + toks.filter((t) => t.timeable).length, 0);
   if (totalTimeable === 0) return;
 
-  // Bail out if the two word streams differ by more than 25% — alignment would
-  // drift and produce misleading timings.
+  // Bail out if the two word streams differ by more than the threshold —
+  // alignment would drift and produce misleading timings, so we keep the
+  // per-section durationMs fallback instead. Log when this fires so the
+  // fallback rate is observable rather than silent.
   const divergence =
     Math.abs(totalTimeable - words.length) /
     Math.max(totalTimeable, words.length);
-  if (divergence > 0.25) return;
+  if (divergence > LYRIC_ALIGNMENT_MAX_DIVERGENCE) {
+    console.warn("ElevenDJ: lyric alignment skipped (divergence guard)", {
+      lyricTokens: totalTimeable,
+      words: words.length,
+      divergence: Number(divergence.toFixed(3)),
+    });
+    return;
+  }
 
   let ptr = 0;
   sections.forEach((section, si) => {
@@ -455,29 +581,72 @@ function parseProviderError(error: unknown): ProviderError {
     message: "The song could not be generated. Try another request.",
   };
 
+  const statusCode = (error as { statusCode?: number })?.statusCode;
   const body = (error as { body?: unknown })?.body;
-  const detail = (
-    body as {
-      detail?: {
+  const detail = (body as { detail?: unknown })?.detail;
+
+  // FastAPI validation errors (HTTP 422) put an ARRAY of { loc, msg, type } on
+  // `detail`. Surface the joined messages instead of the generic fallback.
+  if (Array.isArray(detail)) {
+    const message = detail
+      .map((d) => (d as { msg?: unknown })?.msg)
+      .filter((m): m is string => typeof m === "string" && m.length > 0)
+      .join("; ");
+    return { code: "validation_error", message: message || fallback.message };
+  }
+
+  const d = detail as
+    | {
         status?: string;
         message?: string;
-        data?: { prompt_suggestion?: string };
-      };
-    }
-  )?.detail;
+        data?: {
+          prompt_suggestion?: string;
+          composition_plan_suggestion?: string;
+        };
+      }
+    | undefined;
 
-  if (detail?.status === "bad_prompt") {
+  // bad_prompt is surfaced to the requester with the model's suggested rewrite.
+  if (d?.status === "bad_prompt") {
     return {
       code: "bad_prompt",
       message:
-        detail.message ||
+        d.message ||
         "This request was rejected because it referenced protected material.",
-      suggestion: detail.data?.prompt_suggestion,
+      suggestion: d.data?.prompt_suggestion,
     };
   }
 
-  if (detail?.status) {
-    return { code: detail.status, message: fallback.message };
+  // Any other structured status (incl. bad_composition_plan once plans are used)
+  // — carry the message and a suggestion if one is present.
+  if (d?.status) {
+    return {
+      code: d.status,
+      message: d.message || fallback.message,
+      suggestion: d.data?.composition_plan_suggestion,
+    };
+  }
+
+  // No structured detail — map the raw HTTP status to a meaningful code so the
+  // failure isn't flattened into the generic fallback.
+  if (statusCode === 401) {
+    return {
+      code: "auth_failed",
+      message: "The ElevenLabs API key was rejected. Reconnect a valid key.",
+    };
+  }
+  if (statusCode === 403) {
+    return {
+      code: "forbidden",
+      message:
+        "The ElevenLabs key isn't permitted to generate music (plan or access).",
+    };
+  }
+  if (statusCode === 429) {
+    return {
+      code: "rate_limited",
+      message: "ElevenLabs is rate-limiting this key. Try again shortly.",
+    };
   }
 
   return fallback;

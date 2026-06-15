@@ -59,7 +59,6 @@ export type SongRequestRecord = {
   duration_ms: number;
   audio_url: string | null;
   blob_path: string | null;
-  song_id: string | null;
   prompt_suggestion: string | null;
   error_code: string | null;
   error_message: string | null;
@@ -138,7 +137,6 @@ function toRecord(row: SongRequestRow): SongRequestRecord {
     duration_ms: row.durationMs,
     audio_url: row.audioUrl,
     blob_path: row.blobPath,
-    song_id: row.songId,
     prompt_suggestion: row.promptSuggestion,
     error_code: row.errorCode,
     error_message: row.errorMessage,
@@ -1061,7 +1059,6 @@ export async function requeueRequest(hostId: string, id: string) {
         status: "queued",
         audioUrl: null,
         blobPath: null,
-        songId: null,
         title: null,
         isExplicit: false,
         errorCode: null,
@@ -1425,7 +1422,6 @@ export async function markRequestReady(
   id: string,
   audioUrl: string,
   blobPath: string,
-  songId: string | null,
   lyrics: Lyrics | null = null,
   meta: {
     title?: string | null;
@@ -1440,7 +1436,6 @@ export async function markRequestReady(
         status: "ready",
         audioUrl,
         blobPath,
-        songId,
         lyrics,
         title: meta.title ?? null,
         isExplicit: meta.isExplicit ?? false,
@@ -1453,7 +1448,6 @@ export async function markRequestReady(
 
     await recordEvent(id, "generation_completed", {
       audioUrl,
-      songId,
       title: meta.title ?? null,
     });
   });
