@@ -3,7 +3,6 @@
 import {
   useCallback,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -29,9 +28,11 @@ import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
 import { resolveColorway } from "@/components/orb/colorways";
 import { useColorwayPalette } from "@/components/orb/use-colorway-palette";
 import { AudioProgressSlider } from "@/components/ui/audio-progress-slider";
-import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
+import { useLyricsLines } from "@/lib/use-lyrics";
+import type { QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
 
+import { KaraokeViewport } from "./karaoke-viewport";
 import styles from "./stage.module.css";
 
 const TOKEN_KEY = "elevendj-admin-token";
@@ -40,26 +41,6 @@ const TOKEN_KEY = "elevendj-admin-token";
 // fraction of a short clip (so 10s jingles still blend without overlapping their
 // whole length).
 const CROSSFADE_SEC = 3;
-
-// Render a lyric line as karaoke: words fill from dim to bright as playback
-// passes each word's start. Punctuation-only tokens (no startMs) inherit the
-// state of the word before them so commas don't flicker ahead of their word.
-function renderKaraokeLine(words: LyricWord[], posMs: number) {
-  let lastSung = false;
-  return words.map((word, wi) => {
-    if (typeof word.startMs === "number") lastSung = posMs >= word.startMs;
-    return (
-      <span
-        key={wi}
-        className={lastSung ? "text-white" : "text-white/30"}
-        style={{ transition: "color 150ms linear" }}
-      >
-        {word.text}
-        {wi < words.length - 1 ? " " : ""}
-      </span>
-    );
-  });
-}
 
 // mm:ss for the progress readout.
 function formatClock(ms: number) {
@@ -786,91 +767,12 @@ export function StageScreen({ code }: { code: string | null }) {
     return () => cancelAnimationFrame(raf);
   }, [isPlaying, activeEl]);
 
-  // Flatten every lyric line into one timed list with an absolute startMs, so
-  // the stage can run a continuous karaoke scroll instead of swapping whole
-  // blocks. Prefers real per-line/word timestamps; falls back to spreading each
-  // section's duration evenly across its lines.
-  const lyricLines = useMemo(() => {
-    const sections = nowPlaying?.lyrics?.sections;
-    if (!sections || sections.length === 0) return null;
-
-    const out: {
-      key: string;
-      words?: LyricWord[];
-      text: string;
-      startMs: number;
-    }[] = [];
-
-    let cumulative = 0;
-    sections.forEach((section, si) => {
-      const sectionStart =
-        typeof section.startMs === "number" ? section.startMs : cumulative;
-      const lineCount = section.lines.length || 1;
-      const per = (section.durationMs || 0) / lineCount;
-
-      section.lines.forEach((line, li) => {
-        let startMs: number;
-        if (typeof line.startMs === "number") {
-          startMs = line.startMs;
-        } else {
-          const firstWord = line.words?.find(
-            (w) => typeof w.startMs === "number"
-          );
-          startMs =
-            typeof firstWord?.startMs === "number"
-              ? firstWord.startMs
-              : sectionStart + per * li;
-        }
-        out.push({ key: `${si}-${li}`, words: line.words, text: line.text, startMs });
-      });
-
-      cumulative = sectionStart + (section.durationMs || 0);
-    });
-
-    // Keep timestamps monotonic so the active-line scan can't jump backwards.
-    for (let i = 1; i < out.length; i++) {
-      if (out[i].startMs < out[i - 1].startMs) {
-        out[i].startMs = out[i - 1].startMs;
-      }
-    }
-
-    return out;
-  }, [nowPlaying?.lyrics]);
-
-  // Index of the line currently being sung (last line whose start has passed).
-  const activeLineIndex = useMemo(() => {
-    if (!lyricLines || lyricLines.length === 0) return 0;
-    let idx = 0;
-    for (let i = 0; i < lyricLines.length; i++) {
-      if (lyricLines[i].startMs <= posMs) idx = i;
-    }
-    return idx;
-  }, [lyricLines, posMs]);
-
-  // ── Karaoke scroll: slide the line stack so the active line sits in a fixed
-  //    slot, keeping a couple of sung lines above and upcoming lines below. ──
-  const lyricViewportRef = useRef<HTMLDivElement>(null);
-  const lyricScrollRef = useRef<HTMLDivElement>(null);
-  const lineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-
-  const positionLyrics = useCallback(() => {
-    const viewport = lyricViewportRef.current;
-    const scroll = lyricScrollRef.current;
-    const active = lineRefs.current[activeLineIndex];
-    if (!viewport || !scroll || !active) return;
-    // Anchor the active line ~38% down the window.
-    const target = viewport.clientHeight * 0.38 - active.offsetHeight / 2;
-    scroll.style.transform = `translateY(${target - active.offsetTop}px)`;
-  }, [activeLineIndex]);
-
-  useLayoutEffect(() => {
-    positionLyrics();
-  }, [positionLyrics, lyricLines]);
-
-  useEffect(() => {
-    window.addEventListener("resize", positionLyrics);
-    return () => window.removeEventListener("resize", positionLyrics);
-  }, [positionLyrics]);
+  // Timed karaoke lines + the line currently being sung. The viewport DOM and
+  // scroll positioning live in <KaraokeViewport>.
+  const { lyricLines, activeLineIndex } = useLyricsLines(
+    nowPlaying?.lyrics,
+    posMs
+  );
 
   const idle = !nowPlaying;
 
@@ -1011,58 +913,11 @@ export function StageScreen({ code }: { code: string | null }) {
               )}
             </>
           ) : lyricLines ? (
-            <div className="flex w-full max-w-4xl flex-col items-center gap-5">
-              {/* Lyrics — a fixed-height karaoke window. Lines stay large; the
-                  stack slides up as the song advances so only a few lines show
-                  at once and long verses never run off-screen. */}
-              <div
-                ref={lyricViewportRef}
-                className="relative w-full overflow-hidden px-4"
-                style={{
-                  height: "clamp(8.5rem, 40vh, 22rem)",
-                  maskImage:
-                    "linear-gradient(to bottom, transparent 0%, #000 20%, #000 72%, transparent 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to bottom, transparent 0%, #000 20%, #000 72%, transparent 100%)",
-                }}
-              >
-                <div
-                  ref={lyricScrollRef}
-                  className="relative flex flex-col items-center gap-[0.45em] text-center will-change-transform"
-                  style={{
-                    fontFamily: "var(--font-brand)",
-                    fontWeight: 300,
-                    fontSize: "clamp(1.6rem, 4vw, 3.25rem)",
-                    lineHeight: 1.18,
-                    transition:
-                      "transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1)",
-                  }}
-                >
-                  {lyricLines.map((line, i) => {
-                    const isActive = i === activeLineIndex;
-                    return (
-                      <p
-                        key={line.key}
-                        ref={(el) => {
-                          lineRefs.current[i] = el;
-                        }}
-                        className={`text-balance transition-[color,opacity] duration-500 ${
-                          isActive
-                            ? ""
-                            : i < activeLineIndex
-                              ? "text-white/35"
-                              : "text-white/25"
-                        }`}
-                      >
-                        {isActive && line.words?.length
-                          ? renderKaraokeLine(line.words, posMs)
-                          : line.text}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+            <KaraokeViewport
+              lyricLines={lyricLines}
+              activeLineIndex={activeLineIndex}
+              posMs={posMs}
+            />
           ) : (
             <>
               <p className={styles.eyebrow}>
