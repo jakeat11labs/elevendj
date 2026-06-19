@@ -16,19 +16,13 @@ import {
   GripVertical,
   Inbox,
   KeyRound,
-  Layers,
   ListMusic,
-  LogOut,
-  Monitor,
   Music2,
-  Palette,
   Pause,
   Play,
   Plus,
   QrCode,
   Radio,
-  RefreshCcw,
-  ShieldCheck,
   SkipForward,
   Sparkles,
   Trash2,
@@ -43,12 +37,7 @@ import { QRCodeSVG } from "qrcode.react";
 
 import { ApiKeySetupModal } from "@/components/api-key-setup-modal";
 import { AudioMeters } from "@/components/audio-meters";
-import {
-  COLORWAY_NAMES,
-  COLORWAYS,
-  resolveColorway,
-} from "@/components/orb/colorways";
-import { HostTourButton } from "@/components/host-tour-button";
+import { resolveColorway } from "@/components/orb/colorways";
 import { SessionsModal } from "@/components/sessions-modal";
 import { StatusBadge } from "@/components/status-badge";
 import { TrackDetailModal } from "@/components/track-detail-modal";
@@ -56,6 +45,9 @@ import { authClient } from "@/lib/auth/client";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import { useStageAudio, type Deck } from "@/lib/use-stage-audio";
 import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
+
+import { HostHeader } from "./host-header";
+import { OrbColorwayPicker } from "./orb-colorway-picker";
 
 // Crossfade length on the host's local player — kept in sync with the stage.
 const HOST_CROSSFADE_SEC = 3;
@@ -1443,125 +1435,19 @@ export function HostConsole({ user }: { user: HostUser }) {
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-5 pb-16 pt-2 sm:px-8">
       {/* Header / status bar — compact control strip */}
-      <section className="card rise p-4 sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <h1
-              className="text-base font-semibold"
-              style={{ fontFamily: "var(--font-brand)" }}
-            >
-              Host console
-            </h1>
-            <span className="tag mono text-xs">{activeSession?.name ?? "—"}</span>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <HostTourButton userId={user.id} autoStart={!needsKeySetup} />
-            <button
-              type="button"
-              id="tour-stage-button"
-              onClick={() =>
-                window.open(
-                  activeSession?.publicCode
-                    ? `/stage?code=${activeSession.publicCode}`
-                    : "/stage",
-                  "_blank"
-                )
-              }
-              className="btn-primary inline-flex h-9 items-center gap-2 px-3.5 text-sm"
-            >
-              <Monitor size={15} />
-              Stage
-            </button>
-            <button
-              type="button"
-              onClick={() => setOrbPickerOpen(true)}
-              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
-              title="Choose the stage orb color"
-            >
-              <span
-                className="size-4 shrink-0 rounded-full ring-1 ring-black/10"
-                style={{
-                  backgroundImage: `url(${currentColorway.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-                aria-hidden
-              />
-              Orb
-            </button>
-            <button
-              type="button"
-              onClick={() => setSessionsModalOpen(true)}
-              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
-            >
-              <Layers size={15} />
-              Sessions
-            </button>
-            {user.isAdmin && (
-              <a
-                href="/admin"
-                className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
-                title="User management"
-              >
-                <ShieldCheck size={15} />
-                Admin
-              </a>
-            )}
-            <button
-              type="button"
-              onClick={refresh}
-              className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
-              title="Refresh"
-            >
-              <RefreshCcw size={15} />
-            </button>
-            <button
-              type="button"
-              onClick={signOut}
-              className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
-              title={`Sign out (${user.email})`}
-            >
-              <LogOut size={15} />
-            </button>
-          </div>
-        </div>
-
-        {/* Live counts — compact stat row */}
-        {counts && (
-          <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-8">
-            {(
-              [
-                ["pending", "Pending"],
-                ["ready", "Ready"],
-                ["queued", "Queued"],
-                ["generating", "Gen"],
-                ["played", "Played"],
-                ["failed", "Failed"],
-                ["rejected", "Rej"],
-                ["archived", "Arch"],
-              ] as const
-            ).map(([key, label]) => (
-              <div
-                key={key}
-                className="card-soft flex items-baseline justify-between gap-2 px-2.5 py-2"
-              >
-                <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--mid-gray)]">
-                  {label}
-                </span>
-                <span className="mono text-base font-semibold text-[var(--graphite)]">
-                  {counts[key] ?? 0}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--destructive)] bg-[rgba(180,35,24,0.06)] p-3 text-sm text-[var(--destructive)]">
-            {error}
-          </div>
-        )}
-      </section>
+      <HostHeader
+        user={user}
+        sessionName={activeSession?.name}
+        publicCode={activeSession?.publicCode}
+        needsKeySetup={needsKeySetup}
+        currentColorwaySrc={currentColorway.src}
+        counts={counts}
+        error={error}
+        onOpenOrbPicker={() => setOrbPickerOpen(true)}
+        onOpenSessions={() => setSessionsModalOpen(true)}
+        onRefresh={refresh}
+        onSignOut={signOut}
+      />
 
       {/* Working area — multi-column to use the viewport */}
       <div className="mt-4 grid gap-4 lg:grid-cols-12 lg:items-start">
@@ -2696,86 +2582,13 @@ export function HostConsole({ user }: { user: HostUser }) {
       />
 
       {/* Orb colorway picker */}
-      {orbPickerOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          onClick={() => setOrbPickerOpen(false)}
-        >
-          <div
-            className="card rise w-full max-w-lg p-5"
-            onClick={(event) => event.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Stage orb color"
-          >
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <h2 className="flex items-center gap-2 text-base font-semibold">
-                <Palette size={16} />
-                Stage orb
-              </h2>
-              <button
-                type="button"
-                onClick={() => setOrbPickerOpen(false)}
-                className="btn-ghost inline-flex size-8 items-center justify-center"
-                aria-label="Close"
-              >
-                <X size={16} />
-              </button>
-            </div>
-            <p className="mb-4 text-xs text-[var(--mid-gray)]">
-              Pick the gradient for the orb on the stage screen. The background
-              tints to match automatically.
-            </p>
-            <div className="grid grid-cols-4 gap-3 sm:grid-cols-5">
-              {COLORWAY_NAMES.map((name) => {
-                const cw = COLORWAYS[name];
-                const selected = name === orbColorway;
-                const busy = settingOrb === name;
-                return (
-                  <button
-                    key={name}
-                    type="button"
-                    onClick={() => chooseOrbColorway(name)}
-                    disabled={!!settingOrb}
-                    title={cw.label}
-                    className={`flex flex-col items-center gap-1.5 rounded-[var(--radius-md)] p-1.5 transition disabled:cursor-default ${
-                      selected
-                        ? "ring-2 ring-[var(--graphite)]"
-                        : "hover:bg-[var(--cream)]"
-                    }`}
-                  >
-                    <span
-                      className="relative size-14 rounded-full ring-1 ring-black/10"
-                      style={{
-                        backgroundImage: `url(${cw.src})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    >
-                      {busy && (
-                        <span className="absolute inset-0 grid place-items-center rounded-full bg-black/30">
-                          <Disc3
-                            size={16}
-                            className="animate-spin text-white"
-                          />
-                        </span>
-                      )}
-                      {selected && !busy && (
-                        <span className="absolute -right-0.5 -top-0.5 grid size-5 place-items-center rounded-full bg-[var(--graphite)] text-[var(--off-white)]">
-                          <Check size={11} />
-                        </span>
-                      )}
-                    </span>
-                    <span className="text-[10px] leading-tight text-[var(--dark-gray)]">
-                      {cw.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
+      <OrbColorwayPicker
+        open={orbPickerOpen}
+        current={orbColorway}
+        settingName={settingOrb}
+        onClose={() => setOrbPickerOpen(false)}
+        onChoose={chooseOrbColorway}
+      />
     </main>
   );
 }
