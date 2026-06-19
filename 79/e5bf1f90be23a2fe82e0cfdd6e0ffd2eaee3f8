@@ -1,0 +1,84 @@
+CHANGELOG.md
+  s_75cae5656ebe92::t_34f0945e0a282c 8-33
+src/app/api/admin/settings/route.ts
+  s_75cae5656ebe92::t_8a5e84d30a1b11 7
+  s_75cae5656ebe92::t_8fa7341284c3f8 96
+  s_75cae5656ebe92::t_0c9b84be44dcb5 71-73
+  s_75cae5656ebe92::t_1af15c52dca6dc 36-37
+src/app/stage/stage-screen.tsx
+  s_75cae5656ebe92::t_a99a1665a5027d 116,118-120,122-126
+  s_75cae5656ebe92::t_59154b3d31de85 320-333
+  s_75cae5656ebe92::t_27ddebef250804 201-205,208-212,229-235,237-254
+  s_75cae5656ebe92::t_5c573e128dee2f 27
+  s_75cae5656ebe92::t_1ce6a1cf99a03b 557-570,577
+  s_75cae5656ebe92::t_f54d4aedd5d16d 729,739
+  s_75cae5656ebe92::t_32039b4a7069cf 39-43
+  s_75cae5656ebe92::t_e8cf7f452020b6 74-82,84-101
+  s_75cae5656ebe92::t_475e09a9b1494c 393-396,398-400,402-406,409-414,416,425,427
+  s_75cae5656ebe92::t_d59c9de6d755ec 758,763-782,787
+  s_75cae5656ebe92::t_2a085413cfbe59 1091-1127
+  s_75cae5656ebe92::t_3d26c12f3e8c65 279-283,285-289,292
+  s_75cae5656ebe92::t_c4a36c5ccf8316 430-533,536,538-540
+  s_75cae5656ebe92::t_ac4a8919e76af0 213-216,219
+  s_75cae5656ebe92::t_1f5a8df34e14db 334,341-346,354-362,365-367,383,389
+  s_75cae5656ebe92::t_5c09dae1cdd635 165-175,178-182,184
+  s_75cae5656ebe92::t_8f1223b51a0580 220-222
+src/lib/status.ts
+  s_75cae5656ebe92::t_9af37439c0dffd 54-60,77-149
+  s_75cae5656ebe92::t_9d84d8b560d3f9 161-165
+  s_75cae5656ebe92::t_5d703807ff7a9b 168-170
+src/lib/db/schema.ts
+  s_75cae5656ebe92::t_c6ffe061bf0883 98-100
+src/app/layout.tsx
+  s_75cae5656ebe92::t_473d2947030cec 57-59
+src/app/host/host-console.tsx
+  s_75cae5656ebe92::t_96e8550f507dd9 2166-2175,2177-2199,2203
+  s_75cae5656ebe92::t_c9cf66f0123ccf 29
+  s_75cae5656ebe92::t_b95e6316894884 337,339
+  s_75cae5656ebe92::t_5526a7586d5489 57,59-61
+  s_75cae5656ebe92::t_0f9a626e2872bf 773-794
+  s_75cae5656ebe92::t_25ca1babf4e782 1068-1079,1098-1104,1108
+  s_75cae5656ebe92::t_ec6d7f1198951d 1162-1196
+  s_75cae5656ebe92::t_ac43c6033708ce 1197-1285,1287-1321,1324-1326
+  s_75cae5656ebe92::t_6c1d9e0767caa3 1322-1323,1333
+  s_75cae5656ebe92::t_f8a09ea5fb6fc4 376-384,388-444
+  s_75cae5656ebe92::t_47921247f4d57c 1911-1945
+  s_75cae5656ebe92::t_eef1e4dea07d83 146-161
+  s_75cae5656ebe92::t_74efb170957adb 2341-2345,2349-2353,2364,2366-2368
+  s_75cae5656ebe92::t_e56ef8258eea01 2356,2359,2365,2369-2376
+  s_75cae5656ebe92::t_7351c2f9c03077 1080-1081,1084-1089,1092-1093,1105-1107,1115-1116
+  s_75cae5656ebe92::t_fabcef5bda3a4d 473-474
+  s_75cae5656ebe92::t_49ed9166b40851 321-322,330-334
+  s_75cae5656ebe92::t_c3ae58fa14276b 750
+  s_75cae5656ebe92::t_108f9d8659175a 1120-1136
+  s_75cae5656ebe92::t_0627352291774f 338
+  s_75cae5656ebe92::t_ac29ba21c3bd48 385-387
+  s_75cae5656ebe92::t_41de2d59748bc0 2334-2340,2346-2348,2354-2355,2357-2358,2360-2363,2377-2383
+package.json
+  s_75cae5656ebe92::t_c0f4cd5644c946 3
+src/lib/db/queries.ts
+  s_75cae5656ebe92::t_a2e0a246640b50 37-42
+  s_75cae5656ebe92::t_f422aaf46dc82f 936-938
+  s_75cae5656ebe92::t_6a67af5014a583 972-974,979-996,1006,1008-1010
+  s_75cae5656ebe92::t_3dd4d4991ee687 592-604
+  s_75cae5656ebe92::t_ecc3daef3bcf5b 1007
+  s_75cae5656ebe92::t_9677aab511a06b 178
+src/lib/use-stage-audio.ts
+  s_75cae5656ebe92::t_700636ab9972ad 6-9,11-16,18-19,23,28-32,50-66,73-76,80,83-85,89,96,101-104,114-148
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "79e5bf1f90be23a2fe82e0cfdd6e0ffd2eaee3f8",
+  "prompts": {},
+  "sessions": {
+    "s_75cae5656ebe92": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c944fb77-3c0d-41b8-b3d1-49e24aa8a10c",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
