@@ -45,6 +45,7 @@ import { formatDate, trackName } from "./format";
 import { useApiKeyManager } from "./use-api-key-manager";
 import { useFilesLibrary } from "./use-files-library";
 import { useHostComposer } from "./use-host-composer";
+import { useHostSettings } from "./use-host-settings";
 import { useQueueActions } from "./use-queue-actions";
 import { useQueueSelection } from "./use-queue-selection";
 import { HostHeader } from "./host-header";
@@ -436,175 +437,6 @@ export function HostConsole({ user }: { user: HostUser }) {
     hostJobMessage,
   } = useHostComposer({ authHeader, refresh, onError: setError });
 
-  // ── Session actions ──────────────────────────────────────────
-  const [togglingRequests, setTogglingRequests] = useState(false);
-  const toggleRequests = useCallback(async () => {
-    const next = !(overview?.queue.requestsOpen ?? true);
-    setTogglingRequests(true);
-    try {
-      const response = await fetch("/api/admin/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ requestsOpen: next }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not update the request line.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error updating the request line.");
-    } finally {
-      setTogglingRequests(false);
-    }
-  }, [authHeader, refresh, overview]);
-
-  const [togglingAutoDj, setTogglingAutoDj] = useState(false);
-  const toggleAutoDj = useCallback(async () => {
-    const next = !(overview?.queue.autoDj ?? true);
-    setTogglingAutoDj(true);
-    try {
-      const response = await fetch("/api/admin/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ autoDj: next }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not update AutoDJ.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error updating AutoDJ.");
-    } finally {
-      setTogglingAutoDj(false);
-    }
-  }, [authHeader, refresh, overview]);
-
-  const [togglingStationId, setTogglingStationId] = useState(false);
-  const [togglingCrossfade, setTogglingCrossfade] = useState(false);
-  const toggleStationId = useCallback(async () => {
-    const next = !(overview?.queue.stationIdEnabled ?? false);
-    setTogglingStationId(true);
-    try {
-      const response = await fetch("/api/admin/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ stationIdEnabled: next }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not update Station ID.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error updating Station ID.");
-    } finally {
-      setTogglingStationId(false);
-    }
-  }, [authHeader, refresh, overview]);
-
-  const toggleCrossfade = useCallback(async () => {
-    const next = !(overview?.queue.crossfadeEnabled ?? false);
-    setTogglingCrossfade(true);
-    try {
-      const response = await fetch("/api/admin/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ crossfadeEnabled: next }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not update crossfade.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error updating crossfade.");
-    } finally {
-      setTogglingCrossfade(false);
-    }
-  }, [authHeader, refresh, overview]);
-
-  const toggleStationIdPersonalize = useCallback(async () => {
-    const next = !(overview?.activeSession?.stationIdPersonalize ?? false);
-    try {
-      const response = await fetch("/api/admin/settings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ stationIdPersonalize: next }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not update Station ID name.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error updating Station ID name.");
-    }
-  }, [authHeader, refresh, overview]);
-
-  const [savingStationName, setSavingStationName] = useState(false);
-  const saveStationIdHostName = useCallback(
-    async (value: string) => {
-      if (value === (overview?.activeSession?.stationIdHostName ?? "")) {
-        return; // unchanged — skip the round-trip
-      }
-      setSavingStationName(true);
-      try {
-        const response = await fetch("/api/admin/settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ stationIdHostName: value }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Could not save the Station ID name.");
-          return;
-        }
-        await refresh();
-      } catch {
-        setError("Network error saving the Station ID name.");
-      } finally {
-        setSavingStationName(false);
-      }
-    },
-    [authHeader, refresh, overview]
-  );
-
-  // ── Master volume ────────────────────────────────────────────
-  // While dragging we hold a local value so the slider stays responsive; the
-  // committed value is POSTed on release and the snapshot becomes the source of
-  // truth again (pending cleared). The stage screen obeys it on its next poll.
-  const [pendingVolume, setPendingVolume] = useState<number | null>(null);
-  const commitMasterVolume = useCallback(
-    async (value: number) => {
-      const clamped = Math.min(1, Math.max(0, value));
-      try {
-        const response = await fetch("/api/admin/settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ masterVolume: clamped }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Could not update the volume.");
-          return;
-        }
-        await refresh();
-      } catch {
-        setError("Network error updating the volume.");
-      } finally {
-        setPendingVolume(null);
-      }
-    },
-    [authHeader, refresh]
-  );
-
   // ── ElevenLabs API key management ────────────────────────────
   const { apiKeyModalOpen, setApiKeyModalOpen, removingKey, removeApiKey } =
     useApiKeyManager({ authHeader, refresh, onError: setError });
@@ -987,9 +819,35 @@ export function HostConsole({ user }: { user: HostUser }) {
   const orbColorway = overview?.queue.orbColorway ?? "creative-1";
   const currentColorway = resolveColorway(orbColorway);
 
-  // Live master volume — the pending drag value wins while the slider is held.
-  const masterVolume = pendingVolume ?? overview?.queue.masterVolume ?? 1;
-  const masterVolumePct = Math.round(masterVolume * 100);
+  // Host session settings (toggles + Station-ID name + master volume).
+  const {
+    toggleRequests,
+    toggleAutoDj,
+    toggleStationId,
+    toggleCrossfade,
+    toggleStationIdPersonalize,
+    saveStationIdHostName,
+    commitMasterVolume,
+    setPendingVolume,
+    togglingRequests,
+    togglingAutoDj,
+    togglingStationId,
+    togglingCrossfade,
+    savingStationName,
+    masterVolume,
+    masterVolumePct,
+  } = useHostSettings({
+    requestsOpen,
+    autoDj,
+    stationIdEnabled,
+    crossfadeEnabled,
+    stationIdPersonalize,
+    stationIdHostName,
+    serverMasterVolume: overview?.queue.masterVolume ?? 1,
+    authHeader,
+    refresh,
+    onError: setError,
+  });
 
   // ── ElevenLabs API key ───────────────────────────────────────
   // Non-admin hosts must connect their own key before they can use the console.
