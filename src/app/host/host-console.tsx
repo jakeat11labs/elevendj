@@ -45,6 +45,7 @@ import { formatDate, trackName } from "./format";
 import { useApiKeyManager } from "./use-api-key-manager";
 import { useFilesLibrary } from "./use-files-library";
 import { useHostComposer } from "./use-host-composer";
+import { useQueueActions } from "./use-queue-actions";
 import { useQueueSelection } from "./use-queue-selection";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
@@ -86,16 +87,6 @@ type HostUser = {
   displayName: string | null;
   isAdmin: boolean;
 };
-
-type RequestAction =
-  | "approve"
-  | "reject"
-  | "retry"
-  | "mark_played"
-  | "remove_from_queue"
-  | "add_to_queue";
-
-type BulkAction = "delete" | "remove_from_queue" | "add_to_queue" | "approve";
 
 export function HostConsole({ user }: { user: HostUser }) {
   // Two decks so the host's local player crossfades exactly like the stage.
@@ -158,11 +149,6 @@ export function HostConsole({ user }: { user: HostUser }) {
 
   // Tracks the last now-playing state we published, so we only POST on change.
   const lastPublishedRef = useRef<string>("");
-
-  // ── Action state ─────────────────────────────────────────────
-  const [busyId, setBusyId] = useState<string | null>(null);
-  const [bulkBusy, setBulkBusy] = useState(false);
-  const [reordering, setReordering] = useState(false);
 
   // ── Selections ───────────────────────────────────────────────
   const { queueSel, setQueueSel, filesSel, setFilesSel, toggle } =
@@ -413,111 +399,16 @@ export function HostConsole({ user }: { user: HostUser }) {
     };
   }, [sendCmd]);
 
-  // ── Request action helper ────────────────────────────────────
-  const runAction = useCallback(
-    async (id: string, action: RequestAction, reason?: string) => {
-      setBusyId(id);
-      try {
-        const response = await fetch(`/api/admin/requests/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ action, reason }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Admin action failed.");
-          return false;
-        }
-        await refresh();
-        return true;
-      } catch {
-        setError("Network error during action.");
-        return false;
-      } finally {
-        setBusyId(null);
-      }
-    },
-    [authHeader, refresh]
-  );
-
-  const deleteRow = useCallback(
-    async (id: string) => {
-      setBusyId(id);
-      try {
-        const response = await fetch(`/api/admin/requests/${id}`, {
-          method: "DELETE",
-          headers: authHeader,
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Delete failed.");
-          return;
-        }
-        setFilesSel((prev) => {
-          const next = new Set(prev);
-          next.delete(id);
-          return next;
-        });
-        await refresh();
-      } catch {
-        setError("Network error during delete.");
-      } finally {
-        setBusyId(null);
-      }
-    },
-    [authHeader, refresh, setFilesSel]
-  );
-
-  const reorder = useCallback(
-    async (orderedIds: string[]) => {
-      setReordering(true);
-      try {
-        const response = await fetch("/api/admin/queue/reorder", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ orderedIds }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Reorder failed.");
-          return;
-        }
-        await refresh();
-      } catch {
-        setError("Network error during reorder.");
-      } finally {
-        setReordering(false);
-      }
-    },
-    [authHeader, refresh]
-  );
-
-  const runBulk = useCallback(
-    async (action: BulkAction, ids: string[]) => {
-      if (ids.length === 0) {
-        return;
-      }
-      setBulkBusy(true);
-      try {
-        const response = await fetch("/api/admin/bulk", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ action, ids }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Bulk action failed.");
-          return;
-        }
-        await refresh();
-      } catch {
-        setError("Network error during bulk action.");
-      } finally {
-        setBulkBusy(false);
-      }
-    },
-    [authHeader, refresh]
-  );
+  // ── Queue/request actions (mutations + busy flags) ───────────
+  const {
+    busyId,
+    bulkBusy,
+    reordering,
+    runAction,
+    deleteRow,
+    reorder,
+    runBulk,
+  } = useQueueActions({ authHeader, refresh, onError: setError, setFilesSel });
 
   // ── Host prompt composer ─────────────────────────────────────
   // Spin a track straight into the live queue from the console. Hits the
