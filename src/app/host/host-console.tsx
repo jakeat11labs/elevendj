@@ -45,6 +45,7 @@ import { formatDate, slugify, trackName } from "./format";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
+import { useOrbColorway } from "./use-orb-colorway";
 import { useSessionLink } from "./use-session-link";
 
 // Crossfade length on the host's local player — kept in sync with the stage.
@@ -815,37 +816,13 @@ export function HostConsole({ user }: { user: HostUser }) {
   }, [authHeader, refresh]);
 
   // ── Orb colorway picker ──────────────────────────────────────
-  const [orbPickerOpen, setOrbPickerOpen] = useState(false);
-  const [settingOrb, setSettingOrb] = useState<string | null>(null);
-
-  const chooseOrbColorway = useCallback(
-    async (name: string) => {
-      if (name === (overview?.queue.orbColorway ?? "creative-1")) {
-        setOrbPickerOpen(false);
-        return;
-      }
-      setSettingOrb(name);
-      try {
-        const response = await fetch("/api/admin/settings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", ...authHeader },
-          body: JSON.stringify({ orbColorway: name }),
-        });
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Could not update the orb.");
-          return;
-        }
-        await refresh();
-        setOrbPickerOpen(false);
-      } catch {
-        setError("Network error updating the orb.");
-      } finally {
-        setSettingOrb(null);
-      }
-    },
-    [authHeader, overview?.queue.orbColorway, refresh]
-  );
+  const { orbPickerOpen, setOrbPickerOpen, settingOrb, chooseOrbColorway } =
+    useOrbColorway({
+      current: overview?.queue.orbColorway ?? "creative-1",
+      authHeader,
+      refresh,
+      onError: setError,
+    });
 
   const createSession = useCallback(async () => {
     if (
