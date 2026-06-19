@@ -77,6 +77,12 @@ export type QueueSnapshot = {
   orbColorway: string;
   // Host-controlled room master volume (0..1). The stage screen obeys this.
   masterVolume: number;
+  // Station ID: when on, the stage drops a short AI "radio ID" in after every
+  // couple of songs. `stationIds` is the warm pool of ready jingles the stage
+  // plays from — kept separate from `items` so they never show in the public
+  // queue or count toward queue limits.
+  stationIdEnabled: boolean;
+  stationIds: QueueItem[];
   items: QueueItem[];
   counts: Record<RequestStatus, number>;
 };

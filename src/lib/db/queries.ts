@@ -1,5 +1,7 @@
 import "server-only";
 
+import { randomUUID } from "node:crypto";
+
 import { del } from "@vercel/blob";
 import {
   and,
@@ -31,6 +33,7 @@ import {
   normalizePrompt,
   type RequestInput,
 } from "@/lib/security";
+import { STATION_ID_BRAND, STATION_ID_DURATION_MS } from "@/lib/station-id";
 import {
   REALTIME_TOPIC,
   REQUEST_STATUSES,
@@ -52,6 +55,7 @@ export type SongRequestRecord = {
   session_id: string;
   client_token_hash: string;
   requester_name: string | null;
+  kind: string;
   prompt: string;
   normalized_prompt: string;
   status: RequestStatus;
@@ -84,6 +88,11 @@ export type HostSession = Session & {
   autoDj: boolean;
   defaultDurationMs: number;
   forceInstrumental: boolean;
+  // Station ID settings — host-only (the public queue snapshot exposes just the
+  // enabled flag; the personalization name never leaves the host console).
+  stationIdEnabled: boolean;
+  stationIdPersonalize: boolean;
+  stationIdHostName: string | null;
 };
 
 const activeStatuses: RequestStatus[] = [
@@ -131,6 +140,7 @@ function toRecord(row: SongRequestRow): SongRequestRecord {
     session_id: row.sessionId,
     client_token_hash: row.clientTokenHash,
     requester_name: row.requesterName,
+    kind: row.kind,
     prompt: row.prompt,
     normalized_prompt: row.normalizedPrompt,
     status: row.status as RequestStatus,
@@ -188,6 +198,9 @@ function mapSession(row: SessionRow, trackCount?: number): HostSession {
     autoDj: row.autoDj,
     defaultDurationMs: row.defaultDurationMs,
     forceInstrumental: row.forceInstrumental,
+    stationIdEnabled: row.stationIdEnabled,
+    stationIdPersonalize: row.stationIdPersonalize,
+    stationIdHostName: row.stationIdHostName,
     ...(trackCount === undefined ? {} : { trackCount }),
   };
 }
@@ -554,6 +567,174 @@ export async function setOrbColorway(
 }
 
 // ─────────────────────────────────────────────────────────────────
+// Station ID settings + warm pool (see src/lib/station-id.ts)
+// ─────────────────────────────────────────────────────────────────
+
+export async function setStationIdEnabled(
+  hostId: string,
+  enabled: boolean
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    await db
+      .update(sessions)
+      .set({ stationIdEnabled: enabled })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
+export async function setStationIdPersonalize(
+  hostId: string,
+  personalize: boolean
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    await db
+      .update(sessions)
+      .set({ stationIdPersonalize: personalize })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
+export async function setStationIdHostName(
+  hostId: string,
+  name: string | null
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    const trimmed = name?.trim();
+    await db
+      .update(sessions)
+      .set({ stationIdHostName: trimmed ? trimmed : null })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
+/** Personalization config read by the generation pipeline when building IDs. */
+export async function getStationIdConfig(
+  sessionId: string
+): Promise<{ personalize: boolean; hostName: string | null } | null> {
+  return dbCall(async () => {
+    const [row] = await db
+      .select({
+        personalize: sessions.stationIdPersonalize,
+        hostName: sessions.stationIdHostName,
+      })
+      .from(sessions)
+      .where(eq(sessions.id, sessionId))
+      .limit(1);
+    return row ?? null;
+  });
+}
+
+/**
+ * Create a station-ID request row (kind="station_id") in `queued` status, ready
+ * for the generation pipeline. Not part of the public queue (position is null,
+ * kind excludes it from `items` and request-scoped limits). The caller enqueues
+ * generation for the returned id. Returns null if the session is gone.
+ */
+export async function createStationIdRequest(
+  sessionId: string
+): Promise<string | null> {
+  return dbCall(async () => {
+    const [session] = await db
+      .select({ id: sessions.id })
+      .from(sessions)
+      .where(eq(sessions.id, sessionId))
+      .limit(1);
+    if (!session) {
+      return null;
+    }
+    // Unique per call so the idempotency key never collides when the pool
+    // top-up inserts several IDs in the same millisecond.
+    const stamp = randomUUID();
+    const [created] = await db
+      .insert(songRequests)
+      .values({
+        sessionId: session.id,
+        clientTokenHash: hashValue(`station-id:${sessionId}`, "client-token"),
+        requesterName: "ElevenDJ Radio",
+        kind: "station_id",
+        prompt: STATION_ID_BRAND,
+        normalizedPrompt: `station-id:${stamp}`,
+        status: "queued",
+        position: null,
+        durationMs: STATION_ID_DURATION_MS,
+        forceInstrumental: false,
+        title: "Station ID",
+        idempotencyKey: hashValue(
+          `station-id:${sessionId}:${stamp}`,
+          "idempotency"
+        ),
+      })
+      .returning({ id: songRequests.id });
+    await recordEvent(created.id, "station_id_created", {});
+    return created.id;
+  });
+}
+
+/** Ready station IDs (warm pool) for a session, oldest first. */
+export async function listReadyStationIds(
+  sessionId: string
+): Promise<QueueItem[]> {
+  return dbCall(async () => {
+    const rows = await db
+      .select()
+      .from(songRequests)
+      .where(
+        and(
+          eq(songRequests.sessionId, sessionId),
+          eq(songRequests.kind, "station_id"),
+          eq(songRequests.status, "ready"),
+          isNotNull(songRequests.audioUrl)
+        )
+      )
+      .orderBy(asc(songRequests.createdAt));
+    return rows.map(mapQueueItem);
+  });
+}
+
+/**
+ * Count station IDs that are already "warm or warming" (queued/generating/ready)
+ * so the pool top-up only generates the shortfall.
+ */
+export async function countWarmStationIds(sessionId: string): Promise<number> {
+  return dbCall(async () => {
+    const [{ value }] = await db
+      .select({ value: count() })
+      .from(songRequests)
+      .where(
+        and(
+          eq(songRequests.sessionId, sessionId),
+          eq(songRequests.kind, "station_id"),
+          inArray(songRequests.status, ["queued", "generating", "ready"])
+        )
+      );
+    return value ?? 0;
+  });
+}
+
+/** Mark a played station ID as archived so the pool top-up regenerates a fresh one. */
+export async function consumeStationId(
+  hostId: string,
+  id: string
+): Promise<void> {
+  await dbCall(async () => {
+    await db
+      .update(songRequests)
+      .set({ status: "archived" })
+      .where(
+        and(
+          eq(songRequests.id, id),
+          eq(songRequests.kind, "station_id"),
+          inArray(songRequests.sessionId, ownedSessionIds(hostId))
+        )
+      );
+    await recordEvent(id, "station_id_played", {});
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────
 // Per-host ElevenLabs API key (encrypted at rest; see src/lib/crypto.ts)
 // ─────────────────────────────────────────────────────────────────
 
@@ -733,19 +914,37 @@ export async function getNowPlaying(sessionId: string): Promise<NowPlaying> {
 // ─────────────────────────────────────────────────────────────────
 
 async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
-  const rows = await db
-    .select()
-    .from(songRequests)
-    .where(
-      and(
-        eq(songRequests.sessionId, session.id),
-        inArray(songRequests.status, activeStatuses)
+  // The public queue is audience requests only. Station IDs share the table
+  // but are surfaced separately (below) so they never appear in the queue or
+  // count toward limits.
+  const [rows, stationIdRows] = await Promise.all([
+    db
+      .select()
+      .from(songRequests)
+      .where(
+        and(
+          eq(songRequests.sessionId, session.id),
+          eq(songRequests.kind, "request"),
+          inArray(songRequests.status, activeStatuses)
+        )
       )
-    )
-    .orderBy(
-      sql`${songRequests.position} asc nulls last`,
-      asc(songRequests.createdAt)
-    );
+      .orderBy(
+        sql`${songRequests.position} asc nulls last`,
+        asc(songRequests.createdAt)
+      ),
+    db
+      .select()
+      .from(songRequests)
+      .where(
+        and(
+          eq(songRequests.sessionId, session.id),
+          eq(songRequests.kind, "station_id"),
+          eq(songRequests.status, "ready"),
+          isNotNull(songRequests.audioUrl)
+        )
+      )
+      .orderBy(asc(songRequests.createdAt)),
+  ]);
 
   const counts = Object.fromEntries(
     REQUEST_STATUSES.map((status) => [status, 0])
@@ -764,6 +963,8 @@ async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
     forceInstrumental: session.forceInstrumental,
     orbColorway: session.orbColorway,
     masterVolume: session.masterVolume,
+    stationIdEnabled: session.stationIdEnabled,
+    stationIds: stationIdRows.map(mapQueueItem),
     items,
     counts,
   };
@@ -798,7 +999,12 @@ export async function getAdminOverview(hostId: string) {
       db
         .select()
         .from(songRequests)
-        .where(eq(songRequests.sessionId, active.id))
+        .where(
+          and(
+            eq(songRequests.sessionId, active.id),
+            eq(songRequests.kind, "request")
+          )
+        )
         .orderBy(desc(songRequests.createdAt))
         .limit(75),
       listFiles(hostId),
@@ -871,6 +1077,7 @@ export async function createSongRequest(
       .where(
         and(
           eq(songRequests.sessionId, session.id),
+          eq(songRequests.kind, "request"),
           inArray(songRequests.status, activeStatuses)
         )
       );
@@ -891,6 +1098,7 @@ export async function createSongRequest(
       .where(
         and(
           eq(songRequests.sessionId, session.id),
+          eq(songRequests.kind, "request"),
           eq(songRequests.normalizedPrompt, normalizedPrompt),
           inArray(songRequests.status, activeStatuses),
           gte(songRequests.createdAt, dayAgo)

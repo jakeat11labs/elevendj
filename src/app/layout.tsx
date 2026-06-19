@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Agentation } from "agentation";
 
 import { NextStepShell } from "@/components/nextstep-shell";
 import { SiteHeader } from "@/components/site-header";
@@ -53,6 +54,7 @@ export default function RootLayout({
             {children}
           </div>
         </NextStepShell>
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   );

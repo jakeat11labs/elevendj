@@ -85,6 +85,16 @@ export const sessions = pgTable(
     masterVolume: real("master_volume").notNull().default(1),
     maxPendingRequests: integer("max_pending_requests").notNull().default(25),
     maxReadyQueue: integer("max_ready_queue").notNull().default(50),
+    // Station ID: when on, the stage auto-plays a short AI "radio ID" jingle
+    // after every couple of songs (see src/lib/station-id.ts). When
+    // `stationIdPersonalize` is on and a non-empty `stationIdHostName` is set,
+    // the host/room name is woven into the jingle; otherwise it stays the
+    // high-level brand line.
+    stationIdEnabled: boolean("station_id_enabled").notNull().default(false),
+    stationIdPersonalize: boolean("station_id_personalize")
+      .notNull()
+      .default(false),
+    stationIdHostName: text("station_id_host_name"),
     // Per-session playback state.
     currentRequestId: uuid("current_request_id").references(
       (): AnyPgColumn => songRequests.id,
@@ -132,6 +142,11 @@ export const songRequests = pgTable(
       .references(() => sessions.id, { onDelete: "cascade" }),
     clientTokenHash: text("client_token_hash").notNull(),
     requesterName: text("requester_name"),
+    // Discriminates a normal audience request from an auto-inserted generated
+    // interstitial (currently just "station_id"). Generic on purpose so future
+    // auto-inserted content reuses the same pipeline. Station IDs share this
+    // table but are excluded from the public queue and request-scoped limits.
+    kind: text("kind").notNull().default("request"),
     prompt: text("prompt").notNull(),
     normalizedPrompt: text("normalized_prompt").notNull(),
     status: text("status").notNull().default("pending"),
@@ -186,6 +201,10 @@ export const songRequests = pgTable(
     check(
       "song_requests_duration_check",
       sql`${table.durationMs} between 3000 and 300000`
+    ),
+    check(
+      "song_requests_kind_check",
+      sql`${table.kind} in ('request','station_id')`
     ),
   ]
 );

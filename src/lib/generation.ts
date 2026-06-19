@@ -6,12 +6,17 @@ import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import {
   claimRequestForGeneration,
   getSessionHostKey,
+  getStationIdConfig,
   markRequestFailed,
   markRequestReady,
 } from "@/lib/db";
 import { decryptSecret } from "@/lib/crypto";
 import { optionalEnv, requiredEnv } from "@/lib/env";
 import { buildGenerationPrompt } from "@/lib/security";
+import {
+  buildStationIdPrompt,
+  STATION_ID_DURATION_MS,
+} from "@/lib/station-id";
 import type { Lyrics, LyricSection, LyricWord } from "@/lib/status";
 
 export type GenerationJob = {
@@ -41,16 +46,32 @@ export async function processGenerationJob(job: GenerationJob) {
   }
 
   try {
-    // Auto length by default (omit musicLengthMs); songs include sung lyrics
-    // unless the requester opted for instrumental.
+    // Station IDs are their own thing: a fixed ~10s vocal "radio ID" with an
+    // ad-libbed prompt, ignoring the room's auto-duration setting. Everything
+    // else (audience song requests) keeps the existing behavior: auto length by
+    // default, sung lyrics unless the requester opted for instrumental.
+    const isStationId = request.kind === "station_id";
     const autoDuration = optionalEnv("MUSIC_AUTO_DURATION") !== "false";
-    const instrumental = request.force_instrumental;
+    const instrumental = isStationId ? false : request.force_instrumental;
+
+    let prompt: string;
+    let durationMs: number | null;
+    if (isStationId) {
+      const config = await getStationIdConfig(request.session_id);
+      const hostName =
+        config?.personalize && config.hostName ? config.hostName : null;
+      prompt = buildStationIdPrompt(hostName);
+      durationMs = STATION_ID_DURATION_MS;
+    } else {
+      prompt = buildGenerationPrompt(request.prompt, instrumental);
+      durationMs = autoDuration ? null : request.duration_ms;
+    }
 
     const { audio, songId, lyrics, title, isExplicit, songMetadata } =
       await composeMusic({
         apiKey: keyResult.apiKey,
-        prompt: buildGenerationPrompt(request.prompt, instrumental),
-        durationMs: autoDuration ? null : request.duration_ms,
+        prompt,
+        durationMs,
         instrumental,
       });
 

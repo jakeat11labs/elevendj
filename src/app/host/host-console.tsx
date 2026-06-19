@@ -76,7 +76,12 @@ type ApiKeyStatus = {
 };
 
 type Overview = {
-  activeSession?: Session;
+  activeSession?: Session & {
+    // Host-only Station ID settings (the public snapshot exposes only enabled).
+    stationIdEnabled?: boolean;
+    stationIdPersonalize?: boolean;
+    stationIdHostName?: string | null;
+  };
   queue: QueueSnapshot;
   recent: QueueItem[];
   files: QueueItem[];
@@ -640,6 +645,76 @@ export function HostConsole({ user }: { user: HostUser }) {
     }
   }, [authHeader, refresh, overview]);
 
+  const [togglingStationId, setTogglingStationId] = useState(false);
+  const toggleStationId = useCallback(async () => {
+    const next = !(overview?.queue.stationIdEnabled ?? false);
+    setTogglingStationId(true);
+    try {
+      const response = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader },
+        body: JSON.stringify({ stationIdEnabled: next }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not update Station ID.");
+        return;
+      }
+      await refresh();
+    } catch {
+      setError("Network error updating Station ID.");
+    } finally {
+      setTogglingStationId(false);
+    }
+  }, [authHeader, refresh, overview]);
+
+  const toggleStationIdPersonalize = useCallback(async () => {
+    const next = !(overview?.activeSession?.stationIdPersonalize ?? false);
+    try {
+      const response = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader },
+        body: JSON.stringify({ stationIdPersonalize: next }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not update Station ID name.");
+        return;
+      }
+      await refresh();
+    } catch {
+      setError("Network error updating Station ID name.");
+    }
+  }, [authHeader, refresh, overview]);
+
+  const [savingStationName, setSavingStationName] = useState(false);
+  const saveStationIdHostName = useCallback(
+    async (value: string) => {
+      if (value === (overview?.activeSession?.stationIdHostName ?? "")) {
+        return; // unchanged — skip the round-trip
+      }
+      setSavingStationName(true);
+      try {
+        const response = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeader },
+          body: JSON.stringify({ stationIdHostName: value }),
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          setError(body?.message || "Could not save the Station ID name.");
+          return;
+        }
+        await refresh();
+      } catch {
+        setError("Network error saving the Station ID name.");
+      } finally {
+        setSavingStationName(false);
+      }
+    },
+    [authHeader, refresh, overview]
+  );
+
   // ── Master volume ────────────────────────────────────────────
   // While dragging we hold a local value so the slider stays responsive; the
   // committed value is POSTed on release and the snapshot becomes the source of
@@ -984,6 +1059,11 @@ export function HostConsole({ user }: { user: HostUser }) {
   const requestsOpen = overview?.queue.requestsOpen ?? true;
 
   const autoDj = overview?.queue.autoDj ?? true;
+
+  const stationIdEnabled = overview?.queue.stationIdEnabled ?? false;
+  const stationIdPersonalize =
+    overview?.activeSession?.stationIdPersonalize ?? false;
+  const stationIdHostName = overview?.activeSession?.stationIdHostName ?? "";
 
   const orbColorway = overview?.queue.orbColorway ?? "creative-1";
   const currentColorway = resolveColorway(orbColorway);
@@ -1423,6 +1503,79 @@ export function HostConsole({ user }: { user: HostUser }) {
                   }`}
                 />
               </button>
+            </div>
+
+            {/* Station ID — auto radio-ID jingle every couple of songs */}
+            <div className="card-soft mt-3 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="eyebrow">Station ID</p>
+                  <p className="mt-1 text-sm text-[var(--dark-gray)]">
+                    {stationIdEnabled
+                      ? "On — a ~10s radio ID plays every 2 songs."
+                      : "Off — no station IDs between songs."}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={stationIdEnabled}
+                  disabled={togglingStationId}
+                  onClick={toggleStationId}
+                  title={
+                    stationIdEnabled
+                      ? "Turn Station ID off"
+                      : "Turn Station ID on"
+                  }
+                  className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors disabled:opacity-50 ${
+                    stationIdEnabled
+                      ? "bg-[var(--graphite)]"
+                      : "bg-[var(--light-gray)]"
+                  }`}
+                >
+                  <span
+                    className={`inline-block size-5 transform rounded-full bg-white shadow transition-transform ${
+                      stationIdEnabled ? "translate-x-6" : "translate-x-1"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {stationIdEnabled ? (
+                <div className="mt-4 border-t border-[var(--light-gray)] pt-4">
+                  <label className="flex items-center gap-2 text-sm text-[var(--dark-gray)]">
+                    <input
+                      type="checkbox"
+                      checked={stationIdPersonalize}
+                      onChange={toggleStationIdPersonalize}
+                      className="size-4 accent-[var(--graphite)]"
+                    />
+                    Personalize with my name
+                  </label>
+                  <input
+                    type="text"
+                    // Re-keyed on the saved value so it re-seeds when the server
+                    // value changes, but stays uncontrolled while typing.
+                    key={stationIdHostName}
+                    defaultValue={stationIdHostName}
+                    disabled={!stationIdPersonalize || savingStationName}
+                    maxLength={60}
+                    placeholder="e.g. DJ Jake, or your room name"
+                    onBlur={(event) =>
+                      saveStationIdHostName(event.currentTarget.value.trim())
+                    }
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") event.currentTarget.blur();
+                    }}
+                    className="mt-2 w-full rounded-lg border border-[var(--light-gray)] bg-white px-3 py-2 text-sm disabled:opacity-50"
+                  />
+                  <p className="mt-2 text-xs text-[var(--mid-gray)]">
+                    {stationIdPersonalize
+                      ? "Woven into the jingle, e.g. “DJ Jake on ElevenDJ Radio, powered by ElevenLabs.”"
+                      : "Off — stays the high-level “ElevenDJ Radio, powered by ElevenLabs.”"}
+                  </p>
+                </div>
+              ) : null}
             </div>
 
             {/* Master volume — host-controlled room level; the stage obeys it */}

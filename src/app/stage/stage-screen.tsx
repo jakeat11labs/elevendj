@@ -31,6 +31,7 @@ import { useColorwayPalette } from "@/components/orb/use-colorway-palette";
 import { AudioProgressSlider } from "@/components/ui/audio-progress-slider";
 import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
+import { STATION_ID_CADENCE } from "@/lib/station-id";
 
 import styles from "./stage.module.css";
 
@@ -151,6 +152,86 @@ export function StageScreen({ code }: { code: string | null }) {
     }
   }, [current, currentId]);
 
+  // ── Station ID injection ─────────────────────────────────────
+  // When enabled, after every STATION_ID_CADENCE real songs the stage drops in
+  // a pre-generated ~10s radio ID from the warm pool, then advances normally.
+  const stationIdEnabled = snapshot?.stationIdEnabled ?? false;
+  const stationIds = useMemo(() => snapshot?.stationIds ?? [], [snapshot]);
+  const [activeStationId, setActiveStationId] = useState<QueueItem | null>(null);
+  // "Armed" means play an ID at the next opportunity regardless of cadence —
+  // set when the host flips the feature on, so the first ID doesn't wait for
+  // two songs. Cleared once it fires.
+  const [stationArmed, setStationArmed] = useState(false);
+  const prevStationEnabledRef = useRef<boolean | null>(null);
+  // Refs (not state): the counter/cursor must not retrigger renders, and the
+  // ended handler reads them synchronously.
+  const playsSinceIdRef = useRef(0);
+  const stationCursorRef = useRef(0);
+
+  // What's actually coming out of the speaker: a station ID when one is in
+  // flight, otherwise the real current track. Presentation (audio src, lyrics,
+  // title, duration) follows this; queue/sync/advance logic stays on `current`.
+  const nowPlaying = activeStationId ?? current;
+
+  // Arm on the off→on transition the stage observes (host toggled it on), so an
+  // ID plays at the next playable point instead of waiting out the cadence.
+  // First load doesn't arm (prev starts null) — opening the stage on an
+  // already-on session shouldn't replay an ID.
+  useEffect(() => {
+    const prev = prevStationEnabledRef.current;
+    prevStationEnabledRef.current = stationIdEnabled;
+    if (prev === false && stationIdEnabled) {
+      setStationArmed(true);
+      playsSinceIdRef.current = 0;
+    } else if (prev && !stationIdEnabled) {
+      setStationArmed(false);
+    }
+  }, [stationIdEnabled]);
+
+  // Tell the host a station ID finished so it archives it and warms a fresh
+  // replacement. Best-effort and token-gated, mirroring publishNowPlaying — if
+  // the stage has no host token the pool simply reuses its existing variations.
+  const consumeStationId = useCallback((id: string) => {
+    const token =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem(TOKEN_KEY)
+        : null;
+    if (!token) {
+      return;
+    }
+    fetch("/api/admin/station-id", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ id }),
+    }).catch(() => {
+      /* best-effort */
+    });
+  }, []);
+
+  // Armed + nothing currently playing → drop an ID in at the top as soon as one
+  // is warm. When a song IS playing we leave this alone and let the ended
+  // handler inject right after it (the "next point it can play"). Re-runs when
+  // the pool warms (stationIds changes), so it fires even if no ID was ready at
+  // enable time.
+  useEffect(() => {
+    if (
+      stationArmed &&
+      stationIdEnabled &&
+      !nowPlaying &&
+      stationIds.length > 0
+    ) {
+      const pick = stationIds[stationCursorRef.current % stationIds.length];
+      stationCursorRef.current += 1;
+      setStationArmed(false);
+      playsSinceIdRef.current = 0;
+      setActiveStationId(pick);
+      setIsPlaying(true);
+    }
+  }, [stationArmed, stationIdEnabled, nowPlaying, stationIds]);
+
   // ── Now-playing publish (optional, only if a token is present) ─
   const publishNowPlaying = useCallback(
     (requestId: string | null, playing: boolean) => {
@@ -178,11 +259,11 @@ export function StageScreen({ code }: { code: string | null }) {
   // ── Player controls ──────────────────────────────────────────
   const playCurrent = useCallback(async () => {
     const audio = audioRef.current;
-    if (!audio || !current?.audioUrl) {
+    if (!audio || !nowPlaying?.audioUrl) {
       return;
     }
-    if (audio.src !== current.audioUrl) {
-      audio.src = current.audioUrl;
+    if (audio.src !== nowPlaying.audioUrl) {
+      audio.src = nowPlaying.audioUrl;
     }
     try {
       await audio.play();
@@ -191,7 +272,7 @@ export function StageScreen({ code }: { code: string | null }) {
     } catch {
       setIsPlaying(false);
     }
-  }, [current, resume]);
+  }, [nowPlaying, resume]);
 
   function pauseCurrent() {
     audioRef.current?.pause();
@@ -218,13 +299,57 @@ export function StageScreen({ code }: { code: string | null }) {
     }
   }, [current, readyItems]);
 
-  // When the selected track changes while we intend to keep playing.
+  // Decide what happens when the audio element finishes a clip.
+  const handleTrackEnded = useCallback(() => {
+    // A station ID just finished: archive it + warm a fresh one, reset the
+    // counter, and advance to the next real track.
+    if (activeStationId) {
+      const playedId = activeStationId.id;
+      setActiveStationId(null);
+      playsSinceIdRef.current = 0;
+      consumeStationId(playedId);
+      advance();
+      return;
+    }
+    // A real song finished. Count it; when armed (host just enabled it) or the
+    // cadence is reached and a warm ID is ready, drop it in instead of advancing
+    // (the counter resets when the ID ends). No warm ID → just advance and retry
+    // on the next song end.
+    playsSinceIdRef.current += 1;
+    const cadenceReached = playsSinceIdRef.current >= STATION_ID_CADENCE;
+    if (
+      stationIdEnabled &&
+      stationIds.length > 0 &&
+      (stationArmed || cadenceReached)
+    ) {
+      const pick = stationIds[stationCursorRef.current % stationIds.length];
+      stationCursorRef.current += 1;
+      if (stationArmed) {
+        setStationArmed(false);
+      }
+      setIsPlaying(false);
+      setActiveStationId(pick);
+      setIsPlaying(true);
+      return;
+    }
+    advance();
+  }, [
+    activeStationId,
+    advance,
+    consumeStationId,
+    stationArmed,
+    stationIdEnabled,
+    stationIds,
+  ]);
+
+  // When what's playing changes while we intend to keep playing, (re)start it.
+  // Keyed on nowPlaying so switching to/from a station ID triggers playback.
   useEffect(() => {
     if (isPlaying) {
       playCurrent().catch(() => setIsPlaying(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentId]);
+  }, [nowPlaying?.id]);
 
   // Publish whenever the playing track or play/pause state changes.
   useEffect(() => {
@@ -389,7 +514,7 @@ export function StageScreen({ code }: { code: string | null }) {
   const [durationMs, setDurationMs] = useState(0);
 
   // Prefer the live audio duration; fall back to the stored track length.
-  const totalMs = durationMs || current?.durationMs || 0;
+  const totalMs = durationMs || nowPlaying?.durationMs || 0;
 
   const seekToSeconds = useCallback(
     (seconds: number) => {
@@ -398,14 +523,14 @@ export function StageScreen({ code }: { code: string | null }) {
       const audio = audioRef.current;
 
       if (audio) {
-        if (current?.audioUrl && audio.src !== current.audioUrl) {
-          audio.src = current.audioUrl;
+        if (nowPlaying?.audioUrl && audio.src !== nowPlaying.audioUrl) {
+          audio.src = nowPlaying.audioUrl;
         }
         audio.currentTime = nextMs / 1000;
       }
       setPosMs(nextMs);
     },
-    [current?.audioUrl, totalMs]
+    [nowPlaying?.audioUrl, totalMs]
   );
 
   // Upcoming tracks in play order (wraps, excludes the current track).
@@ -441,7 +566,7 @@ export function StageScreen({ code }: { code: string | null }) {
   // blocks. Prefers real per-line/word timestamps; falls back to spreading each
   // section's duration evenly across its lines.
   const lyricLines = useMemo(() => {
-    const sections = current?.lyrics?.sections;
+    const sections = nowPlaying?.lyrics?.sections;
     if (!sections || sections.length === 0) return null;
 
     const out: {
@@ -485,7 +610,7 @@ export function StageScreen({ code }: { code: string | null }) {
     }
 
     return out;
-  }, [current?.lyrics]);
+  }, [nowPlaying?.lyrics]);
 
   // Index of the line currently being sung (last line whose start has passed).
   const activeLineIndex = useMemo(() => {
@@ -522,7 +647,7 @@ export function StageScreen({ code }: { code: string | null }) {
     return () => window.removeEventListener("resize", positionLyrics);
   }, [positionLyrics]);
 
-  const idle = !current;
+  const idle = !nowPlaying;
 
   // ── Orb colorway + background tint ───────────────────────────
   // The host's selected colorway drives both the orb texture and the stage
@@ -613,13 +738,15 @@ export function StageScreen({ code }: { code: string | null }) {
 
         {/* Track title + attribution — sits below the orb, above the progress
             bar, while lyrics scroll lower in the hero. */}
-        {current && lyricLines && (
+        {nowPlaying && lyricLines && (
           <div className="flex flex-col items-center gap-1">
             <p className="max-w-xl truncate text-base text-white/70 sm:text-lg">
-              {current.title || current.prompt}
+              {nowPlaying.title || nowPlaying.prompt}
             </p>
             <p className="text-xs uppercase tracking-[0.18em] text-white/40">
-              Requested by {current.requesterName || "Anonymous"}
+              {activeStationId
+                ? "Station ID · ElevenDJ Radio"
+                : `Requested by ${nowPlaying.requesterName || "Anonymous"}`}
             </p>
           </div>
         )}
@@ -713,16 +840,22 @@ export function StageScreen({ code }: { code: string | null }) {
             </div>
           ) : (
             <>
-              <p className={styles.eyebrow}>Now playing</p>
-              <h1 className={styles.title}>{current.title || current.prompt}</h1>
-              {current.title ? (
+              <p className={styles.eyebrow}>
+                {activeStationId ? "Station ID" : "Now playing"}
+              </p>
+              <h1 className={styles.title}>
+                {nowPlaying.title || nowPlaying.prompt}
+              </h1>
+              {!activeStationId && nowPlaying.title ? (
                 <p className="max-w-xl truncate text-sm text-white/55 sm:text-base">
-                  {current.prompt}
+                  {nowPlaying.prompt}
                 </p>
               ) : null}
-              {current.requesterName ? (
+              {activeStationId ? (
+                <p className={styles.requester}>ElevenDJ Radio</p>
+              ) : nowPlaying.requesterName ? (
                 <p className={styles.requester}>
-                  Requested by {current.requesterName}
+                  Requested by {nowPlaying.requesterName}
                 </p>
               ) : null}
             </>
@@ -737,7 +870,7 @@ export function StageScreen({ code }: { code: string | null }) {
         className="hidden"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        onEnded={advance}
+        onEnded={handleTrackEnded}
         onLoadedMetadata={(event) => {
           setPosMs(0);
           const d = event.currentTarget.duration;

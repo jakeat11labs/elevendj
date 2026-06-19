@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - June 19, 2026
+
+### Added
+- **Station ID** — an opt-in radio-style identifier. When a host enables it, the
+  stage automatically drops a ~10-second AI-generated "ElevenDJ Radio, powered by
+  ElevenLabs" jingle in after every 2 songs, then continues to the next track.
+  Enabling it also plays one at the next playable point (immediately when idle,
+  or right after the current song).
+- Station IDs vary each time — generated from an ad-libbed prompt (rotating vibe,
+  musical bed, and announcer voice) so no two sound alike.
+- Optional personalization: hosts can weave their own or their room's name into
+  the jingle via a checkbox + name field in the console; otherwise it stays the
+  high-level brand line.
+- A warm pool keeps a few station IDs pre-generated and ready so playback never
+  stalls, auto-replenishing a fresh variation after each one plays.
+
+### Changed
+- Audience requests now carry an internal `kind`, so auto-inserted content
+  (station IDs) is kept out of the public queue, queue limits, and the host's
+  recent activity feed.
+
 ## [0.2.0] - June 15, 2026
 
 ### Added
