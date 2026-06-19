@@ -8,7 +8,7 @@ import { sessions, songRequests, users } from "@/lib/db/schema";
 
 /**
  * Admin-only Vercel Blob management. Song audio lives at `tracks/{requestId}.mp3`
- * (public, deterministic pathname — see lib/generation.ts). We scope every
+ * (public, deterministic pathname — see lib/generation). We scope every
  * operation to this prefix so the panel can never touch unrelated blobs.
  *
  * A blob is "referenced" when its request id still has a row whose audio_url is

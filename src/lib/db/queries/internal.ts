@@ -9,7 +9,7 @@ import type { Lyrics, QueueItem, RequestStatus, Session } from "@/lib/status";
 
 
 /**
- * Snake_case request record. The generation pipeline (lib/generation.ts) and
+ * Snake_case request record. The generation pipeline (lib/generation) and
  * other internals read these field names, so we keep the legacy shape stable
  * across the Supabase→Neon move and map the Drizzle row into it.
  */
