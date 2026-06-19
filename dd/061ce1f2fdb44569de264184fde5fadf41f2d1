@@ -1,0 +1,25 @@
+src/app/stage/karaoke-viewport.tsx
+  s_15883e5f59d021::t_35f11c7753bd02 1-115
+src/app/stage/stage-screen.tsx
+  s_15883e5f59d021::t_aef0ba4a24dc51 770-775
+  s_15883e5f59d021::t_2c0e9c216a052c 31-32,35
+  s_15883e5f59d021::t_a5dbba38f63ff0 916-920
+src/lib/use-lyrics.ts
+  s_15883e5f59d021::t_89b7d0d8de0bd9 1-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "dd061ce1f2fdb44569de264184fde5fadf41f2d1",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
