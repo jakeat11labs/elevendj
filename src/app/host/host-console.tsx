@@ -42,6 +42,7 @@ import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
 
 import { DjBooth } from "./dj-booth";
 import { formatDate, slugify, trackName } from "./format";
+import { useApiKeyManager } from "./use-api-key-manager";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
@@ -785,35 +786,8 @@ export function HostConsole({ user }: { user: HostUser }) {
   );
 
   // ── ElevenLabs API key management ────────────────────────────
-  const [apiKeyModalOpen, setApiKeyModalOpen] = useState(false);
-  const [removingKey, setRemovingKey] = useState(false);
-
-  const removeApiKey = useCallback(async () => {
-    if (
-      !window.confirm(
-        "Remove your ElevenLabs key? New tracks won't generate until you reconnect one."
-      )
-    ) {
-      return;
-    }
-    setRemovingKey(true);
-    try {
-      const response = await fetch("/api/admin/api-key", {
-        method: "DELETE",
-        headers: authHeader,
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not remove your key.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error removing your key.");
-    } finally {
-      setRemovingKey(false);
-    }
-  }, [authHeader, refresh]);
+  const { apiKeyModalOpen, setApiKeyModalOpen, removingKey, removeApiKey } =
+    useApiKeyManager({ authHeader, refresh, onError: setError });
 
   // ── Orb colorway picker ──────────────────────────────────────
   const { orbPickerOpen, setOrbPickerOpen, settingOrb, chooseOrbColorway } =
