@@ -14,7 +14,6 @@ import {
   Disc3,
   Download,
   GripVertical,
-  Inbox,
   KeyRound,
   ListMusic,
   Music2,
@@ -46,8 +45,10 @@ import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import { useStageAudio, type Deck } from "@/lib/use-stage-audio";
 import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
 
+import { formatDate, slugify, trackName } from "./format";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
+import { PendingApprovalsPanel } from "./pending-approvals-panel";
 
 // Crossfade length on the host's local player — kept in sync with the stage.
 const HOST_CROSSFADE_SEC = 3;
@@ -102,37 +103,6 @@ type RequestAction =
   | "add_to_queue";
 
 type BulkAction = "delete" | "remove_from_queue" | "add_to_queue" | "approve";
-
-/** Build a safe filename from a user-provided prompt. */
-// Prefer the AI-generated song title; fall back to the prompt only before a
-// title exists (e.g. while still pending/generating). Full prompt lives in the
-// track detail modal.
-function trackName(item: { title: string | null; prompt: string }): string {
-  return item.title?.trim() || item.prompt;
-}
-
-function slugify(input: string): string {
-  const slug = input
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60);
-  return slug || "track";
-}
-
-function formatDate(iso: string): string {
-  try {
-    return new Date(iso).toLocaleString(undefined, {
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
-  } catch {
-    return iso;
-  }
-}
 
 export function HostConsole({ user }: { user: HostUser }) {
   // Two decks so the host's local player crossfades exactly like the stage.
@@ -2092,88 +2062,15 @@ export function HostConsole({ user }: { user: HostUser }) {
           {/* Pending approval (shown in approval mode or whenever anything waits).
               The wrapper is always rendered so the onboarding tour has a stable
               anchor even when the panel itself is hidden. */}
-          <div id="tour-approvals">
-          {(!autoDj || pendingItems.length > 0) && (
-            <section className="card rise p-4 sm:p-5">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="flex items-center gap-2 text-xl">
-                  <Inbox size={18} />
-                  Pending approval
-                  <span className="mono text-sm font-normal text-[var(--mid-gray)]">
-                    {pendingItems.length}
-                  </span>
-                </h2>
-                {pendingItems.length > 0 && (
-                  <button
-                    type="button"
-                    disabled={bulkBusy}
-                    onClick={() =>
-                      runBulk(
-                        "approve",
-                        pendingItems.map((item) => item.id)
-                      )
-                    }
-                    className="btn-primary inline-flex h-9 items-center gap-2 px-4 text-sm"
-                    title="Approve every pending request"
-                  >
-                    <Check size={15} />
-                    {bulkBusy
-                      ? "Approving…"
-                      : `Approve all (${pendingItems.length})`}
-                  </button>
-                )}
-              </div>
-              <div className="space-y-2.5">
-                {pendingItems.map((item) => (
-                  <div key={item.id} className="card-soft p-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="text-sm leading-6 text-[var(--graphite)]">
-                          {item.prompt}
-                        </p>
-                        <p className="mt-1 text-xs text-[var(--dark-gray)]">
-                          {item.requesterName
-                            ? `From ${item.requesterName}`
-                            : "Anonymous"}
-                          <span className="mono text-[var(--mid-gray)]">
-                            {" · "}
-                            {formatDate(item.createdAt)}
-                          </span>
-                        </p>
-                      </div>
-                      <StatusBadge status={item.status} />
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        disabled={busyId === item.id}
-                        onClick={() => runAction(item.id, "approve")}
-                        className="btn-primary inline-flex h-9 items-center gap-2 px-4 text-sm"
-                      >
-                        <Check size={15} />
-                        Approve &amp; generate
-                      </button>
-                      <button
-                        type="button"
-                        disabled={busyId === item.id}
-                        onClick={() => runAction(item.id, "reject")}
-                        className="btn-ghost inline-flex h-9 items-center gap-2 px-4 text-sm"
-                      >
-                        <X size={15} />
-                        Reject
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {pendingItems.length === 0 && (
-                  <p className="py-8 text-center text-sm text-[var(--mid-gray)]">
-                    Nothing waiting. New requests appear here for approval.
-                  </p>
-                )}
-              </div>
-            </section>
-          )}
-          </div>
+          <PendingApprovalsPanel
+            pendingItems={pendingItems}
+            autoDj={autoDj}
+            bulkBusy={bulkBusy}
+            busyId={busyId}
+            onApprove={(id) => runAction(id, "approve")}
+            onReject={(id) => runAction(id, "reject")}
+            onApproveAll={(ids) => runBulk("approve", ids)}
+          />
 
           {/* Queue */}
           <section id="tour-queue" className="card rise p-4 sm:p-5">
