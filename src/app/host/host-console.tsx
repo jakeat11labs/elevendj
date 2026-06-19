@@ -48,6 +48,7 @@ import { useHostComposer } from "./use-host-composer";
 import { useHostSettings } from "./use-host-settings";
 import { useQueueActions } from "./use-queue-actions";
 import { useQueueSelection } from "./use-queue-selection";
+import { useSessionActions } from "./use-session-actions";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
@@ -145,7 +146,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   }, []);
 
   // ── Sessions ─────────────────────────────────────────────────
-  const [creatingSession, setCreatingSession] = useState(false);
   const [sessionsModalOpen, setSessionsModalOpen] = useState(false);
 
   // Tracks the last now-playing state we published, so we only POST on change.
@@ -450,37 +450,20 @@ export function HostConsole({ user }: { user: HostUser }) {
       onError: setError,
     });
 
-  const createSession = useCallback(async () => {
-    if (
-      !window.confirm(
-        "Start a fresh session? This ends the current session and clears the live queue. Past tracks stay available in Files."
-      )
-    ) {
-      return;
-    }
-    setCreatingSession(true);
-    try {
-      const response = await fetch("/api/admin/sessions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({}),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not start a new session.");
-        return;
-      }
-      // Back to the active-session files view.
-      resetFilesView();
-      setCurrentId(null);
-      setIsPlaying(false);
-      await refresh();
-    } catch {
-      setError("Network error starting a new session.");
-    } finally {
-      setCreatingSession(false);
-    }
-  }, [authHeader, refresh, resetFilesView]);
+  // Reset playback on session change (becomes the playback hook's resetPlayback
+  // once that's extracted; the <audio> decks are cleared by the currentId effect).
+  const resetPlayback = useCallback(() => {
+    setCurrentId(null);
+    setIsPlaying(false);
+  }, []);
+
+  const { creatingSession, createSession } = useSessionActions({
+    authHeader,
+    refresh,
+    onError: setError,
+    resetFilesView,
+    resetPlayback,
+  });
 
   // ── Publish now-playing (drives request banner + stage) ──────
   useEffect(() => {
