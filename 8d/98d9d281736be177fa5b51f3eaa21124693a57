@@ -1,0 +1,38 @@
+src/lib/db/queries/settings.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-129
+src/lib/db/queries/index.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-14
+src/lib/db/queries/internal.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-62,64-70,72-77,79-88,90-105,107-139,141-161,163-181,183-195,197-211,213-219,221-230
+  s_15883e5f59d021::t_d356be1550bd0a 63,71,78,89,106,140,162,182,196,212,220
+src/lib/db/queries/sessions.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-255
+src/lib/db/queries/playback.ts
+  s_15883e5f59d021::t_72718167996822 10
+  s_15883e5f59d021::t_b5f50018ba003c 1-9,11-221
+src/lib/db/queries/station-ids.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-139
+src/lib/db/queries/requests.ts
+  s_15883e5f59d021::t_f61a9ec417e8ce 10
+  s_15883e5f59d021::t_b5f50018ba003c 1-9,11-462
+src/lib/db/queries/users.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-291
+src/lib/db/queries/generation-lifecycle.ts
+  s_15883e5f59d021::t_b5f50018ba003c 1-117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "8d98d9d281736be177fa5b51f3eaa21124693a57",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
