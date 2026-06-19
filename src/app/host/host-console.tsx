@@ -45,6 +45,7 @@ import { formatDate, trackName } from "./format";
 import { useApiKeyManager } from "./use-api-key-manager";
 import { useFilesLibrary } from "./use-files-library";
 import { useHostComposer } from "./use-host-composer";
+import { useQueueSelection } from "./use-queue-selection";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
@@ -164,8 +165,8 @@ export function HostConsole({ user }: { user: HostUser }) {
   const [reordering, setReordering] = useState(false);
 
   // ── Selections ───────────────────────────────────────────────
-  const [queueSel, setQueueSel] = useState<Set<string>>(new Set());
-  const [filesSel, setFilesSel] = useState<Set<string>>(new Set());
+  const { queueSel, setQueueSel, filesSel, setFilesSel, toggle } =
+    useQueueSelection();
 
 
   // Cookie-based Neon Auth — no Authorization header needed; the host session
@@ -464,7 +465,7 @@ export function HostConsole({ user }: { user: HostUser }) {
         setBusyId(null);
       }
     },
-    [authHeader, refresh]
+    [authHeader, refresh, setFilesSel]
   );
 
   const reorder = useCallback(
@@ -1080,18 +1081,6 @@ export function HostConsole({ user }: { user: HostUser }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nowPlaying?.id]);
-
-
-  // ── Selection helpers ────────────────────────────────────────
-  function toggle(set: Set<string>, id: string) {
-    const next = new Set(set);
-    if (next.has(id)) {
-      next.delete(id);
-    } else {
-      next.add(id);
-    }
-    return next;
-  }
 
 
   // ── Console ──────────────────────────────────────────────────
