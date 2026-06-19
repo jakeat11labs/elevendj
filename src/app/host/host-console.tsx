@@ -41,8 +41,9 @@ import { useStageAudio, type Deck } from "@/lib/use-stage-audio";
 import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
 
 import { DjBooth } from "./dj-booth";
-import { formatDate, slugify, trackName } from "./format";
+import { formatDate, trackName } from "./format";
 import { useApiKeyManager } from "./use-api-key-manager";
+import { useFilesLibrary } from "./use-files-library";
 import { useHostComposer } from "./use-host-composer";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
@@ -153,11 +154,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   // ── Sessions ─────────────────────────────────────────────────
   const [creatingSession, setCreatingSession] = useState(false);
   const [sessionsModalOpen, setSessionsModalOpen] = useState(false);
-  // Files library session view: null = active session (overview.files),
-  // a uuid = that session's files, "all" = every session.
-  const [filesSessionId, setFilesSessionId] = useState<string | null>(null);
-  const [sessionFiles, setSessionFiles] = useState<QueueItem[] | null>(null);
-  const [filesLoading, setFilesLoading] = useState(false);
 
   // Tracks the last now-playing state we published, so we only POST on change.
   const lastPublishedRef = useRef<string>("");
@@ -260,10 +256,24 @@ export function HostConsole({ user }: { user: HostUser }) {
 
   // Files shown in the library: default/active uses overview.files; picking a
   // past session (or "all") swaps in the separately fetched session files.
-  const files =
-    filesSessionId === null
-      ? overview?.files ?? []
-      : sessionFiles ?? [];
+  // File library view (active-session files come from the polled overview;
+  // past/all sessions fetch on demand) + per-file downloads.
+  const {
+    files,
+    filesLoading,
+    filesSessionId,
+    onPickSession,
+    refreshFilesView,
+    resetFilesView,
+    downloadFile,
+    downloadSelected,
+  } = useFilesLibrary({
+    overviewFiles: overview?.files,
+    authHeader,
+    onError: setError,
+    filesSel,
+    setFilesSel,
+  });
 
   const current = useMemo(() => {
     if (readyItems.length === 0) {
@@ -737,8 +747,7 @@ export function HostConsole({ user }: { user: HostUser }) {
         return;
       }
       // Back to the active-session files view.
-      setFilesSessionId(null);
-      setSessionFiles(null);
+      resetFilesView();
       setCurrentId(null);
       setIsPlaying(false);
       await refresh();
@@ -747,51 +756,7 @@ export function HostConsole({ user }: { user: HostUser }) {
     } finally {
       setCreatingSession(false);
     }
-  }, [authHeader, refresh]);
-
-  // Fetch a specific session's (or all sessions') files for the library view.
-  const loadSessionFiles = useCallback(
-    async (sessionId: string) => {
-      setFilesLoading(true);
-      try {
-        const response = await fetch(
-          `/api/admin/files?sessionId=${encodeURIComponent(sessionId)}`,
-          { headers: authHeader }
-        );
-        const body = await response.json().catch(() => null);
-        if (!response.ok) {
-          setError(body?.message || "Could not load session files.");
-          return;
-        }
-        setSessionFiles((body?.files as QueueItem[]) ?? []);
-      } catch {
-        setError("Network error loading session files.");
-      } finally {
-        setFilesLoading(false);
-      }
-    },
-    [authHeader]
-  );
-
-  function onPickSession(value: string) {
-    setFilesSel(new Set());
-    if (value === "active") {
-      setFilesSessionId(null);
-      setSessionFiles(null);
-      return;
-    }
-    setFilesSessionId(value);
-    void loadSessionFiles(value);
-  }
-
-  // After a file mutation, keep whichever library view is on screen fresh:
-  // the active view comes from overview.files (refresh), a past/all view from
-  // its own fetch.
-  const refreshFilesView = useCallback(async () => {
-    if (filesSessionId !== null) {
-      await loadSessionFiles(filesSessionId);
-    }
-  }, [filesSessionId, loadSessionFiles]);
+  }, [authHeader, refresh, resetFilesView]);
 
   // ── Publish now-playing (drives request banner + stage) ──────
   useEffect(() => {
@@ -1116,34 +1081,6 @@ export function HostConsole({ user }: { user: HostUser }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nowPlaying?.id]);
 
-  // ── Download helper ──────────────────────────────────────────
-  const downloadFile = useCallback(async (item: QueueItem) => {
-    if (!item.audioUrl) {
-      return;
-    }
-    try {
-      const response = await fetch(item.audioUrl);
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.href = objectUrl;
-      anchor.download = `${slugify(trackName(item))}.mp3`;
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-      URL.revokeObjectURL(objectUrl);
-    } catch {
-      setError("Download failed.");
-    }
-  }, []);
-
-  async function downloadSelected() {
-    const targets = files.filter((item) => filesSel.has(item.id));
-    for (const item of targets) {
-      // Sequential to avoid the browser blocking parallel downloads.
-      await downloadFile(item);
-    }
-  }
 
   // ── Selection helpers ────────────────────────────────────────
   function toggle(set: Set<string>, id: string) {
