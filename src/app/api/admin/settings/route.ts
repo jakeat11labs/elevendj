@@ -4,6 +4,7 @@ import { requireHost } from "@/lib/auth/admin";
 import {
   getActiveSessionForHost,
   setAutoDj,
+  setCrossfadeEnabled,
   setMasterVolume,
   setOrbColorway,
   setRequestsOpen,
@@ -32,6 +33,8 @@ const settingsSchema = z
     stationIdEnabled: z.boolean().optional(),
     stationIdPersonalize: z.boolean().optional(),
     stationIdHostName: z.string().trim().max(60).optional(),
+    // Crossfade between tracks on the stage (radio-style overlap).
+    crossfadeEnabled: z.boolean().optional(),
   })
   .refine((value) => Object.values(value).some((v) => v !== undefined), {
     message: "No settings provided.",
@@ -65,6 +68,9 @@ export async function POST(request: Request) {
     if (parsed.data.stationIdHostName !== undefined) {
       await setStationIdHostName(user.id, parsed.data.stationIdHostName);
     }
+    if (parsed.data.crossfadeEnabled !== undefined) {
+      await setCrossfadeEnabled(user.id, parsed.data.crossfadeEnabled);
+    }
     if (parsed.data.stationIdEnabled !== undefined) {
       await setStationIdEnabled(user.id, parsed.data.stationIdEnabled);
       // Start warming the pool immediately so the first ID is ready well before
@@ -87,6 +93,7 @@ export async function POST(request: Request) {
         stationIdEnabled: parsed.data.stationIdEnabled,
         stationIdPersonalize: parsed.data.stationIdPersonalize,
         stationIdHostName: parsed.data.stationIdHostName,
+        crossfadeEnabled: parsed.data.crossfadeEnabled,
       },
       { headers: { "Cache-Control": "no-store" } }
     );

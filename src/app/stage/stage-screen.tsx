@@ -24,18 +24,22 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import { QRCodeSVG } from "qrcode.react";
 
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
-import { useStageAudio } from "@/lib/use-stage-audio";
+import { useStageAudio, type Deck } from "@/lib/use-stage-audio";
 import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
 import { resolveColorway } from "@/components/orb/colorways";
 import { useColorwayPalette } from "@/components/orb/use-colorway-palette";
 import { AudioProgressSlider } from "@/components/ui/audio-progress-slider";
 import type { LyricWord, QueueItem, QueueSnapshot } from "@/lib/status";
 import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
-import { STATION_ID_CADENCE } from "@/lib/station-id";
 
 import styles from "./stage.module.css";
 
 const TOKEN_KEY = "elevendj-admin-token";
+
+// How long a radio-style crossfade lasts. Clamped per-track to never exceed a
+// fraction of a short clip (so 10s jingles still blend without overlapping their
+// whole length).
+const CROSSFADE_SEC = 3;
 
 // Render a lyric line as karaoke: words fill from dim to bright as playback
 // passes each word's start. Punctuation-only tokens (no startMs) inherit the
@@ -67,9 +71,34 @@ function formatClock(ms: number) {
 }
 
 export function StageScreen({ code }: { code: string | null }) {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  // Two decks so tracks can crossfade (radio-style). Deck A is the default
+  // active deck; B is the spare the next track fades in on.
+  const audioARef = useRef<HTMLAudioElement>(null);
+  const audioBRef = useRef<HTMLAudioElement>(null);
 
-  const { analyserRef, resume } = useStageAudio(audioRef);
+  const { analyserRef, resume, setDeckGain, crossfade } = useStageAudio(
+    audioARef,
+    audioBRef
+  );
+
+  // Which deck currently owns "now playing" (drives lyrics/position/seek). A ref
+  // mirror lets event handlers read it synchronously.
+  const [activeDeck, setActiveDeck] = useState<Deck>("a");
+  const activeDeckRef = useRef<Deck>("a");
+  useEffect(() => {
+    activeDeckRef.current = activeDeck;
+  }, [activeDeck]);
+  const deckEl = useCallback(
+    (d: Deck) => (d === "a" ? audioARef.current : audioBRef.current),
+    []
+  );
+  const activeEl = useCallback(
+    () => deckEl(activeDeckRef.current),
+    [deckEl]
+  );
+  // A crossfade is mid-flight: suppresses the play effect (the incoming deck is
+  // already playing) and re-entrant crossfade triggers.
+  const crossfadingRef = useRef(false);
 
   const [snapshot, setSnapshot] = useState<QueueSnapshot | null>(null);
   const [currentId, setCurrentId] = useState<string | null>(null);
@@ -84,15 +113,17 @@ export function StageScreen({ code }: { code: string | null }) {
   // Master volume is host-controlled (set from the console) and arrives in the
   // queue snapshot. The stage obeys it — the slider below is a read-only mirror.
   const masterVolume = snapshot?.masterVolume ?? 1;
+  const crossfadeEnabled = snapshot?.crossfadeEnabled ?? false;
 
-  // Drive the single audio element from the authoritative master + local mute.
-  // The element keeps its volume across src changes, so this is the only place
-  // that needs to set it.
+  // Drive BOTH decks' element volume from the authoritative master + local mute
+  // (crossfade gain is separate, in WebAudio). Elements keep volume across src
+  // changes, so this is the only place that sets it.
   useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.volume = masterVolume;
-      audio.muted = muted;
+    for (const audio of [audioARef.current, audioBRef.current]) {
+      if (audio) {
+        audio.volume = masterVolume;
+        audio.muted = muted;
+      }
     }
   }, [masterVolume, muted]);
 
@@ -131,12 +162,26 @@ export function StageScreen({ code }: { code: string | null }) {
     setRequestUrl(`${window.location.origin}/request`);
   }, []);
 
+  // The interleaved queue from the server — real songs with station-ID jingles
+  // dropped in at their computed slots. This is the single source of truth for
+  // playback order; the stage walks it instead of counting cadence itself.
+  const placedItems = useMemo(
+    () => snapshot?.items ?? [],
+    [snapshot]
+  );
+
+  // Real, playable songs only — the backbone the `current` pointer tracks.
+  // Station IDs are handled separately (held in `activeStationId`) so a refetch
+  // can never yank the jingle that's mid-play out from under the player.
   const readyItems = useMemo(
     () =>
-      (snapshot?.items ?? []).filter(
-        (item: QueueItem) => item.status === "ready" && item.audioUrl
+      placedItems.filter(
+        (item: QueueItem) =>
+          item.kind !== "station_id" &&
+          item.status === "ready" &&
+          item.audioUrl
       ),
-    [snapshot]
+    [placedItems]
   );
 
   const current = useMemo(() => {
@@ -153,40 +198,60 @@ export function StageScreen({ code }: { code: string | null }) {
   }, [current, currentId]);
 
   // ── Station ID injection ─────────────────────────────────────
-  // When enabled, after every STATION_ID_CADENCE real songs the stage drops in
-  // a pre-generated ~10s radio ID from the warm pool, then advances normally.
+  // Station IDs are no longer scheduled by a local cadence counter: the server
+  // interleaves them into `placedItems` (see placeStationIds), and the stage
+  // simply plays the jingle that sits next in that order. `activeStationId` is
+  // the one currently in flight — held in state (not read from the queue) so a
+  // refetch can't drop it mid-play.
   const stationIdEnabled = snapshot?.stationIdEnabled ?? false;
-  const stationIds = useMemo(() => snapshot?.stationIds ?? [], [snapshot]);
   const [activeStationId, setActiveStationId] = useState<QueueItem | null>(null);
-  // "Armed" means play an ID at the next opportunity regardless of cadence —
-  // set when the host flips the feature on, so the first ID doesn't wait for
-  // two songs. Cleared once it fires.
+  // The real song we paused on to play a jingle, so we resume in the right
+  // place when it ends. null while a "lead" jingle (the stopped-start one) plays
+  // — that resumes by playing the current top track rather than advancing past
+  // it.
+  const stationReturnRef = useRef<string | null>(null);
+  // "Armed" = open the next stopped-start with a lead jingle. Set only when the
+  // host toggles station IDs ON while nothing is playing (the note's "if we are
+  // stopped, add the top one"), and consumed by the next play. Crucially NOT set
+  // on pause/resume, so resuming a track never injects a stray jingle.
   const [stationArmed, setStationArmed] = useState(false);
   const prevStationEnabledRef = useRef<boolean | null>(null);
-  // Refs (not state): the counter/cursor must not retrigger renders, and the
-  // ended handler reads them synchronously.
-  const playsSinceIdRef = useRef(0);
-  const stationCursorRef = useRef(0);
+  const isPlayingRef = useRef(false);
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   // What's actually coming out of the speaker: a station ID when one is in
   // flight, otherwise the real current track. Presentation (audio src, lyrics,
   // title, duration) follows this; queue/sync/advance logic stays on `current`.
   const nowPlaying = activeStationId ?? current;
 
-  // Arm on the off→on transition the stage observes (host toggled it on), so an
-  // ID plays at the next playable point instead of waiting out the cadence.
-  // First load doesn't arm (prev starts null) — opening the stage on an
-  // already-on session shouldn't replay an ID.
-  useEffect(() => {
-    const prev = prevStationEnabledRef.current;
-    prevStationEnabledRef.current = stationIdEnabled;
-    if (prev === false && stationIdEnabled) {
-      setStationArmed(true);
-      playsSinceIdRef.current = 0;
-    } else if (prev && !stationIdEnabled) {
-      setStationArmed(false);
+  // The jingle that should play immediately before `current` (the stopped-start
+  // "lead") — the station_id sitting just ahead of the current track in the
+  // interleaved order, or at the very top when nothing is current yet.
+  const leadStationId = useCallback((): QueueItem | null => {
+    if (!current) {
+      const head = placedItems[0];
+      return head?.kind === "station_id" ? head : null;
     }
-  }, [stationIdEnabled]);
+    const idx = placedItems.findIndex((item) => item.id === current.id);
+    const before = idx > 0 ? placedItems[idx - 1] : null;
+    return before?.kind === "station_id" ? before : null;
+  }, [current, placedItems]);
+
+  // The jingle that should play right after `songId` finishes, per the server's
+  // interleaving — or null if a real song comes next.
+  const stationIdAfter = useCallback(
+    (songId: string | null | undefined): QueueItem | null => {
+      if (!songId) {
+        return null;
+      }
+      const idx = placedItems.findIndex((item) => item.id === songId);
+      const next = idx >= 0 ? placedItems[idx + 1] : null;
+      return next?.kind === "station_id" ? next : null;
+    },
+    [placedItems]
+  );
 
   // Tell the host a station ID finished so it archives it and warms a fresh
   // replacement. Best-effort and token-gated, mirroring publishNowPlaying — if
@@ -211,26 +276,20 @@ export function StageScreen({ code }: { code: string | null }) {
     });
   }, []);
 
-  // Armed + nothing currently playing → drop an ID in at the top as soon as one
-  // is warm. When a song IS playing we leave this alone and let the ended
-  // handler inject right after it (the "next point it can play"). Re-runs when
-  // the pool warms (stationIds changes), so it fires even if no ID was ready at
-  // enable time.
+  // Arm the lead jingle only on the off→on transition the stage observes, and
+  // only if nothing is playing right now — that's the "enabled while stopped"
+  // case. Enabling mid-song doesn't arm: the next cadence jingle (already placed
+  // in the queue) covers it without cutting off the current track. First load
+  // doesn't arm (prev starts null).
   useEffect(() => {
-    if (
-      stationArmed &&
-      stationIdEnabled &&
-      !nowPlaying &&
-      stationIds.length > 0
-    ) {
-      const pick = stationIds[stationCursorRef.current % stationIds.length];
-      stationCursorRef.current += 1;
+    const prev = prevStationEnabledRef.current;
+    prevStationEnabledRef.current = stationIdEnabled;
+    if (prev === false && stationIdEnabled) {
+      setStationArmed(!isPlayingRef.current);
+    } else if (prev && !stationIdEnabled) {
       setStationArmed(false);
-      playsSinceIdRef.current = 0;
-      setActiveStationId(pick);
-      setIsPlaying(true);
     }
-  }, [stationArmed, stationIdEnabled, nowPlaying, stationIds]);
+  }, [stationIdEnabled]);
 
   // ── Now-playing publish (optional, only if a token is present) ─
   const publishNowPlaying = useCallback(
@@ -258,12 +317,32 @@ export function StageScreen({ code }: { code: string | null }) {
 
   // ── Player controls ──────────────────────────────────────────
   const playCurrent = useCallback(async () => {
-    const audio = audioRef.current;
+    // Armed (station IDs were just enabled while stopped) → open the set with
+    // the lead jingle instead of the first track. Consumed once; the
+    // [nowPlaying?.id] effect then actually plays it. If the pool is cold (no
+    // lead yet) just start the song — jingles still come via cadence.
+    if (stationArmed && !activeStationId) {
+      setStationArmed(false);
+      const lead = leadStationId();
+      if (lead) {
+        stationReturnRef.current = null;
+        setActiveStationId(lead);
+        setIsPlaying(true);
+        return;
+      }
+    }
+    const audio = activeEl();
     if (!audio || !nowPlaying?.audioUrl) {
       return;
     }
     if (audio.src !== nowPlaying.audioUrl) {
       audio.src = nowPlaying.audioUrl;
+    }
+    // Make sure the active deck is audible and the spare silent — unless a
+    // crossfade is mid-ramp, which owns the gains.
+    if (!crossfadingRef.current) {
+      setDeckGain(activeDeckRef.current, 1);
+      setDeckGain(activeDeckRef.current === "a" ? "b" : "a", 0);
     }
     try {
       await audio.play();
@@ -272,10 +351,20 @@ export function StageScreen({ code }: { code: string | null }) {
     } catch {
       setIsPlaying(false);
     }
-  }, [nowPlaying, resume]);
+  }, [
+    nowPlaying,
+    resume,
+    stationArmed,
+    activeStationId,
+    leadStationId,
+    activeEl,
+    setDeckGain,
+  ]);
 
   function pauseCurrent() {
-    audioRef.current?.pause();
+    // Pause both decks so a paused crossfade tail doesn't keep playing.
+    audioARef.current?.pause();
+    audioBRef.current?.pause();
     setIsPlaying(false);
   }
 
@@ -291,44 +380,40 @@ export function StageScreen({ code }: { code: string | null }) {
       setIsPlaying(true);
     } else if (readyItems.length === 1) {
       // single track — restart it
-      const audio = audioRef.current;
+      const audio = activeEl();
       if (audio) {
         audio.currentTime = 0;
         void audio.play().then(() => setIsPlaying(true));
       }
     }
-  }, [current, readyItems]);
+  }, [current, readyItems, activeEl]);
 
   // Decide what happens when the audio element finishes a clip.
   const handleTrackEnded = useCallback(() => {
-    // A station ID just finished: archive it + warm a fresh one, reset the
-    // counter, and advance to the next real track.
+    // A station ID just finished: archive its real pool row + warm a fresh one,
+    // then resume. A "lead" jingle (stationReturnRef === null) hands off to the
+    // current track itself; a mid-set jingle advances to the next song (current
+    // still points at the one we paused on).
     if (activeStationId) {
-      const playedId = activeStationId.id;
+      consumeStationId(activeStationId.stationSourceId ?? activeStationId.id);
+      const wasLead = stationReturnRef.current === null;
+      stationReturnRef.current = null;
       setActiveStationId(null);
-      playsSinceIdRef.current = 0;
-      consumeStationId(playedId);
-      advance();
+      if (wasLead) {
+        setIsPlaying(Boolean(current));
+      } else {
+        advance();
+      }
       return;
     }
-    // A real song finished. Count it; when armed (host just enabled it) or the
-    // cadence is reached and a warm ID is ready, drop it in instead of advancing
-    // (the counter resets when the ID ends). No warm ID → just advance and retry
-    // on the next song end.
-    playsSinceIdRef.current += 1;
-    const cadenceReached = playsSinceIdRef.current >= STATION_ID_CADENCE;
-    if (
-      stationIdEnabled &&
-      stationIds.length > 0 &&
-      (stationArmed || cadenceReached)
-    ) {
-      const pick = stationIds[stationCursorRef.current % stationIds.length];
-      stationCursorRef.current += 1;
-      if (stationArmed) {
-        setStationArmed(false);
-      }
+    // A real song finished. If the server's interleaving puts a jingle right
+    // after it, play that next; otherwise advance to the next song. No counter —
+    // the queue order is the source of truth.
+    const sid = stationIdEnabled ? stationIdAfter(current?.id) : null;
+    if (sid) {
+      stationReturnRef.current = current?.id ?? null;
       setIsPlaying(false);
-      setActiveStationId(pick);
+      setActiveStationId(sid);
       setIsPlaying(true);
       return;
     }
@@ -337,14 +422,122 @@ export function StageScreen({ code }: { code: string | null }) {
     activeStationId,
     advance,
     consumeStationId,
-    stationArmed,
+    current,
     stationIdEnabled,
-    stationIds,
+    stationIdAfter,
   ]);
+
+  // ── Crossfade (radio-style overlap) ──────────────────────────
+  // Peek the item that will play after the current one — same decision as
+  // handleTrackEnded, but computed ahead of the end so we can start it early.
+  const peekNext = useCallback((): QueueItem | null => {
+    if (activeStationId) {
+      const fromId = stationReturnRef.current;
+      if (!fromId) {
+        return readyItems[0] ?? null;
+      }
+      const i = readyItems.findIndex((s) => s.id === fromId);
+      return readyItems[i + 1] ?? readyItems[0] ?? null;
+    }
+    const sid = stationIdEnabled ? stationIdAfter(current?.id) : null;
+    if (sid) {
+      return sid;
+    }
+    const i = readyItems.findIndex((s) => s.id === current?.id);
+    return readyItems[i + 1] ?? readyItems[0] ?? null;
+  }, [activeStationId, readyItems, stationIdEnabled, stationIdAfter, current]);
+
+  // Commit the queue to `next` (so lyrics/now-playing follow the incoming deck).
+  // Mirrors handleTrackEnded's outcome, but the audio has already been started
+  // on the other deck by beginCrossfade.
+  const commitNext = useCallback(
+    (next: QueueItem) => {
+      if (next.kind === "station_id") {
+        stationReturnRef.current = current?.id ?? null;
+        setActiveStationId(next);
+        return;
+      }
+      if (activeStationId) {
+        consumeStationId(
+          activeStationId.stationSourceId ?? activeStationId.id
+        );
+        stationReturnRef.current = null;
+        setActiveStationId(null);
+      }
+      setCurrentId(next.id);
+    },
+    [activeStationId, consumeStationId, current]
+  );
+
+  // Start `next` on the spare deck, ramp the decks past each other, and promote
+  // the spare to active. The outgoing deck is paused once its fade completes.
+  const beginCrossfade = useCallback(
+    (next: QueueItem, fadeSec: number) => {
+      if (!next.audioUrl) {
+        return;
+      }
+      const from = activeDeckRef.current;
+      const to: Deck = from === "a" ? "b" : "a";
+      const toEl = deckEl(to);
+      if (!toEl) {
+        return;
+      }
+      crossfadingRef.current = true;
+      toEl.src = next.audioUrl;
+      toEl.volume = masterVolume;
+      toEl.muted = muted;
+      try {
+        toEl.currentTime = 0;
+      } catch {
+        /* not yet seekable — starts at 0 anyway */
+      }
+      setDeckGain(to, 0.0001);
+      void toEl
+        .play()
+        .then(() => resume())
+        .catch(() => undefined);
+      crossfade(from, to, fadeSec);
+
+      activeDeckRef.current = to;
+      setActiveDeck(to);
+      commitNext(next);
+
+      window.setTimeout(
+        () => {
+          const oldEl = deckEl(from);
+          if (oldEl) {
+            oldEl.pause();
+          }
+          setDeckGain(from, 0);
+          crossfadingRef.current = false;
+        },
+        fadeSec * 1000 + 250
+      );
+    },
+    [deckEl, masterVolume, muted, setDeckGain, crossfade, resume, commitNext]
+  );
+
+  // Latest crossfade state for the rAF loop to read without restarting it.
+  const crossfadeCtlRef = useRef({
+    enabled: false,
+    peek: (() => null) as () => QueueItem | null,
+    begin: (_next: QueueItem, _fadeSec: number) => {},
+  });
+  useEffect(() => {
+    crossfadeCtlRef.current = {
+      enabled: crossfadeEnabled,
+      peek: peekNext,
+      begin: beginCrossfade,
+    };
+  });
 
   // When what's playing changes while we intend to keep playing, (re)start it.
   // Keyed on nowPlaying so switching to/from a station ID triggers playback.
+  // Suppressed during a crossfade — the incoming deck is already playing.
   useEffect(() => {
+    if (crossfadingRef.current) {
+      return;
+    }
     if (isPlaying) {
       playCurrent().catch(() => setIsPlaying(false));
     }
@@ -361,14 +554,27 @@ export function StageScreen({ code }: { code: string | null }) {
   // Jump to a specific track and play it.
   const selectTrack = useCallback(
     (trackId: string | null) => {
-      if (trackId && trackId !== currentId) {
+      if (!trackId) {
+        void playCurrent();
+        return;
+      }
+      // A Radio ID jingle (pool id) → play it as a one-off, resuming the set
+      // when it ends. Pool ids are distinct UUIDs from song ids, so no clash.
+      const jingle = (snapshot?.stationIds ?? []).find((s) => s.id === trackId);
+      if (jingle) {
+        stationReturnRef.current = isPlaying ? current?.id ?? null : null;
+        setActiveStationId(jingle);
+        setIsPlaying(true);
+        return;
+      }
+      if (trackId !== currentId) {
         setCurrentId(trackId);
         setIsPlaying(true); // the [currentId] effect starts playback
       } else {
         void playCurrent();
       }
     },
-    [currentId, playCurrent]
+    [currentId, playCurrent, snapshot, isPlaying, current]
   );
 
   // Keep the latest handlers + state available to the (mount-only) channel.
@@ -520,7 +726,7 @@ export function StageScreen({ code }: { code: string | null }) {
     (seconds: number) => {
       if (totalMs <= 0) return;
       const nextMs = Math.min(totalMs, Math.max(0, seconds * 1000));
-      const audio = audioRef.current;
+      const audio = activeEl();
 
       if (audio) {
         if (nowPlaying?.audioUrl && audio.src !== nowPlaying.audioUrl) {
@@ -530,7 +736,7 @@ export function StageScreen({ code }: { code: string | null }) {
       }
       setPosMs(nextMs);
     },
-    [nowPlaying?.audioUrl, totalMs]
+    [nowPlaying?.audioUrl, totalMs, activeEl]
   );
 
   // Upcoming tracks in play order (wraps, excludes the current track).
@@ -549,17 +755,36 @@ export function StageScreen({ code }: { code: string | null }) {
 
   // `onTimeUpdate` fires only ~4×/sec; drive posMs off rAF while playing so
   // per-word karaoke fill stays smooth. Idle/paused falls back to timeupdate.
+  // The same loop arms the crossfade as the active deck approaches its end.
   useEffect(() => {
     if (!isPlaying) return;
     let raf = 0;
     const tick = () => {
-      const audio = audioRef.current;
-      if (audio) setPosMs(audio.currentTime * 1000);
+      const audio = activeEl();
+      if (audio) {
+        setPosMs(audio.currentTime * 1000);
+
+        const cf = crossfadeCtlRef.current;
+        if (cf.enabled && !crossfadingRef.current) {
+          const dur = audio.duration;
+          if (Number.isFinite(dur) && dur > 0) {
+            // Clamp the fade so short clips (10s jingles) still blend cleanly.
+            const fadeSec = Math.min(CROSSFADE_SEC, dur * 0.4);
+            const remaining = dur - audio.currentTime;
+            if (remaining <= fadeSec && remaining > 0.08) {
+              const next = cf.peek();
+              if (next?.audioUrl && next.audioUrl !== audio.src) {
+                cf.begin(next, fadeSec);
+              }
+            }
+          }
+        }
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [isPlaying]);
+  }, [isPlaying, activeEl]);
 
   // Flatten every lyric line into one timed list with an absolute startMs, so
   // the stage can run a continuous karaoke scroll instead of swapping whole
@@ -863,29 +1088,43 @@ export function StageScreen({ code }: { code: string | null }) {
         </div>
       </div>
 
-      {/* Hidden audio source — this tab is the audio output for the screenshare. */}
-      <audio
-        ref={audioRef}
-        crossOrigin="anonymous"
-        className="hidden"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onEnded={handleTrackEnded}
-        onLoadedMetadata={(event) => {
-          setPosMs(0);
-          const d = event.currentTarget.duration;
-          setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
-        }}
-        onDurationChange={(event) => {
-          const d = event.currentTarget.duration;
-          setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
-        }}
-        onTimeUpdate={(event) =>
-          setPosMs(event.currentTarget.currentTime * 1000)
-        }
-      >
-        <track kind="captions" />
-      </audio>
+      {/* Hidden audio sources — two decks for crossfade. This tab is the audio
+          output for the screenshare; only the active deck drives lyrics/seek. */}
+      {(["a", "b"] as Deck[]).map((deck) => (
+        <audio
+          key={deck}
+          ref={deck === "a" ? audioARef : audioBRef}
+          crossOrigin="anonymous"
+          className="hidden"
+          onPlay={() => {
+            if (deck === activeDeckRef.current) setIsPlaying(true);
+          }}
+          onPause={() => {
+            if (deck === activeDeckRef.current) setIsPlaying(false);
+          }}
+          onEnded={() => {
+            if (deck === activeDeckRef.current) handleTrackEnded();
+          }}
+          onLoadedMetadata={(event) => {
+            if (deck !== activeDeckRef.current) return;
+            setPosMs(0);
+            const d = event.currentTarget.duration;
+            setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
+          }}
+          onDurationChange={(event) => {
+            if (deck !== activeDeckRef.current) return;
+            const d = event.currentTarget.duration;
+            setDurationMs(Number.isFinite(d) ? d * 1000 : 0);
+          }}
+          onTimeUpdate={(event) => {
+            if (deck === activeDeckRef.current) {
+              setPosMs(event.currentTarget.currentTime * 1000);
+            }
+          }}
+        >
+          <track kind="captions" />
+        </audio>
+      ))}
 
       {/* Auto-hiding control chip — appears on mouse/touch/key, fades when idle */}
       <div

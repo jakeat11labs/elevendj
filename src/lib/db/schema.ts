@@ -95,6 +95,9 @@ export const sessions = pgTable(
       .notNull()
       .default(false),
     stationIdHostName: text("station_id_host_name"),
+    // Crossfade: when on, the stage overlaps track ends with the next track's
+    // start (radio-style) instead of hard-cutting. Stage-only behavior.
+    crossfadeEnabled: boolean("crossfade_enabled").notNull().default(false),
     // Per-session playback state.
     currentRequestId: uuid("current_request_id").references(
       (): AnyPgColumn => songRequests.id,

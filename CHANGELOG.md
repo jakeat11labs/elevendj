@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - June 19, 2026
+
+### Added
+- **Crossfade** — an opt-in, radio-style overlap between tracks. When a host turns
+  it on, the player blends the end of each track into the start of the next
+  (songs and station IDs alike) instead of hard-cutting; off, tracks cut cleanly.
+  The toggle sits in the host console next to Station ID.
+- Station IDs now appear **in the queue** where they'll play — a lead-off jingle
+  when the set is stopped, then one after every couple of songs — and the
+  placement re-flows live as guests add or remove requests. The host queue shows
+  each slot as a "Radio ID" row.
+- Hosts can **play a Radio ID on demand** — a play button on each queued jingle
+  drops it in immediately, then the set resumes.
+
+### Changed
+- Station ID placement is now computed server-side as the single source of truth,
+  so the queue you see and the order that plays always match.
+- The host's local player reached full parity with the stage — it now plays
+  station IDs and crossfades, so playback behaves the same whether or not a stage
+  tab is open.
+
+### Fixed
+- Restored three corrupted brand font files (KMR Waldenburg Normal/Fett/Halbfett)
+  that failed to decode in the browser, so headings render in the brand typeface
+  again.
+
 ## [0.2.1] - June 19, 2026
 
 ### Added

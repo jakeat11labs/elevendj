@@ -33,8 +33,13 @@ import {
   normalizePrompt,
   type RequestInput,
 } from "@/lib/security";
-import { STATION_ID_BRAND, STATION_ID_DURATION_MS } from "@/lib/station-id";
 import {
+  STATION_ID_BRAND,
+  STATION_ID_CADENCE,
+  STATION_ID_DURATION_MS,
+} from "@/lib/station-id";
+import {
+  placeStationIds,
   REALTIME_TOPIC,
   REQUEST_STATUSES,
   type Lyrics,
@@ -170,6 +175,7 @@ function toRecord(row: SongRequestRow): SongRequestRecord {
 function mapQueueItem(row: SongRequestRow): QueueItem {
   return {
     id: row.id,
+    kind: row.kind === "station_id" ? "station_id" : "song",
     requesterName: row.requesterName,
     prompt: row.prompt,
     status: row.status as RequestStatus,
@@ -583,6 +589,19 @@ export async function setStationIdEnabled(
   });
 }
 
+export async function setCrossfadeEnabled(
+  hostId: string,
+  enabled: boolean
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    await db
+      .update(sessions)
+      .set({ crossfadeEnabled: enabled })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
 export async function setStationIdPersonalize(
   hostId: string,
   personalize: boolean
@@ -914,9 +933,9 @@ export async function getNowPlaying(sessionId: string): Promise<NowPlaying> {
 // ─────────────────────────────────────────────────────────────────
 
 async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
-  // The public queue is audience requests only. Station IDs share the table
-  // but are surfaced separately (below) so they never appear in the queue or
-  // count toward limits.
+  // Audience requests and the station-ID jingle pool share the table; we pull
+  // them separately, count only the requests, then interleave jingles into the
+  // queue (below) so display order and stage playback order come from one place.
   const [rows, stationIdRows] = await Promise.all([
     db
       .select()
@@ -950,9 +969,29 @@ async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
     REQUEST_STATUSES.map((status) => [status, 0])
   ) as Record<RequestStatus, number>;
 
-  const items = rows.map((row) => {
+  // Real audience requests, counted toward statuses/limits before any station
+  // IDs are interleaved (virtual jingles must never inflate counts).
+  const songItems = rows.map((row) => {
     counts[row.status as RequestStatus] += 1;
     return mapQueueItem(row);
+  });
+
+  const stationIds = stationIdRows.map(mapQueueItem);
+
+  // The queue the host/stage see is the single source of truth for where radio
+  // IDs play: interleave the warm pool into the songs at computed slots. Only
+  // ready, playable songs can anchor a jingle.
+  const playableSongs = songItems.filter(
+    (item) => item.status === "ready" && item.audioUrl
+  );
+  const pendingSongs = songItems.filter(
+    (item) => !(item.status === "ready" && item.audioUrl)
+  );
+  const placed = placeStationIds(playableSongs, stationIds, {
+    enabled: session.stationIdEnabled,
+    isPlaying: session.isPlaying,
+    currentId: session.currentRequestId,
+    cadence: STATION_ID_CADENCE,
   });
 
   return {
@@ -964,8 +1003,11 @@ async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
     orbColorway: session.orbColorway,
     masterVolume: session.masterVolume,
     stationIdEnabled: session.stationIdEnabled,
-    stationIds: stationIdRows.map(mapQueueItem),
-    items,
+    stationIds,
+    crossfadeEnabled: session.crossfadeEnabled,
+    // Placed (ready) songs with jingles interleaved, followed by songs still
+    // generating/pending (which keep their natural order at the tail).
+    items: [...placed, ...pendingSongs],
     counts,
   };
 }
