@@ -2,9 +2,10 @@ import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, route } from "@/lib/api";
 import { clearElevenLabsKey, setElevenLabsKey } from "@/lib/db";
 import { encryptSecret } from "@/lib/crypto";
-import { AppError, errorResponse } from "@/lib/errors";
+import { AppError } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -40,45 +41,32 @@ async function validateKey(apiKey: string): Promise<void> {
   }
 }
 
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
 
-    const body = await request.json().catch(() => null);
-    const parsed = bodySchema.safeParse(body);
-    if (!parsed.success) {
-      const issue = parsed.error.issues[0];
-      throw new AppError(
-        400,
-        "invalid_request",
-        issue?.message ?? "Invalid API key."
-      );
-    }
-
-    const apiKey = parsed.data.apiKey;
-    await validateKey(apiKey);
-
-    const hint = maskKey(apiKey);
-    await setElevenLabsKey(user.id, encryptSecret(apiKey), hint);
-
-    return Response.json(
-      { ok: true, hint, addedAt: new Date().toISOString() },
-      { headers: { "Cache-Control": "no-store" } }
+  // Inline parse: surfaces the specific zod issue message (not a generic one).
+  const body = await request.json().catch(() => null);
+  const parsed = bodySchema.safeParse(body);
+  if (!parsed.success) {
+    const issue = parsed.error.issues[0];
+    throw new AppError(
+      400,
+      "invalid_request",
+      issue?.message ?? "Invalid API key."
     );
-  } catch (error) {
-    return errorResponse(error);
   }
-}
 
-export async function DELETE() {
-  try {
-    const user = await requireHost();
-    await clearElevenLabsKey(user.id);
-    return Response.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
-}
+  const apiKey = parsed.data.apiKey;
+  await validateKey(apiKey);
+
+  const hint = maskKey(apiKey);
+  await setElevenLabsKey(user.id, encryptSecret(apiKey), hint);
+
+  return json({ ok: true, hint, addedAt: new Date().toISOString() });
+});
+
+export const DELETE = route(async () => {
+  const user = await requireHost();
+  await clearElevenLabsKey(user.id);
+  return json({ ok: true });
+});

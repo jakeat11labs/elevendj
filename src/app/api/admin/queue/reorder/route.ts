@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import { reorderQueue } from "@/lib/db";
-import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,23 +11,14 @@ const reorderSchema = z.object({
   orderedIds: z.array(z.string().uuid()).max(200),
 });
 
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
-    const body = await request.json().catch(() => null);
-    const parsed = reorderSchema.safeParse(body);
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
+  const { orderedIds } = await parseBody(request, reorderSchema, {
+    code: "invalid_reorder",
+    message: "Invalid reorder payload.",
+  });
 
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_reorder", "Invalid reorder payload.");
-    }
+  await reorderQueue(user.id, orderedIds);
 
-    await reorderQueue(user.id, parsed.data.orderedIds);
-
-    return Response.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
-}
+  return json({ ok: true });
+});

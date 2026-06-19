@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import { approveRequest, bulkAction } from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
-import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,40 +13,28 @@ const bulkSchema = z.object({
   ids: z.array(z.string().uuid()).max(200),
 });
 
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
-    const body = await request.json().catch(() => null);
-    const parsed = bulkSchema.safeParse(body);
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
+  const data = await parseBody(request, bulkSchema, {
+    code: "invalid_bulk_action",
+    message: "Invalid bulk action.",
+  });
 
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_bulk_action", "Invalid bulk action.");
-    }
-
-    // Bulk approve mirrors the per-request approve path: flip each pending
-    // request to queued (host-scoped, status-gated) and kick off generation.
-    if (parsed.data.action === "approve") {
-      let count = 0;
-      for (const id of parsed.data.ids) {
-        const approved = await approveRequest(user.id, id);
-        if (approved) {
-          await enqueueGeneration(id);
-          count += 1;
-        }
+  // Bulk approve mirrors the per-request approve path: flip each pending
+  // request to queued (host-scoped, status-gated) and kick off generation.
+  if (data.action === "approve") {
+    let count = 0;
+    for (const id of data.ids) {
+      const approved = await approveRequest(user.id, id);
+      if (approved) {
+        await enqueueGeneration(id);
+        count += 1;
       }
-      return Response.json(
-        { ok: true, count },
-        { headers: { "Cache-Control": "no-store" } }
-      );
     }
-
-    const count = await bulkAction(user.id, parsed.data.action, parsed.data.ids);
-
-    return Response.json(
-      { ok: true, count },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
+    return json({ ok: true, count });
   }
-}
+
+  const count = await bulkAction(user.id, data.action, data.ids);
+
+  return json({ ok: true, count });
+});

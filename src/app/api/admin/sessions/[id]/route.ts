@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import { activateSession, deleteSession, renameSession } from "@/lib/db";
-import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,50 +16,32 @@ const patchSchema = z
     message: "Nothing to update.",
   });
 
-export async function PATCH(
-  request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
-  try {
+export const PATCH = route(
+  async (request: Request, context: { params: Promise<{ id: string }> }) => {
     const user = await requireHost();
     const { id } = await context.params;
 
-    const body = await request.json().catch(() => null);
-    const parsed = patchSchema.safeParse(body);
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_request", "Invalid session update.");
-    }
+    const data = await parseBody(request, patchSchema, {
+      message: "Invalid session update.",
+    });
 
     // Rename first (if requested), then activate, so the response reflects both.
-    let session = parsed.data.name
-      ? await renameSession(user.id, id, parsed.data.name)
+    let session = data.name
+      ? await renameSession(user.id, id, data.name)
       : null;
-    if (parsed.data.activate) {
+    if (data.activate) {
       session = await activateSession(user.id, id);
     }
 
-    return Response.json(
-      { ok: true, session },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
+    return json({ ok: true, session });
   }
-}
+);
 
-export async function DELETE(
-  _request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
-  try {
+export const DELETE = route(
+  async (_request: Request, context: { params: Promise<{ id: string }> }) => {
     const user = await requireHost();
     const { id } = await context.params;
     await deleteSession(user.id, id);
-    return Response.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
+    return json({ ok: true });
   }
-}
+);

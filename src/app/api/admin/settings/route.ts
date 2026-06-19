@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import {
   getActiveSessionForHost,
   setAutoDj,
@@ -13,7 +14,6 @@ import {
   setStationIdPersonalize,
 } from "@/lib/db";
 import { COLORWAY_NAMES } from "@/components/orb/colorways";
-import { AppError, errorResponse } from "@/lib/errors";
 import { ensureStationIdPool } from "@/lib/station-id-pool";
 
 export const runtime = "nodejs";
@@ -40,64 +40,55 @@ const settingsSchema = z
     message: "No settings provided.",
   });
 
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
 
-    const body = await request.json().catch(() => null);
-    const parsed = settingsSchema.safeParse(body);
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_request", "Invalid settings payload.");
-    }
+  const data = await parseBody(request, settingsSchema, {
+    message: "Invalid settings payload.",
+  });
 
-    if (parsed.data.requestsOpen !== undefined) {
-      await setRequestsOpen(user.id, parsed.data.requestsOpen);
-    }
-    if (parsed.data.autoDj !== undefined) {
-      await setAutoDj(user.id, parsed.data.autoDj);
-    }
-    if (parsed.data.orbColorway !== undefined) {
-      await setOrbColorway(user.id, parsed.data.orbColorway);
-    }
-    if (parsed.data.masterVolume !== undefined) {
-      await setMasterVolume(user.id, parsed.data.masterVolume);
-    }
-    if (parsed.data.stationIdPersonalize !== undefined) {
-      await setStationIdPersonalize(user.id, parsed.data.stationIdPersonalize);
-    }
-    if (parsed.data.stationIdHostName !== undefined) {
-      await setStationIdHostName(user.id, parsed.data.stationIdHostName);
-    }
-    if (parsed.data.crossfadeEnabled !== undefined) {
-      await setCrossfadeEnabled(user.id, parsed.data.crossfadeEnabled);
-    }
-    if (parsed.data.stationIdEnabled !== undefined) {
-      await setStationIdEnabled(user.id, parsed.data.stationIdEnabled);
-      // Start warming the pool immediately so the first ID is ready well before
-      // it's due. Best-effort — never block the settings response on generation.
-      if (parsed.data.stationIdEnabled) {
-        const active = await getActiveSessionForHost(user.id);
-        void ensureStationIdPool(active.id).catch((error) => {
-          console.error("Station ID pool warm-up failed", error);
-        });
-      }
-    }
-
-    return Response.json(
-      {
-        ok: true,
-        requestsOpen: parsed.data.requestsOpen,
-        autoDj: parsed.data.autoDj,
-        orbColorway: parsed.data.orbColorway,
-        masterVolume: parsed.data.masterVolume,
-        stationIdEnabled: parsed.data.stationIdEnabled,
-        stationIdPersonalize: parsed.data.stationIdPersonalize,
-        stationIdHostName: parsed.data.stationIdHostName,
-        crossfadeEnabled: parsed.data.crossfadeEnabled,
-      },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
+  if (data.requestsOpen !== undefined) {
+    await setRequestsOpen(user.id, data.requestsOpen);
   }
-}
+  if (data.autoDj !== undefined) {
+    await setAutoDj(user.id, data.autoDj);
+  }
+  if (data.orbColorway !== undefined) {
+    await setOrbColorway(user.id, data.orbColorway);
+  }
+  if (data.masterVolume !== undefined) {
+    await setMasterVolume(user.id, data.masterVolume);
+  }
+  if (data.stationIdPersonalize !== undefined) {
+    await setStationIdPersonalize(user.id, data.stationIdPersonalize);
+  }
+  if (data.stationIdHostName !== undefined) {
+    await setStationIdHostName(user.id, data.stationIdHostName);
+  }
+  if (data.crossfadeEnabled !== undefined) {
+    await setCrossfadeEnabled(user.id, data.crossfadeEnabled);
+  }
+  if (data.stationIdEnabled !== undefined) {
+    await setStationIdEnabled(user.id, data.stationIdEnabled);
+    // Start warming the pool immediately so the first ID is ready well before
+    // it's due. Best-effort — never block the settings response on generation.
+    if (data.stationIdEnabled) {
+      const active = await getActiveSessionForHost(user.id);
+      void ensureStationIdPool(active.id).catch((error) => {
+        console.error("Station ID pool warm-up failed", error);
+      });
+    }
+  }
+
+  return json({
+    ok: true,
+    requestsOpen: data.requestsOpen,
+    autoDj: data.autoDj,
+    orbColorway: data.orbColorway,
+    masterVolume: data.masterVolume,
+    stationIdEnabled: data.stationIdEnabled,
+    stationIdPersonalize: data.stationIdPersonalize,
+    stationIdHostName: data.stationIdHostName,
+    crossfadeEnabled: data.crossfadeEnabled,
+  });
+});

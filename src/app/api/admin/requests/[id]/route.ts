@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import {
   addToQueue,
   approveRequest,
@@ -11,7 +12,6 @@ import {
   requeueRequest,
 } from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
-import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 
@@ -27,64 +27,52 @@ const actionSchema = z.object({
   reason: z.string().trim().max(200).optional(),
 });
 
-export async function PATCH(
-  request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
-  try {
+export const PATCH = route(
+  async (request: Request, context: { params: Promise<{ id: string }> }) => {
     const user = await requireHost();
     const { id } = await context.params;
-    const body = await request.json().catch(() => null);
-    const parsed = actionSchema.safeParse(body);
+    const data = await parseBody(request, actionSchema, {
+      code: "invalid_admin_action",
+      message: "Invalid admin action.",
+    });
 
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_admin_action", "Invalid admin action.");
-    }
-
-    if (parsed.data.action === "approve") {
+    if (data.action === "approve") {
       const approved = await approveRequest(user.id, id);
       if (approved) {
         await enqueueGeneration(id);
       }
     }
 
-    if (parsed.data.action === "reject") {
-      await rejectRequest(user.id, id, parsed.data.reason || "Rejected by DJ.");
+    if (data.action === "reject") {
+      await rejectRequest(user.id, id, data.reason || "Rejected by DJ.");
     }
 
-    if (parsed.data.action === "retry") {
+    if (data.action === "retry") {
       await requeueRequest(user.id, id);
       await enqueueGeneration(id);
     }
 
-    if (parsed.data.action === "mark_played") {
+    if (data.action === "mark_played") {
       await markRequestPlayed(user.id, id);
     }
 
-    if (parsed.data.action === "remove_from_queue") {
+    if (data.action === "remove_from_queue") {
       await removeFromQueue(user.id, id);
     }
 
-    if (parsed.data.action === "add_to_queue") {
+    if (data.action === "add_to_queue") {
       await addToQueue(user.id, id);
     }
 
-    return Response.json({ ok: true });
-  } catch (error) {
-    return errorResponse(error);
+    return json({ ok: true });
   }
-}
+);
 
-export async function DELETE(
-  request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
-  try {
+export const DELETE = route(
+  async (_request: Request, context: { params: Promise<{ id: string }> }) => {
     const user = await requireHost();
     const { id } = await context.params;
     await deleteRequest(user.id, id);
-    return Response.json({ ok: true });
-  } catch (error) {
-    return errorResponse(error);
+    return json({ ok: true });
   }
-}
+);

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import { setPlaybackState } from "@/lib/db";
-import { AppError, errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,23 +12,13 @@ const playbackSchema = z.object({
   isPlaying: z.boolean(),
 });
 
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
+  const { requestId, isPlaying } = await parseBody(request, playbackSchema, {
+    message: "Invalid playback payload.",
+  });
 
-    const body = await request.json().catch(() => null);
-    const parsed = playbackSchema.safeParse(body);
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_request", "Invalid playback payload.");
-    }
+  await setPlaybackState(user.id, requestId, isPlaying);
 
-    await setPlaybackState(user.id, parsed.data.requestId, parsed.data.isPlaying);
-
-    return Response.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
-}
+  return json({ ok: true });
+});

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import { requireHost } from "@/lib/auth/admin";
+import { json, parseBody, route } from "@/lib/api";
 import { consumeStationId, getActiveSessionForHost } from "@/lib/db";
-import { AppError, errorResponse } from "@/lib/errors";
 import { ensureStationIdPool } from "@/lib/station-id-pool";
 
 export const runtime = "nodejs";
@@ -18,28 +18,19 @@ const consumeSchema = z.object({
 // fresh ad-libbed variation. Host-authenticated, mirroring /api/admin/playback;
 // if the stage has no host token it simply skips this and the pool degrades to
 // reusing the existing variations.
-export async function POST(request: Request) {
-  try {
-    const user = await requireHost();
+export const POST = route(async (request: Request) => {
+  const user = await requireHost();
 
-    const body = await request.json().catch(() => null);
-    const parsed = consumeSchema.safeParse(body);
-    if (!parsed.success) {
-      throw new AppError(400, "invalid_request", "Invalid station ID payload.");
-    }
+  const { id } = await parseBody(request, consumeSchema, {
+    message: "Invalid station ID payload.",
+  });
 
-    await consumeStationId(user.id, parsed.data.id);
+  await consumeStationId(user.id, id);
 
-    const active = await getActiveSessionForHost(user.id);
-    void ensureStationIdPool(active.id).catch((error) => {
-      console.error("Station ID pool replenish failed", error);
-    });
+  const active = await getActiveSessionForHost(user.id);
+  void ensureStationIdPool(active.id).catch((error) => {
+    console.error("Station ID pool replenish failed", error);
+  });
 
-    return Response.json(
-      { ok: true },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
-  }
-}
+  return json({ ok: true });
+});

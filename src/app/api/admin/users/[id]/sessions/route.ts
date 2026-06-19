@@ -1,23 +1,15 @@
 import { requireAdmin } from "@/lib/auth/admin";
+import { json, route } from "@/lib/api";
 import { adminListSessionsForUser } from "@/lib/db";
-import { errorResponse } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  _request: Request,
-  context: { params: Promise<{ id: string }> }
-) {
-  try {
+export const GET = route(
+  async (_request: Request, context: { params: Promise<{ id: string }> }) => {
     await requireAdmin();
     const { id } = await context.params;
     const sessions = await adminListSessionsForUser(id);
-    return Response.json(
-      { sessions },
-      { headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (error) {
-    return errorResponse(error);
+    return json({ sessions });
   }
-}
+);
