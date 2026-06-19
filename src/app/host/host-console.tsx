@@ -45,6 +45,7 @@ import { formatDate, slugify, trackName } from "./format";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
+import { useSessionLink } from "./use-session-link";
 
 // Crossfade length on the host's local player — kept in sync with the stage.
 const HOST_CROSSFADE_SEC = 3;
@@ -109,9 +110,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   const activeEl = useCallback(() => deckEl(activeDeckRef.current), [deckEl]);
   const crossfadingRef = useRef(false);
 
-  // ── Session link regeneration ────────────────────────────────
-  const [regenerating, setRegenerating] = useState(false);
-
   // ── Data ─────────────────────────────────────────────────────
   const [overview, setOverview] = useState<Overview | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -170,10 +168,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   const [queueSel, setQueueSel] = useState<Set<string>>(new Set());
   const [filesSel, setFilesSel] = useState<Set<string>>(new Set());
 
-  // ── Misc UI ──────────────────────────────────────────────────
-  const [requestLink, setRequestLink] = useState("");
-  const [copied, setCopied] = useState(false);
-
   // ── Host prompt composer ─────────────────────────────────────
   const [hostPrompt, setHostPrompt] = useState("");
   const [hostName, setHostName] = useState("Host");
@@ -220,15 +214,14 @@ export function HostConsole({ user }: { user: HostUser }) {
     refresh();
   }, [refresh]);
 
-  // Keep the public request link + QR in sync with the active session's code.
-  useEffect(() => {
-    const code = overview?.activeSession?.publicCode;
-    if (code) {
-      setRequestLink(`${window.location.origin}/request?code=${code}`);
-    } else {
-      setRequestLink("");
-    }
-  }, [overview?.activeSession?.publicCode]);
+  // Public request link + QR (sync, copy, regenerate).
+  const { requestLink, copied, copyLink, regenerating, regenerateLink } =
+    useSessionLink({
+      publicCode: overview?.activeSession?.publicCode,
+      authHeader,
+      refresh,
+      onError: setError,
+    });
 
   async function signOut() {
     try {
@@ -238,33 +231,6 @@ export function HostConsole({ user }: { user: HostUser }) {
     }
     window.location.href = "/sign-in";
   }
-
-  const regenerateLink = useCallback(async () => {
-    if (
-      !window.confirm(
-        "Generate a new request link? The current link and QR code will stop working immediately."
-      )
-    ) {
-      return;
-    }
-    setRegenerating(true);
-    try {
-      const response = await fetch("/api/admin/sessions/regenerate", {
-        method: "POST",
-        headers: authHeader,
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not regenerate the link.");
-        return;
-      }
-      await refresh();
-    } catch {
-      setError("Network error regenerating the link.");
-    } finally {
-      setRegenerating(false);
-    }
-  }, [authHeader, refresh]);
 
   // ── Derived data ─────────────────────────────────────────────
   // The interleaved queue (real songs + station-ID jingles) for display only.
@@ -1321,18 +1287,6 @@ export function HostConsole({ user }: { user: HostUser }) {
     return next;
   }
 
-  function copyLink() {
-    if (!requestLink) {
-      return;
-    }
-    navigator.clipboard
-      ?.writeText(requestLink)
-      .then(() => {
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1600);
-      })
-      .catch(() => setError("Could not copy link."));
-  }
 
   // ── Console ──────────────────────────────────────────────────
   const counts = overview?.queue.counts;
