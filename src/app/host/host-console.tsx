@@ -43,6 +43,7 @@ import type { QueueItem, QueueSnapshot, Session } from "@/lib/status";
 import { DjBooth } from "./dj-booth";
 import { formatDate, slugify, trackName } from "./format";
 import { useApiKeyManager } from "./use-api-key-manager";
+import { useHostComposer } from "./use-host-composer";
 import { HostHeader } from "./host-header";
 import { OrbColorwayPicker } from "./orb-colorway-picker";
 import { PendingApprovalsPanel } from "./pending-approvals-panel";
@@ -170,19 +171,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   const [queueSel, setQueueSel] = useState<Set<string>>(new Set());
   const [filesSel, setFilesSel] = useState<Set<string>>(new Set());
 
-  // ── Host prompt composer ─────────────────────────────────────
-  const [hostPrompt, setHostPrompt] = useState("");
-  const [hostName, setHostName] = useState("Host");
-  const [hostInstrumental, setHostInstrumental] = useState(false);
-  const [hostIdeasOpen, setHostIdeasOpen] = useState(false);
-  const [hostSubmitting, setHostSubmitting] = useState(false);
-  // In-flight host-authored track: tracks the submission so we can show live
-  // generation progress under the composer until it lands in the queue.
-  const [hostJob, setHostJob] = useState<{
-    requestId: string;
-    clientToken: string;
-  } | null>(null);
-  const [hostJobItem, setHostJobItem] = useState<QueueItem | null>(null);
 
   // Cookie-based Neon Auth — no Authorization header needed; the host session
   // travels with the request. Kept as an empty object so the existing
@@ -524,97 +512,27 @@ export function HostConsole({ user }: { user: HostUser }) {
   // Spin a track straight into the live queue from the console. Hits the
   // admin-only endpoint, which skips the public open/rate-limit gates and
   // queues immediately (no approval step, even in approval mode).
-  const submitHostPrompt = useCallback(async () => {
-    const prompt = hostPrompt.trim();
-    if (prompt.length < 10 || hostSubmitting) {
-      return;
-    }
-    setHostSubmitting(true);
-    setError(null);
-    try {
-      const response = await fetch("/api/admin/requests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({
-          prompt,
-          requesterName: hostName.trim() || "Host",
-          instrumental: hostInstrumental,
-        }),
-      });
-      const body = await response.json().catch(() => null);
-      if (!response.ok) {
-        setError(body?.message || "Could not add your track.");
-        return;
-      }
-      setHostPrompt("");
-      if (body?.requestId && body?.clientToken) {
-        setHostJobItem(null);
-        setHostJob({ requestId: body.requestId, clientToken: body.clientToken });
-      }
-      await refresh();
-    } catch {
-      setError("Network error sending your track.");
-    } finally {
-      setHostSubmitting(false);
-    }
-  }, [authHeader, hostInstrumental, hostName, hostPrompt, hostSubmitting, refresh]);
-
-  // Poll the in-flight host track's status so the composer can show live
-  // progress (queued → generating → ready), then auto-dismiss once it lands.
-  useEffect(() => {
-    if (!hostJob) {
-      return;
-    }
-    let cancelled = false;
-    let hideTimer: number | undefined;
-
-    async function poll() {
-      try {
-        const res = await fetch(
-          `/api/requests/${hostJob!.requestId}?token=${encodeURIComponent(
-            hostJob!.clientToken
-          )}`,
-          { cache: "no-store" }
-        );
-        if (!res.ok || cancelled) {
-          return;
-        }
-        const item = (await res.json()) as QueueItem;
-        if (cancelled) {
-          return;
-        }
-        setHostJobItem(item);
-        const terminal =
-          item.status === "ready" ||
-          item.status === "played" ||
-          item.status === "archived" ||
-          item.status === "failed" ||
-          item.status === "rejected";
-        if (terminal) {
-          window.clearInterval(interval);
-          hideTimer = window.setTimeout(() => {
-            if (!cancelled) {
-              setHostJob(null);
-              setHostJobItem(null);
-            }
-          }, 6000);
-        }
-      } catch {
-        /* keep last known state, try again next tick */
-      }
-    }
-
-    const interval = window.setInterval(poll, 3000);
-    poll();
-
-    return () => {
-      cancelled = true;
-      window.clearInterval(interval);
-      if (hideTimer) {
-        window.clearTimeout(hideTimer);
-      }
-    };
-  }, [hostJob]);
+  // Host DJ-booth composer (inputs + submit + in-flight job poll/progress).
+  const {
+    hostPrompt,
+    setHostPrompt,
+    hostName,
+    setHostName,
+    hostInstrumental,
+    setHostInstrumental,
+    hostIdeasOpen,
+    setHostIdeasOpen,
+    hostSubmitting,
+    canHostSubmit,
+    submitHostPrompt,
+    hostJob,
+    hostRemaining,
+    hostTrimmed,
+    hostJobFailed,
+    hostJobDone,
+    hostJobStep,
+    hostJobMessage,
+  } = useHostComposer({ authHeader, refresh, onError: setError });
 
   // ── Session actions ──────────────────────────────────────────
   const [togglingRequests, setTogglingRequests] = useState(false);
@@ -1261,38 +1179,6 @@ export function HostConsole({ user }: { user: HostUser }) {
   // Admins fall back to the shared app key, so they're never gated.
   const apiKey = overview?.apiKey;
   const needsKeySetup = Boolean(overview) && !user.isAdmin && !apiKey?.hasKey;
-
-  const hostRemaining = 800 - hostPrompt.length;
-  const hostTrimmed = hostPrompt.trim();
-  const canHostSubmit =
-    hostTrimmed.length >= 10 && hostRemaining >= 0 && !hostSubmitting;
-
-  // Live progress for the host's in-flight track (null when nothing is cooking).
-  const hostJobStatus = hostJobItem?.status;
-  const hostJobFailed =
-    hostJobStatus === "failed" || hostJobStatus === "rejected";
-  const hostJobDone =
-    hostJobStatus === "ready" ||
-    hostJobStatus === "played" ||
-    hostJobStatus === "archived";
-  const hostJobStep = hostJobFailed
-    ? -1
-    : hostJobStatus === "generating"
-      ? 1
-      : hostJobDone
-        ? 2
-        : 0;
-  const hostJobMessage = !hostJobItem
-    ? "Sending your track…"
-    : hostJobFailed
-      ? hostJobItem.promptSuggestion ||
-        hostJobItem.errorMessage ||
-        "That track couldn’t be generated."
-      : hostJobDone
-        ? "Song finished and added to the queue."
-        : hostJobStatus === "generating"
-          ? "Generating your track now…"
-          : "Queued — generating shortly…";
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-5 pb-16 pt-2 sm:px-8">
