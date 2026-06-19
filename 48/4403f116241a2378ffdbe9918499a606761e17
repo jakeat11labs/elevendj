@@ -1,0 +1,22 @@
+src/app/host/host-console.tsx
+  s_15883e5f59d021::t_222ddabd6ec4a0 45
+  s_15883e5f59d021::t_5b31f4f0036de8 789-790
+src/app/host/use-api-key-manager.ts
+  s_15883e5f59d021::t_1970f11827ad57 1-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "484403f116241a2378ffdbe9918499a606761e17",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
