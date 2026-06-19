@@ -1,0 +1,25 @@
+src/app/host/host-header.tsx
+  s_15883e5f59d021::t_52e92646731664 1-163
+src/app/host/host-console.tsx
+  s_15883e5f59d021::t_0077300e293204 1438-1450
+  s_15883e5f59d021::t_c466f18ba3b83f 40,49-50
+  s_15883e5f59d021::t_42f4eac4986cb6 2585-2591
+src/app/host/orb-colorway-picker.tsx
+  s_15883e5f59d021::t_8b58197248891f 1-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "b160a248112e419e059137f31aae91c124dc1305",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
