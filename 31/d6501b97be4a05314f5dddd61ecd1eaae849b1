@@ -1,0 +1,57 @@
+src/app/api/admin/requests/route.ts
+  s_15883e5f59d021::t_a5af1066b86cf3 2,9,26-27,29-35,37,39-43,45-51,53,55-65
+src/app/api/admin/users/route.ts
+  s_15883e5f59d021::t_9f8c6e22a913bd 2,8-12
+src/app/api/admin/bulk/route.ts
+  s_15883e5f59d021::t_470406fa1cd475 4,16-31,34-35,37,39-40
+src/app/api/admin/sessions/route.ts
+  s_15883e5f59d021::t_8f3220caa6afc2 4,14-18,20-27
+src/app/api/admin/queue/reorder/route.ts
+  s_15883e5f59d021::t_2c4f621ffbb8f0 4,14-19,21,23-24
+src/app/api/admin/api-key/route.ts
+  s_15883e5f59d021::t_0050e114a4534b 5,8,44-45,47-57,59-60,62-63,65-66,68-72
+src/app/api/admin/sessions/[id]/route.ts
+  s_15883e5f59d021::t_be07f61a86c163 4,19-20,24-26,29-30,32,36,38,40-41,45,47
+src/app/api/admin/settings/route.ts
+  s_15883e5f59d021::t_7558e9b3d5dbcd 4,43-44,46-48,50-79,82-94
+src/app/api/admin/users/[id]/route.ts
+  s_15883e5f59d021::t_ca7103ac76c47d 4,14-15,19-21,23-24,26
+src/lib/api.ts
+  s_15883e5f59d021::t_aad5dbf034b559 1-59
+src/app/api/admin/playback/route.ts
+  s_15883e5f59d021::t_f47da03d854518 4,15-19,21,23-24
+src/app/api/admin/station-id/route.ts
+  s_15883e5f59d021::t_e8088bc24cbaf9 4,21-36
+src/app/api/admin/blobs/route.ts
+  s_15883e5f59d021::t_374a759d628226 4,6,11-16,22-28,30-32
+src/app/api/admin/blobs/stats/route.ts
+  s_15883e5f59d021::t_3d13d03db6c3de 2,8-12
+src/app/api/admin/blobs/cleanup/route.ts
+  s_15883e5f59d021::t_26b11f372d37b1 2,8-12
+src/app/api/admin/users/[id]/sessions/route.ts
+  s_15883e5f59d021::t_0375cb9dc90126 2,8-9,13,15
+src/app/api/admin/files/route.ts
+  s_15883e5f59d021::t_32d91057aa0305 2,8-9,11-12,14,16-17
+src/app/api/admin/overview/route.ts
+  s_15883e5f59d021::t_74d97289dff8ad 2,10-12,14-23,26-28
+src/app/api/admin/sessions/regenerate/route.ts
+  s_15883e5f59d021::t_027a54309e8914 2,9-14
+src/app/api/admin/requests/[id]/route.ts
+  s_15883e5f59d021::t_2d4380879d3a30 4,30-31,34-37,39,46-47,50,55,59,63,67,69,71-72,76,78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "31d6501b97be4a05314f5dddd61ecd1eaae849b1",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}

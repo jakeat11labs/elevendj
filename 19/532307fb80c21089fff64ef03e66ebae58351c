@@ -1,0 +1,27 @@
+src/lib/generation/index.ts
+  s_15883e5f59d021::t_c684fd05b6acd6 1-89
+src/lib/admin-blob.ts
+  s_15883e5f59d021::t_b17f9371976699 11
+src/lib/generation/lyrics.ts
+  s_15883e5f59d021::t_c684fd05b6acd6 1-300
+src/lib/db/queries/internal.ts
+  s_15883e5f59d021::t_19cfaee72b4597 12
+src/lib/generation/provider.ts
+  s_15883e5f59d021::t_c684fd05b6acd6 1-327
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "19532307fb80c21089fff64ef03e66ebae58351c",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}

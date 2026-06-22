@@ -1,0 +1,23 @@
+src/app/host/host-player-card.tsx
+  s_15883e5f59d021::t_d0e5da8847c457 1-101
+src/app/host/host-console.tsx
+  s_15883e5f59d021::t_b30aea3b483a9a 873-916
+  s_15883e5f59d021::t_83fa7068d5bfd6 10
+  s_15883e5f59d021::t_e89febf8557cbc 34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "9ccaacf9b60b41761a0eb7f356c84579ecb3b2b4",
+  "prompts": {},
+  "sessions": {
+    "s_15883e5f59d021": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5bcdcd88-5d7a-4436-9917-a2a7fd56d90f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
