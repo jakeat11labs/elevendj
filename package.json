@@ -1,12 +1,13 @@
 {
   "name": "elevendj",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:unit": "node --experimental-strip-types --test scripts/playback-timeline.test.mjs"
   },
   "dependencies": {
     "@elevenlabs/elevenlabs-js": "^2.53.0",

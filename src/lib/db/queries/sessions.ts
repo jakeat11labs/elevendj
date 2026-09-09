@@ -43,7 +43,12 @@ export async function getActiveSessionForHost(
     try {
       const [created] = await db
         .insert(sessions)
-        .values({ name: "Session 1", hostId, isActive: true })
+        .values({
+          name: "Session 1",
+          hostId,
+          isActive: true,
+          source: "local",
+        })
         .returning();
       return mapSession(created);
     } catch (error) {
@@ -61,10 +66,12 @@ export async function getActiveSessionForHost(
 
 export async function listSessionsForHost(hostId: string): Promise<HostSession[]> {
   return dbCall(async () => {
+    // Host console only lists local rooms — integration Offsite sessions are
+    // managed under /admin/offsite.
     const rows = await db
       .select()
       .from(sessions)
-      .where(eq(sessions.hostId, hostId))
+      .where(and(eq(sessions.hostId, hostId), eq(sessions.source, "local")))
       .orderBy(desc(sessions.createdAt));
 
     return Promise.all(
@@ -93,20 +100,31 @@ export async function createSessionForHost(
     await db
       .update(sessions)
       .set({ isActive: false, endedAt: new Date() })
-      .where(and(eq(sessions.hostId, hostId), eq(sessions.isActive, true)));
+      .where(
+        and(
+          eq(sessions.hostId, hostId),
+          eq(sessions.isActive, true),
+          eq(sessions.source, "local")
+        )
+      );
 
     let sessionName = name?.trim();
     if (!sessionName) {
       const [{ value }] = await db
         .select({ value: count() })
         .from(sessions)
-        .where(eq(sessions.hostId, hostId));
+        .where(and(eq(sessions.hostId, hostId), eq(sessions.source, "local")));
       sessionName = `Session ${(value ?? 0) + 1}`;
     }
 
     const [created] = await db
       .insert(sessions)
-      .values({ name: sessionName, hostId, isActive: true })
+      .values({
+        name: sessionName,
+        hostId,
+        isActive: true,
+        source: "local",
+      })
       .returning();
     return mapSession(created);
   });
@@ -169,7 +187,13 @@ export async function activateSession(
     const [target] = await db
       .select({ id: sessions.id })
       .from(sessions)
-      .where(and(eq(sessions.id, sessionId), eq(sessions.hostId, hostId)))
+      .where(
+        and(
+          eq(sessions.id, sessionId),
+          eq(sessions.hostId, hostId),
+          eq(sessions.source, "local")
+        )
+      )
       .limit(1);
     if (!target) {
       throw new AppError(404, "session_not_found", "Session not found.");
@@ -182,14 +206,21 @@ export async function activateSession(
         and(
           eq(sessions.hostId, hostId),
           eq(sessions.isActive, true),
+          eq(sessions.source, "local"),
           ne(sessions.id, sessionId)
         )
       );
 
     const [updated] = await db
       .update(sessions)
-      .set({ isActive: true, endedAt: null })
-      .where(and(eq(sessions.id, sessionId), eq(sessions.hostId, hostId)))
+      .set({ isActive: true, endedAt: null, source: "local" })
+      .where(
+        and(
+          eq(sessions.id, sessionId),
+          eq(sessions.hostId, hostId),
+          eq(sessions.source, "local")
+        )
+      )
       .returning();
     if (!updated) {
       throw new AppError(404, "session_not_found", "Session not found.");

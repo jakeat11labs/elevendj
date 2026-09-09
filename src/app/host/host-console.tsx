@@ -331,9 +331,10 @@ export function HostConsole({ user }: { user: HostUser }) {
   });
 
   // Open the sync channel: detect a connected stage, hand off audio to it,
-  // and mirror its playback state for display.
+  // and mirror its playback state for display. Namespaced by session code.
   useEffect(() => {
-    const ch = createStageChannel();
+    const publicCode = overview?.activeSession?.publicCode ?? null;
+    const ch = createStageChannel(publicCode);
     channelRef.current = ch;
     if (!ch) {
       return;
@@ -377,7 +378,7 @@ export function HostConsole({ user }: { user: HostUser }) {
       ch.close();
       channelRef.current = null;
     };
-  }, [sendCmd]);
+  }, [sendCmd, overview?.activeSession?.publicCode]);
 
   // ── Queue/request actions (mutations + busy flags) ───────────
   const {

@@ -216,7 +216,13 @@ async function userRollups(userId: string): Promise<UserRollups> {
   const [live] = await db
     .select({ code: sessions.publicCode, name: sessions.name })
     .from(sessions)
-    .where(and(eq(sessions.hostId, userId), eq(sessions.isActive, true)))
+    .where(
+      and(
+        eq(sessions.hostId, userId),
+        eq(sessions.isActive, true),
+        eq(sessions.source, "local")
+      )
+    )
     .orderBy(desc(sessions.createdAt))
     .limit(1);
   return {

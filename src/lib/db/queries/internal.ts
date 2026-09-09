@@ -57,6 +57,9 @@ export type HostSession = Session & {
   stationIdEnabled: boolean;
   stationIdPersonalize: boolean;
   stationIdHostName: string | null;
+  source?: "local" | "integration";
+  roomName?: string | null;
+  externalSessionId?: string | null;
 };
 
 
@@ -173,6 +176,9 @@ export function mapSession(row: SessionRow, trackCount?: number): HostSession {
     stationIdEnabled: row.stationIdEnabled,
     stationIdPersonalize: row.stationIdPersonalize,
     stationIdHostName: row.stationIdHostName,
+    source: row.source === "integration" ? "integration" : "local",
+    roomName: row.roomName ?? null,
+    externalSessionId: row.externalSessionId ?? null,
     ...(trackCount === undefined ? {} : { trackCount }),
   };
 }
@@ -191,13 +197,37 @@ export async function requireSessionByCode(code: string): Promise<SessionRow> {
   return row;
 }
 
+/**
+ * Resolve a public_code that is still accepting requests. Ended sessions keep
+ * their generated files but reject new guest submissions.
+ */
+export async function requireActiveSessionByCode(
+  code: string
+): Promise<SessionRow> {
+  const row = await requireSessionByCode(code);
+  if (!row.isActive) {
+    throw new AppError(
+      403,
+      "session_ended",
+      "This session has ended and is no longer accepting requests."
+    );
+  }
+  return row;
+}
 
-/** The newest active session for a host, or null if none exists. */
+
+/** The newest active *local* session for a host, or null if none exists. */
 export async function selectActiveSession(hostId: string): Promise<SessionRow | null> {
   const [row] = await db
     .select()
     .from(sessions)
-    .where(and(eq(sessions.hostId, hostId), eq(sessions.isActive, true)))
+    .where(
+      and(
+        eq(sessions.hostId, hostId),
+        eq(sessions.isActive, true),
+        eq(sessions.source, "local")
+      )
+    )
     .orderBy(desc(sessions.createdAt))
     .limit(1);
   return row ?? null;

@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - September 9, 2026
+
+### Added
+- **Offsite integration** — concurrent agenda-session rooms for company Offsite,
+  with a server-to-server Integration API, paired physical-space players, and a
+  dedicated `/admin/offsite` console. See `docs/OFFSITE_INTEGRATION.md`.
+- Integration clients with hashed/revocable API credentials.
+- Player pairing flow at `/player` (display code + HttpOnly device cookie).
+- Revisioned room playback state for cross-device play/pause/skip/select.
+- Schema support for external session/request IDs and request source tagging.
+
+### Changed
+- Local host sessions still enforce one active room per host; integration-backed
+  Offsite sessions may run concurrently under the same owner.
+- Stage BroadcastChannel is namespaced by session `publicCode`.
+- Stage request QR/link now includes `?code=…`.
+- Public guest submissions are rejected when the session has ended.
+
+### Fixed
+- Removed the stale localStorage admin-token path from the stage; host cookie
+  auth is used for best-effort playback/station-id publishes.
+
+## [0.3.1] - June 30, 2026
+
+### Changed
+- Internal refactor only — no behavior change. Broke up the largest files into
+  focused modules so the codebase is easier to navigate and maintain: the host
+  console split into per-area components (header, files, controls, queue, player,
+  DJ booth) and hooks, the 1751-line `queries.ts` split into domain modules,
+  `generation.ts` split into lyrics/provider/orchestrator, and shared API route
+  helpers extracted.
+
 ## [0.3.0] - June 19, 2026
 
 ### Added

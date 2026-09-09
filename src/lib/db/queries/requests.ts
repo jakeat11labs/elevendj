@@ -21,7 +21,14 @@ export async function createSongRequest(
   sessionId: string,
   input: RequestInput,
   ipHash: string,
-  options: { asHost?: boolean } = {}
+  options: {
+    asHost?: boolean;
+    asIntegration?: boolean;
+    integrationClientId?: string;
+    externalRequestId?: string;
+    /** When set, used as the unique idempotency key (integration replays). */
+    idempotencyKey?: string;
+  } = {}
 ) {
   return dbCall(async () => {
     const [session] = await db
@@ -33,14 +40,37 @@ export async function createSongRequest(
       throw new AppError(404, "session_not_found", "Session not found.");
     }
 
-    // The host can spin a track even while the public line is paused.
-    if (!options.asHost && !session.requestsOpen) {
+    const trusted = Boolean(options.asHost || options.asIntegration);
+
+    // Host / integration can spin a track even while the public line is paused.
+    if (!trusted && !session.requestsOpen) {
       throw new AppError(403, "requests_closed", "The request line is closed.");
     }
 
+    // Integration replays: return the existing request when external id matches.
+    if (options.asIntegration && options.integrationClientId && options.externalRequestId) {
+      const [existing] = await db
+        .select()
+        .from(songRequests)
+        .where(
+          and(
+            eq(songRequests.integrationClientId, options.integrationClientId),
+            eq(songRequests.externalRequestId, options.externalRequestId)
+          )
+        )
+        .limit(1);
+      if (existing) {
+        return {
+          request: toRecord(existing),
+          clientToken: null as string | null,
+          replayed: true as const,
+        };
+      }
+    }
+
     // Per-connection rate limit guards the public form (per session); the
-    // authenticated host is trusted and exempt.
-    if (!options.asHost) {
+    // authenticated host / integration is trusted and exempt.
+    if (!trusted) {
       const since = new Date(Date.now() - 10 * 60 * 1000);
       const [{ value: recentCount }] = await db
         .select({ value: count() })
@@ -96,7 +126,7 @@ export async function createSongRequest(
       )
       .limit(1);
 
-    if (duplicate) {
+    if (duplicate && !options.asIntegration) {
       throw new AppError(
         409,
         "duplicate_prompt",
@@ -121,33 +151,81 @@ export async function createSongRequest(
     const nextPosition = Number(lastPosition?.position ?? 0) + 1;
 
     // AutoDJ generates immediately (`queued`); approval mode holds the request
-    // in `pending`. A host-authored track is implicitly approved.
+    // in `pending`. Host- and integration-authored tracks are implicitly approved.
     const initialStatus: RequestStatus =
-      options.asHost || session.autoDj ? "queued" : "pending";
+      trusted || session.autoDj ? "queued" : "pending";
 
-    const [created] = await db
-      .insert(songRequests)
-      .values({
-        sessionId: session.id,
-        clientTokenHash: tokenHash,
-        requesterName: input.requesterName ?? null,
-        prompt: input.prompt,
-        normalizedPrompt,
-        status: initialStatus,
+    const source = options.asIntegration
+      ? "integration"
+      : options.asHost
+        ? "host"
+        : "guest";
+
+    const idempotencyKey =
+      options.idempotencyKey ??
+      hashValue(
+        `${ipHash}:${normalizedPrompt}:${Date.now()}`,
+        "idempotency"
+      );
+
+    try {
+      const [created] = await db
+        .insert(songRequests)
+        .values({
+          sessionId: session.id,
+          clientTokenHash: tokenHash,
+          requesterName: input.requesterName ?? null,
+          source,
+          integrationClientId: options.integrationClientId ?? null,
+          externalRequestId: options.externalRequestId ?? null,
+          prompt: input.prompt,
+          normalizedPrompt,
+          status: initialStatus,
+          position: nextPosition,
+          durationMs: session.defaultDurationMs,
+          forceInstrumental: input.instrumental ?? false,
+          ipHash,
+          idempotencyKey,
+        })
+        .returning();
+
+      await recordEvent(created.id, "request_created", {
         position: nextPosition,
-        durationMs: session.defaultDurationMs,
-        forceInstrumental: input.instrumental ?? false,
-        ipHash,
-        idempotencyKey: hashValue(
-          `${ipHash}:${normalizedPrompt}:${Date.now()}`,
-          "idempotency"
-        ),
-      })
-      .returning();
+        source,
+      });
 
-    await recordEvent(created.id, "request_created", { position: nextPosition });
-
-    return { request: toRecord(created), clientToken };
+      return {
+        request: toRecord(created),
+        clientToken,
+        replayed: false as const,
+      };
+    } catch (error) {
+      // Race on unique external/idempotency key → return the winner.
+      if (
+        options.asIntegration &&
+        options.integrationClientId &&
+        options.externalRequestId
+      ) {
+        const [existing] = await db
+          .select()
+          .from(songRequests)
+          .where(
+            and(
+              eq(songRequests.integrationClientId, options.integrationClientId),
+              eq(songRequests.externalRequestId, options.externalRequestId)
+            )
+          )
+          .limit(1);
+        if (existing) {
+          return {
+            request: toRecord(existing),
+            clientToken: null as string | null,
+            replayed: true as const,
+          };
+        }
+      }
+      throw error;
+    }
   });
 }
 

@@ -50,11 +50,50 @@ export const users = pgTable("users", {
 });
 
 /**
+ * Server-to-server API clients (e.g. Lovable Offsite portal). Credentials are
+ * hashed at rest; only a short prefix is logged/displayed.
+ */
+export const integrationClients = pgTable(
+  "integration_clients",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    name: text("name").notNull(),
+    // Host whose ElevenLabs key funds generation for this client's sessions.
+    ownerHostId: uuid("owner_host_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    credentialHash: text("credential_hash").notNull(),
+    credentialPrefix: text("credential_prefix").notNull(),
+    enabled: boolean("enabled").notNull().default(true),
+    createdBy: uuid("created_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("integration_clients_owner_idx").on(table.ownerHostId),
+    uniqueIndex("integration_clients_prefix_idx").on(table.credentialPrefix),
+  ]
+);
+
+/**
  * A DJ session owned by a host. Settings and playback that used to live in the
  * global `playlist_settings` / `playback_state` singletons are folded in here
  * so every host runs an independent room. `public_code` is the unguessable
  * capability slug behind a session's request link/QR — regenerating it issues a
  * fresh link and invalidates the old one.
+ *
+ * `source` distinguishes host-console local rooms from integration-backed
+ * Offsite agenda sessions. Local hosts still have at most one active session;
+ * integration sessions may run concurrently under the same owner.
  */
 export const sessions = pgTable(
   "sessions",
@@ -70,6 +109,21 @@ export const sessions = pgTable(
       .notNull()
       .unique()
       .default(sql`encode(gen_random_bytes(6), 'hex')`),
+    // "local" = host console; "integration" = Offsite agenda session.
+    source: text("source").notNull().default("local"),
+    integrationClientId: uuid("integration_client_id").references(
+      () => integrationClients.id,
+      { onDelete: "set null" }
+    ),
+    externalSessionId: text("external_session_id"),
+    externalRevision: text("external_revision"),
+    roomName: text("room_name"),
+    agendaStartsAt: timestamp("agenda_starts_at", { withTimezone: true }),
+    agendaEndsAt: timestamp("agenda_ends_at", { withTimezone: true }),
+    externalMetadata: jsonb("external_metadata")
+      .$type<Record<string, unknown>>()
+      .notNull()
+      .default(sql`'{}'::jsonb`),
     // Per-session settings (previously global singletons).
     requestsOpen: boolean("requests_open").notNull().default(true),
     autoDj: boolean("auto_dj").notNull().default(true),
@@ -89,7 +143,7 @@ export const sessions = pgTable(
     // after every couple of songs (see src/lib/station-id.ts). When
     // `stationIdPersonalize` is on and a non-empty `stationIdHostName` is set,
     // the host/room name is woven into the jingle; otherwise it stays the
-    // high-level brand line.
+    // high-level brand line. Integration sessions keep this off in the MVP.
     stationIdEnabled: boolean("station_id_enabled").notNull().default(false),
     stationIdPersonalize: boolean("station_id_personalize")
       .notNull()
@@ -107,22 +161,43 @@ export const sessions = pgTable(
     playbackStartedAt: timestamp("playback_started_at", {
       withTimezone: true,
     }),
+    // Canonical paused/resume position for remote players (ms into the track).
+    playbackPositionMs: integer("playback_position_ms").notNull().default(0),
+    // Monotonic revision for optimistic concurrency across admin/player devices.
+    playbackRevision: bigint("playback_revision", { mode: "number" })
+      .notNull()
+      .default(0),
+    playbackUpdatedAt: timestamp("playback_updated_at", {
+      withTimezone: true,
+    }),
     isActive: boolean("is_active").notNull().default(true),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),
     endedAt: timestamp("ended_at", { withTimezone: true }),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (table) => [
     index("sessions_host_idx").on(table.hostId, table.createdAt),
     index("sessions_public_code_idx").on(table.publicCode),
-    // At most one active session per host. The select-or-insert path in
-    // getActiveSessionForHost can race under concurrent first-load requests;
-    // this partial unique index turns the loser's INSERT into a 23505 it
-    // recovers from instead of silently spawning a duplicate active session.
-    uniqueIndex("sessions_one_active_per_host")
+    index("sessions_integration_idx").on(
+      table.integrationClientId,
+      table.externalSessionId
+    ),
+    // At most one active *local* session per host. Integration-backed Offsite
+    // agenda sessions may run concurrently under the same owner host.
+    uniqueIndex("sessions_one_active_local_per_host")
       .on(table.hostId)
-      .where(sql`${table.isActive}`),
+      .where(sql`${table.isActive} and ${table.source} = 'local'`),
+    uniqueIndex("sessions_external_id_idx")
+      .on(table.integrationClientId, table.externalSessionId)
+      .where(sql`${table.externalSessionId} is not null`),
+    check(
+      "sessions_source_check",
+      sql`${table.source} in ('local','integration')`
+    ),
     check(
       "sessions_duration_check",
       sql`${table.defaultDurationMs} between 3000 and 300000`
@@ -130,6 +205,10 @@ export const sessions = pgTable(
     check(
       "sessions_master_volume_check",
       sql`${table.masterVolume} between 0 and 1`
+    ),
+    check(
+      "sessions_playback_position_check",
+      sql`${table.playbackPositionMs} >= 0`
     ),
   ]
 );
@@ -150,6 +229,13 @@ export const songRequests = pgTable(
     // auto-inserted content reuses the same pipeline. Station IDs share this
     // table but are excluded from the public queue and request-scoped limits.
     kind: text("kind").notNull().default("request"),
+    // Origin of the request: public guest form, host console, or integration API.
+    source: text("source").notNull().default("guest"),
+    integrationClientId: uuid("integration_client_id").references(
+      () => integrationClients.id,
+      { onDelete: "set null" }
+    ),
+    externalRequestId: text("external_request_id"),
     prompt: text("prompt").notNull(),
     normalizedPrompt: text("normalized_prompt").notNull(),
     status: text("status").notNull().default("pending"),
@@ -197,6 +283,9 @@ export const songRequests = pgTable(
       table.normalizedPrompt,
       table.createdAt
     ),
+    uniqueIndex("song_requests_external_id_idx")
+      .on(table.integrationClientId, table.externalRequestId)
+      .where(sql`${table.externalRequestId} is not null`),
     check(
       "song_requests_status_check",
       sql`${table.status} in ('pending','queued','generating','ready','rejected','failed','played','archived')`
@@ -208,6 +297,10 @@ export const songRequests = pgTable(
     check(
       "song_requests_kind_check",
       sql`${table.kind} in ('request','station_id')`
+    ),
+    check(
+      "song_requests_source_check",
+      sql`${table.source} in ('guest','host','integration')`
     ),
   ]
 );
@@ -227,7 +320,140 @@ export const requestEvents = pgTable("request_events", {
     .defaultNow(),
 });
 
+/**
+ * Short-lived player pairing attempts. The short display code identifies the
+ * device to an admin; authentication uses a separate high-entropy secret.
+ */
+export const playerPairings = pgTable(
+  "player_pairings",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    displayCode: text("display_code").notNull(),
+    credentialHash: text("credential_hash").notNull(),
+    credentialPrefix: text("credential_prefix").notNull(),
+    deviceName: text("device_name").notNull(),
+    ipHash: text("ip_hash"),
+    status: text("status").notNull().default("pending"),
+    sessionId: uuid("session_id").references(() => sessions.id, {
+      onDelete: "set null",
+    }),
+    approvedBy: uuid("approved_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    decidedAt: timestamp("decided_at", { withTimezone: true }),
+  },
+  (table) => [
+    index("player_pairings_status_idx").on(table.status, table.expiresAt),
+    uniqueIndex("player_pairings_display_pending_idx")
+      .on(table.displayCode)
+      .where(sql`${table.status} = 'pending'`),
+    check(
+      "player_pairings_status_check",
+      sql`${table.status} in ('pending','approved','rejected','expired')`
+    ),
+  ]
+);
+
+/**
+ * Authenticated physical-space players. The credential is set once at pairing
+ * approval and never returned again; reassignment changes `sessionId` only.
+ */
+export const playerDevices = pgTable(
+  "player_devices",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    pairingId: uuid("pairing_id").references(() => playerPairings.id, {
+      onDelete: "set null",
+    }),
+    sessionId: uuid("session_id").references(() => sessions.id, {
+      onDelete: "set null",
+    }),
+    name: text("name").notNull(),
+    credentialHash: text("credential_hash").notNull(),
+    credentialPrefix: text("credential_prefix").notNull(),
+    status: text("status").notNull().default("active"),
+    pairedBy: uuid("paired_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    pairedAt: timestamp("paired_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+    reportedRequestId: uuid("reported_request_id"),
+    reportedRevision: bigint("reported_revision", { mode: "number" }),
+    reportedIsPlaying: boolean("reported_is_playing"),
+    reportedPositionMs: integer("reported_position_ms"),
+    audioUnlocked: boolean("audio_unlocked").notNull().default(false),
+    lastError: text("last_error"),
+    reportedAt: timestamp("reported_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("player_devices_session_idx").on(table.sessionId, table.status),
+    uniqueIndex("player_devices_prefix_idx").on(table.credentialPrefix),
+    check(
+      "player_devices_status_check",
+      sql`${table.status} in ('active','revoked')`
+    ),
+  ]
+);
+
+/**
+ * Playback command / report audit ledger. Also stores idempotent mutation
+ * results for admin, integration, and player actors.
+ */
+export const playbackEvents = pgTable(
+  "playback_events",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => sessions.id, { onDelete: "cascade" }),
+    actorType: text("actor_type").notNull(),
+    actorId: text("actor_id"),
+    action: text("action").notNull(),
+    idempotencyKey: text("idempotency_key"),
+    expectedRevision: bigint("expected_revision", { mode: "number" }),
+    appliedRevision: bigint("applied_revision", { mode: "number" }),
+    payload: jsonb("payload")
+      .$type<Record<string, unknown>>()
+      .notNull()
+      .default(sql`'{}'::jsonb`),
+    result: jsonb("result").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("playback_events_session_idx").on(table.sessionId, table.createdAt),
+    uniqueIndex("playback_events_idempotency_idx")
+      .on(table.actorType, table.actorId, table.idempotencyKey)
+      .where(sql`${table.idempotencyKey} is not null`),
+    check(
+      "playback_events_actor_check",
+      sql`${table.actorType} in ('admin','integration','player','local')`
+    ),
+  ]
+);
+
 export type UserRow = typeof users.$inferSelect;
+export type IntegrationClientRow = typeof integrationClients.$inferSelect;
 export type SessionRow = typeof sessions.$inferSelect;
 export type SongRequestRow = typeof songRequests.$inferSelect;
 export type RequestEventRow = typeof requestEvents.$inferSelect;
+export type PlayerPairingRow = typeof playerPairings.$inferSelect;
+export type PlayerDeviceRow = typeof playerDevices.$inferSelect;
+export type PlaybackEventRow = typeof playbackEvents.$inferSelect;

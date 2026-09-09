@@ -4,7 +4,16 @@
 // Model: when a stage is connected, the host delegates playback to it and goes
 // silent; the stage is the only tab that emits audio. The host stays the
 // control surface (play/pause/next/select) and mirrors the stage's state.
+//
+// Channels are namespaced by session publicCode so multiple local rooms in one
+// browser do not cross-talk.
 
+export function stageChannelName(publicCode?: string | null): string {
+  const code = (publicCode ?? "").trim();
+  return code ? `elevendj-stage:${code}` : "elevendj-stage";
+}
+
+/** @deprecated Use stageChannelName(publicCode) — kept for call-site clarity. */
 export const STAGE_CHANNEL = "elevendj-stage";
 
 export type HostAction = "play" | "pause" | "next" | "select";
@@ -27,13 +36,15 @@ export type StageStatus = {
 
 export type StageMessage = HostCommand | StageStatus;
 
-/** Open the channel, or null when unavailable (SSR / unsupported browsers). */
-export function createStageChannel(): BroadcastChannel | null {
+/** Open the channel for a session, or null when unavailable (SSR / unsupported). */
+export function createStageChannel(
+  publicCode?: string | null
+): BroadcastChannel | null {
   if (typeof window === "undefined" || typeof BroadcastChannel === "undefined") {
     return null;
   }
   try {
-    return new BroadcastChannel(STAGE_CHANNEL);
+    return new BroadcastChannel(stageChannelName(publicCode));
   } catch {
     return null;
   }

@@ -30,7 +30,11 @@ No package.json script — call drizzle-kit directly. This repo applies schema c
 - **Neon Auth `sameSite: "lax"`** (in `src/lib/auth/server.ts`) is intentional — strict mode drops the Google OAuth challenge cookie on the cross-site return. Don't "fix" it to strict.
 - **Job dispatch is a fallback chain** (`src/lib/enqueue.ts`): Vercel Workflow → Queue → Next.js `after()`. There's no retry between stages; an idempotency key prevents duplicate generations on replay. Toggle via `ENABLE_VERCEL_WORKFLOW` / `ENABLE_VERCEL_QUEUE`.
 - **Host ElevenLabs keys** are AES-256-GCM encrypted at rest (`src/lib/crypto.ts`), decrypted in-memory only when calling the API. Requires `ELEVENLABS_KEY_SECRET` (32-byte base64). Falls back to the shared `ELEVENLABS_API_KEY` for admins.
-- **One active session per host** — enforced by a unique partial index; old sessions are soft-deleted (`isActive = false`), not removed.
+- **One active local session per host** — enforced by a unique partial index on
+  `source = 'local'`; old local sessions are soft-deleted (`isActive = false`),
+  not removed. Integration-backed Offsite sessions may run concurrently.
+- **Offsite / Lovable** — server-to-server Integration API + `/admin/offsite` +
+  paired `/player` devices. Contract: `docs/OFFSITE_INTEGRATION.md`.
 - **Realtime payloads are minimal** — broadcasts only nudge clients; canonical state is refetched from `/api/queue`.
 - **Music v1↔v2 lyrics** — `lyrics` is JSONB; `src/lib/generation.ts` parses both v1 (`sections`) and v2 (`chunks`) plans. Model selected via `MUSIC_MODEL` (default `music_v2`).
 

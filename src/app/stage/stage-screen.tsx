@@ -35,8 +35,6 @@ import { asHostCommand, createStageChannel } from "@/lib/stage-sync";
 import { KaraokeViewport } from "./karaoke-viewport";
 import styles from "./stage.module.css";
 
-const TOKEN_KEY = "elevendj-admin-token";
-
 // How long a radio-style crossfade lasts. Clamped per-track to never exceed a
 // fraction of a short clip (so 10s jingles still blend without overlapping their
 // whole length).
@@ -140,8 +138,14 @@ export function StageScreen({ code }: { code: string | null }) {
   }, [refreshQueue]);
 
   useEffect(() => {
-    setRequestUrl(`${window.location.origin}/request`);
-  }, []);
+    if (!code) {
+      setRequestUrl("");
+      return;
+    }
+    setRequestUrl(
+      `${window.location.origin}/request?code=${encodeURIComponent(code)}`
+    );
+  }, [code]);
 
   // The interleaved queue from the server — real songs with station-ID jingles
   // dropped in at their computed slots. This is the single source of truth for
@@ -235,22 +239,14 @@ export function StageScreen({ code }: { code: string | null }) {
   );
 
   // Tell the host a station ID finished so it archives it and warms a fresh
-  // replacement. Best-effort and token-gated, mirroring publishNowPlaying — if
-  // the stage has no host token the pool simply reuses its existing variations.
+  // replacement. Best-effort via the host's Neon Auth cookie (same-browser
+  // signed-in stage). If the stage tab isn't authenticated the pool simply
+  // reuses its existing variations.
   const consumeStationId = useCallback((id: string) => {
-    const token =
-      typeof window !== "undefined"
-        ? window.localStorage.getItem(TOKEN_KEY)
-        : null;
-    if (!token) {
-      return;
-    }
     fetch("/api/admin/station-id", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
       body: JSON.stringify({ id }),
     }).catch(() => {
       /* best-effort */
@@ -272,22 +268,13 @@ export function StageScreen({ code }: { code: string | null }) {
     }
   }, [stationIdEnabled]);
 
-  // ── Now-playing publish (optional, only if a token is present) ─
+  // ── Now-playing publish (cookie auth; no-op when unsigned) ─
   const publishNowPlaying = useCallback(
     (requestId: string | null, playing: boolean) => {
-      const token =
-        typeof window !== "undefined"
-          ? window.localStorage.getItem(TOKEN_KEY)
-          : null;
-      if (!token) {
-        return; // graceful no-op when the stage is opened without the host token
-      }
       fetch("/api/admin/playback", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
         body: JSON.stringify({ requestId, isPlaying: playing }),
       }).catch(() => {
         /* publishing is best-effort */
@@ -569,7 +556,7 @@ export function StageScreen({ code }: { code: string | null }) {
 
   // Open the channel: obey host commands, announce presence + state.
   useEffect(() => {
-    const ch = createStageChannel();
+    const ch = createStageChannel(code);
     channelRef.current = ch;
     if (!ch) {
       return;
@@ -613,7 +600,7 @@ export function StageScreen({ code }: { code: string | null }) {
       ch.close();
       channelRef.current = null;
     };
-  }, []);
+  }, [code]);
 
   // Broadcast state so the host mirrors what the stage is actually doing.
   useEffect(() => {

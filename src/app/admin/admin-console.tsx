@@ -167,6 +167,12 @@ export function AdminConsole({ currentUserId }: { currentUserId: string }) {
               <RefreshCcw size={15} />
             </button>
             <a
+              href="/admin/offsite"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+            >
+              Offsite DJ
+            </a>
+            <a
               href="/host"
               className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
             >

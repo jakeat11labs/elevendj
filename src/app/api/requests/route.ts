@@ -1,7 +1,7 @@
 import {
   createSongRequest,
   hostNeedsApiKey,
-  requireSessionByCode,
+  requireActiveSessionByCode,
 } from "@/lib/db";
 import { enqueueGeneration } from "@/lib/enqueue";
 import { AppError, errorResponse } from "@/lib/errors";
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     if (!code) {
       throw new AppError(400, "missing_code", "This request link is missing its session code.");
     }
-    const session = await requireSessionByCode(code);
+    const session = await requireActiveSessionByCode(code);
 
     // The host must have a usable ElevenLabs key (their own, or the shared key
     // if they're an admin) before we accept requests we couldn't generate.

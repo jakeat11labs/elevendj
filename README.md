@@ -95,21 +95,26 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
 - `/host` — host console (DJ booth: queue, playback, settings, API key).
   `/player` redirects here.
 - `/stage` — fullscreen stage (audio + big screen, reactive orb, word-synced lyrics).
+- `/player` — paired physical-space player for Offsite rooms (pairing + remote sync).
 - `/admin` — super-admin console (users, sessions, blob storage); auth- and
   admin-gated.
+- `/admin/offsite` — Offsite operations (agenda rooms, player pairing, integration keys).
 
-**Selected API routes** (24 total under `src/app/api`)
+**Selected API routes** (under `src/app/api`)
 
 - `POST /api/requests` — resolves the session `code`, validates and screens the
   prompt, rate-limits by hashed IP, inserts a request (queued, or pending in
-  approval mode), and starts generation.
+  approval mode), and starts generation. Ended sessions are rejected.
 - `GET /api/queue` — canonical queue snapshot for the host/stage UIs.
 - `GET /api/requests/[id]?token=...` — submitter-only request status.
 - `GET /api/now-playing` — current track for the stage.
 - `POST /api/jobs/generate` — the generation worker (Vercel Queue trigger / manual).
 - `/api/auth/[...path]` — Neon Auth handler.
 - `/api/admin/*` — admin surface (users, sessions, settings, playback, queue
-  reorder, blob storage + cleanup, per-host API key, …).
+  reorder, blob storage + cleanup, per-host API key, Offsite console, …).
+- `/api/integration/v1/*` — server-to-server Offsite Integration API (see
+  [`docs/OFFSITE_INTEGRATION.md`](docs/OFFSITE_INTEGRATION.md)).
+- `/api/player/*` — paired player pairing, state, heartbeat, and playback.
 
 ## Security
 

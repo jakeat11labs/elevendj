@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 import { authClient } from "@/lib/auth/client";
@@ -19,18 +19,16 @@ export function SignInForm({
       : null
   );
 
-  // If a non-ElevenLabs account slipped past the wall, clear that session so the
-  // retry is clean.
-  useEffect(() => {
-    if (domainError) {
-      authClient.signOut().catch(() => {});
-    }
-  }, [domainError]);
-
   async function continueWithGoogle() {
     setError(null);
     setPending(true);
     try {
+      // Clear a wrong-domain session only when the user actively retries.
+      // Doing this in an effect lets a stale `?error=domain` tab sign out a
+      // valid session whenever Next dev/HMR remounts that tab.
+      if (domainError) {
+        await authClient.signOut().catch(() => {});
+      }
       const res = await authClient.signIn.social({
         provider: "google",
         callbackURL: redirectTo,

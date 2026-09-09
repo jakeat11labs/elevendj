@@ -3,7 +3,7 @@
 // unchanged. Shared internal helpers live in ./internal and are not re-exported
 // except for the few that were already public.
 export type { SongRequestRecord, HostSession } from "./internal";
-export { requireSessionByCode } from "./internal";
+export { requireSessionByCode, requireActiveSessionByCode } from "./internal";
 
 export * from "./users";
 export * from "./sessions";
@@ -12,3 +12,8 @@ export * from "./station-ids";
 export * from "./playback";
 export * from "./requests";
 export * from "./generation-lifecycle";
+export * from "./integrations";
+export * from "./external-sessions";
+export * from "./player-devices";
+export * from "./room-playback";
+export * from "./offsite-admin";

@@ -23,17 +23,8 @@ export async function setPlaybackState(
   requestId: string | null,
   isPlaying: boolean
 ): Promise<void> {
-  await dbCall(async () => {
-    const active = await getActiveSessionForHost(hostId);
-    await db
-      .update(sessions)
-      .set({
-        currentRequestId: requestId,
-        isPlaying,
-        ...(isPlaying ? { playbackStartedAt: new Date() } : {}),
-      })
-      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
-  });
+  const { setPlaybackStateWithRevision } = await import("./room-playback");
+  await setPlaybackStateWithRevision(hostId, requestId, isPlaying);
 }
 
 
