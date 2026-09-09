@@ -57,7 +57,13 @@ export type IntegrationAgendaUpsert = {
     requestsOpen?: boolean;
     defaultDurationMs?: number;
     forceInstrumental?: boolean;
-    autoDj?: boolean;
+    autoApprove?: boolean;
+    autoDj?: {
+      enabled?: boolean;
+      target?: number;
+      brief?: string | null;
+      autoplay?: boolean;
+    };
   };
   metadata?: Record<string, unknown>;
 };

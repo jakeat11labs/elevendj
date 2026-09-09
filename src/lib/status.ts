@@ -151,7 +151,10 @@ export function placeStationIds(
 export type QueueSnapshot = {
   topic: string;
   requestsOpen: boolean;
-  autoDj: boolean;
+  /** Requests queue without host approval. */
+  autoApprove: boolean;
+  /** The room tops up its own queue when it runs dry. */
+  autoDjEnabled: boolean;
   defaultDurationMs: number;
   forceInstrumental: boolean;
   // Selected orb gradient colorway name (see src/components/orb/colorways.ts).
@@ -186,7 +189,7 @@ export type Session = {
 export type NowPlaying = {
   isPlaying: boolean;
   requestsOpen: boolean;
-  autoDj: boolean;
+  autoApprove: boolean;
   track: {
     id: string;
     prompt: string;

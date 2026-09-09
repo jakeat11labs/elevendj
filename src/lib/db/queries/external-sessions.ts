@@ -20,7 +20,13 @@ export type ExternalSessionView = {
   requestUrl: string;
   isActive: boolean;
   requestsOpen: boolean;
-  autoDj: boolean;
+  autoApprove: boolean;
+  autoDj: {
+    enabled: boolean;
+    target: number;
+    brief: string | null;
+    autoplay: boolean;
+  };
   agendaStartsAt: string | null;
   agendaEndsAt: string | null;
   externalRevision: string | null;
@@ -51,7 +57,13 @@ export function toExternalSessionView(
     requestUrl: `${siteOrigin()}/request?code=${encodeURIComponent(row.publicCode)}`,
     isActive: row.isActive,
     requestsOpen: row.requestsOpen,
-    autoDj: row.autoDj,
+    autoApprove: row.autoApprove,
+    autoDj: {
+      enabled: row.autoDjEnabled,
+      target: row.autoDjTarget,
+      brief: row.autoDjBrief,
+      autoplay: row.autoDjAutoplay,
+    },
     agendaStartsAt: toIso(row.agendaStartsAt),
     agendaEndsAt: toIso(row.agendaEndsAt),
     externalRevision: row.externalRevision,
@@ -108,6 +120,7 @@ export async function upsertExternalSession(input: {
     const state = input.body.state ?? "scheduled";
     const isActive = state !== "ended";
     const settings = input.body.settings ?? {};
+    const autoDj = settings.autoDj ?? {};
     const startsAt = input.body.startsAt
       ? new Date(input.body.startsAt)
       : null;
@@ -127,7 +140,14 @@ export async function upsertExternalSession(input: {
           requestsOpen:
             settings.requestsOpen ??
             (isActive ? existing.requestsOpen : false),
-          autoDj: settings.autoDj ?? existing.autoDj,
+          autoApprove: settings.autoApprove ?? existing.autoApprove,
+          autoDjEnabled: autoDj.enabled ?? existing.autoDjEnabled,
+          autoDjTarget: autoDj.target ?? existing.autoDjTarget,
+          autoDjBrief:
+            autoDj.brief === undefined
+              ? existing.autoDjBrief
+              : autoDj.brief?.trim() || null,
+          autoDjAutoplay: autoDj.autoplay ?? existing.autoDjAutoplay,
           defaultDurationMs:
             settings.defaultDurationMs ?? existing.defaultDurationMs,
           forceInstrumental:
@@ -157,7 +177,11 @@ export async function upsertExternalSession(input: {
           agendaEndsAt: endsAt,
           externalMetadata: input.body.metadata ?? {},
           requestsOpen: settings.requestsOpen ?? true,
-          autoDj: settings.autoDj ?? true,
+          autoApprove: settings.autoApprove ?? true,
+          autoDjEnabled: autoDj.enabled ?? false,
+          autoDjTarget: autoDj.target ?? 2,
+          autoDjBrief: autoDj.brief?.trim() || null,
+          autoDjAutoplay: autoDj.autoplay ?? true,
           defaultDurationMs: settings.defaultDurationMs ?? 60000,
           forceInstrumental: settings.forceInstrumental ?? true,
           stationIdEnabled: false,

@@ -25,12 +25,48 @@ export async function setRequestsOpen(
 }
 
 
-export async function setAutoDj(hostId: string, autoDj: boolean): Promise<void> {
+export async function setAutoApprove(
+  hostId: string,
+  autoApprove: boolean
+): Promise<void> {
   await dbCall(async () => {
     const active = await getActiveSessionForHost(hostId);
     await db
       .update(sessions)
-      .set({ autoDj })
+      .set({ autoApprove })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
+
+// ─────────────────────────────────────────────────────────────────
+// AutoDJ — self-generating queue (see src/lib/autodj.ts)
+// ─────────────────────────────────────────────────────────────────
+
+export async function setAutoDjEnabled(
+  hostId: string,
+  enabled: boolean
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    await db
+      .update(sessions)
+      .set({ autoDjEnabled: enabled })
+      .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
+  });
+}
+
+
+export async function setAutoDjBrief(
+  hostId: string,
+  brief: string | null
+): Promise<void> {
+  await dbCall(async () => {
+    const active = await getActiveSessionForHost(hostId);
+    const trimmed = brief?.trim();
+    await db
+      .update(sessions)
+      .set({ autoDjBrief: trimmed ? trimmed : null })
       .where(and(eq(sessions.id, active.id), eq(sessions.hostId, hostId)));
   });
 }

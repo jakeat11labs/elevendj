@@ -9,6 +9,7 @@ import { AppError } from "@/lib/errors";
 import { db } from "@/lib/db/client";
 import { sessions } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { runAutoDj } from "@/lib/autodj-pool";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -38,6 +39,15 @@ export const GET = route(async () => {
     .limit(1);
   if (!session) {
     throw new AppError(404, "session_not_found", "Assigned session not found.");
+  }
+
+  // A paired device polling is the only reliable signal an unattended offsite
+  // room is live, so it doubles as the AutoDJ heartbeat: keep the room stocked
+  // and start it if it's sitting silent. Best-effort — never block the player.
+  if (session.autoDjEnabled) {
+    void runAutoDj(session.id).catch((error) => {
+      console.error("AutoDJ run failed", error);
+    });
   }
 
   const [playback, queue] = await Promise.all([

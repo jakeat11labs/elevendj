@@ -4,7 +4,9 @@ import { requireHost } from "@/lib/auth/admin";
 import { json, parseBody, route } from "@/lib/api";
 import {
   getActiveSessionForHost,
-  setAutoDj,
+  setAutoApprove,
+  setAutoDjBrief,
+  setAutoDjEnabled,
   setCrossfadeEnabled,
   setMasterVolume,
   setOrbColorway,
@@ -15,6 +17,7 @@ import {
 } from "@/lib/db";
 import { COLORWAY_NAMES } from "@/components/orb/colorways";
 import { ensureStationIdPool } from "@/lib/station-id-pool";
+import { ensureAutoDjQueue } from "@/lib/autodj-pool";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,7 +25,12 @@ export const dynamic = "force-dynamic";
 const settingsSchema = z
   .object({
     requestsOpen: z.boolean().optional(),
-    autoDj: z.boolean().optional(),
+    // Guest requests queue without waiting for host approval.
+    autoApprove: z.boolean().optional(),
+    // AutoDJ: the room generates its own tracks when nobody is requesting.
+    // `autoDjBrief` steers what it writes (empty string clears it).
+    autoDjEnabled: z.boolean().optional(),
+    autoDjBrief: z.string().trim().max(400).optional(),
     // Constrained to the colorway registry allowlist — only a known name can be
     // persisted, so the value is safe to map to a texture/CSS reference later.
     orbColorway: z.enum(COLORWAY_NAMES).optional(),
@@ -50,8 +58,22 @@ export const POST = route(async (request: Request) => {
   if (data.requestsOpen !== undefined) {
     await setRequestsOpen(user.id, data.requestsOpen);
   }
-  if (data.autoDj !== undefined) {
-    await setAutoDj(user.id, data.autoDj);
+  if (data.autoApprove !== undefined) {
+    await setAutoApprove(user.id, data.autoApprove);
+  }
+  if (data.autoDjBrief !== undefined) {
+    await setAutoDjBrief(user.id, data.autoDjBrief);
+  }
+  if (data.autoDjEnabled !== undefined) {
+    await setAutoDjEnabled(user.id, data.autoDjEnabled);
+    // Start warming immediately — a track takes long enough to generate that
+    // waiting for the queue to drain would leave a gap.
+    if (data.autoDjEnabled) {
+      const active = await getActiveSessionForHost(user.id);
+      void ensureAutoDjQueue(active.id).catch((error) => {
+        console.error("AutoDJ warm-up failed", error);
+      });
+    }
   }
   if (data.orbColorway !== undefined) {
     await setOrbColorway(user.id, data.orbColorway);
@@ -83,7 +105,9 @@ export const POST = route(async (request: Request) => {
   return json({
     ok: true,
     requestsOpen: data.requestsOpen,
-    autoDj: data.autoDj,
+    autoApprove: data.autoApprove,
+    autoDjEnabled: data.autoDjEnabled,
+    autoDjBrief: data.autoDjBrief,
     orbColorway: data.orbColorway,
     masterVolume: data.masterVolume,
     stationIdEnabled: data.stationIdEnabled,

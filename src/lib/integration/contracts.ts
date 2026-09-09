@@ -12,7 +12,21 @@ export const agendaUpsertSchema = z.object({
       requestsOpen: z.boolean().optional(),
       defaultDurationMs: z.number().int().min(3000).max(300000).optional(),
       forceInstrumental: z.boolean().optional(),
-      autoDj: z.boolean().optional(),
+      /** Queue guest requests without waiting for an operator to approve. */
+      autoApprove: z.boolean().optional(),
+      /**
+       * AutoDJ keeps the room stocked when nobody is requesting. `brief` is the
+       * vibe for this agenda item ("warm arrival house for a rooftop
+       * reception"); without it the room falls back to house ad-libs.
+       */
+      autoDj: z
+        .object({
+          enabled: z.boolean().optional(),
+          target: z.number().int().min(1).max(5).optional(),
+          brief: z.string().trim().max(400).nullable().optional(),
+          autoplay: z.boolean().optional(),
+        })
+        .optional(),
     })
     .optional(),
   metadata: z.record(z.string(), z.unknown()).optional(),

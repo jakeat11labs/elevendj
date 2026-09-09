@@ -126,7 +126,17 @@ export const sessions = pgTable(
       .default(sql`'{}'::jsonb`),
     // Per-session settings (previously global singletons).
     requestsOpen: boolean("requests_open").notNull().default(true),
-    autoDj: boolean("auto_dj").notNull().default(true),
+    // Incoming guest requests queue straight away instead of waiting for the
+    // host to approve them. (This is what the old `auto_dj` column meant.)
+    autoApprove: boolean("auto_approve").notNull().default(true),
+    // AutoDJ: the room generates its own tracks so it never runs dry. `brief`
+    // is the vibe instruction — Lovable sends one per agenda item, local hosts
+    // type their own; without it we fall back to house ad-libs. `autoplay`
+    // lets an idle room with ready audio start itself (unattended rooms).
+    autoDjEnabled: boolean("auto_dj_enabled").notNull().default(false),
+    autoDjTarget: integer("auto_dj_target").notNull().default(2),
+    autoDjBrief: text("auto_dj_brief"),
+    autoDjAutoplay: boolean("auto_dj_autoplay").notNull().default(true),
     defaultDurationMs: integer("default_duration_ms").notNull().default(60000),
     forceInstrumental: boolean("force_instrumental").notNull().default(true),
     // Selected orb gradient colorway (see src/components/orb/colorways.ts).
@@ -207,6 +217,10 @@ export const sessions = pgTable(
       sql`${table.masterVolume} between 0 and 1`
     ),
     check(
+      "sessions_auto_dj_target_check",
+      sql`${table.autoDjTarget} between 1 and 5`
+    ),
+    check(
       "sessions_playback_position_check",
       sql`${table.playbackPositionMs} >= 0`
     ),
@@ -284,7 +298,7 @@ export const songRequests = pgTable(
       table.createdAt
     ),
     uniqueIndex("song_requests_external_id_idx")
-      .on(table.integrationClientId, table.externalRequestId)
+      .on(table.sessionId, table.integrationClientId, table.externalRequestId)
       .where(sql`${table.externalRequestId} is not null`),
     check(
       "song_requests_status_check",
@@ -300,7 +314,7 @@ export const songRequests = pgTable(
     ),
     check(
       "song_requests_source_check",
-      sql`${table.source} in ('guest','host','integration')`
+      sql`${table.source} in ('guest','host','integration','auto')`
     ),
   ]
 );
@@ -440,7 +454,7 @@ export const playbackEvents = pgTable(
   (table) => [
     index("playback_events_session_idx").on(table.sessionId, table.createdAt),
     uniqueIndex("playback_events_idempotency_idx")
-      .on(table.actorType, table.actorId, table.idempotencyKey)
+      .on(table.sessionId, table.actorType, table.actorId, table.idempotencyKey)
       .where(sql`${table.idempotencyKey} is not null`),
     check(
       "playback_events_actor_check",

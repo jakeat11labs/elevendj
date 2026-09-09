@@ -7,6 +7,7 @@ import {
 } from "@/lib/db";
 import { hostNeedsApiKey } from "@/lib/db";
 import { agendaUpsertSchema } from "@/lib/integration/contracts";
+import { ensureAutoDjQueue } from "@/lib/autodj-pool";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,8 +31,18 @@ export const PUT = route(async (request: Request, context: Ctx) => {
   const session = await upsertExternalSession({
     clientId: client.id,
     ownerHostId: client.ownerHostId,
-    externalSessionId: decodeURIComponent(externalSessionId),
+    externalSessionId,
     body,
   });
+
+  // Pre-roll: generation takes real time, so a room that waits until it's empty
+  // opens cold. Warming at the moment the agenda item goes live means there's
+  // music ready when people walk in. Best-effort — never block the upsert.
+  if (session.isActive && session.autoDj.enabled) {
+    void ensureAutoDjQueue(session.id).catch((error) => {
+      console.error("AutoDJ pre-roll failed", error);
+    });
+  }
+
   return json({ session });
 });

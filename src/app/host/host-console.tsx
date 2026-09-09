@@ -54,6 +54,8 @@ type Overview = {
     stationIdEnabled?: boolean;
     stationIdPersonalize?: boolean;
     stationIdHostName?: string | null;
+    // Host-only AutoDJ brief (the public snapshot exposes only enabled).
+    autoDjBrief?: string | null;
   };
   queue: QueueSnapshot;
   recent: QueueItem[];
@@ -761,7 +763,9 @@ export function HostConsole({ user }: { user: HostUser }) {
   const counts = overview?.queue.counts;
   const requestsOpen = overview?.queue.requestsOpen ?? true;
 
-  const autoDj = overview?.queue.autoDj ?? true;
+  const autoApprove = overview?.queue.autoApprove ?? true;
+  const autoDjEnabled = overview?.queue.autoDjEnabled ?? false;
+  const autoDjBrief = overview?.activeSession?.autoDjBrief ?? "";
 
   const stationIdPersonalize =
     overview?.activeSession?.stationIdPersonalize ?? false;
@@ -774,7 +778,9 @@ export function HostConsole({ user }: { user: HostUser }) {
   // Consumed by <HostControlsPanel> as a grouped object.
   const settings = useHostSettings({
     requestsOpen,
-    autoDj,
+    autoApprove,
+    autoDjEnabled,
+    autoDjBrief,
     stationIdEnabled,
     crossfadeEnabled,
     stationIdPersonalize,
@@ -838,7 +844,9 @@ export function HostConsole({ user }: { user: HostUser }) {
               public link, API key */}
           <HostControlsPanel
             requestsOpen={requestsOpen}
-            autoDj={autoDj}
+            autoApprove={autoApprove}
+            autoDjEnabled={autoDjEnabled}
+            autoDjBrief={autoDjBrief}
             stationIdEnabled={stationIdEnabled}
             crossfadeEnabled={crossfadeEnabled}
             stationIdPersonalize={stationIdPersonalize}
@@ -906,7 +914,7 @@ export function HostConsole({ user }: { user: HostUser }) {
               anchor even when the panel itself is hidden. */}
           <PendingApprovalsPanel
             pendingItems={pendingItems}
-            autoDj={autoDj}
+            autoApprove={autoApprove}
             bulkBusy={bulkBusy}
             busyId={busyId}
             onApprove={(id) => runAction(id, "approve")}

@@ -9,6 +9,7 @@ export * from "./users";
 export * from "./sessions";
 export * from "./settings";
 export * from "./station-ids";
+export * from "./autodj";
 export * from "./playback";
 export * from "./requests";
 export * from "./generation-lifecycle";

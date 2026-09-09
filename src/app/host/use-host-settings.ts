@@ -12,7 +12,9 @@ import { useCallback, useState } from "react";
  */
 export function useHostSettings({
   requestsOpen,
-  autoDj,
+  autoApprove,
+  autoDjEnabled,
+  autoDjBrief,
   stationIdEnabled,
   crossfadeEnabled,
   stationIdPersonalize,
@@ -23,7 +25,9 @@ export function useHostSettings({
   onError,
 }: {
   requestsOpen: boolean;
-  autoDj: boolean;
+  autoApprove: boolean;
+  autoDjEnabled: boolean;
+  autoDjBrief: string;
   stationIdEnabled: boolean;
   crossfadeEnabled: boolean;
   stationIdPersonalize: boolean;
@@ -34,7 +38,9 @@ export function useHostSettings({
   onError: (message: string) => void;
 }) {
   const [togglingRequests, setTogglingRequests] = useState(false);
+  const [togglingAutoApprove, setTogglingAutoApprove] = useState(false);
   const [togglingAutoDj, setTogglingAutoDj] = useState(false);
+  const [savingAutoDjBrief, setSavingAutoDjBrief] = useState(false);
   const [togglingStationId, setTogglingStationId] = useState(false);
   const [togglingCrossfade, setTogglingCrossfade] = useState(false);
   const [savingStationName, setSavingStationName] = useState(false);
@@ -61,14 +67,36 @@ export function useHostSettings({
     }
   }, [authHeader, refresh, onError, requestsOpen]);
 
+  const toggleAutoApprove = useCallback(async () => {
+    const next = !autoApprove;
+    setTogglingAutoApprove(true);
+    try {
+      const response = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeader },
+        body: JSON.stringify({ autoApprove: next }),
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        onError(body?.message || "Could not update auto-approve.");
+        return;
+      }
+      await refresh();
+    } catch {
+      onError("Network error updating auto-approve.");
+    } finally {
+      setTogglingAutoApprove(false);
+    }
+  }, [authHeader, refresh, onError, autoApprove]);
+
   const toggleAutoDj = useCallback(async () => {
-    const next = !autoDj;
+    const next = !autoDjEnabled;
     setTogglingAutoDj(true);
     try {
       const response = await fetch("/api/admin/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeader },
-        body: JSON.stringify({ autoDj: next }),
+        body: JSON.stringify({ autoDjEnabled: next }),
       });
       const body = await response.json().catch(() => null);
       if (!response.ok) {
@@ -81,7 +109,34 @@ export function useHostSettings({
     } finally {
       setTogglingAutoDj(false);
     }
-  }, [authHeader, refresh, onError, autoDj]);
+  }, [authHeader, refresh, onError, autoDjEnabled]);
+
+  const saveAutoDjBrief = useCallback(
+    async (value: string) => {
+      if (value === autoDjBrief) {
+        return; // unchanged — skip the round-trip
+      }
+      setSavingAutoDjBrief(true);
+      try {
+        const response = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeader },
+          body: JSON.stringify({ autoDjBrief: value }),
+        });
+        const body = await response.json().catch(() => null);
+        if (!response.ok) {
+          onError(body?.message || "Could not save the AutoDJ brief.");
+          return;
+        }
+        await refresh();
+      } catch {
+        onError("Network error saving the AutoDJ brief.");
+      } finally {
+        setSavingAutoDjBrief(false);
+      }
+    },
+    [authHeader, refresh, onError, autoDjBrief]
+  );
 
   const toggleStationId = useCallback(async () => {
     const next = !stationIdEnabled;
@@ -207,7 +262,9 @@ export function useHostSettings({
 
   return {
     toggleRequests,
+    toggleAutoApprove,
     toggleAutoDj,
+    saveAutoDjBrief,
     toggleStationId,
     toggleCrossfade,
     toggleStationIdPersonalize,
@@ -215,7 +272,9 @@ export function useHostSettings({
     commitMasterVolume,
     setPendingVolume,
     togglingRequests,
+    togglingAutoApprove,
     togglingAutoDj,
+    savingAutoDjBrief,
     togglingStationId,
     togglingCrossfade,
     savingStationName,

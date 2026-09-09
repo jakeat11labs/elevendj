@@ -159,22 +159,27 @@ export function PlayerScreen() {
     setDeckGain,
   ]);
 
+  // Depends on the playback primitives, not the object: `state.playback` is a
+  // fresh object on every 1s poll, and resubscribing on it restarted the
+  // interval before it could fire, turning this into a 1Hz heartbeat.
+  const reportedRequestId = state?.playback?.currentRequestId ?? null;
+  const reportedRevision = state?.playback?.revision ?? null;
+
   useEffect(() => {
-    if (!paired || !state?.playback) return;
-    const audio = audioARef.current;
+    if (!paired || reportedRevision === null) return;
     const tick = () => {
-      const positionMs = Math.floor((audio?.currentTime ?? 0) * 1000);
+      const audio = audioARef.current;
       void report({
-        requestId: state.playback?.currentRequestId ?? null,
-        revision: state.playback?.revision ?? 0,
+        requestId: reportedRequestId,
+        revision: reportedRevision,
         isPlaying: localPlaying,
-        positionMs,
+        positionMs: Math.floor((audio?.currentTime ?? 0) * 1000),
       });
     };
     const timer = window.setInterval(tick, 5000);
     tick();
     return () => window.clearInterval(timer);
-  }, [paired, state?.playback, localPlaying, report]);
+  }, [paired, reportedRequestId, reportedRevision, localPlaying, report]);
 
   useEffect(() => {
     const audio = audioARef.current;

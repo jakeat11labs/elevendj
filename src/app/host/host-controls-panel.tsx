@@ -16,14 +16,17 @@ import { QRCodeSVG } from "qrcode.react";
 import { formatDate } from "./format";
 
 /**
- * Left-column host controls: request-line / AutoDJ / Station-ID / crossfade
- * toggles, master volume, the public request link + QR, and the ElevenLabs key
- * card. Purely presentational — the overview-derived display booleans plus the
- * settings, session-link, and api-key hook returns come from props.
+ * Left-column host controls: request-line / auto-approve / AutoDJ / Station-ID
+ * / crossfade toggles, master volume, the public request link + QR, and the
+ * ElevenLabs key card. Purely presentational — the overview-derived display
+ * booleans plus the settings, session-link, and api-key hook returns come from
+ * props.
  */
 export function HostControlsPanel({
   requestsOpen,
-  autoDj,
+  autoApprove,
+  autoDjEnabled,
+  autoDjBrief,
   stationIdEnabled,
   crossfadeEnabled,
   stationIdPersonalize,
@@ -37,7 +40,9 @@ export function HostControlsPanel({
   isAdmin,
 }: {
   requestsOpen: boolean;
-  autoDj: boolean;
+  autoApprove: boolean;
+  autoDjEnabled: boolean;
+  autoDjBrief: string;
   stationIdEnabled: boolean;
   crossfadeEnabled: boolean;
   stationIdPersonalize: boolean;
@@ -86,15 +91,12 @@ export function HostControlsPanel({
         </button>
       </div>
 
-      {/* AutoDJ toggle */}
-      <div
-        id="tour-autodj"
-        className="card-soft mt-3 flex items-center justify-between gap-3 p-4"
-      >
+      {/* Auto-approve — whether guest requests need a host's nod first */}
+      <div className="card-soft mt-3 flex items-center justify-between gap-3 p-4">
         <div className="min-w-0">
-          <p className="eyebrow">AutoDJ</p>
+          <p className="eyebrow">Auto-approve</p>
           <p className="mt-1 text-sm text-[var(--dark-gray)]">
-            {autoDj
+            {autoApprove
               ? "On — requests generate automatically."
               : "Off — you approve each request before it generates."}
           </p>
@@ -102,20 +104,84 @@ export function HostControlsPanel({
         <button
           type="button"
           role="switch"
-          aria-checked={autoDj}
-          disabled={settings.togglingAutoDj}
-          onClick={settings.toggleAutoDj}
-          title={autoDj ? "Switch to approval mode" : "Turn AutoDJ on"}
+          aria-checked={autoApprove}
+          disabled={settings.togglingAutoApprove}
+          onClick={settings.toggleAutoApprove}
+          title={
+            autoApprove ? "Switch to approval mode" : "Turn auto-approve on"
+          }
           className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors disabled:opacity-50 ${
-            autoDj ? "bg-[var(--graphite)]" : "bg-[var(--light-gray)]"
+            autoApprove ? "bg-[var(--graphite)]" : "bg-[var(--light-gray)]"
           }`}
         >
           <span
             className={`inline-block size-5 transform rounded-full bg-white shadow transition-transform ${
-              autoDj ? "translate-x-6" : "translate-x-1"
+              autoApprove ? "translate-x-6" : "translate-x-1"
             }`}
           />
         </button>
+      </div>
+
+      {/* AutoDJ — the room writes its own tracks when nobody is requesting */}
+      <div id="tour-autodj" className="card-soft mt-3 p-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="eyebrow">AutoDJ</p>
+            <p className="mt-1 text-sm text-[var(--dark-gray)]">
+              {autoDjEnabled
+                ? "On — the room keeps itself stocked when requests dry up."
+                : "Off — the room goes quiet when the queue empties."}
+            </p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={autoDjEnabled}
+            disabled={settings.togglingAutoDj}
+            onClick={settings.toggleAutoDj}
+            title={autoDjEnabled ? "Turn AutoDJ off" : "Turn AutoDJ on"}
+            className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors disabled:opacity-50 ${
+              autoDjEnabled ? "bg-[var(--graphite)]" : "bg-[var(--light-gray)]"
+            }`}
+          >
+            <span
+              className={`inline-block size-5 transform rounded-full bg-white shadow transition-transform ${
+                autoDjEnabled ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+
+        {autoDjEnabled ? (
+          <div className="mt-4 border-t border-[var(--light-gray)] pt-4">
+            <label
+              className="eyebrow block"
+              htmlFor="autodj-brief"
+            >
+              Brief
+            </label>
+            <textarea
+              id="autodj-brief"
+              // Re-keyed on the saved value so it re-seeds when the server
+              // value changes, but stays uncontrolled while typing.
+              key={autoDjBrief}
+              defaultValue={autoDjBrief}
+              disabled={settings.savingAutoDjBrief}
+              maxLength={400}
+              rows={2}
+              placeholder="e.g. warm arrival house for a rooftop reception"
+              onBlur={(event) =>
+                settings.saveAutoDjBrief(event.currentTarget.value.trim())
+              }
+              className="mt-2 w-full resize-none rounded-lg border border-[var(--light-gray)] bg-white px-3 py-2 text-sm disabled:opacity-50"
+            />
+            <p className="mt-2 text-xs text-[var(--mid-gray)]">
+              {autoDjBrief
+                ? "Steers every track AutoDJ writes for this room."
+                : "Optional — without one, AutoDJ picks a house style on its own."}
+            </p>
+          </div>
+        ) : null}
       </div>
 
       {/* Station ID — auto radio-ID jingle every couple of songs */}

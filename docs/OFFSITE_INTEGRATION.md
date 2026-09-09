@@ -50,13 +50,37 @@ Base path: `/api/integration/v1`
     "requestsOpen": true,
     "defaultDurationMs": 60000,
     "forceInstrumental": true,
-    "autoDj": true
+    "autoApprove": true,
+    "autoDj": {
+      "enabled": true,
+      "target": 2,
+      "brief": "warm arrival house for a rooftop sunset reception",
+      "autoplay": true
+    }
   },
   "metadata": {}
 }
 ```
 
 `state: "ended"` closes requests and pauses playback. Content is retained.
+
+### AutoDJ
+
+With `autoDj.enabled`, the room writes its own tracks so it never runs dry —
+audience requests always take priority, and AutoDJ only makes up the shortfall
+below `target`. Send a `brief` per agenda item; it's the single strongest lever
+you have over what a room sounds like. Without one the room falls back to a
+house style shaped by its title, room name, and time of day.
+
+Three behaviors matter for unattended rooms:
+
+- **Pre-roll** — upserting a room as `live` starts generating immediately, so
+  there's music ready before people walk in. Generation takes ~30–60s, so upsert
+  a few minutes ahead of the agenda block rather than at its start.
+- **Autoplay** — a room with ready audio and nothing playing starts itself. A
+  room an operator deliberately paused is left alone.
+- **Wind-down** — top-ups stop within 5 minutes of `endsAt`, so a finishing room
+  doesn't generate tracks nobody hears. Send `endsAt` to get this.
 
 ### Read session / status
 
@@ -67,7 +91,9 @@ Base path: `/api/integration/v1`
 
 `POST /agenda-sessions/:externalSessionId/requests`
 
-Required header: `Idempotency-Key` (opaque string, ≥ 8 chars).
+Required header: `Idempotency-Key` (opaque string, ≥ 8 chars). Both it and
+`externalRequestId` are scoped to the agenda session, so the same employee-scoped
+id may be reused across concurrent rooms.
 
 ```json
 {
@@ -89,7 +115,7 @@ without enqueueing a second generation job.
 
 `POST /agenda-sessions/:externalSessionId/playback`
 
-Required header: `Idempotency-Key`.
+Required header: `Idempotency-Key`, scoped to the agenda session.
 
 ```json
 { "action": "play", "expectedRevision": 0 }
@@ -108,6 +134,8 @@ the current playback state in `details.playback`.
 { "deviceId": "<uuid>", "assign": true }
 ```
 
+A client may only assign a device that is unassigned or already serving one of
+its own rooms; anything else returns `403 device_unavailable`.
 Set `assign: false` to unassign. Automatic schedule-driven assignment is the
 Lovable phase-two responsibility; ElevenDJ already supports reassignment without
 re-pairing.
@@ -134,8 +162,9 @@ under `/admin/offsite` and never appear in the host session modal.
 When ElevenDJ is verified:
 
 1. Store the integration secret in Lovable server env.
-2. On schedule start → `PUT` agenda session with `state: "live"` and assign the
-   space’s paired `deviceId`.
+2. A few minutes before schedule start → `PUT` agenda session with
+   `state: "live"`, an `autoDj.brief` for that agenda item, and assign the
+   space’s paired `deviceId`. The lead time lets pre-roll finish.
 3. Employee request form → `POST …/requests` with employee-scoped idempotency
    keys / `externalRequestId`.
 4. On session end → `PUT` with `state: "ended"` (and optionally unassign).

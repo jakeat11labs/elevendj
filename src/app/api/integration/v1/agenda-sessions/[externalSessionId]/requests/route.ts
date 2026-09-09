@@ -19,10 +19,7 @@ type Ctx = { params: Promise<{ externalSessionId: string }> };
 export const POST = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId } = await context.params;
-  const session = await requireExternalSession(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const session = await requireExternalSession(client.id, externalSessionId);
 
   if (!session.isActive) {
     throw new AppError(
@@ -66,8 +63,10 @@ export const POST = route(async (request: Request, context: Ctx) => {
       asIntegration: true,
       integrationClientId: client.id,
       externalRequestId: body.externalRequestId,
+      // Room-scoped: song_requests.idempotency_key is globally unique, so a
+      // portal reusing one key across two concurrent rooms must not collide.
       idempotencyKey: hashValue(
-        `${client.id}:${idempotencyKey}`,
+        `${client.id}:${session.id}:${idempotencyKey}`,
         "idempotency"
       ),
     }

@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - September 9, 2026
+
+### Added
+- **AutoDJ** — a room writes its own tracks so it never runs dry. Audience
+  requests take priority; AutoDJ only generates the shortfall below its target.
+  A per-room brief steers the style (Lovable sends one per agenda item, local
+  hosts type their own) and falls back to a house style shaped by the room name,
+  session title, and time of day.
+- Offsite AutoDJ behaviors: pre-roll when a room goes live, autoplay for idle
+  assigned rooms, and wind-down near the end of an agenda block.
+- AutoDJ settings in the Integration API (`settings.autoDj`) and a per-room
+  AutoDJ toggle in the `/admin/offsite` console.
+- `source: "auto"` request tagging for house-generated tracks.
+
+### Changed
+- **Renamed the AutoDJ toggle to Auto-approve**, which is what it always did
+  (queue guest requests without host approval). `settings.autoDj` in the
+  Integration API is now `settings.autoApprove`; AutoDJ is the new self-
+  generating behavior.
+- Player pairing polls with the secret in a POST body instead of the query
+  string, so the device credential never lands in an access log.
+- Integration request/playback idempotency keys are scoped per agenda session,
+  so a portal driving several rooms can reuse an employee-scoped key.
+
+### Fixed
+- Integration clients could assign or unassign any player device by id; they are
+  now limited to devices that are free or already in one of their own rooms.
+- A skip that lost the revision race no longer leaves a track marked played
+  while the room still points at it.
+- Skip after a manual track selection advances to the next track instead of
+  jumping to the top of the queue.
+- Paired players sent a heartbeat every second instead of every five.
+- Creating an integration client with an unknown owner host returns 400 instead
+  of quietly billing the acting admin.
+- A stale `/sign-in?error=domain` tab no longer signs out a valid session.
+
 ## [0.4.0] - September 9, 2026
 
 ### Added

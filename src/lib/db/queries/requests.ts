@@ -48,12 +48,15 @@ export async function createSongRequest(
     }
 
     // Integration replays: return the existing request when external id matches.
+    // Scoped to the room — the same employee-scoped external id may legitimately
+    // appear in two agenda sessions running at once.
     if (options.asIntegration && options.integrationClientId && options.externalRequestId) {
       const [existing] = await db
         .select()
         .from(songRequests)
         .where(
           and(
+            eq(songRequests.sessionId, session.id),
             eq(songRequests.integrationClientId, options.integrationClientId),
             eq(songRequests.externalRequestId, options.externalRequestId)
           )
@@ -153,7 +156,7 @@ export async function createSongRequest(
     // AutoDJ generates immediately (`queued`); approval mode holds the request
     // in `pending`. Host- and integration-authored tracks are implicitly approved.
     const initialStatus: RequestStatus =
-      trusted || session.autoDj ? "queued" : "pending";
+      trusted || session.autoApprove ? "queued" : "pending";
 
     const source = options.asIntegration
       ? "integration"
@@ -211,6 +214,7 @@ export async function createSongRequest(
           .from(songRequests)
           .where(
             and(
+              eq(songRequests.sessionId, session.id),
               eq(songRequests.integrationClientId, options.integrationClientId),
               eq(songRequests.externalRequestId, options.externalRequestId)
             )

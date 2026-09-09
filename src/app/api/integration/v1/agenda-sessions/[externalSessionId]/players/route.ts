@@ -1,7 +1,7 @@
 import { requireIntegrationClient } from "@/lib/auth/integration";
 import { json, parseBody, route } from "@/lib/api";
 import {
-  assignPlayerDevice,
+  assignPlayerDeviceForClient,
   listPlayerDevicesForSession,
   requireExternalSession,
 } from "@/lib/db";
@@ -16,16 +16,14 @@ type Ctx = { params: Promise<{ externalSessionId: string }> };
 export const PUT = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId } = await context.params;
-  const session = await requireExternalSession(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const session = await requireExternalSession(client.id, externalSessionId);
 
   const body = await parseBody(request, spaceAssignmentSchema, {
     message: "Invalid space assignment payload.",
   });
 
-  const device = await assignPlayerDevice(
+  const device = await assignPlayerDeviceForClient(
+    client.id,
     body.deviceId,
     body.assign ? session.id : null
   );
@@ -37,10 +35,7 @@ export const PUT = route(async (request: Request, context: Ctx) => {
 export const GET = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId } = await context.params;
-  const session = await requireExternalSession(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const session = await requireExternalSession(client.id, externalSessionId);
   const players = await listPlayerDevicesForSession(session.id);
   return json({
     externalSessionId: session.externalSessionId,

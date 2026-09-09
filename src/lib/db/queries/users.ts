@@ -260,6 +260,19 @@ export async function listAllUsers(): Promise<AdminUser[]> {
 }
 
 
+/** Whether a user id exists, without loading the whole table. */
+export async function userExists(userId: string): Promise<boolean> {
+  return dbCall(async () => {
+    const [row] = await db
+      .select({ id: users.id })
+      .from(users)
+      .where(eq(users.id, userId))
+      .limit(1);
+    return Boolean(row);
+  });
+}
+
+
 /** A specific user's sessions (with track counts). Admin-only. */
 export async function adminListSessionsForUser(
   userId: string

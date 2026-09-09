@@ -10,12 +10,12 @@ import { formatDate } from "./format";
 /**
  * Pending-approval panel. The wrapper is always rendered so the onboarding tour
  * has a stable anchor (`#tour-approvals`) even when the panel itself is hidden;
- * the panel shows in approval mode (`!autoDj`) or whenever anything is waiting.
- * Purely presentational — actions come from props.
+ * the panel shows in approval mode (`!autoApprove`) or whenever anything is
+ * waiting. Purely presentational — actions come from props.
  */
 export function PendingApprovalsPanel({
   pendingItems,
-  autoDj,
+  autoApprove,
   bulkBusy,
   busyId,
   onApprove,
@@ -23,7 +23,7 @@ export function PendingApprovalsPanel({
   onApproveAll,
 }: {
   pendingItems: QueueItem[];
-  autoDj: boolean;
+  autoApprove: boolean;
   bulkBusy: boolean;
   busyId: string | null;
   onApprove: (id: string) => void;
@@ -32,7 +32,7 @@ export function PendingApprovalsPanel({
 }) {
   return (
     <div id="tour-approvals">
-      {(!autoDj || pendingItems.length > 0) && (
+      {(!autoApprove || pendingItems.length > 0) && (
         <section className="card rise p-4 sm:p-5">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 className="flex items-center gap-2 text-xl">

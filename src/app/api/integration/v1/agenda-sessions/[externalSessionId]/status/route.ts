@@ -10,9 +10,6 @@ type Ctx = { params: Promise<{ externalSessionId: string }> };
 export const GET = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId } = await context.params;
-  const status = await getExternalSessionStatus(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const status = await getExternalSessionStatus(client.id, externalSessionId);
   return json(status);
 });

@@ -6,12 +6,15 @@ import {
   Check,
   Copy,
   KeyRound,
+  MonitorPlay,
   Pause,
   Play,
   Radio,
   RefreshCcw,
   SkipForward,
+  Sparkles,
   Trash2,
+  Users,
   X,
 } from "lucide-react";
 
@@ -54,6 +57,12 @@ type Room = {
   externalSessionId: string | null;
   isActive: boolean;
   requestsOpen: boolean;
+  autoDj: {
+    enabled: boolean;
+    target: number;
+    brief: string | null;
+    autoplay: boolean;
+  };
   agendaStartsAt: string | null;
   agendaEndsAt: string | null;
   hostKeyReady: boolean;
@@ -250,6 +259,28 @@ export function OffsiteConsole() {
     }
   }
 
+  async function setRoomAutoDj(
+    sessionId: string,
+    patch: { enabled?: boolean; brief?: string | null }
+  ) {
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/offsite/rooms/${sessionId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(patch),
+      });
+      const body = await res.json().catch(() => null);
+      if (!res.ok) {
+        setError(body?.message || "Could not update AutoDJ.");
+        return;
+      }
+      await refresh();
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function playback(
     action: "play" | "pause" | "skip" | "select",
     trackId?: string
@@ -306,18 +337,26 @@ export function OffsiteConsole() {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/admin" className="btn-ghost h-10 px-4 text-sm">
+            <Link
+              href="/admin"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+            >
+              <Users size={15} />
               Users
             </Link>
-            <Link href="/player" className="btn-ghost h-10 px-4 text-sm">
+            <Link
+              href="/player"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+            >
+              <MonitorPlay size={15} />
               Open player
             </Link>
             <button
               type="button"
-              className="btn-ghost inline-flex h-10 items-center gap-2 px-4 text-sm"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
               onClick={() => void refresh()}
             >
-              <RefreshCcw size={14} />
+              <RefreshCcw size={15} />
               Refresh
             </button>
           </div>
@@ -480,7 +519,35 @@ export function OffsiteConsole() {
                   <SkipForward size={15} />
                   Skip
                 </button>
+                <button
+                  type="button"
+                  disabled={busy}
+                  className={`inline-flex h-10 items-center gap-2 px-4 text-sm ${
+                    selectedRoom.autoDj.enabled ? "btn-primary" : "btn-ghost"
+                  }`}
+                  onClick={() =>
+                    void setRoomAutoDj(selectedRoom.id, {
+                      enabled: !selectedRoom.autoDj.enabled,
+                    })
+                  }
+                  title={
+                    selectedRoom.autoDj.enabled
+                      ? "Stop generating house tracks for this room"
+                      : "Keep this room stocked when requests dry up"
+                  }
+                >
+                  <Sparkles size={15} />
+                  AutoDJ {selectedRoom.autoDj.enabled ? "on" : "off"}
+                </button>
               </div>
+
+              {selectedRoom.autoDj.enabled && (
+                <p className="mt-2 text-xs text-[var(--mid-gray)]">
+                  {selectedRoom.autoDj.brief
+                    ? `Brief: ${selectedRoom.autoDj.brief}`
+                    : "No brief from the portal — using a house style."}
+                </p>
+              )}
 
               <div className="mt-4 space-y-2">
                 {roomTracks.length === 0 && (

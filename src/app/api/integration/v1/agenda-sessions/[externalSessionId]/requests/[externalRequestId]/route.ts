@@ -18,10 +18,7 @@ type Ctx = {
 export const GET = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId, externalRequestId } = await context.params;
-  const session = await requireExternalSession(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const session = await requireExternalSession(client.id, externalSessionId);
 
   const [row] = await db
     .select()
@@ -30,10 +27,7 @@ export const GET = route(async (request: Request, context: Ctx) => {
       and(
         eq(songRequests.sessionId, session.id),
         eq(songRequests.integrationClientId, client.id),
-        eq(
-          songRequests.externalRequestId,
-          decodeURIComponent(externalRequestId)
-        )
+        eq(songRequests.externalRequestId, externalRequestId)
       )
     )
     .limit(1);

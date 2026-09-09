@@ -56,10 +56,12 @@ export function PlayerPairingScreen({
         pairing.secret || window.sessionStorage.getItem(SECRET_KEY);
       if (!secret) return;
       try {
-        const res = await fetch(
-          `/api/player/pairings/${pairing.pairingId}?secret=${encodeURIComponent(secret)}`,
-          { cache: "no-store" }
-        );
+        const res = await fetch(`/api/player/pairings/${pairing.pairingId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ secret }),
+          cache: "no-store",
+        });
         const body = await res.json().catch(() => null);
         if (!res.ok || cancelled) return;
         if (body?.status === "approved") {

@@ -49,7 +49,9 @@ export type SongRequestRecord = {
 export type HostSession = Session & {
   publicCode: string;
   requestsOpen: boolean;
-  autoDj: boolean;
+  autoApprove: boolean;
+  autoDjEnabled: boolean;
+  autoDjBrief: string | null;
   defaultDurationMs: number;
   forceInstrumental: boolean;
   // Station ID settings — host-only (the public queue snapshot exposes just the
@@ -170,7 +172,9 @@ export function mapSession(row: SessionRow, trackCount?: number): HostSession {
     isActive: row.isActive,
     publicCode: row.publicCode,
     requestsOpen: row.requestsOpen,
-    autoDj: row.autoDj,
+    autoApprove: row.autoApprove,
+    autoDjEnabled: row.autoDjEnabled,
+    autoDjBrief: row.autoDjBrief,
     defaultDurationMs: row.defaultDurationMs,
     forceInstrumental: row.forceInstrumental,
     stationIdEnabled: row.stationIdEnabled,

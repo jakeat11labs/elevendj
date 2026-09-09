@@ -41,10 +41,10 @@ export async function getNowPlaying(sessionId: string): Promise<NowPlaying> {
     }
 
     const requestsOpen = session.requestsOpen;
-    const autoDj = session.autoDj;
+    const autoApprove = session.autoApprove;
 
     if (!session.currentRequestId) {
-      return { isPlaying: false, requestsOpen, autoDj, track: null };
+      return { isPlaying: false, requestsOpen, autoApprove, track: null };
     }
 
     const [requestRow] = await db
@@ -54,13 +54,18 @@ export async function getNowPlaying(sessionId: string): Promise<NowPlaying> {
       .limit(1);
 
     if (!requestRow) {
-      return { isPlaying: session.isPlaying, requestsOpen, autoDj, track: null };
+      return {
+        isPlaying: session.isPlaying,
+        requestsOpen,
+        autoApprove,
+        track: null,
+      };
     }
 
     return {
       isPlaying: session.isPlaying,
       requestsOpen,
-      autoDj,
+      autoApprove,
       track: {
         id: requestRow.id,
         prompt: requestRow.prompt,
@@ -141,7 +146,8 @@ async function buildQueueSnapshot(session: SessionRow): Promise<QueueSnapshot> {
   return {
     topic: `${REALTIME_TOPIC}:${session.publicCode}`,
     requestsOpen: session.requestsOpen,
-    autoDj: session.autoDj,
+    autoApprove: session.autoApprove,
+    autoDjEnabled: session.autoDjEnabled,
     defaultDurationMs: session.defaultDurationMs,
     forceInstrumental: session.forceInstrumental,
     orbColorway: session.orbColorway,

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { and, desc, eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 import { issueIntegrationCredential } from "@/lib/auth/credentials";
 import { db } from "@/lib/db/client";
@@ -139,25 +139,4 @@ export async function getIntegrationClientById(id: string) {
       .limit(1);
     return row ?? null;
   });
-}
-
-export async function requireOwnedIntegrationSession(
-  clientId: string,
-  sessionId: string
-) {
-  const { sessions } = await import("@/lib/db/schema");
-  const [row] = await db
-    .select()
-    .from(sessions)
-    .where(
-      and(
-        eq(sessions.id, sessionId),
-        eq(sessions.integrationClientId, clientId)
-      )
-    )
-    .limit(1);
-  if (!row) {
-    throw new AppError(404, "session_not_found", "Session not found.");
-  }
-  return row;
 }

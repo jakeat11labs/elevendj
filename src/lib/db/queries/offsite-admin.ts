@@ -23,6 +23,12 @@ export type OffsiteRoomOverview = {
   integrationClientId: string | null;
   isActive: boolean;
   requestsOpen: boolean;
+  autoDj: {
+    enabled: boolean;
+    target: number;
+    brief: string | null;
+    autoplay: boolean;
+  };
   agendaStartsAt: string | null;
   agendaEndsAt: string | null;
   hostKeyReady: boolean;
@@ -64,6 +70,12 @@ export async function getOffsiteOverview() {
         integrationClientId: row.integrationClientId,
         isActive: row.isActive,
         requestsOpen: row.requestsOpen,
+        autoDj: {
+          enabled: row.autoDjEnabled,
+          target: row.autoDjTarget,
+          brief: row.autoDjBrief,
+          autoplay: row.autoDjAutoplay,
+        },
         agendaStartsAt: toIso(row.agendaStartsAt),
         agendaEndsAt: toIso(row.agendaEndsAt),
         hostKeyReady: !hostKeyMissing,

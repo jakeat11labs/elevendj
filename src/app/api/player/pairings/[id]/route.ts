@@ -1,23 +1,29 @@
-import { json, route } from "@/lib/api";
+import { z } from "zod";
+
+import { json, parseBody, route } from "@/lib/api";
 import { getPlayerPairingStatus } from "@/lib/db";
 import {
   clearPlayerCookieOptions,
   playerCookieOptions,
 } from "@/lib/auth/player";
-import { AppError } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type Ctx = { params: Promise<{ id: string }> };
 
-/** Poll pairing status. Pass `?secret=` until approved; on approval sets the player cookie. */
-export const GET = route(async (request: Request, context: Ctx) => {
+const pollSchema = z.object({ secret: z.string().min(1) });
+
+/**
+ * Poll pairing status; on approval sets the player cookie. The secret is the
+ * long-lived device credential, so it rides in the body rather than the query
+ * string, which would copy it into every access log on each 2s poll.
+ */
+export const POST = route(async (request: Request, context: Ctx) => {
   const { id } = await context.params;
-  const secret = new URL(request.url).searchParams.get("secret");
-  if (!secret) {
-    throw new AppError(400, "missing_secret", "Pairing secret is required.");
-  }
+  const { secret } = await parseBody(request, pollSchema, {
+    message: "Pairing secret is required.",
+  });
 
   const status = await getPlayerPairingStatus(id, secret);
   if (status.status === "approved") {

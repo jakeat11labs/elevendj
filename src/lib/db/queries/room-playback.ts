@@ -57,14 +57,19 @@ export async function getRoomPlaybackState(
 }
 
 async function findIdempotentResult(
+  sessionId: string,
   actor: Actor
 ): Promise<RoomPlaybackState | null> {
   if (!actor.idempotencyKey) return null;
+  // Scoped to the room: a portal driving several rooms may reuse a natural key
+  // like `play-agenda-42`, and a global match would replay room A's result for
+  // room B while room B's command silently never runs.
   const [event] = await db
     .select()
     .from(playbackEvents)
     .where(
       and(
+        eq(playbackEvents.sessionId, sessionId),
         eq(playbackEvents.actorType, actor.type),
         eq(playbackEvents.actorId, actor.id),
         eq(playbackEvents.idempotencyKey, actor.idempotencyKey)
@@ -75,9 +80,41 @@ async function findIdempotentResult(
   return event.result as RoomPlaybackState;
 }
 
+/** Queue ordering key: position ascending with nulls last, then createdAt. */
+type QueueCursor = { position: number | null; createdAt: Date };
+
+function isAfterCursor(row: QueueCursor, cursor: QueueCursor): boolean {
+  const rowPosition = row.position ?? Number.MAX_SAFE_INTEGER;
+  const cursorPosition = cursor.position ?? Number.MAX_SAFE_INTEGER;
+  if (rowPosition !== cursorPosition) return rowPosition > cursorPosition;
+  return row.createdAt.getTime() > cursor.createdAt.getTime();
+}
+
+async function queueCursorFor(
+  sessionId: string,
+  trackId: string
+): Promise<QueueCursor | null> {
+  const [row] = await db
+    .select({
+      position: songRequests.position,
+      createdAt: songRequests.createdAt,
+    })
+    .from(songRequests)
+    .where(
+      and(eq(songRequests.id, trackId), eq(songRequests.sessionId, sessionId))
+    )
+    .limit(1);
+  return row ?? null;
+}
+
+/**
+ * First ready track after `cursor`, or the head of the queue when `cursor` is
+ * null. Advancing by ordering key rather than by the current track's index
+ * keeps skip correct whatever that track's status is by the time we look.
+ */
 async function nextReadyTrackId(
   sessionId: string,
-  afterId: string | null
+  cursor: QueueCursor | null
 ): Promise<string | null> {
   const rows = await db
     .select({
@@ -99,11 +136,8 @@ async function nextReadyTrackId(
       asc(songRequests.createdAt)
     );
 
-  if (rows.length === 0) return null;
-  if (!afterId) return rows[0]!.id;
-  const idx = rows.findIndex((r) => r.id === afterId);
-  if (idx < 0) return rows[0]!.id;
-  return rows[idx + 1]?.id ?? null;
+  if (!cursor) return rows[0]?.id ?? null;
+  return rows.find((row) => isAfterCursor(row, cursor))?.id ?? null;
 }
 
 async function validateReadyTrack(
@@ -228,7 +262,7 @@ export async function applyPlaybackAction(
   action: PlaybackAction
 ): Promise<RoomPlaybackState> {
   return dbCall(async () => {
-    const replay = await findIdempotentResult(actor);
+    const replay = await findIdempotentResult(sessionId, actor);
     if (replay) return replay;
 
     const [session] = await db
@@ -256,6 +290,9 @@ export async function applyPlaybackAction(
     let nextPlaying = session.isPlaying;
     let nextPosition = session.playbackPositionMs ?? 0;
     let nextStarted: Date | null = session.playbackStartedAt;
+    // Marked played only once the compare-and-set below wins, so a lost race
+    // can't leave a track played while the room still points at it.
+    let playedTrackId: string | null = null;
 
     switch (action.action) {
       case "play": {
@@ -299,8 +336,11 @@ export async function applyPlaybackAction(
           // Another device already advanced — return current state without bumping.
           return mapPlaybackState(session);
         }
-        await markPlayed(fromId);
-        nextCurrent = await nextReadyTrackId(sessionId, fromId);
+        playedTrackId = fromId;
+        nextCurrent = await nextReadyTrackId(
+          sessionId,
+          fromId ? await queueCursorFor(sessionId, fromId) : null
+        );
         nextPosition = 0;
         if (nextCurrent) {
           nextPlaying = true;
@@ -319,6 +359,7 @@ export async function applyPlaybackAction(
       playbackPositionMs: nextPosition,
       playbackStartedAt: nextStarted,
     });
+    await markPlayed(playedTrackId);
 
     const state = mapPlaybackState(updated);
     await recordPlaybackEvent(

@@ -4,11 +4,12 @@ import { requireAdmin } from "@/lib/auth/admin";
 import { json, parseBody, route } from "@/lib/api";
 import {
   createIntegrationClient,
-  listAllUsers,
   listIntegrationClients,
   rotateIntegrationClient,
   setIntegrationClientEnabled,
+  userExists,
 } from "@/lib/db";
+import { AppError } from "@/lib/errors";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,18 +31,15 @@ export const POST = route(async (request: Request) => {
     message: "Invalid integration client payload.",
   });
 
-  let ownerHostId = body.ownerHostId ?? admin.id;
-  if (!body.ownerHostId) {
-    // Prefer the creating admin; fine as funding host for Offsite.
-    ownerHostId = admin.id;
-  }
-
-  // Validate owner exists when explicitly provided.
-  if (body.ownerHostId) {
-    const users = await listAllUsers();
-    if (!users.some((u) => u.id === body.ownerHostId)) {
-      ownerHostId = admin.id;
-    }
+  // The owner host funds ElevenLabs generation for this client, so an unknown
+  // id is an error rather than something to quietly bill the acting admin for.
+  const ownerHostId = body.ownerHostId ?? admin.id;
+  if (body.ownerHostId && !(await userExists(body.ownerHostId))) {
+    throw new AppError(
+      400,
+      "owner_not_found",
+      "That owner host does not exist."
+    );
   }
 
   const result = await createIntegrationClient({

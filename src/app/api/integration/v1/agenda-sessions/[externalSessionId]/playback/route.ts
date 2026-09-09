@@ -12,10 +12,7 @@ type Ctx = { params: Promise<{ externalSessionId: string }> };
 export const POST = route(async (request: Request, context: Ctx) => {
   const client = await requireIntegrationClient(request);
   const { externalSessionId } = await context.params;
-  const session = await requireExternalSession(
-    client.id,
-    decodeURIComponent(externalSessionId)
-  );
+  const session = await requireExternalSession(client.id, externalSessionId);
 
   const idempotencyKey = request.headers.get("idempotency-key")?.trim();
   if (!idempotencyKey || idempotencyKey.length < 8) {

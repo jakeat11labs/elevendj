@@ -40,6 +40,14 @@ export type PlayerDeviceView = {
   reportedAt: string | null;
 };
 
+/** Postgres unique_violation — the only insert failure worth retrying. */
+function isUniqueViolation(error: unknown): boolean {
+  const code = (error as { code?: string } | null)?.code;
+  if (code === "23505") return true;
+  const cause = (error as { cause?: { code?: string } } | null)?.cause;
+  return cause?.code === "23505";
+}
+
 function isOnline(lastSeenAt: Date | string | null): boolean {
   if (!lastSeenAt) return false;
   const ms =
@@ -126,7 +134,8 @@ export async function createPlayerPairing(input: {
           },
           secret: cred.secret,
         };
-      } catch {
+      } catch (error) {
+        if (!isUniqueViolation(error)) throw error;
         displayCode = issuePairingDisplayCode();
       }
     }
@@ -329,6 +338,24 @@ export async function listPlayerDevicesForSession(
   });
 }
 
+async function writeDeviceAssignment(
+  deviceId: string,
+  sessionId: string | null
+): Promise<PlayerDeviceView> {
+  const [row] = await db
+    .update(playerDevices)
+    .set({ sessionId, updatedAt: new Date() })
+    .where(
+      and(eq(playerDevices.id, deviceId), eq(playerDevices.status, "active"))
+    )
+    .returning();
+  if (!row) {
+    throw new AppError(404, "not_found", "Player device not found.");
+  }
+  return mapDevice(row);
+}
+
+/** Superadmin assignment — any device may be moved to any session. */
 export async function assignPlayerDevice(
   deviceId: string,
   sessionId: string | null
@@ -344,20 +371,45 @@ export async function assignPlayerDevice(
         throw new AppError(404, "session_not_found", "Session not found.");
       }
     }
-    const [row] = await db
-      .update(playerDevices)
-      .set({ sessionId, updatedAt: new Date() })
+    return writeDeviceAssignment(deviceId, sessionId);
+  });
+}
+
+/**
+ * Integration assignment. A client may only move a device that is free or
+ * already serving one of its own rooms — otherwise any authenticated client
+ * could steal or unassign another client's room player by device id.
+ */
+export async function assignPlayerDeviceForClient(
+  clientId: string,
+  deviceId: string,
+  sessionId: string | null
+): Promise<PlayerDeviceView> {
+  return dbCall(async () => {
+    const [device] = await db
+      .select({
+        assignedTo: playerDevices.sessionId,
+        ownerClientId: sessions.integrationClientId,
+      })
+      .from(playerDevices)
+      .leftJoin(sessions, eq(sessions.id, playerDevices.sessionId))
       .where(
-        and(
-          eq(playerDevices.id, deviceId),
-          eq(playerDevices.status, "active")
-        )
+        and(eq(playerDevices.id, deviceId), eq(playerDevices.status, "active"))
       )
-      .returning();
-    if (!row) {
+      .limit(1);
+
+    if (!device) {
       throw new AppError(404, "not_found", "Player device not found.");
     }
-    return mapDevice(row);
+    if (device.assignedTo && device.ownerClientId !== clientId) {
+      throw new AppError(
+        403,
+        "device_unavailable",
+        "That player is assigned to another integration's room."
+      );
+    }
+
+    return writeDeviceAssignment(deviceId, sessionId);
   });
 }
 
