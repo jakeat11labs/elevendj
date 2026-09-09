@@ -4,6 +4,9 @@ ElevenDJ exposes a server-to-server Integration API so the Lovable Offsite porta
 can manage agenda-session music rooms, submit song requests, assign physical
 players, and issue playback commands.
 
+This is the endpoint reference. For the portal-side build brief — call sequence,
+error handling, and what the portal owns — see `docs/LOVABLE_INTEGRATION_SPEC.md`.
+
 **Do not call these endpoints from a browser.** Keep the integration secret in a
 Lovable Edge Function / server route only. There is no CORS grant for this API.
 
