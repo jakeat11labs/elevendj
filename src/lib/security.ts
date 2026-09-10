@@ -50,6 +50,22 @@ export function parseRequestBody(body: unknown) {
   return result.data;
 }
 
+/**
+ * Requester avatars come from a trusted integration, but they end up in an
+ * `<img>` on a screen in front of a room, so re-validate rather than trust:
+ * https only (no `data:`/`javascript:`), and a sane length.
+ */
+export function sanitizeAvatarUrl(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > 500) return null;
+  try {
+    return new URL(trimmed).protocol === "https:" ? trimmed : null;
+  } catch {
+    return null;
+  }
+}
+
 export function normalizePrompt(prompt: string) {
   return prompt
     .normalize("NFKD")

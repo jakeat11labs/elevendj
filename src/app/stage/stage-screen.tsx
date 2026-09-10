@@ -921,9 +921,25 @@ export function StageScreen({ code }: { code: string | null }) {
               {activeStationId ? (
                 <p className={styles.requester}>ElevenDJ Radio</p>
               ) : nowPlaying.requesterName ? (
-                <p className={styles.requester}>
-                  Requested by {nowPlaying.requesterName}
-                </p>
+                <div className={styles.requesterRow}>
+                  {nowPlaying.requesterAvatarUrl && (
+                    /* Plain <img>: account-photo hosts come from the portal, so
+                       they can't be enumerated for next/image up front. */
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={nowPlaying.requesterAvatarUrl}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className={styles.requesterAvatar}
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
+                    />
+                  )}
+                  <p className={styles.requester}>
+                    Requested by {nowPlaying.requesterName}
+                  </p>
+                </div>
               ) : null}
             </>
           )}

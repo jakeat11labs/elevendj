@@ -268,9 +268,26 @@ export function PlayerScreen() {
               : current?.title || current?.prompt || state?.session?.name}
           </h1>
           {current?.requesterName && (
-            <p className="mt-2 text-sm text-white/60">
-              Requested by {current.requesterName}
-            </p>
+            <div className="mt-3 flex items-center gap-2.5">
+              {current.requesterAvatarUrl && (
+                /* Plain <img>: the portal supplies arbitrary account-photo
+                   hosts, which next/image would need configured up front.
+                   no-referrer keeps the room screen from leaking to them. */
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={current.requesterAvatarUrl}
+                  alt=""
+                  referrerPolicy="no-referrer"
+                  className="size-9 rounded-full object-cover ring-1 ring-white/20"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+              )}
+              <p className="text-sm text-white/60">
+                Requested by {current.requesterName}
+              </p>
+            </div>
           )}
         </div>
 

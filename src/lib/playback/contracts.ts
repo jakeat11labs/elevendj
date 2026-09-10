@@ -72,5 +72,6 @@ export type IntegrationRequestInput = {
   externalRequestId: string;
   prompt: string;
   requesterName: string;
+  requesterAvatarUrl?: string | null;
   instrumental?: boolean;
 };

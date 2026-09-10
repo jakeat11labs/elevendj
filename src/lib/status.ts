@@ -59,6 +59,8 @@ export type QueueItem = {
   // was drawn from, so the stage can archive the right row when it finishes.
   stationSourceId?: string;
   requesterName: string | null;
+  /** Portal account photo, shown alongside the name while the track plays. */
+  requesterAvatarUrl: string | null;
   prompt: string;
   title: string | null;
   isExplicit: boolean;

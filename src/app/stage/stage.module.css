@@ -153,6 +153,22 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Requester attribution with the portal account photo, when one was sent. */
+.requesterRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65em;
+}
+
+.requesterAvatar {
+  width: clamp(2rem, 3.4vw, 3rem);
+  height: clamp(2rem, 3.4vw, 3rem);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
 .requestUrl {
   font-family: var(--font-body, "Inter", monospace);
   font-size: 0.95rem;

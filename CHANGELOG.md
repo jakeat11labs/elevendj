@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - September 10, 2026
+
+### Added
+- Requester attribution with the portal account photo. Integration submissions
+  accept `requesterAvatarUrl` (https only); the stage and room player show it
+  next to the requester's name while their track plays.
+- `docs/LOVABLE_INTEGRATION_SPEC.md` — portal-side build brief for the Offsite
+  integration.
+
 ## [0.5.0] - September 9, 2026
 
 ### Added

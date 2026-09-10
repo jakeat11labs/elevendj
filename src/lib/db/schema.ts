@@ -238,6 +238,10 @@ export const songRequests = pgTable(
       .references(() => sessions.id, { onDelete: "cascade" }),
     clientTokenHash: text("client_token_hash").notNull(),
     requesterName: text("requester_name"),
+    // Avatar for the requester, supplied by a trusted integration from the
+    // portal's signed-in account. Displayed on the room/stage screen while the
+    // track plays. Always an https URL (validated on the way in).
+    requesterAvatarUrl: text("requester_avatar_url"),
     // Discriminates a normal audience request from an auto-inserted generated
     // interstitial (currently just "station_id"). Generic on purpose so future
     // auto-inserted content reuses the same pipeline. Station IDs share this

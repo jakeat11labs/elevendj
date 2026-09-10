@@ -103,9 +103,15 @@ id may be reused across concurrent rooms.
   "externalRequestId": "portal-request-123",
   "prompt": "Warm upbeat house music for a rooftop sunset",
   "requesterName": "Alex",
+  "requesterAvatarUrl": "https://lh3.googleusercontent.com/a/...",
   "instrumental": true
 }
 ```
+
+`requesterAvatarUrl` is optional and must be `https`. When present it's shown
+next to the requester's name on the room screen while their track plays. Send
+the signed-in portal user's account photo; a broken or unreachable URL simply
+renders as the name alone.
 
 Replays with the same external id / idempotency key return the original request
 without enqueueing a second generation job.

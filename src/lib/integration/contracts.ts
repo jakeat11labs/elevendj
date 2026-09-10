@@ -36,6 +36,18 @@ export const integrationRequestSchema = z.object({
   externalRequestId: z.string().trim().min(1).max(120),
   prompt: z.string().trim().min(10).max(800),
   requesterName: z.string().trim().min(1).max(40),
+  /**
+   * Account photo for the signed-in portal user. Shown next to their name on
+   * the room screen while their track plays. https only.
+   */
+  requesterAvatarUrl: z
+    .string()
+    .trim()
+    .url()
+    .max(500)
+    .startsWith("https://")
+    .nullable()
+    .optional(),
   instrumental: z.boolean().optional().default(false),
 });
 

@@ -5,7 +5,12 @@ import { and, count, desc, eq, gte, inArray, isNotNull } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { sessions, songRequests } from "@/lib/db/schema";
 import { AppError } from "@/lib/errors";
-import { generateClientToken, hashValue, normalizePrompt } from "@/lib/security";
+import {
+  generateClientToken,
+  hashValue,
+  normalizePrompt,
+  sanitizeAvatarUrl,
+} from "@/lib/security";
 import type { RequestInput } from "@/lib/security";
 import type { QueueItem, RequestStatus } from "@/lib/status";
 import { activeStatuses, dbCall, mapQueueItem, ownedSessionIds, recordEvent, toRecord } from "./internal";
@@ -26,6 +31,8 @@ export async function createSongRequest(
     asIntegration?: boolean;
     integrationClientId?: string;
     externalRequestId?: string;
+    /** Portal account photo for the requester (integration submissions). */
+    requesterAvatarUrl?: string | null;
     /** When set, used as the unique idempotency key (integration replays). */
     idempotencyKey?: string;
   } = {}
@@ -178,6 +185,7 @@ export async function createSongRequest(
           sessionId: session.id,
           clientTokenHash: tokenHash,
           requesterName: input.requesterName ?? null,
+          requesterAvatarUrl: sanitizeAvatarUrl(options.requesterAvatarUrl),
           source,
           integrationClientId: options.integrationClientId ?? null,
           externalRequestId: options.externalRequestId ?? null,

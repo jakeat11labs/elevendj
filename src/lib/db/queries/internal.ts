@@ -147,6 +147,7 @@ export function mapQueueItem(row: SongRequestRow): QueueItem {
     id: row.id,
     kind: row.kind === "station_id" ? "station_id" : "song",
     requesterName: row.requesterName,
+    requesterAvatarUrl: row.requesterAvatarUrl,
     prompt: row.prompt,
     status: row.status as RequestStatus,
     position: row.position,

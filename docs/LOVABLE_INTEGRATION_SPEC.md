@@ -62,6 +62,7 @@ Authorization: Bearer edj_live_<prefix>.<secret>
 | Agenda item title | `title` | Shown in the console and used to shape AutoDJ. |
 | Employee request | `externalRequestId` | Unique within the agenda item. Employee id + timestamp works. |
 | Employee display name | `requesterName` | Max 40 chars. Shown on the room screen, so use a friendly name. |
+| Employee account photo | `requesterAvatarUrl` | Optional, `https`. Shown next to the name on the room screen. |
 
 `externalSessionId` is the join key for everything. Pick it once and keep it
 stable — changing it creates a second room.
@@ -124,9 +125,16 @@ Content-Type: application/json
   "externalRequestId": "emp-8842-1763077200",
   "prompt": "Warm upbeat house music for a rooftop sunset",
   "requesterName": "Alex",
+  "requesterAvatarUrl": "https://lh3.googleusercontent.com/a/...",
   "instrumental": true
 }
 ```
+
+Send `requesterName` and `requesterAvatarUrl` from the **signed-in session**,
+never from form input — that's the whole benefit of requests coming through the
+portal. When their track plays, the room screen shows their photo and name, so
+the room can see who picked it. Employees who joined with an account that has no
+photo just show as a name; a URL that fails to load degrades the same way.
 
 Both `Idempotency-Key` and `externalRequestId` are scoped to the agenda item, so
 an employee-scoped key is fine even when several rooms run at once. A replay
@@ -140,6 +148,7 @@ an inline error instead of a failed request:
 | --- | --- |
 | `prompt` | 10–800 characters |
 | `requesterName` | 1–40 characters |
+| `requesterAvatarUrl` | optional, `https` only, max 500 characters |
 | `externalRequestId` | 1–120 characters |
 | `Idempotency-Key` | at least 8 characters |
 
@@ -236,6 +245,7 @@ specifically testing AutoDJ.
    does the request form need a space picker?
 2. Where should the AutoDJ brief per agenda item be authored — hardcoded per
    item, or an editable field for the events team?
-3. Should requests be attributed publicly by name on the room screen, or stay
-   anonymous? `requesterName` is displayed on the player.
+3. Requests are attributed publicly on the room screen — name plus account photo
+   when one is available. Is that what you want for every space, or should some
+   rooms stay anonymous?
 4. Who gets alerted on `host_key_missing` or `unauthorized` during the event?

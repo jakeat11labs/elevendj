@@ -63,6 +63,7 @@ export const POST = route(async (request: Request, context: Ctx) => {
       asIntegration: true,
       integrationClientId: client.id,
       externalRequestId: body.externalRequestId,
+      requesterAvatarUrl: body.requesterAvatarUrl ?? null,
       // Room-scoped: song_requests.idempotency_key is globally unique, so a
       // portal reusing one key across two concurrent rooms must not collide.
       idempotencyKey: hashValue(
