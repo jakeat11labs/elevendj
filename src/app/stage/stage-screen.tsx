@@ -690,6 +690,11 @@ export function StageScreen({ code }: { code: string | null }) {
   // Prefer the live audio duration; fall back to the stored track length.
   const totalMs = durationMs || nowPlaying?.durationMs || 0;
 
+  // Read the url into a binding first: reaching through `nowPlaying` inside the
+  // callback makes the React Compiler infer the whole object as the dependency,
+  // which no longer matches the narrower list below and bails out optimization.
+  const nowPlayingAudioUrl = nowPlaying?.audioUrl ?? null;
+
   const seekToSeconds = useCallback(
     (seconds: number) => {
       if (totalMs <= 0) return;
@@ -697,14 +702,14 @@ export function StageScreen({ code }: { code: string | null }) {
       const audio = activeEl();
 
       if (audio) {
-        if (nowPlaying?.audioUrl && audio.src !== nowPlaying.audioUrl) {
-          audio.src = nowPlaying.audioUrl;
+        if (nowPlayingAudioUrl && audio.src !== nowPlayingAudioUrl) {
+          audio.src = nowPlayingAudioUrl;
         }
         audio.currentTime = nextMs / 1000;
       }
       setPosMs(nextMs);
     },
-    [nowPlaying?.audioUrl, totalMs, activeEl]
+    [nowPlayingAudioUrl, totalMs, activeEl]
   );
 
   // Upcoming tracks in play order (wraps, excludes the current track).

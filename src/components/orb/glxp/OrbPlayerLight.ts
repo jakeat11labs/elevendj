@@ -528,7 +528,7 @@ class OrbPlayerLight {
   private fluidSimTexture: OGLTexture | null = null;
   private program: OGLProgram | null = null;
   private mesh: OGLMesh | null = null;
-  private fluidSim: any = null;
+  private fluidSim: FluidSim | null = null;
 
   // Private methods and properties
   private loadingPromise: Promise<OGLTexture> | null = null;

@@ -264,6 +264,17 @@ interface DoubleFBO {
   swap: () => void;
 }
 
+/**
+ * Best-effort GPU cleanup. OGL's `RenderTarget` does not declare `dispose()` in
+ * the version we build against, so this is a runtime probe rather than a call:
+ * it frees the target where the method exists and no-ops where it doesn't.
+ */
+type MaybeDisposable = { dispose?: () => void };
+
+function disposeTarget(target: unknown): void {
+  (target as MaybeDisposable | null | undefined)?.dispose?.();
+}
+
 interface FluidSimOptions {
   scale?: number;
   simRes?: number;
@@ -919,7 +930,7 @@ class FluidSim {
   /**
    * Get the density texture for use in other shaders
    */
-  getTexture(): unknown {
+  getTexture(): OGLRenderTarget["texture"] {
     return this.density.read.texture;
   }
 
@@ -938,23 +949,19 @@ class FluidSim {
   dispose(): void {
     // Dispose FBOs and resources
     if (this.density) {
-      (this.density.read as any).dispose?.();
-      (this.density.write as any).dispose?.();
+      disposeTarget(this.density.read);
+      disposeTarget(this.density.write);
     }
     if (this.velocity) {
-      (this.velocity.read as any).dispose?.();
-      (this.velocity.write as any).dispose?.();
+      disposeTarget(this.velocity.read);
+      disposeTarget(this.velocity.write);
     }
     if (this.pressure) {
-      (this.pressure.read as any).dispose?.();
-      (this.pressure.write as any).dispose?.();
+      disposeTarget(this.pressure.read);
+      disposeTarget(this.pressure.write);
     }
-    if (this.divergence) {
-      (this.divergence as any).dispose?.();
-    }
-    if (this.curl) {
-      (this.curl as any).dispose?.();
-    }
+    disposeTarget(this.divergence);
+    disposeTarget(this.curl);
   }
 }
 
