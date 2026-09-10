@@ -1,0 +1,28 @@
+src/components/orb/glxp/entities/FluidSim.ts
+  s_4ff0480a11b441::t_b7398c18a1dadd 267,271-273,276-277
+  s_4ff0480a11b441::t_e4b4ff7436fc18 933
+  s_4ff0480a11b441::t_d831ef9e5d8340 268-270,274-275
+  s_4ff0480a11b441::t_818ed35d681df5 952-953,956-957,960-961,963-964
+next-env.d.ts
+  s_4ff0480a11b441::t_4179dabebba0de 3
+src/components/orb/glxp/OrbPlayerLight.ts
+  s_4ff0480a11b441::t_2ee5227f51da36 531
+src/app/stage/stage-screen.tsx
+  s_4ff0480a11b441::t_6b2277f14f06da 693-697,705-706,712
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "24f4343ae8c5e4ff2ed8dae094eae48d0b041f84",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
