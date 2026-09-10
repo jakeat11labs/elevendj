@@ -1,0 +1,54 @@
+src/app/api/integration/v1/agenda-sessions/[externalSessionId]/requests/route.ts
+  s_4ff0480a11b441::t_c520792f42cb9a 66
+src/app/stage/stage-screen.tsx
+  s_4ff0480a11b441::t_a7b62d205e31ef 924-942
+src/lib/security.ts
+  s_4ff0480a11b441::t_9ea28b0a7be49d 53-68
+src/lib/playback/contracts.ts
+  s_4ff0480a11b441::t_9a6d48009e1623 75
+src/app/stage/stage.module.css
+  s_4ff0480a11b441::t_1b78145a67af5c 156-171
+docs/LOVABLE_INTEGRATION_SPEC.md
+  s_4ff0480a11b441::t_f4b9f1aeae87c7 128,133-137
+  s_4ff0480a11b441::t_f0e6687526ccc6 248-250
+  s_4ff0480a11b441::t_a2608f75c257ee 151
+  s_4ff0480a11b441::t_63552b441fcec5 65
+  s_4ff0480a11b441::t_630203bc8601a4 138
+src/lib/db/schema.ts
+  s_4ff0480a11b441::t_54a3a44fef53d6 241-244
+CHANGELOG.md
+  s_4ff0480a11b441::t_b632d30710f2e2 8-16
+src/lib/db/queries/internal.ts
+  s_4ff0480a11b441::t_3e6ebef2973fe4 150
+docs/OFFSITE_INTEGRATION.md
+  s_4ff0480a11b441::t_7080d87491e1ce 106,111-114
+  s_4ff0480a11b441::t_ed835d62f75311 115
+package.json
+  s_4ff0480a11b441::t_5392c7e76d484e 3
+src/lib/status.ts
+  s_4ff0480a11b441::t_541a128f774cdd 62-63
+src/app/player/player-screen.tsx
+  s_4ff0480a11b441::t_7f1c3bcd156b6d 271-290
+src/lib/integration/contracts.ts
+  s_4ff0480a11b441::t_e69e9d931c591f 39-50
+src/lib/db/queries/requests.ts
+  s_4ff0480a11b441::t_16384f513dd638 8-13
+  s_4ff0480a11b441::t_fdfe64bc147401 34-35
+  s_4ff0480a11b441::t_8ff57c39a293a3 188
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8952cb736f4c85d1c39bc60d1e25090cc8b27888",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
