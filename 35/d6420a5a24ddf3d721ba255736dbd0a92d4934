@@ -1,0 +1,91 @@
+scripts/provider-errors.test.mjs
+  s_4ff0480a11b441::t_fb05175cb8b598 1-47
+src/app/api/offsite/rooms/[sessionId]/requests/route.ts
+  s_4ff0480a11b441::t_77d36d72ece974 72
+src/app/api/integration/v1/agenda-sessions/[externalSessionId]/requests/route.ts
+  s_4ff0480a11b441::t_d8439248a5387e 59
+src/lib/security.ts
+  s_4ff0480a11b441::t_ac5bedc53e1dc5 8,21-31,106-114,120,122-124,130,132-134
+src/lib/integration/contracts.ts
+  s_4ff0480a11b441::t_7a4622e9734e68 2,52-61
+README.md
+  s_4ff0480a11b441::t_a469237ef1e32e 118-119
+src/lib/generation/provider.ts
+  s_4ff0480a11b441::t_c754d63d8ac3a9 93-102,112,114-115,118-119,121,158
+  s_4ff0480a11b441::t_667f00b35b0ac7 8-11
+CHANGELOG.md
+  s_4ff0480a11b441::t_9286a2e119639c 8-18,24-27,36
+  s_4ff0480a11b441::t_b0f8cd2b6d63aa 19-23,28-35
+src/lib/music-styles.ts
+  s_4ff0480a11b441::t_111dfc19fb3b09 1-146
+src/lib/db/schema.ts
+  s_4ff0480a11b441::t_7979f17edbc42e 245-247
+src/app/stage/karaoke-viewport.tsx
+  s_4ff0480a11b441::t_0cd7eb6d0054f5 11-15,19-26,30,48,53,104-111,118-119,122
+src/lib/db/queries/requests.ts
+  s_4ff0480a11b441::t_69a06dc4bcb15a 214
+  s_4ff0480a11b441::t_d44adbe54af0c7 378-379,383-389,391,409-410,412-418,420
+package.json
+  s_4ff0480a11b441::t_a7bd60b65ca1ab 13
+  s_4ff0480a11b441::t_719b0584e1d447 3
+src/lib/autodj-pool.ts
+  s_4ff0480a11b441::t_a9fdc754d5dd09 40-44,46
+src/lib/generation/provider-errors.ts
+  s_4ff0480a11b441::t_09cf24420a2a2c 1-112
+src/lib/db/queries/station-ids.ts
+  s_4ff0480a11b441::t_2ac78c31646fcc 4,8-12,42-43,49-105
+.env.example
+  s_4ff0480a11b441::t_cf239489d04e5d 40-43
+src/lib/status.ts
+  s_4ff0480a11b441::t_8ed6b705cf421e 64
+scripts/music-styles.test.mjs
+  s_4ff0480a11b441::t_31af1bf4236a64 1-28
+src/lib/generation/index.ts
+  s_4ff0480a11b441::t_e76db707898338 51-55
+  s_4ff0480a11b441::t_2081f2d1bca9cf 32,73,91,94,97-103
+src/lib/db/queries/internal.ts
+  s_4ff0480a11b441::t_1e85e3771d011e 21,118,153
+src/lib/db/queries/autodj.ts
+  s_4ff0480a11b441::t_bded835396cf3e 4-5,7-10,131-172,174-199
+  s_4ff0480a11b441::t_831ab90eaa277d 6
+src/lib/station-id.ts
+  s_4ff0480a11b441::t_d820ec99e65cc2 18
+src/app/player/player-screen.tsx
+  s_4ff0480a11b441::t_b84dfd9c25c5bc 12,36,189-207,327-329
+src/app/player/cancun-player.module.css
+  s_4ff0480a11b441::t_35182b7ad82d3a 30,192-210
+  s_4ff0480a11b441::t_05603ff5ecf26b 211
+src/app/request/request-line.tsx
+  s_4ff0480a11b441::t_bd680ecf6c2435 7,36,44-47,127,152,366-397,399-407
+  s_4ff0480a11b441::t_7cbf94445e2afc 398
+  s_4ff0480a11b441::t_f31b984db74175 408-410
+src/lib/station-id-pool.ts
+  s_4ff0480a11b441::t_a95cbeafd5d991 3,22-23,25
+src/app/api/music/styles/route.ts
+  s_4ff0480a11b441::t_0b9635209c547a 1-15
+docs/OFFSITE_INTEGRATION.md
+  s_4ff0480a11b441::t_1e0bf392fbbe8e 109,119-122
+  s_4ff0480a11b441::t_6e309a90ce4d3f 123
+src/lib/playback/contracts.ts
+  s_4ff0480a11b441::t_fd75104840a0f6 76
+src/app/player/cancun-player-screen.tsx
+  s_4ff0480a11b441::t_a030a3242cc0bf 14-15,129-131,143-145,215-233
+pnpm-lock.yaml
+  s_4ff0480a11b441::t_94363c6edce9aa 12-13,364-365,6323
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "35d6420a5a24ddf3d721ba255736dbd0a92d4934",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
