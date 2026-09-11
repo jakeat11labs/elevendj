@@ -1,0 +1,40 @@
+.env.example
+  s_4ff0480a11b441::t_2ef1afea414471 37-38,41-43
+README.md
+  s_4ff0480a11b441::t_678de7fff24759 15,78-79
+docs/OFFSITE_INTEGRATION.md
+  s_4ff0480a11b441::t_78255de52294eb 122
+src/lib/generation/lyrics.ts
+  s_4ff0480a11b441::t_c9ec9616d72590 85-86,154
+CLAUDE.md
+  s_4ff0480a11b441::t_541cf1d85c90e3 40
+package.json
+  s_4ff0480a11b441::t_1587e1829c4a51 13
+src/lib/music-styles.ts
+  s_4ff0480a11b441::t_3dc0440385fcf5 4
+src/lib/station-id.ts
+  s_4ff0480a11b441::t_70f8f2273cb346 18
+src/lib/generation/provider.ts
+  s_4ff0480a11b441::t_4e9bce78e6bf59 79-83,86,92,98-99,103,105-106
+  s_4ff0480a11b441::t_8a6de8d792593b 87-91,93-97
+CHANGELOG.md
+  s_4ff0480a11b441::t_e28fd39d7676f9 8-14
+pnpm-lock.yaml
+  s_4ff0480a11b441::t_bc0d11d2302210 12-13,364-365,6323
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3f92b57da8953034f9a0c6e750b82817265870be",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
