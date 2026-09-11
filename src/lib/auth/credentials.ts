@@ -1,11 +1,19 @@
 import "server-only";
 
-import { createHash, createHmac, randomBytes, timingSafeEqual } from "crypto";
+import {
+  createHash,
+  createHmac,
+  randomBytes,
+  randomInt,
+  timingSafeEqual,
+} from "crypto";
 
 import { optionalEnv, requiredEnv } from "@/lib/env";
 
 const INTEGRATION_PREFIX = "edj_live_";
 const PLAYER_PREFIX = "edj_player_";
+const ROOM_OPERATOR_PREFIX = "edj_room_";
+const ROOM_OPERATOR_SESSION_PREFIX = "edj_room_session_";
 
 function pepper(): string {
   return (
@@ -100,6 +108,53 @@ export function playerPrefixFromSecret(secret: string): string | null {
   return rest.slice(0, dot);
 }
 
+/** Room-scoped emergency controller credential. */
+export function issueRoomOperatorCredential(): IssuedCredential {
+  const prefix = randomBytes(4).toString("hex");
+  const body = makeSecret(32);
+  const secret = `${ROOM_OPERATOR_PREFIX}${prefix}.${body}`;
+  return {
+    secret,
+    hash: hashCredential(secret),
+    prefix,
+  };
+}
+
+export function roomOperatorPrefixFromSecret(
+  secret: string
+): string | null {
+  if (!secret.startsWith(ROOM_OPERATOR_PREFIX)) return null;
+  const rest = secret.slice(ROOM_OPERATOR_PREFIX.length);
+  const dot = rest.indexOf(".");
+  if (dot <= 0) return null;
+  return rest.slice(0, dot);
+}
+
+export function issueRoomOperatorPin(): string {
+  return randomInt(0, 100_000_000).toString().padStart(8, "0");
+}
+
+export function issueRoomOperatorSessionCredential(): IssuedCredential {
+  const prefix = randomBytes(4).toString("hex");
+  const body = makeSecret(32);
+  const secret = `${ROOM_OPERATOR_SESSION_PREFIX}${prefix}.${body}`;
+  return {
+    secret,
+    hash: hashCredential(secret),
+    prefix,
+  };
+}
+
+export function roomOperatorSessionPrefixFromSecret(
+  secret: string
+): string | null {
+  if (!secret.startsWith(ROOM_OPERATOR_SESSION_PREFIX)) return null;
+  const rest = secret.slice(ROOM_OPERATOR_SESSION_PREFIX.length);
+  const dot = rest.indexOf(".");
+  if (dot <= 0) return null;
+  return rest.slice(0, dot);
+}
+
 /** Short human-readable pairing code (e.g. AB7K2M). */
 export function issuePairingDisplayCode(): string {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -117,3 +172,5 @@ export function sha256Hex(value: string): string {
 
 export const PLAYER_COOKIE_NAME = "__Host-elevendj-player";
 export const PLAYER_COOKIE_MAX_AGE = 60 * 60 * 24 * 90; // 90 days
+export const ROOM_OPERATOR_COOKIE_NAME = "__Host-elevendj-room-operator";
+export const ROOM_OPERATOR_COOKIE_MAX_AGE = 60 * 60 * 8; // one event shift

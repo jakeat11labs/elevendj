@@ -318,7 +318,7 @@ export const songRequests = pgTable(
     ),
     check(
       "song_requests_source_check",
-      sql`${table.source} in ('guest','host','integration','auto')`
+      sql`${table.source} in ('guest','host','integration','auto','operator')`
     ),
   ]
 );
@@ -462,7 +462,125 @@ export const playbackEvents = pgTable(
       .where(sql`${table.idempotencyKey} is not null`),
     check(
       "playback_events_actor_check",
-      sql`${table.actorType} in ('admin','integration','player','local')`
+      sql`${table.actorType} in ('admin','integration','player','local','offsite_operator','offsite_emergency')`
+    ),
+  ]
+);
+
+/** Signed-in ElevenLabs employees granted control of one Offsite room. */
+export const offsiteOperatorGrants = pgTable(
+  "offsite_operator_grants",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => sessions.id, { onDelete: "cascade" }),
+    grantedBy: uuid("granted_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("offsite_operator_grants_user_session_idx").on(
+      table.userId,
+      table.sessionId
+    ),
+    index("offsite_operator_grants_session_idx").on(
+      table.sessionId,
+      table.revokedAt
+    ),
+  ]
+);
+
+/**
+ * Emergency room-control invitations. A 256-bit fragment secret plus a separate
+ * 8-digit PIN is exchanged for a fresh HttpOnly session credential.
+ */
+export const roomOperatorCredentials = pgTable(
+  "room_operator_credentials",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    sessionId: uuid("session_id")
+      .notNull()
+      .references(() => sessions.id, { onDelete: "cascade" }),
+    secretHash: text("secret_hash").notNull(),
+    pinHash: text("pin_hash").notNull(),
+    version: integer("version").notNull().default(1),
+    createdBy: uuid("created_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    failedAttemptCount: integer("failed_attempt_count").notNull().default(0),
+    attemptWindowStartedAt: timestamp("attempt_window_started_at", {
+      withTimezone: true,
+    }),
+    lockedUntil: timestamp("locked_until", { withTimezone: true }),
+    lastFailedIpHash: text("last_failed_ip_hash"),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("room_operator_credentials_session_idx").on(
+      table.sessionId,
+      table.expiresAt
+    ),
+    uniqueIndex("room_operator_credentials_one_active_idx")
+      .on(table.sessionId)
+      .where(sql`${table.revokedAt} is null`),
+    check(
+      "room_operator_credentials_attempts_check",
+      sql`${table.failedAttemptCount} >= 0`
+    ),
+  ]
+);
+
+/** Revocable browser sessions created after a valid emergency link exchange. */
+export const roomOperatorSessions = pgTable(
+  "room_operator_sessions",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    linkId: uuid("link_id")
+      .notNull()
+      .references(() => roomOperatorCredentials.id, { onDelete: "cascade" }),
+    linkVersion: integer("link_version").notNull(),
+    credentialHash: text("credential_hash").notNull(),
+    credentialPrefix: text("credential_prefix").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    ipHash: text("ip_hash"),
+    userAgentHash: text("user_agent_hash"),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("room_operator_sessions_prefix_idx").on(
+      table.credentialPrefix
+    ),
+    index("room_operator_sessions_link_idx").on(
+      table.linkId,
+      table.revokedAt,
+      table.expiresAt
     ),
   ]
 );
@@ -475,3 +593,7 @@ export type RequestEventRow = typeof requestEvents.$inferSelect;
 export type PlayerPairingRow = typeof playerPairings.$inferSelect;
 export type PlayerDeviceRow = typeof playerDevices.$inferSelect;
 export type PlaybackEventRow = typeof playbackEvents.$inferSelect;
+export type RoomOperatorCredentialRow =
+  typeof roomOperatorCredentials.$inferSelect;
+export type RoomOperatorSessionRow =
+  typeof roomOperatorSessions.$inferSelect;

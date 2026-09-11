@@ -17,4 +17,6 @@ export * from "./integrations";
 export * from "./external-sessions";
 export * from "./player-devices";
 export * from "./room-playback";
+export * from "./room-operators";
+export * from "./offsite-operator";
 export * from "./offsite-admin";

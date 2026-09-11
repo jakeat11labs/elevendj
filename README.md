@@ -93,9 +93,10 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
 - `/sign-in` — ElevenLabs Google sign-in.
 - `/request?code=<session>` — public request line for a host's session.
 - `/host` — host console (DJ booth: queue, playback, settings, API key).
-  `/player` redirects here.
 - `/stage` — fullscreen stage (audio + big screen, reactive orb, word-synced lyrics).
 - `/player` — paired physical-space player for Offsite rooms (pairing + remote sync).
+- `/offsite/control` — simplified Room DJ console for signed-in Offsite
+  operators or a room-scoped emergency link.
 - `/admin` — super-admin console (users, sessions, blob storage); auth- and
   admin-gated.
 - `/admin/offsite` — Offsite operations (agenda rooms, player pairing, integration keys).
@@ -123,6 +124,10 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
   `NEON_AUTH_COOKIE_SECRET`, `REQUEST_HASH_SECRET`.
 - Hosting is restricted in code to `@elevenlabs.io` Google accounts (Neon Auth);
   admin is gated by the DB `isAdmin` flag (bootstrapped via `ADMIN_EMAILS`).
+- Signed-in Room DJ access uses explicit per-room operator grants. Emergency
+  access requires both a high-entropy URL-fragment secret (never in request
+  logs) and a separate 8-digit PIN, then exchanges them for a revocable Strict
+  HttpOnly session cookie scoped to one room.
   Access control is enforced in server routes/guards — there is no Postgres RLS.
 - Each host connects their own ElevenLabs key; it is encrypted at rest with
   AES-256-GCM (`ELEVENLABS_KEY_SECRET`) and stored as ciphertext. Only a masked

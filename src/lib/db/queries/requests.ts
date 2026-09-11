@@ -29,6 +29,7 @@ export async function createSongRequest(
   options: {
     asHost?: boolean;
     asIntegration?: boolean;
+    asOperator?: boolean;
     integrationClientId?: string;
     externalRequestId?: string;
     /** Portal account photo for the requester (integration submissions). */
@@ -47,7 +48,9 @@ export async function createSongRequest(
       throw new AppError(404, "session_not_found", "Session not found.");
     }
 
-    const trusted = Boolean(options.asHost || options.asIntegration);
+    const trusted = Boolean(
+      options.asHost || options.asIntegration || options.asOperator
+    );
 
     // Host / integration can spin a track even while the public line is paused.
     if (!trusted && !session.requestsOpen) {
@@ -66,6 +69,26 @@ export async function createSongRequest(
             eq(songRequests.sessionId, session.id),
             eq(songRequests.integrationClientId, options.integrationClientId),
             eq(songRequests.externalRequestId, options.externalRequestId)
+          )
+        )
+        .limit(1);
+      if (existing) {
+        return {
+          request: toRecord(existing),
+          clientToken: null as string | null,
+          replayed: true as const,
+        };
+      }
+    }
+
+    if (options.asOperator && options.idempotencyKey) {
+      const [existing] = await db
+        .select()
+        .from(songRequests)
+        .where(
+          and(
+            eq(songRequests.sessionId, session.id),
+            eq(songRequests.idempotencyKey, options.idempotencyKey)
           )
         )
         .limit(1);
@@ -167,6 +190,8 @@ export async function createSongRequest(
 
     const source = options.asIntegration
       ? "integration"
+      : options.asOperator
+        ? "operator"
       : options.asHost
         ? "host"
         : "guest";
@@ -225,6 +250,25 @@ export async function createSongRequest(
               eq(songRequests.sessionId, session.id),
               eq(songRequests.integrationClientId, options.integrationClientId),
               eq(songRequests.externalRequestId, options.externalRequestId)
+            )
+          )
+          .limit(1);
+        if (existing) {
+          return {
+            request: toRecord(existing),
+            clientToken: null as string | null,
+            replayed: true as const,
+          };
+        }
+      }
+      if (options.asOperator && options.idempotencyKey) {
+        const [existing] = await db
+          .select()
+          .from(songRequests)
+          .where(
+            and(
+              eq(songRequests.sessionId, session.id),
+              eq(songRequests.idempotencyKey, options.idempotencyKey)
             )
           )
           .limit(1);

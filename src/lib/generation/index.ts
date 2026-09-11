@@ -1,6 +1,6 @@
 import "server-only";
 
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 import { claimRequestForGeneration, getStationIdConfig, markRequestFailed, markRequestReady } from "@/lib/db";
 import { optionalEnv } from "@/lib/env";
 import { buildGenerationPrompt } from "@/lib/security";
@@ -66,11 +66,24 @@ export async function processGenerationJob(job: GenerationJob) {
       addRandomSuffix: false,
     });
 
-    await markRequestReady(request.id, blob.url, blob.pathname, songId, lyrics, {
-      title,
-      isExplicit,
-      songMetadata,
-    });
+    const committed = await markRequestReady(
+      request.id,
+      blob.url,
+      blob.pathname,
+      songId,
+      lyrics,
+      {
+        title,
+        isExplicit,
+        songMetadata,
+      }
+    );
+    if (!committed) {
+      // An operator archived the request while generation was in flight. The
+      // conditional DB write intentionally lost; remove the orphaned blob too.
+      await del(blob.url);
+      return { ok: true, skipped: true, requestId: request.id };
+    }
     return { ok: true, requestId: request.id };
   } catch (error) {
     console.error("ElevenDJ generation failed", error);

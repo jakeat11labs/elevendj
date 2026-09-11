@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// The landing splash (/) and the fullscreen stage (/stage) are chrome-free.
-const HIDDEN_PREFIXES = ["/stage"];
+// Immersive display surfaces own their full viewport and render their own
+// branding, so the regular ElevenDJ header must not consume wall-screen space.
+const HIDDEN_PREFIXES = ["/stage", "/player"];
 
 export function SiteHeader() {
   const pathname = usePathname();

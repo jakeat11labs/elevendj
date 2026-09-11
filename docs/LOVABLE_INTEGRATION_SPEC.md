@@ -95,6 +95,9 @@ track, so the lead time is what makes the room warm when people walk in.
       "brief": "warm arrival house for a rooftop sunset reception, relaxed and welcoming",
       "autoplay": true
     }
+  },
+  "metadata": {
+    "portalRequestUrl": "https://elevencancun2026.lovable.app/music/request"
   }
 }
 ```
@@ -110,6 +113,10 @@ title, room name, and time of day.
 
 `settings.autoApprove: true` means employee requests generate immediately. Set it
 `false` only if someone will be watching `/admin/offsite` to approve each one.
+
+`metadata.portalRequestUrl` drives the request QR on the themed room player.
+ElevenDJ adds `?session=<externalSessionId>` so a scan in a physical room opens
+the same request page with an unambiguous room hint.
 
 ### 2. Employee submits a request
 
@@ -216,8 +223,10 @@ protects the room but not fairness between employees.
 
 ## Suggested portal UX
 
-- Show the request form only for the space the employee is currently in, and only
-  while that agenda item is live.
+- Use the attendee's `nowId` from `getMySchedule` as the current room session.
+  When the page was opened from a room QR, accept its `?session=` value only when
+  it names a live session in that attendee's returned schedule. There is no room
+  picker.
 - Prefill nothing, but show two or three example prompts — people write much
   better prompts with an example in front of them.
 - After submitting, show their track's queue position and status. The wait is
@@ -239,13 +248,54 @@ Every track generated during testing costs ElevenLabs credits on the owner host'
 account, so keep `autoDj.enabled: false` for staging rooms unless you're
 specifically testing AutoDJ.
 
+## Exact portal source map
+
+This was verified against the exported portal source at Lovable commit
+`b707affbd42c5fc97bba78f26934a3a1c703a1a4`.
+
+- `src/routes/_authenticated/my-schedule.tsx` already loads `getMySchedule` for
+  the signed-in attendee and refreshes it across time boundaries. Add the music
+  request entry point beside this experience, not as a separate public form.
+- `src/lib/schedule.functions.ts#getMySchedule` already derives the attendee
+  from the verified Supabase claims and roster email. Extend this server-side
+  surface for the request mutation; never accept identity from the browser.
+- `src/lib/schedule/service.server.ts#scheduleForRoster` already returns
+  `person.displayName`, every approved session's stable `sessionId` and `room`,
+  plus `nowId`. Those are the exact values for `requesterName`,
+  `externalSessionId`, room mapping, and automatic current-session routing.
+- Read the account photo from the verified Supabase claims (`picture`,
+  `avatar_url`, or `user_metadata.avatar_url`, in that order) inside the server
+  function and send it as `requesterAvatarUrl`.
+- `src/styles.css`, `src/components/hc/Chrome.tsx`, and
+  `src/components/hc/Kiosk.tsx` are the player-theme source of truth. Their
+  committed Waldenburg fonts, Paradisus image, noise texture, palette, gradient
+  recipe, ElevenLabs mark, QR treatment, fullscreen behavior, and wake lock are
+  bundled into ElevenDJ's `cancun-2026` player theme.
+
+## Planned automatic room lifecycle
+
+The portal already has enough information to avoid hand-building sessions:
+
+1. When the schedule is published or edited, sync every eligible occurrence
+   once using its stable `sessionId`, `room`, local start/end converted with the
+   existing schedule timezone helper, and revision.
+2. ElevenDJ will start a Vercel Workflow per occurrence. Revision checks make an
+   old workflow a no-op after a schedule edit.
+3. The workflow wakes before start for AutoDJ pre-roll, marks the session live,
+   then ends it at `endsAt`.
+4. A physical player is paired once and mapped to a stable space such as Main
+   Hall. It follows whichever synced occurrence is current in that space; nobody
+   re-pairs or manually assigns every agenda block.
+
+The only unavoidable setup is pairing each physical player to its stable space
+once. The integration client's owner host is a billing/service identity, not a
+person who must operate each room.
+
 ## Open questions for the portal team
 
-1. Does the portal already model "which space is an employee in right now," or
-   does the request form need a space picker?
-2. Where should the AutoDJ brief per agenda item be authored — hardcoded per
+1. Where should the AutoDJ brief per agenda item be authored — hardcoded per
    item, or an editable field for the events team?
-3. Requests are attributed publicly on the room screen — name plus account photo
+2. Requests are attributed publicly on the room screen — name plus account photo
    when one is available. Is that what you want for every space, or should some
    rooms stay anonymous?
-4. Who gets alerted on `host_key_missing` or `unauthorized` during the event?
+3. Who gets alerted on `host_key_missing` or `unauthorized` during the event?

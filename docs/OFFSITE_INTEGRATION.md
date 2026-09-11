@@ -61,7 +61,9 @@ Base path: `/api/integration/v1`
       "autoplay": true
     }
   },
-  "metadata": {}
+  "metadata": {
+    "portalRequestUrl": "https://elevencancun2026.lovable.app/music/request"
+  }
 }
 ```
 
@@ -160,11 +162,39 @@ re-pairing.
 
 Player cookie: `__Host-elevendj-player` (Secure, HttpOnly, SameSite=Strict).
 
+The player uses the Cancún 2026 display theme copied from the committed portal
+source: its Waldenburg fonts, venue image, grain, palette, gradient recipe,
+ElevenLabs mark, QR treatment, fullscreen control, and wake lock. These assets
+are bundled with ElevenDJ rather than hotlinked, so the room keeps rendering if
+the portal is unavailable.
+
+`metadata.portalRequestUrl` controls the request QR destination. The player adds
+`?session=<externalSessionId>` as a room hint; the portal must validate it
+against the signed-in attendee's live schedule before accepting a request.
+
 ## Local host workflow
 
 `/host` and `/stage` remain the single-room DJ console. Local sessions still
 enforce one active room per host. Offsite/integration sessions run concurrently
 under `/admin/offsite` and never appear in the host session modal.
+
+## Room DJ operators
+
+`/offsite/control` is the event-floor controller: current track, player health,
+play/pause/skip/select, queue approval/removal/reordering, on-demand track
+generation, request-line and auto-approve switches, AutoDJ brief, and room
+volume. It deliberately excludes users, integration keys, player pairing and
+revocation, and session setup.
+
+Admins grant a signed-in ElevenLabs employee access to a specific room from
+`/admin/offsite`; operators see only their assigned rooms. For an emergency
+no-account path, an admin creates a room-control invitation there. It requires
+both a 256-bit secret carried in the URL fragment and a separately shared
+8-digit PIN. A successful exchange creates a fresh Strict HttpOnly session
+cookie, removes the fragment from the address bar, expires within 8 hours, and
+can only control that room. Five failed attempts in 15 minutes lock the
+invitation for 30 minutes. Rotating it immediately invalidates every session
+derived from the previous invitation.
 
 ## Lovable phase-two handoff
 

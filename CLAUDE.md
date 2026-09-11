@@ -15,7 +15,7 @@ Package manager is **pnpm** (`pnpm-lock.yaml`).
 - `pnpm dev` — local dev (Turbopack)
 - `pnpm build` / `pnpm start` — production build / serve
 - `pnpm lint` — ESLint (flat config)
-- **No test suite** — verify changes manually and lean on TypeScript strict mode.
+- `pnpm test:unit` — Node test runner for pure timeline/prompt helpers.
 
 ### Database (Drizzle)
 
@@ -34,7 +34,8 @@ No package.json script — call drizzle-kit directly. This repo applies schema c
   `source = 'local'`; old local sessions are soft-deleted (`isActive = false`),
   not removed. Integration-backed Offsite sessions may run concurrently.
 - **Offsite / Lovable** — server-to-server Integration API + `/admin/offsite` +
-  paired `/player` devices. Contract: `docs/OFFSITE_INTEGRATION.md`.
+  paired `/player` devices + scoped `/offsite/control` Room DJ. Contract:
+  `docs/OFFSITE_INTEGRATION.md`.
 - **Realtime payloads are minimal** — broadcasts only nudge clients; canonical state is refetched from `/api/queue`.
 - **Music v1↔v2 lyrics** — `lyrics` is JSONB; `src/lib/generation.ts` parses both v1 (`sections`) and v2 (`chunks`) plans. Model selected via `MUSIC_MODEL` (default `music_v2`).
 
@@ -50,8 +51,8 @@ Copy `.env.example` → `.env.local`. Required: `NEON_DATABASE_URL`, `NEON_DATAB
 
 ## Key files
 
-- `src/lib/db/schema.ts` — data model (4 tables) · `src/lib/db/queries.ts` — most DB business logic
-- `src/lib/generation.ts` — ElevenLabs Music calls + error parsing
+- `src/lib/db/schema.ts` — data model · `src/lib/db/queries/` — DB business logic
+- `src/lib/generation/` — ElevenLabs Music calls + error parsing
 - `src/workflows/generate-song.ts` — durable Workflow entry (keep minimal) · `src/lib/enqueue.ts` — dispatch chain
 - `src/app/api/requests/route.ts` — public submission (rate-limit + validation) · `src/app/api/queue/` — canonical playlist state
 - `src/lib/security.ts` — prompt validation, IP hashing, auth checks

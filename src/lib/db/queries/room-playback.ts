@@ -13,7 +13,13 @@ import { computePlayingPositionMs } from "@/lib/playback/timeline";
 import { dbCall, toIso } from "./internal";
 
 type Actor = {
-  type: "admin" | "integration" | "player" | "local";
+  type:
+    | "admin"
+    | "integration"
+    | "player"
+    | "local"
+    | "offsite_operator"
+    | "offsite_emergency";
   id: string;
   idempotencyKey?: string | null;
 };

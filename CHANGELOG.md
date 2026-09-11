@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - September 10, 2026
+
+### Added
+- **Cancún 2026 player theme** built from the exact committed Lovable design
+  assets: KMR Waldenburg fonts, Paradisus venue image, grain texture, palette,
+  gradient recipe, ElevenLabs mark, QR treatment, fullscreen, and wake lock.
+- `/offsite/control` Room DJ console with player health, play/pause/skip/select,
+  queue approval/removal/reordering, on-demand generation, AutoDJ brief,
+  request-line and auto-approve switches, and master volume.
+- Per-room signed-in operator grants. Admins retain implicit access.
+- Two-factor emergency room access: a 256-bit URL-fragment secret plus separate
+  8-digit PIN exchanges for a fresh revocable Strict HttpOnly session cookie.
+  Attempts are rate-limited and every credential remains room-scoped.
+- Room-screen QR deep-links to the portal request page with the current
+  `externalSessionId` as a validated room hint.
+
+### Fixed
+- Enabling audio could wait forever on an empty media element, immediately
+  revert its server flag, and leave the player orb permanently idle. The user
+  gesture now loads/starts the current track and persists audio readiness.
+
 ## [0.5.1] - September 10, 2026
 
 ### Added

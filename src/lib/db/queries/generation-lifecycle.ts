@@ -62,8 +62,8 @@ export async function markRequestReady(
     songMetadata?: Record<string, unknown>;
   } = {}
 ) {
-  await dbCall(async () => {
-    await db
+  return dbCall(async () => {
+    const [updated] = await db
       .update(songRequests)
       .set({
         status: "ready",
@@ -78,13 +78,22 @@ export async function markRequestReady(
         errorCode: null,
         errorMessage: null,
       })
-      .where(eq(songRequests.id, id));
+      .where(
+        and(
+          eq(songRequests.id, id),
+          eq(songRequests.status, "generating")
+        )
+      )
+      .returning({ id: songRequests.id });
+
+    if (!updated) return false;
 
     await recordEvent(id, "generation_completed", {
       audioUrl,
       songId,
       title: meta.title ?? null,
     });
+    return true;
   });
 }
 
@@ -95,9 +104,9 @@ export async function markRequestFailed(
   message: string,
   suggestion?: string
 ) {
-  await dbCall(async () => {
+  return dbCall(async () => {
     const status: RequestStatus = code === "bad_prompt" ? "rejected" : "failed";
-    await db
+    const [updated] = await db
       .update(songRequests)
       .set({
         status,
@@ -106,12 +115,21 @@ export async function markRequestFailed(
         promptSuggestion: suggestion ?? null,
         completedAt: new Date(),
       })
-      .where(eq(songRequests.id, id));
+      .where(
+        and(
+          eq(songRequests.id, id),
+          eq(songRequests.status, "generating")
+        )
+      )
+      .returning({ id: songRequests.id });
+
+    if (!updated) return false;
 
     await recordEvent(
       id,
       status === "rejected" ? "request_rejected" : "generation_failed",
       { code, message, suggestion }
     );
+    return true;
   });
 }

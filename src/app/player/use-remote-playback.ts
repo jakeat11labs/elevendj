@@ -21,6 +21,9 @@ export type PlayerStateResponse = {
     name: string;
     roomName: string | null;
     publicCode: string;
+    externalSessionId: string | null;
+    /** Portal destination encoded in the room-screen request QR. */
+    portalRequestUrl: string;
     isActive: boolean;
     masterVolume: number;
     orbColorway: string;
@@ -82,6 +85,8 @@ export function useRemotePlayback(opts: {
       revision: number;
       isPlaying: boolean;
       positionMs: number;
+      /** Explicit override for the one-shot user gesture that unlocks audio. */
+      audioUnlocked?: boolean;
       error?: string | null;
     }) => {
       try {
@@ -90,7 +95,7 @@ export function useRemotePlayback(opts: {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...payload,
-            audioUnlocked: opts.audioUnlocked,
+            audioUnlocked: payload.audioUnlocked ?? opts.audioUnlocked,
           }),
         });
       } catch {

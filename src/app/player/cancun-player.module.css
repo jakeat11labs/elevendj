@@ -1,0 +1,454 @@
+@font-face {
+  font-family: "KMR Waldenburg Cancún";
+  src: url("/offsite/cancun-2026/KMR-Waldenburg-Fein.otf") format("opentype");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "KMR Waldenburg Cancún";
+  src: url("/offsite/cancun-2026/KMR-Waldenburg-Mager.otf") format("opentype");
+  font-weight: 200 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "KMR Waldenburg Cancún";
+  src: url("/offsite/cancun-2026/KMR-Waldenburg-Normal.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "KMR Waldenburg Cancún";
+  src: url("/offsite/cancun-2026/KMR-Waldenburg-Halbfett.otf") format("opentype");
+  font-weight: 500 600;
+  font-display: swap;
+}
+
+.screen {
+  --ink: #1e1916;
+  --ink-soft: #3d362f;
+  --ink-muted: #6b5f55;
+  --sand: #fbf7ef;
+  --lagoon: #4ed0c8;
+  --sun: #ff9e30;
+  --live: #0f7a57;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--ink);
+  background-color: var(--sand);
+  background-image:
+    radial-gradient(42% 36% at 96% 108%, rgba(255, 158, 48, 0.72), transparent 66%),
+    radial-gradient(52% 42% at 2% -8%, rgba(78, 208, 200, 0.62), transparent 70%),
+    linear-gradient(
+      168deg,
+      rgba(236, 250, 247, 0.985) 0%,
+      rgba(250, 246, 237, 0.985) 42%,
+      rgba(255, 240, 220, 0.95) 74%,
+      rgba(255, 229, 198, 0.95) 100%
+    ),
+    url("/offsite/cancun-2026/paradisus.webp");
+  background-position: center 32%;
+  background-size: cover;
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: url("/offsite/cancun-2026/noise-texture.webp");
+  background-size: 520px;
+}
+
+.shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 100svh;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(28px, 4.6vw, 72px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: clamp(15px, 1.8vw, 28px);
+}
+
+.eventName {
+  margin: 0;
+  font-family: "KMR Waldenburg Cancún", sans-serif;
+  font-size: clamp(30px, 3.8vw, 64px);
+  font-weight: 200;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.eventLine {
+  margin: 7px 0 0;
+  color: #7a6e63;
+  font-size: clamp(8px, 0.72vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.roomMeta {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 32px);
+}
+
+.roomLabel {
+  text-align: right;
+}
+
+.roomName {
+  margin: 0;
+  font-family: "KMR Waldenburg Cancún", sans-serif;
+  font-size: clamp(18px, 2.1vw, 32px);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+
+.deviceName {
+  margin: 5px 0 0;
+  color: #7a6e63;
+  font-size: clamp(8px, 0.72vw, 11px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.livePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 11px 7px;
+  border-radius: 999px;
+  color: var(--live);
+  background: rgba(15, 122, 87, 0.12);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 108px);
+  padding: clamp(30px, 5vh, 74px) 0;
+}
+
+.copy {
+  min-width: 0;
+  align-self: center;
+}
+
+.nowPlaying {
+  margin: 0 0 18px;
+  color: #7a6e63;
+  font-size: clamp(9px, 0.82vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 920px;
+  margin: 0;
+  font-family: "KMR Waldenburg Cancún", sans-serif;
+  font-size: clamp(56px, 7.7vw, 136px);
+  font-weight: 200;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.prompt {
+  max-width: 680px;
+  margin: clamp(16px, 2vh, 28px) 0 0;
+  color: #5e544b;
+  font-size: clamp(14px, 1.25vw, 21px);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.requester {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(22px, 3.2vh, 42px);
+}
+
+.avatar {
+  width: clamp(42px, 4.2vw, 64px);
+  height: clamp(42px, 4.2vw, 64px);
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 1px rgba(30, 25, 22, 0.12),
+    0 8px 22px rgba(30, 25, 22, 0.12);
+}
+
+.requesterText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.requestedBy {
+  color: #8e8378;
+  font-size: clamp(8px, 0.68vw, 11px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.requesterName {
+  font-family: "KMR Waldenburg Cancún", sans-serif;
+  font-size: clamp(20px, 2vw, 32px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.orbStage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: min(41vw, 670px);
+  aspect-ratio: 1;
+}
+
+.orbHalo {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 38px 90px rgba(65, 48, 34, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(65, 48, 34, 0.2);
+}
+
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  padding-top: clamp(18px, 2.2vh, 30px);
+  border-top: 1px solid rgba(30, 25, 22, 0.16);
+}
+
+.statusArea {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.audioButton,
+.statusPill,
+.fullscreen {
+  min-height: 44px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.audioButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 20px;
+  border: 1px solid var(--ink);
+  color: #fafafa;
+  background: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(30, 25, 22, 0.18);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid rgba(30, 25, 22, 0.14);
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.revision {
+  color: #8e8378;
+}
+
+.qrCard {
+  display: flex;
+  align-items: center;
+  gap: clamp(13px, 1.4vw, 20px);
+  padding: clamp(11px, 1vw, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 8px 24px rgba(30, 25, 22, 0.07);
+  backdrop-filter: blur(12px);
+}
+
+.qr {
+  width: clamp(82px, 7.2vw, 118px);
+  height: clamp(82px, 7.2vw, 118px);
+  box-sizing: content-box;
+  padding: 7px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.qrCopy {
+  display: flex;
+  max-width: 180px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.qrLabel {
+  color: #7a6e63;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.qrTitle {
+  font-family: "KMR Waldenburg Cancún", sans-serif;
+  font-size: clamp(18px, 1.65vw, 28px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.fullscreen {
+  padding: 0 15px;
+  border: 1px solid rgba(30, 25, 22, 0.14);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.44);
+  cursor: pointer;
+}
+
+.venueTime {
+  min-width: 90px;
+  text-align: right;
+}
+
+.venueLabel {
+  color: #7a6e63;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.venueValue {
+  display: block;
+  margin-top: 3px;
+  font-size: clamp(19px, 1.8vw, 30px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 800px) {
+  .shell {
+    padding: 24px;
+  }
+
+  .roomLabel,
+  .venueTime {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .copy {
+    order: 2;
+  }
+
+  .orbStage {
+    order: 1;
+    width: min(62vw, 410px);
+  }
+
+  .title {
+    font-size: clamp(42px, 12vw, 74px);
+  }
+
+  .requester {
+    justify-content: center;
+  }
+
+  .footer {
+    align-items: center;
+  }
+
+  .qrCopy {
+    display: none;
+  }
+
+  .qr {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot {
+    animation: none;
+  }
+}

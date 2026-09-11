@@ -14,6 +14,23 @@ import { runAutoDj } from "@/lib/autodj-pool";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const DEFAULT_OFFSITE_PORTAL_URL = "https://elevencancun2026.lovable.app";
+
+function portalRequestUrl(metadata: Record<string, unknown>): string {
+  const value = metadata.portalRequestUrl;
+  if (typeof value !== "string" || value.length > 500) {
+    return DEFAULT_OFFSITE_PORTAL_URL;
+  }
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:"
+      ? parsed.toString()
+      : DEFAULT_OFFSITE_PORTAL_URL;
+  } catch {
+    return DEFAULT_OFFSITE_PORTAL_URL;
+  }
+}
+
 export const GET = route(async () => {
   const device = await requirePlayerDevice();
   await heartbeatPlayer(device.id);
@@ -67,6 +84,8 @@ export const GET = route(async () => {
       name: session.name,
       roomName: session.roomName,
       publicCode: session.publicCode,
+      externalSessionId: session.externalSessionId,
+      portalRequestUrl: portalRequestUrl(session.externalMetadata),
       isActive: session.isActive,
       masterVolume: session.masterVolume,
       orbColorway: session.orbColorway,

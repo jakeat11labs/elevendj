@@ -7,9 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Pause, Play, Volume2 } from "lucide-react";
 
-import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
 import { resolveColorway } from "@/components/orb/colorways";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import type { QueueItem } from "@/lib/status";
@@ -20,6 +18,7 @@ import {
   type PlayerStateResponse,
 } from "./use-remote-playback";
 import { PlayerPairingScreen } from "./player-pairing-screen";
+import { CancunPlayerScreen } from "./cancun-player-screen";
 
 export function PlayerScreen() {
   const audioARef = useRef<HTMLAudioElement>(null);
@@ -50,7 +49,6 @@ export function PlayerScreen() {
           setPaired(true);
           const body = (await res.json()) as PlayerStateResponse;
           setState(body);
-          setAudioUnlocked(body.device.audioUnlocked);
         } else {
           setPaired(false);
         }
@@ -95,6 +93,14 @@ export function PlayerScreen() {
   );
 
   const colorway = resolveColorway(state?.session?.orbColorway ?? "creative-1");
+  const masterVolume = state?.session?.masterVolume ?? 1;
+
+  // Volume is a room setting, not a playback revision. Keep both decks synced
+  // independently so a Room DJ slider change affects the current track at once.
+  useEffect(() => {
+    if (audioARef.current) audioARef.current.volume = masterVolume;
+    if (audioBRef.current) audioBRef.current.volume = masterVolume;
+  }, [masterVolume]);
 
   useEffect(() => {
     if (!audioUnlocked || !state?.playback) return;
@@ -135,8 +141,6 @@ export function PlayerScreen() {
 
       setDeckGain("a", 1);
       setDeckGain("b", 0);
-      audio.volume = state.session?.masterVolume ?? 1;
-
       if (playback.isPlaying) {
         void audio
           .play()
@@ -153,7 +157,6 @@ export function PlayerScreen() {
   }, [
     audioUnlocked,
     state?.playback,
-    state?.session?.masterVolume,
     current,
     resume,
     setDeckGain,
@@ -195,28 +198,78 @@ export function PlayerScreen() {
     return () => audio.removeEventListener("ended", onEnded);
   }, [reportEnded]);
 
+  const unlockAudioUrl = current?.audioUrl ?? null;
+  const unlockPlayback = state?.playback ?? null;
+  const unlockMasterVolume = masterVolume;
+
   const enableAudio = useCallback(async () => {
     const audio = audioARef.current;
-    if (audio) {
-      try {
-        audio.muted = true;
-        await audio.play();
-        audio.pause();
-        audio.muted = false;
-        audio.currentTime = 0;
-      } catch {
-        /* still mark unlocked so subsequent remote plays can try */
-      }
-    }
+    const playback = unlockPlayback;
+
+    // The user gesture is what browsers require to resume Web Audio. Load and
+    // start the current track inside that same gesture too; awaiting play() on
+    // an empty <audio> element can remain pending forever, which previously
+    // meant we never reached setAudioUnlocked(true) and the orb stayed idle.
     resume();
     setAudioUnlocked(true);
+
+    if (audio && unlockAudioUrl) {
+      try {
+        if (audio.src !== unlockAudioUrl) {
+          audio.src = unlockAudioUrl;
+        }
+        audio.volume = unlockMasterVolume;
+        setDeckGain("a", 1);
+        setDeckGain("b", 0);
+
+        const target = playback
+          ? computePlayingPositionMs({
+              basePositionMs: playback.positionMs,
+              isPlaying: playback.isPlaying,
+              playbackStartedAt: playback.playbackStartedAt,
+            })
+          : 0;
+        audio.currentTime = target / 1000;
+
+        if (playback?.isPlaying) {
+          await audio.play();
+          setLocalPlaying(true);
+        }
+      } catch (error) {
+        if (
+          error instanceof DOMException &&
+          error.name === "NotAllowedError"
+        ) {
+          setAudioUnlocked(false);
+          void report({
+            requestId: playback?.currentRequestId ?? null,
+            revision: playback?.revision ?? 0,
+            isPlaying: false,
+            positionMs: 0,
+            audioUnlocked: false,
+          });
+          return;
+        }
+        // Keep the room unlocked for media-readiness errors; normal
+        // reconciliation retries once metadata is available.
+      }
+    }
+
     void report({
-      requestId: state?.playback?.currentRequestId ?? null,
-      revision: state?.playback?.revision ?? 0,
-      isPlaying: false,
-      positionMs: 0,
+      requestId: playback?.currentRequestId ?? null,
+      revision: playback?.revision ?? 0,
+      isPlaying: playback?.isPlaying ?? false,
+      positionMs: Math.floor((audio?.currentTime ?? 0) * 1000),
+      audioUnlocked: true,
     });
-  }, [resume, report, state?.playback]);
+  }, [
+    report,
+    resume,
+    setDeckGain,
+    unlockAudioUrl,
+    unlockMasterVolume,
+    unlockPlayback,
+  ]);
 
   if (paired === null) {
     return (
@@ -236,87 +289,22 @@ export function PlayerScreen() {
     );
   }
 
-  const unassigned = !state?.session;
-
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0c0a09] text-white">
+    <>
       <audio ref={audioARef} preload="auto" playsInline />
       <audio ref={audioBRef} preload="auto" playsInline />
-
-      <div className="absolute inset-0 flex items-center justify-center opacity-90">
-        <div className="relative h-[min(70vw,520px)] w-[min(70vw,520px)]">
-          <ReactiveOrb
-            analyserRef={analyserRef}
-            texture={colorway.src}
-            saturation={colorway.saturation}
-          />
-        </div>
-      </div>
-
-      <div className="relative z-10 flex min-h-screen flex-col justify-between p-6 sm:p-10">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
-            {state?.device.name ?? "Player"}
-            {state?.session?.roomName ? ` · ${state.session.roomName}` : ""}
-          </p>
-          <h1
-            className="mt-2 max-w-3xl text-3xl sm:text-5xl"
-            style={{ fontFamily: "var(--font-brand)" }}
-          >
-            {unassigned
-              ? "Waiting for room assignment"
-              : current?.title || current?.prompt || state?.session?.name}
-          </h1>
-          {current?.requesterName && (
-            <div className="mt-3 flex items-center gap-2.5">
-              {current.requesterAvatarUrl && (
-                /* Plain <img>: the portal supplies arbitrary account-photo
-                   hosts, which next/image would need configured up front.
-                   no-referrer keeps the room screen from leaking to them. */
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={current.requesterAvatarUrl}
-                  alt=""
-                  referrerPolicy="no-referrer"
-                  className="size-9 rounded-full object-cover ring-1 ring-white/20"
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
-                  }}
-                />
-              )}
-              <p className="text-sm text-white/60">
-                Requested by {current.requesterName}
-              </p>
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          {!audioUnlocked ? (
-            <button
-              type="button"
-              onClick={() => void enableAudio()}
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-5 text-sm font-semibold text-[var(--graphite)]"
-            >
-              <Volume2 size={16} />
-              Enable audio
-            </button>
-          ) : (
-            <span className="inline-flex h-12 items-center gap-2 rounded-full border border-white/20 px-5 text-sm text-white/80">
-              {localPlaying ? <Pause size={16} /> : <Play size={16} />}
-              {localPlaying ? "Playing" : "Paused"}
-              <span className="text-white/40">
-                · rev {state?.playback?.revision ?? 0}
-              </span>
-            </span>
-          )}
-          {unassigned && (
-            <span className="text-sm text-white/55">
-              An Offsite admin can assign this player to an agenda session.
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
+      <CancunPlayerScreen
+        analyserRef={analyserRef}
+        texture={colorway.src}
+        saturation={colorway.saturation}
+        deviceName={state?.device.name ?? "Player"}
+        session={state?.session ?? null}
+        current={current}
+        audioUnlocked={audioUnlocked}
+        localPlaying={localPlaying}
+        revision={state?.playback?.revision ?? 0}
+        onEnableAudio={() => void enableAudio()}
+      />
+    </>
   );
 }

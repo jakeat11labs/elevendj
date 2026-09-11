@@ -93,6 +93,23 @@ type QueueTrack = {
   audioUrl: string | null;
 };
 
+type OperatorAccess = {
+  sessionId: string;
+  grants: Array<{
+    id: string;
+    userId: string;
+    email: string;
+    displayName: string | null;
+    revokedAt: string | null;
+  }>;
+  users: Array<{
+    id: string;
+    email: string;
+    displayName: string | null;
+    isAdmin: boolean;
+  }>;
+};
+
 function requestUrl(code: string) {
   if (typeof window === "undefined") return `/request?code=${code}`;
   return `${window.location.origin}/request?code=${encodeURIComponent(code)}`;
@@ -102,10 +119,18 @@ export function OffsiteConsole() {
   const [overview, setOverview] = useState<Overview | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [secretFlash, setSecretFlash] = useState<string | null>(null);
+  const [operatorLinkFlash, setOperatorLinkFlash] = useState<{
+    url: string;
+    pin: string;
+  } | null>(null);
   const [newClientName, setNewClientName] = useState("Offsite2026 Lovable");
   const [busy, setBusy] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
   const [roomTracks, setRoomTracks] = useState<QueueTrack[]>([]);
+  const [operatorAccess, setOperatorAccess] = useState<OperatorAccess | null>(
+    null
+  );
+  const [operatorUserId, setOperatorUserId] = useState("");
   const [assignSessionByPairing, setAssignSessionByPairing] = useState<
     Record<string, string>
   >({});
@@ -169,6 +194,42 @@ export function OffsiteConsole() {
       cancelled = true;
     };
   }, [selectedRoom?.id, selectedRoom?.playback.revision, selectedRoom?.queue.itemCount]);
+
+  const refreshOperators = useCallback(async (
+    sessionId: string,
+    signal?: AbortSignal
+  ) => {
+    try {
+      const response = await fetch(
+        `/api/admin/offsite/rooms/${sessionId}/operators`,
+        { cache: "no-store", signal }
+      );
+      if (!response.ok || signal?.aborted) return;
+      const body = (await response.json()) as Omit<
+        OperatorAccess,
+        "sessionId"
+      >;
+      if (!signal?.aborted) {
+        setOperatorAccess({ ...body, sessionId });
+      }
+    } catch {
+      // Keep the room controls usable when access management cannot load.
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selectedRoom?.id) {
+      setOperatorAccess(null);
+      return;
+    }
+    setOperatorAccess(null);
+    const controller = new AbortController();
+    void refreshOperators(selectedRoom.id, controller.signal);
+    return () => controller.abort();
+  }, [selectedRoom?.id, refreshOperators]);
+
+  const selectedOperatorAccess =
+    operatorAccess?.sessionId === selectedRoom?.id ? operatorAccess : null;
 
   async function createClient() {
     setBusy(true);
@@ -281,6 +342,51 @@ export function OffsiteConsole() {
     }
   }
 
+  async function createOperatorLink(sessionId: string) {
+    setBusy(true);
+    try {
+      const response = await fetch(
+        `/api/admin/offsite/rooms/${sessionId}/operator-link`,
+        { method: "POST" }
+      );
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not create the room-control link.");
+        return;
+      }
+      setOperatorLinkFlash({ url: body.url, pin: body.pin });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function patchOperatorGrant(
+    sessionId: string,
+    userId: string,
+    method: "POST" | "DELETE"
+  ) {
+    setBusy(true);
+    try {
+      const response = await fetch(
+        `/api/admin/offsite/rooms/${sessionId}/operators`,
+        {
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId }),
+        }
+      );
+      const body = await response.json().catch(() => null);
+      if (!response.ok) {
+        setError(body?.message || "Could not update room operator access.");
+        return;
+      }
+      setOperatorUserId("");
+      await refreshOperators(sessionId);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function playback(
     action: "play" | "pause" | "skip" | "select",
     trackId?: string
@@ -345,6 +451,13 @@ export function OffsiteConsole() {
               Users
             </Link>
             <Link
+              href="/offsite/control"
+              className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
+            >
+              <Radio size={15} />
+              Room DJ
+            </Link>
+            <Link
               href="/player"
               className="btn-ghost inline-flex h-9 items-center gap-2 px-3.5 text-sm"
             >
@@ -405,6 +518,57 @@ export function OffsiteConsole() {
               <Copy size={14} />
               Copy secret
             </button>
+          </div>
+        )}
+
+        {operatorLinkFlash && (
+          <div className="lg:col-span-2 card p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium">
+                  Emergency room-control link
+                </p>
+                <p className="mt-1 text-xs text-[var(--mid-gray)]">
+                  This link and the separate PIN are both required. They control
+                  only this room for 12 hours; creating another revokes them.
+                </p>
+                <code className="mt-2 block break-all rounded bg-[var(--cream)] p-3 text-xs">
+                  {operatorLinkFlash.url}
+                </code>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--mid-gray)]">
+                  Separate PIN
+                </p>
+                <code className="mt-1 block text-2xl tracking-[0.3em]">
+                  {operatorLinkFlash.pin}
+                </code>
+              </div>
+              <button
+                type="button"
+                className="btn-ghost inline-flex size-9 items-center justify-center"
+                onClick={() => setOperatorLinkFlash(null)}
+                aria-label="Dismiss"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                className="btn-primary inline-flex h-9 items-center gap-2 px-4 text-sm"
+                onClick={() => void copy(operatorLinkFlash.url)}
+              >
+                <Copy size={14} />
+                Copy link
+              </button>
+              <button
+                type="button"
+                className="btn-ghost inline-flex h-9 items-center gap-2 px-4 text-sm"
+                onClick={() => void copy(operatorLinkFlash.pin)}
+              >
+                <Copy size={14} />
+                Copy PIN separately
+              </button>
+            </div>
           </div>
         )}
 
@@ -480,6 +644,17 @@ export function OffsiteConsole() {
                   >
                     <Copy size={14} />
                     Request link
+                  </button>
+                  <button
+                    type="button"
+                    disabled={busy}
+                    className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
+                    onClick={() =>
+                      void createOperatorLink(selectedRoom.id)
+                    }
+                  >
+                    <KeyRound size={14} />
+                    Emergency control link
                   </button>
                   <a
                     className="btn-ghost inline-flex h-9 items-center gap-2 px-3 text-sm"
@@ -619,6 +794,83 @@ export function OffsiteConsole() {
                       </button>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className="mt-5 border-t border-[var(--light-gray)] pt-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--mid-gray)]">
+                  Signed-in room operators
+                </p>
+                <p className="mt-1 text-xs text-[var(--mid-gray)]">
+                  Access is limited to this room. Admins already have access.
+                </p>
+                <div className="mt-3 space-y-2">
+                  {(selectedOperatorAccess?.grants ?? [])
+                    .filter((grant) => !grant.revokedAt)
+                    .map((grant) => (
+                      <div
+                        key={grant.id}
+                        className="flex items-center justify-between gap-3 rounded-[var(--radius-md)] bg-[var(--cream)] px-3 py-2 text-sm"
+                      >
+                        <span className="min-w-0 truncate">
+                          {grant.displayName || grant.email}
+                        </span>
+                        <button
+                          type="button"
+                          disabled={busy}
+                          className="btn-danger h-8 px-3 text-xs"
+                          onClick={() =>
+                            void patchOperatorGrant(
+                              selectedRoom.id,
+                              grant.userId,
+                              "DELETE"
+                            )
+                          }
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                  <div className="flex gap-2">
+                    <select
+                      value={operatorUserId}
+                      onChange={(event) =>
+                        setOperatorUserId(event.target.value)
+                      }
+                      className="control h-9 min-w-0 flex-1 px-3 text-sm"
+                    >
+                      <option value="">Choose an employee…</option>
+                      {(selectedOperatorAccess?.users ?? [])
+                        .filter(
+                          (user) =>
+                            !user.isAdmin &&
+                            !(selectedOperatorAccess?.grants ?? []).some(
+                              (grant) =>
+                                grant.userId === user.id &&
+                                !grant.revokedAt
+                            )
+                        )
+                        .map((user) => (
+                          <option key={user.id} value={user.id}>
+                            {user.displayName || user.email}
+                          </option>
+                        ))}
+                    </select>
+                    <button
+                      type="button"
+                      disabled={busy || !operatorUserId}
+                      className="btn-primary h-9 px-4 text-sm"
+                      onClick={() =>
+                        void patchOperatorGrant(
+                          selectedRoom.id,
+                          operatorUserId,
+                          "POST"
+                        )
+                      }
+                    >
+                      Grant
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
