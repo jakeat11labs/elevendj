@@ -1,7 +1,7 @@
 export type MusicStyle = {
   id: string;
   label: string;
-  /** Richer than the label; this is what Music v2 receives. */
+  /** Richer than the label; this is what the current Music model receives. */
   direction: string;
 };
 

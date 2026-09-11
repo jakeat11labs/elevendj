@@ -82,7 +82,8 @@ export function normalizeMetadata(meta: Record<string, unknown> | null): {
  * BOTH model plan shapes:
  *  - music_v1: res.json.compositionPlan.sections[] = { sectionName, durationMs,
  *    lines: string[] }
- *  - music_v2: res.json.compositionPlan.chunks[] = { text, durationMs, ... },
+ *  - music_v2/music_v2_5: res.json.compositionPlan.chunks[] =
+ *    { text, durationMs, ... },
  *    where `text` packs [Section] tags, lyric lines, and {inline directions}.
  * Both reduce to LyricSection[]; word timestamps (model-independent) are then
  * aligned for karaoke. The output shape is identical, so the stage and
@@ -150,7 +151,7 @@ export function parseV1Sections(rawSections: unknown[]): LyricSection[] {
 
 
 /**
- * music_v2 plan: a chunk list where each generation chunk's `text` carries
+ * music_v2/music_v2_5 plan: a chunk list where each generation chunk's `text` carries
  * [Section] tags, lyric lines, and {inline directions}. Audio-reference chunks
  * (inpainting) have no `text` and are skipped. A single chunk may pack multiple
  * [Section] tags, so we emit one LyricSection per tag block and spread the

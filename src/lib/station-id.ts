@@ -15,7 +15,7 @@ export const STATION_ID_BRAND = "ElevenDJ Radio, powered by ElevenLabs";
 /** Real songs between station IDs. */
 export const STATION_ID_CADENCE = 2;
 
-/** Fixed broadcast-jingle length. Music v2 supports shorter clips; 10s is intentional. */
+/** Fixed broadcast-jingle length. Music v2/v2.5 support shorter clips; 10s is intentional. */
 export const STATION_ID_DURATION_MS = 10_000;
 
 /** How many ready IDs we keep warm so one can play instantly. */

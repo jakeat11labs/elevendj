@@ -12,7 +12,7 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
 ## Stack
 
 - Next.js App Router (React 19) on Vercel
-- ElevenLabs Music (`music_v2` by default) via `@elevenlabs/elevenlabs-js`
+- ElevenLabs Music (`music_v2_5` by default) via `@elevenlabs/elevenlabs-js`
 - Neon Postgres with Drizzle ORM (`@neondatabase/serverless`)
 - Neon Auth (`@neondatabase/auth`) for ElevenLabs Google sign-in
 - Vercel Blob for public audio playback
@@ -75,7 +75,8 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
   (bootstrap; the DB `isAdmin` flag is the source of truth thereafter).
 - `REQUEST_HASH_SECRET` — salt for hashed-IP rate limiting (falls back to
   `NEON_AUTH_COOKIE_SECRET`).
-- `MUSIC_MODEL` — `music_v1` pins the legacy model; anything else uses `music_v2`.
+- `MUSIC_MODEL` — defaults to `music_v2_5`; set `music_v2` or `music_v1` only
+  for rollback/comparison.
 - `MUSIC_OUTPUT_FORMAT` — mp3 `codec_samplerate_bitrate` (unknown values ignored).
 - `MUSIC_SIGN_C2PA` — `true` to C2PA-sign generated MP3s.
 - `MUSIC_STORE_FOR_INPAINTING` — `true` to retain songs server-side (enterprise-gated).

@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Upgraded `@elevenlabs/elevenlabs-js` to 2.68 and switched the default and
+  production generation model to Eleven Music 2.5 (`music_v2_5`). Music v2 and
+  v1 remain available as explicit rollback options.
+
 ## [0.6.1] - September 10, 2026
 
 ### Added

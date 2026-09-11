@@ -76,24 +76,34 @@ export type OutputFormat = ComposeDetailedBody["outputFormat"];
 
 
 /**
- * Generation model. Defaults to music_v2 (the current flagship — richer vocals,
- * arrangement, multilingual reliability, mid-song genre switching). Set
- * MUSIC_MODEL=music_v1 to pin the legacy model. Pinning explicitly also keeps
- * us deterministic against the server-side flip of the omitted-model default.
- * NOTE: v2 returns a chunk-based composition plan — normalizeLyrics handles both
- * the v1 `sections` and v2 `chunks` shapes, so karaoke works either way.
+ * Generation model. Defaults to music_v2_5, the current flagship. Explicit
+ * music_v1 and music_v2 values remain available for rollback/comparison.
+ * Pinning the model keeps us deterministic against the server-side default,
+ * which still omits 2.5 in some older docs and SDKs. Music v2 and v2.5 share
+ * the chunk-based composition-plan shape, so normalizeLyrics handles both.
  */
 export function resolveModel(): MusicModel {
-  return (optionalEnv("MUSIC_MODEL") === "music_v1"
-    ? "music_v1"
-    : "music_v2") as MusicModel;
+  const configured = optionalEnv("MUSIC_MODEL");
+  if (
+    configured === "music_v1" ||
+    configured === "music_v2" ||
+    configured === "music_v2_5"
+  ) {
+    return configured;
+  }
+  if (configured) {
+    console.warn(
+      `ElevenDJ: ignoring unsupported MUSIC_MODEL="${configured}"; using "music_v2_5"`
+    );
+  }
+  return "music_v2_5";
 }
 
 
-// `auto` follows the selected model: Music v2 currently returns
+// `auto` follows the selected model: Music v2/v2.5 currently return
 // mp3_48000_192, while v1 returns mp3_44100_128. Explicit 48 kHz options are
-// also available in the current SDK. We keep this mp3-only because blobs are
-// named .mp3 / audio/mpeg and C2PA signing is mp3-only.
+// also available. We keep this mp3-only because blobs are named .mp3 /
+// audio/mpeg and C2PA signing is mp3-only.
 export const ALLOWED_MUSIC_OUTPUT_FORMATS = new Set<string>([
   "auto",
   "mp3_48000_128",

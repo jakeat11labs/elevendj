@@ -37,7 +37,7 @@ No package.json script — call drizzle-kit directly. This repo applies schema c
   paired `/player` devices + scoped `/offsite/control` Room DJ. Contract:
   `docs/OFFSITE_INTEGRATION.md`.
 - **Realtime payloads are minimal** — broadcasts only nudge clients; canonical state is refetched from `/api/queue`.
-- **Music v1↔v2 lyrics** — `lyrics` is JSONB; `src/lib/generation.ts` parses both v1 (`sections`) and v2 (`chunks`) plans. Model selected via `MUSIC_MODEL` (default `music_v2`).
+- **Music lyrics across model generations** — `lyrics` is JSONB; `src/lib/generation.ts` parses v1 (`sections`) and v2/v2.5 (`chunks`) plans. Model selected via `MUSIC_MODEL` (default `music_v2_5`).
 
 ## Code style
 
