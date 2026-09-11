@@ -1,9 +1,6 @@
 import "server-only";
 
-import {
-  countWarmStationIds,
-  createStationIdRequest,
-} from "@/lib/db/queries";
+import { createStationIdRequest } from "@/lib/db/queries";
 import { enqueueGeneration } from "@/lib/enqueue";
 import { STATION_ID_POOL_TARGET } from "@/lib/station-id";
 
@@ -21,13 +18,11 @@ export async function ensureStationIdPool(
   sessionId: string,
   target: number = STATION_ID_POOL_TARGET
 ): Promise<number> {
-  const warm = await countWarmStationIds(sessionId);
-  const missing = Math.max(0, target - warm);
   let started = 0;
-  for (let i = 0; i < missing; i++) {
-    const id = await createStationIdRequest(sessionId);
+  for (let i = 0; i < target; i++) {
+    const id = await createStationIdRequest(sessionId, target);
     if (!id) {
-      break; // session vanished
+      break; // target reached (or session vanished)
     }
     await enqueueGeneration(id);
     started++;

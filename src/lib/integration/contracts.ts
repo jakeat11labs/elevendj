@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { resolveMusicStyle } from "@/lib/music-styles";
 
 export const agendaUpsertSchema = z.object({
   title: z.string().trim().min(1).max(120),
@@ -48,6 +49,16 @@ export const integrationRequestSchema = z.object({
     .startsWith("https://")
     .nullable()
     .optional(),
+  styleId: z
+    .string()
+    .trim()
+    .max(40)
+    .nullable()
+    .optional()
+    .refine(
+      (value) => !value || Boolean(resolveMusicStyle(value)),
+      "Unsupported music style."
+    ),
   instrumental: z.boolean().optional().default(false),
 });
 

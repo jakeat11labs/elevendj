@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - September 10, 2026
+
+### Added
+- Restored word-synced karaoke lyrics on the light Cancún room player while
+  preserving the existing dark stage treatment.
+- Optional request style selector: eight popular choices plus three
+  deterministic rotating wildcards. Styles are allowlisted and expanded into
+  rich Music v2 direction without changing the requester's visible prompt.
+- Public `GET /api/music/styles` catalog so the Lovable portal and native form
+  share one source of truth.
+
+### Changed
+- Upgraded `@elevenlabs/elevenlabs-js` from 2.53 to 2.67 and explicitly pinned
+  production to `music_v2` with `MUSIC_OUTPUT_FORMAT=auto` (currently MP3
+  48 kHz/192 kbps for v2).
+
+### Fixed
+- AutoDJ top-up is now an advisory-locked conditional insert. Concurrent portal
+  upserts and player polls can no longer all observe one shortfall and generate
+  paid tracks beyond the room's configured target.
+- Station-ID warm-pool reservations use the same concurrency-safe pattern.
+- Recover status/body details from the SDK's plain detailed-compose error so
+  bad-prompt suggestions, auth failures, rate limits, and 5xx outages keep
+  their actionable error codes.
+- Host retry is limited to terminal failed/rejected tracks, preventing an
+  in-flight attempt from racing and deleting its replacement.
+- Blob uploads are removed when their final database commit fails, closing an
+  orphan-file path.
+
 ## [0.6.0] - September 10, 2026
 
 ### Added

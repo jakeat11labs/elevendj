@@ -1,7 +1,13 @@
 import "server-only";
 
 import { randomUUID } from "node:crypto";
-import { and, count, desc, eq, inArray, isNotNull } from "drizzle-orm";
+import {
+  and,
+  count,
+  eq,
+  isNotNull,
+  sql,
+} from "drizzle-orm";
 
 import { db } from "@/lib/db/client";
 import { sessions, songRequests } from "@/lib/db/schema";
@@ -58,27 +64,6 @@ export async function getAutoDjConfig(
       forceInstrumental: row.forceInstrumental,
       agendaEndsAt: row.agendaEndsAt,
     };
-  });
-}
-
-/**
- * Playable depth ahead of the room: tracks already ready or on their way,
- * whoever asked for them. Human requests count, so a busy room never has
- * AutoDJ talking over it. `pending` is excluded — it may never be approved.
- */
-export async function countQueueDepth(sessionId: string): Promise<number> {
-  return dbCall(async () => {
-    const [{ value }] = await db
-      .select({ value: count() })
-      .from(songRequests)
-      .where(
-        and(
-          eq(songRequests.sessionId, sessionId),
-          eq(songRequests.kind, "request"),
-          inArray(songRequests.status, ["queued", "generating", "ready"])
-        )
-      );
-    return value ?? 0;
   });
 }
 
@@ -140,41 +125,78 @@ export async function createAutoDjRequest(
       roomName: config.roomName,
     });
 
-    const [lastPosition] = await db
-      .select({ position: songRequests.position })
-      .from(songRequests)
-      .where(
-        and(
-          eq(songRequests.sessionId, config.sessionId),
-          isNotNull(songRequests.position)
-        )
-      )
-      .orderBy(desc(songRequests.position))
-      .limit(1);
-
     // Unique per call so neither the idempotency key nor the duplicate-prompt
     // guard can collide when a pass inserts several tracks at once.
     const stamp = randomUUID();
-    const [created] = await db
-      .insert(songRequests)
-      .values({
-        sessionId: config.sessionId,
-        clientTokenHash: hashValue(`autodj:${config.sessionId}`, "client-token"),
-        requesterName: AUTODJ_CREDIT,
-        source: "auto",
-        kind: "request",
+    const clientTokenHash = hashValue(
+      `autodj:${config.sessionId}`,
+      "client-token"
+    );
+    const idempotencyKey = hashValue(
+      `autodj:${config.sessionId}:${stamp}`,
+      "idempotency"
+    );
+    const normalizedPrompt = `${normalizePrompt(prompt)}:${stamp}`;
+
+    // Serialize top-ups per room and re-check depth inside the INSERT. The old
+    // count-then-insert path let concurrent player/portal polls all observe the
+    // same shortfall and over-generate paid tracks.
+    const result = await db.execute<{ id: string }>(sql`
+      with room_lock as (
+        select pg_advisory_xact_lock(
+          hashtextextended(${config.sessionId}, 0)
+        )
+      ),
+      queue_state as (
+        select
+          (
+            select count(*)
+            from song_requests
+            where session_id = ${config.sessionId}::uuid
+              and kind = 'request'
+              and status in ('queued', 'generating', 'ready')
+          )::int as depth,
+          (
+            select coalesce(max(position), 0)
+            from song_requests
+            where session_id = ${config.sessionId}::uuid
+              and position is not null
+          )::int as last_position
+        from room_lock
+      )
+      insert into song_requests (
+        session_id,
+        client_token_hash,
+        requester_name,
+        source,
+        kind,
         prompt,
-        normalizedPrompt: `${normalizePrompt(prompt)}:${stamp}`,
-        status: "queued",
-        position: (lastPosition?.position ?? 0) + 1,
-        durationMs: config.durationMs,
-        forceInstrumental: config.forceInstrumental,
-        idempotencyKey: hashValue(
-          `autodj:${config.sessionId}:${stamp}`,
-          "idempotency"
-        ),
-      })
-      .returning({ id: songRequests.id });
+        normalized_prompt,
+        status,
+        position,
+        duration_ms,
+        force_instrumental,
+        idempotency_key
+      )
+      select
+        ${config.sessionId}::uuid,
+        ${clientTokenHash},
+        ${AUTODJ_CREDIT},
+        'auto',
+        'request',
+        ${prompt},
+        ${normalizedPrompt},
+        'queued',
+        queue_state.last_position + 1,
+        ${config.durationMs},
+        ${config.forceInstrumental},
+        ${idempotencyKey}
+      from queue_state
+      where queue_state.depth < ${config.target}
+      returning id
+    `);
+    const created = result.rows[0];
+    if (!created) return null;
 
     await recordEvent(created.id, "autodj_created", { prompt });
     return created.id;

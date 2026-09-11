@@ -56,6 +56,7 @@ export const POST = route(async (request: Request, context: Ctx) => {
     {
       prompt: body.prompt,
       requesterName: body.requesterName,
+      styleId: body.styleId ?? null,
       instrumental: body.instrumental,
     },
     hashValue(`integration:${client.id}`, "ip"),

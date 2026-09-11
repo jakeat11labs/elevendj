@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { optionalEnv } from "@/lib/env";
 import { AppError } from "@/lib/errors";
+import { resolveMusicStyle } from "@/lib/music-styles";
 
 export const requestSchema = z.object({
   prompt: z
@@ -17,6 +18,17 @@ export const requestSchema = z.object({
     .trim()
     .min(1, "Add your name so the DJ knows who to thank.")
     .max(40, "Names must be 40 characters or fewer."),
+  styleId: z
+    .string()
+    .trim()
+    .max(40)
+    .nullable()
+    .optional()
+    .refine(
+      (value) => !value || Boolean(resolveMusicStyle(value)),
+      "Choose a supported music style."
+    )
+    .default(null),
   instrumental: z.boolean().optional().default(false),
 });
 
@@ -91,21 +103,35 @@ export function assertPromptAllowed(prompt: string) {
   }
 }
 
-export function buildGenerationPrompt(prompt: string, instrumental = false) {
+export function buildGenerationPrompt(
+  prompt: string,
+  instrumental = false,
+  styleId?: string | null
+) {
+  const style = resolveMusicStyle(styleId);
+  const styleDirection = style
+    ? `Style direction: ${style.direction}.`
+    : null;
   if (instrumental) {
     return [
       "Create an original instrumental DJ-request track.",
       "Do not imitate named artists, bands, songs, melodies, or copyrighted lyrics.",
       "Avoid vocals unless the prompt explicitly asks for abstract vocal texture.",
+      styleDirection,
       `Audience request: ${prompt}`,
-    ].join(" ");
+    ]
+      .filter(Boolean)
+      .join(" ");
   }
   return [
     "Create an original DJ-request song with sung vocals and original lyrics.",
     "Do not imitate named artists, bands, songs, melodies, or copyrighted lyrics.",
     "Write fresh, fitting lyrics for the mood and scene described.",
+    styleDirection,
     `Audience request: ${prompt}`,
-  ].join(" ");
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 export function generateClientToken() {

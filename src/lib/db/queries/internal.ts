@@ -18,6 +18,7 @@ export type SongRequestRecord = {
   session_id: string;
   client_token_hash: string;
   requester_name: string | null;
+  style_id: string | null;
   kind: string;
   prompt: string;
   normalized_prompt: string;
@@ -114,6 +115,7 @@ export function toRecord(row: SongRequestRow): SongRequestRecord {
     session_id: row.sessionId,
     client_token_hash: row.clientTokenHash,
     requester_name: row.requesterName,
+    style_id: row.styleId,
     kind: row.kind,
     prompt: row.prompt,
     normalized_prompt: row.normalizedPrompt,
@@ -148,6 +150,7 @@ export function mapQueueItem(row: SongRequestRow): QueueItem {
     kind: row.kind === "station_id" ? "station_id" : "song",
     requesterName: row.requesterName,
     requesterAvatarUrl: row.requesterAvatarUrl,
+    styleId: row.styleId,
     prompt: row.prompt,
     status: row.status as RequestStatus,
     position: row.position,

@@ -8,15 +8,26 @@ import type { KaraokeLine } from "@/lib/use-lyrics";
 // Render a lyric line as karaoke: words fill from dim to bright as playback
 // passes each word's start. Punctuation-only tokens (no startMs) inherit the
 // state of the word before them so commas don't flicker ahead of their word.
-function renderKaraokeLine(words: LyricWord[], posMs: number) {
+function renderKaraokeLine(
+  words: LyricWord[],
+  posMs: number,
+  tone: "dark" | "light"
+) {
   let lastSung = false;
   return words.map((word, wi) => {
     if (typeof word.startMs === "number") lastSung = posMs >= word.startMs;
+    const color =
+      tone === "light"
+        ? lastSung
+          ? "#1E1916"
+          : "rgba(30,25,22,0.24)"
+        : lastSung
+          ? "#ffffff"
+          : "rgba(255,255,255,0.30)";
     return (
       <span
         key={wi}
-        className={lastSung ? "text-white" : "text-white/30"}
-        style={{ transition: "color 150ms linear" }}
+        style={{ color, transition: "color 150ms linear" }}
       >
         {word.text}
         {wi < words.length - 1 ? " " : ""}
@@ -34,10 +45,12 @@ export function KaraokeViewport({
   lyricLines,
   activeLineIndex,
   posMs,
+  tone = "dark",
 }: {
   lyricLines: KaraokeLine[];
   activeLineIndex: number;
   posMs: number;
+  tone?: "dark" | "light";
 }) {
   const lyricViewportRef = useRef<HTMLDivElement>(null);
   const lyricScrollRef = useRef<HTMLDivElement>(null);
@@ -88,22 +101,25 @@ export function KaraokeViewport({
         >
           {lyricLines.map((line, i) => {
             const isActive = i === activeLineIndex;
+            const color =
+              tone === "light"
+                ? i < activeLineIndex
+                  ? "rgba(30,25,22,0.38)"
+                  : "rgba(30,25,22,0.22)"
+                : i < activeLineIndex
+                  ? "rgba(255,255,255,0.35)"
+                  : "rgba(255,255,255,0.25)";
             return (
               <p
                 key={line.key}
                 ref={(el) => {
                   lineRefs.current[i] = el;
                 }}
-                className={`text-balance transition-[color,opacity] duration-500 ${
-                  isActive
-                    ? ""
-                    : i < activeLineIndex
-                      ? "text-white/35"
-                      : "text-white/25"
-                }`}
+                className="text-balance transition-[color,opacity] duration-500"
+                style={isActive ? undefined : { color }}
               >
                 {isActive && line.words?.length
-                  ? renderKaraokeLine(line.words, posMs)
+                  ? renderKaraokeLine(line.words, posMs, tone)
                   : line.text}
               </p>
             );

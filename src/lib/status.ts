@@ -61,6 +61,7 @@ export type QueueItem = {
   requesterName: string | null;
   /** Portal account photo, shown alongside the name while the track plays. */
   requesterAvatarUrl: string | null;
+  styleId: string | null;
   prompt: string;
   title: string | null;
   isExplicit: boolean;

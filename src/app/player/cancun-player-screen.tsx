@@ -11,6 +11,8 @@ import { QRCodeSVG } from "qrcode.react";
 
 import { ReactiveOrb } from "@/components/orb/ReactiveOrb";
 import type { QueueItem } from "@/lib/status";
+import type { KaraokeLine } from "@/lib/use-lyrics";
+import { KaraokeViewport } from "@/app/stage/karaoke-viewport";
 import type { PlayerStateResponse } from "./use-remote-playback";
 import styles from "./cancun-player.module.css";
 
@@ -124,6 +126,9 @@ export function CancunPlayerScreen({
   audioUnlocked,
   localPlaying,
   revision,
+  lyricLines,
+  activeLineIndex,
+  positionMs,
   onEnableAudio,
 }: {
   analyserRef: RefObject<AnalyserNode | null>;
@@ -135,6 +140,9 @@ export function CancunPlayerScreen({
   audioUnlocked: boolean;
   localPlaying: boolean;
   revision: number;
+  lyricLines: KaraokeLine[] | null;
+  activeLineIndex: number;
+  positionMs: number;
   onEnableAudio: () => void;
 }) {
   const [fullscreen, setFullscreen] = useState(false);
@@ -204,8 +212,25 @@ export function CancunPlayerScreen({
             <p className={styles.nowPlaying}>
               {unassigned ? "Player ready" : "Now playing"}
             </p>
-            <h1 className={styles.title}>{title}</h1>
-            {showPrompt && <p className={styles.prompt}>{current.prompt}</p>}
+            <h1
+              className={`${styles.title} ${
+                lyricLines ? styles.titleWithLyrics : ""
+              }`}
+            >
+              {title}
+            </h1>
+            {lyricLines ? (
+              <div className={styles.karaokeWindow}>
+                <KaraokeViewport
+                  lyricLines={lyricLines}
+                  activeLineIndex={activeLineIndex}
+                  posMs={positionMs}
+                  tone="light"
+                />
+              </div>
+            ) : (
+              showPrompt && <p className={styles.prompt}>{current.prompt}</p>
+            )}
 
             {current?.requesterName && (
               <div className={styles.requester}>

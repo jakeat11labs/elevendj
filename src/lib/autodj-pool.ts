@@ -2,7 +2,6 @@ import "server-only";
 
 import {
   applyPlaybackAction,
-  countQueueDepth,
   countReadyRequests,
   createAutoDjRequest,
   getAutoDjConfig,
@@ -37,16 +36,14 @@ export async function ensureAutoDjQueue(sessionId: string): Promise<number> {
     return 0;
   }
 
-  const depth = await countQueueDepth(sessionId);
-  const missing = Math.min(
-    Math.max(0, config.target - depth),
-    AUTODJ_MAX_PER_PASS
-  );
-
   let started = 0;
-  for (let i = 0; i < missing; i++) {
+  for (
+    let i = 0;
+    i < Math.min(config.target, AUTODJ_MAX_PER_PASS);
+    i++
+  ) {
     const id = await createAutoDjRequest(config);
-    if (!id) break; // session vanished
+    if (!id) break; // room is already at target (or session vanished)
     await enqueueGeneration(id);
     started++;
   }

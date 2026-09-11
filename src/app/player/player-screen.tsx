@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import { resolveColorway } from "@/components/orb/colorways";
+import { useLyricsLines } from "@/lib/use-lyrics";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import type { QueueItem } from "@/lib/status";
 import {
@@ -32,6 +33,7 @@ export function PlayerScreen() {
   const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [state, setState] = useState<PlayerStateResponse | null>(null);
   const [localPlaying, setLocalPlaying] = useState(false);
+  const [positionMs, setPositionMs] = useState(0);
   const lastRevisionRef = useRef<number>(-1);
   const currentTrackRef = useRef<string | null>(null);
 
@@ -184,6 +186,25 @@ export function PlayerScreen() {
     return () => window.clearInterval(timer);
   }, [paired, reportedRequestId, reportedRevision, localPlaying, report]);
 
+  // Karaoke timing on the event player. Ten updates per second is smooth
+  // enough for word fill without rerendering the full WebGL scene at 60 fps.
+  useEffect(() => {
+    if (!audioUnlocked) return;
+    const tick = () => {
+      setPositionMs(
+        Math.floor((audioARef.current?.currentTime ?? 0) * 1000)
+      );
+    };
+    tick();
+    const timer = window.setInterval(tick, 100);
+    return () => window.clearInterval(timer);
+  }, [audioUnlocked]);
+
+  const { lyricLines, activeLineIndex } = useLyricsLines(
+    current?.lyrics,
+    positionMs
+  );
+
   useEffect(() => {
     const audio = audioARef.current;
     if (!audio) return;
@@ -303,6 +324,9 @@ export function PlayerScreen() {
         audioUnlocked={audioUnlocked}
         localPlaying={localPlaying}
         revision={state?.playback?.revision ?? 0}
+        lyricLines={lyricLines}
+        activeLineIndex={activeLineIndex}
+        positionMs={positionMs}
         onEnableAudio={() => void enableAudio()}
       />
     </>

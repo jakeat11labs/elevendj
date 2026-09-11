@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@elevenlabs/elevenlabs-js':
-        specifier: ^2.53.0
-        version: 2.53.0
+        specifier: ^2.67.0
+        version: 2.67.0
       '@neondatabase/auth':
         specifier: 0.4.1-beta
         version: 0.4.1-beta(12deca9df195618e8d91e33052c0254a)
@@ -361,8 +361,8 @@ packages:
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
 
-  '@elevenlabs/elevenlabs-js@2.53.0':
-    resolution: {integrity: sha512-a83oMu/m85EYImEQMoANuXxf0W37PgXs5o7J+z6KhUkBGnH6gXJpTVFKHNTQzNngyVYnJB79YTiUO0ICLul9RA==}
+  '@elevenlabs/elevenlabs-js@2.67.0':
+    resolution: {integrity: sha512-nEywojTSXQYwefxSzo1Ca6pc/68rx7aWXa0SrWuoAjFSvgZH2HFqqAmIoiatBiVC0Jq/6E6Ojd/8KO1O3KaIZw==}
     engines: {node: '>=18.0.0'}
 
   '@emnapi/core@1.10.0':
@@ -6320,7 +6320,7 @@ snapshots:
 
   '@drizzle-team/brocli@0.10.2': {}
 
-  '@elevenlabs/elevenlabs-js@2.53.0':
+  '@elevenlabs/elevenlabs-js@2.67.0':
     dependencies:
       command-exists: 1.2.9
       node-fetch: 2.7.0

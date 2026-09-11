@@ -5,13 +5,10 @@ import { decryptSecret } from "@/lib/crypto";
 import { getSessionHostKey } from "@/lib/db";
 import { optionalEnv, requiredEnv } from "@/lib/env";
 import { normalizeLyrics, normalizeMetadata, parseWordTimestamps } from "./lyrics";
-
-
-export type ProviderError = {
-  code: string;
-  message: string;
-  suggestion?: string;
-};
+export {
+  parseProviderError,
+  type ProviderError,
+} from "./provider-errors";
 
 
 // One client per distinct API key (hosts bring their own; admins share one).
@@ -93,13 +90,16 @@ export function resolveModel(): MusicModel {
 }
 
 
-// Output format (codec_samplerate_bitrate) trades blob size against quality.
-// Only mp3 formats are valid here: the blob is written as .mp3 / audio/mpeg and
-// C2PA signing is mp3-only. An unknown/typo'd value is ignored (falls back to
-// the API default mp3_44100_128) instead of being sent blind and failing the
-// whole generation. mp3_44100_64 ~halves blob size; mp3_44100_192 needs the
-// host's key to be Creator tier or above.
-export const ALLOWED_MP3_FORMATS = new Set<string>([
+// `auto` follows the selected model: Music v2 currently returns
+// mp3_48000_192, while v1 returns mp3_44100_128. Explicit 48 kHz options are
+// also available in the current SDK. We keep this mp3-only because blobs are
+// named .mp3 / audio/mpeg and C2PA signing is mp3-only.
+export const ALLOWED_MUSIC_OUTPUT_FORMATS = new Set<string>([
+  "auto",
+  "mp3_48000_128",
+  "mp3_48000_192",
+  "mp3_48000_240",
+  "mp3_48000_320",
   "mp3_22050_32",
   "mp3_24000_48",
   "mp3_44100_32",
@@ -109,16 +109,16 @@ export const ALLOWED_MP3_FORMATS = new Set<string>([
   "mp3_44100_192",
 ]);
 
-export function resolveOutputFormat(): OutputFormat | undefined {
+export function resolveOutputFormat(): OutputFormat {
   const fmt = optionalEnv("MUSIC_OUTPUT_FORMAT");
-  if (!fmt) return undefined;
-  if (!ALLOWED_MP3_FORMATS.has(fmt)) {
+  if (!fmt) return "auto";
+  if (!ALLOWED_MUSIC_OUTPUT_FORMATS.has(fmt)) {
     console.warn(
       `ElevenDJ: ignoring unsupported MUSIC_OUTPUT_FORMAT="${fmt}" (expected one of ${[
-        ...ALLOWED_MP3_FORMATS,
-      ].join(", ")})`
+        ...ALLOWED_MUSIC_OUTPUT_FORMATS,
+      ].join(", ")}); using "auto"`
     );
-    return undefined;
+    return "auto";
   }
   return fmt as OutputFormat;
 }
@@ -155,7 +155,7 @@ export async function composeMusic({
     // of approximating from per-section durations. Only meaningful with vocals.
     withTimestamps: !instrumental,
     ...(durationMs != null ? { musicLengthMs: durationMs } : {}),
-    ...(outputFormat ? { outputFormat } : {}),
+    outputFormat,
     ...(signWithC2Pa ? { signWithC2Pa: true } : {}),
     ...(storeForInpainting ? { storeForInpainting: true } : {}),
   });
@@ -246,82 +246,4 @@ export function parseJson(json: unknown): Record<string, unknown> | null {
     return json as Record<string, unknown>;
   }
   return null;
-}
-
-
-export function parseProviderError(error: unknown): ProviderError {
-  const fallback: ProviderError = {
-    code: "generation_failed",
-    message: "The song could not be generated. Try another request.",
-  };
-
-  const statusCode = (error as { statusCode?: number })?.statusCode;
-  const body = (error as { body?: unknown })?.body;
-  const detail = (body as { detail?: unknown })?.detail;
-
-  // FastAPI validation errors (HTTP 422) put an ARRAY of { loc, msg, type } on
-  // `detail`. Surface the joined messages instead of the generic fallback.
-  if (Array.isArray(detail)) {
-    const message = detail
-      .map((d) => (d as { msg?: unknown })?.msg)
-      .filter((m): m is string => typeof m === "string" && m.length > 0)
-      .join("; ");
-    return { code: "validation_error", message: message || fallback.message };
-  }
-
-  const d = detail as
-    | {
-        status?: string;
-        message?: string;
-        data?: {
-          prompt_suggestion?: string;
-          composition_plan_suggestion?: string;
-        };
-      }
-    | undefined;
-
-  // bad_prompt is surfaced to the requester with the model's suggested rewrite.
-  if (d?.status === "bad_prompt") {
-    return {
-      code: "bad_prompt",
-      message:
-        d.message ||
-        "This request was rejected because it referenced protected material.",
-      suggestion: d.data?.prompt_suggestion,
-    };
-  }
-
-  // Any other structured status (incl. bad_composition_plan once plans are used)
-  // — carry the message and a suggestion if one is present.
-  if (d?.status) {
-    return {
-      code: d.status,
-      message: d.message || fallback.message,
-      suggestion: d.data?.composition_plan_suggestion,
-    };
-  }
-
-  // No structured detail — map the raw HTTP status to a meaningful code so the
-  // failure isn't flattened into the generic fallback.
-  if (statusCode === 401) {
-    return {
-      code: "auth_failed",
-      message: "The ElevenLabs API key was rejected. Reconnect a valid key.",
-    };
-  }
-  if (statusCode === 403) {
-    return {
-      code: "forbidden",
-      message:
-        "The ElevenLabs key isn't permitted to generate music (plan or access).",
-    };
-  }
-  if (statusCode === 429) {
-    return {
-      code: "rate_limited",
-      message: "ElevenLabs is rate-limiting this key. Try again shortly.",
-    };
-  }
-
-  return fallback;
 }

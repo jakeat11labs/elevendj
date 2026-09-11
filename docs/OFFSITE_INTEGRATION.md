@@ -106,6 +106,7 @@ id may be reused across concurrent rooms.
   "prompt": "Warm upbeat house music for a rooftop sunset",
   "requesterName": "Alex",
   "requesterAvatarUrl": "https://lh3.googleusercontent.com/a/...",
+  "styleId": "house",
   "instrumental": true
 }
 ```
@@ -114,6 +115,11 @@ id may be reused across concurrent rooms.
 next to the requester's name on the room screen while their track plays. Send
 the signed-in portal user's account photo; a broken or unreachable URL simply
 renders as the name alone.
+
+`styleId` is optional and allowlisted. Fetch the canonical compact catalog from
+`GET /api/music/styles?seed=<externalSessionId>`; it returns eight popular
+styles and three stable rotating wildcards. ElevenDJ expands the selected id
+into a rich Music v2 direction while preserving the requester's visible prompt.
 
 Replays with the same external id / idempotency key return the original request
 without enqueueing a second generation job.

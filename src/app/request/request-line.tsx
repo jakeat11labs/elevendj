@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { Disc3, RotateCcw, Send } from "lucide-react";
 
 import { StatusBadge } from "@/components/status-badge";
+import { musicStyleChoices } from "@/lib/music-styles";
 import { useRealtimeRefresh } from "@/lib/use-realtime-refresh";
 import type { QueueItem } from "@/lib/status";
 
@@ -32,6 +33,7 @@ const SUGGESTIONS = [
 
 export function RequestLine({ code }: { code: string | null }) {
   const [prompt, setPrompt] = useState("");
+  const [styleId, setStyleId] = useState<string | null>(null);
   const [requesterName, setRequesterName] = useState("");
   const [submittedName, setSubmittedName] = useState<string | null>(null);
   const [submission, setSubmission] = useState<Submission | null>(null);
@@ -39,6 +41,10 @@ export function RequestLine({ code }: { code: string | null }) {
   const [error, setError] = useState<ApiError | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [requestsOpen, setRequestsOpen] = useState(true);
+  const styleChoices = useMemo(
+    () => musicStyleChoices(code || "public-request"),
+    [code]
+  );
 
   // Poll the public now-playing endpoint for the open/closed flag so the form
   // reflects the host pausing requests (the server also enforces this).
@@ -118,6 +124,7 @@ export function RequestLine({ code }: { code: string | null }) {
           code,
           prompt,
           requesterName: requesterName.trim(),
+          styleId,
         }),
       });
       const body = await response.json();
@@ -142,6 +149,7 @@ export function RequestLine({ code }: { code: string | null }) {
     setSubmittedName(null);
     setError(null);
     setPrompt("");
+    setStyleId(null);
   }
 
   const displayStatus = status?.status ?? submission?.status;
@@ -352,6 +360,51 @@ export function RequestLine({ code }: { code: string | null }) {
                   {suggestion}
                 </button>
               ))}
+            </div>
+          </div>
+
+          <div>
+            <span className="eyebrow mb-2 flex items-center justify-between">
+              <span>Pick a style</span>
+              <span className="normal-case tracking-normal text-[var(--mid-gray)]">
+                Optional
+              </span>
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {[...styleChoices.popular, ...styleChoices.wildcards].map(
+                (style) => {
+                  const selected = styleId === style.id;
+                  const wildcard = styleChoices.wildcards.some(
+                    (candidate) => candidate.id === style.id
+                  );
+                  return (
+                    <button
+                      key={style.id}
+                      type="button"
+                      aria-pressed={selected}
+                      disabled={!requestsOpen}
+                      onClick={() =>
+                        setStyleId(selected ? null : style.id)
+                      }
+                      title={
+                        wildcard
+                          ? "A rotating wildcard style"
+                          : undefined
+                      }
+                      className={`rounded-full border px-3 py-1.5 text-sm transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                        selected
+                          ? "border-[var(--graphite)] bg-[var(--graphite)] text-white"
+                          : wildcard
+                            ? "border-[#ff9e30] bg-[rgba(255,158,48,0.08)] text-[var(--dark-gray)] hover:border-[var(--graphite)]"
+                            : "border-[var(--light-gray)] bg-[var(--white)] text-[var(--dark-gray)] hover:border-[var(--graphite)]"
+                      }`}
+                    >
+                      {wildcard ? "✦ " : ""}
+                      {style.label}
+                    </button>
+                  );
+                }
+              )}
             </div>
           </div>
 

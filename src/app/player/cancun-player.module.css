@@ -27,6 +27,7 @@
 }
 
 .screen {
+  --font-brand: "KMR Waldenburg Cancún", sans-serif;
   --ink: #1e1916;
   --ink-soft: #3d362f;
   --ink-muted: #6b5f55;
@@ -186,6 +187,26 @@
   line-height: 0.88;
   letter-spacing: -0.055em;
   text-wrap: balance;
+}
+
+.titleWithLyrics {
+  max-width: 760px;
+  font-size: clamp(34px, 4.5vw, 78px);
+  line-height: 0.94;
+}
+
+.karaokeWindow {
+  max-width: 800px;
+  margin-top: clamp(12px, 1.7vh, 22px);
+  color: var(--ink);
+}
+
+.karaokeWindow > div {
+  align-items: flex-start;
+}
+
+.karaokeWindow p {
+  text-align: left;
 }
 
 .prompt {

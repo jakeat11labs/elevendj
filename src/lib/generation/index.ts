@@ -29,6 +29,7 @@ export async function processGenerationJob(job: GenerationJob) {
     return { ok: false, requestId: request.id, error: keyResult.code };
   }
 
+  let uploadedBlobUrl: string | null = null;
   try {
     // Station IDs are their own thing: a fixed ~10s vocal "radio ID" with an
     // ad-libbed prompt, ignoring the room's auto-duration setting. Everything
@@ -47,7 +48,11 @@ export async function processGenerationJob(job: GenerationJob) {
       prompt = buildStationIdPrompt(hostName);
       durationMs = STATION_ID_DURATION_MS;
     } else {
-      prompt = buildGenerationPrompt(request.prompt, instrumental);
+      prompt = buildGenerationPrompt(
+        request.prompt,
+        instrumental,
+        request.style_id
+      );
       durationMs = autoDuration ? null : request.duration_ms;
     }
 
@@ -65,6 +70,7 @@ export async function processGenerationJob(job: GenerationJob) {
       contentType: "audio/mpeg",
       addRandomSuffix: false,
     });
+    uploadedBlobUrl = blob.url;
 
     const committed = await markRequestReady(
       request.id,
@@ -82,10 +88,19 @@ export async function processGenerationJob(job: GenerationJob) {
       // An operator archived the request while generation was in flight. The
       // conditional DB write intentionally lost; remove the orphaned blob too.
       await del(blob.url);
+      uploadedBlobUrl = null;
       return { ok: true, skipped: true, requestId: request.id };
     }
+    uploadedBlobUrl = null;
     return { ok: true, requestId: request.id };
   } catch (error) {
+    if (uploadedBlobUrl) {
+      try {
+        await del(uploadedBlobUrl);
+      } catch (cleanupError) {
+        console.error("Failed to remove orphaned generation blob", cleanupError);
+      }
+    }
     console.error("ElevenDJ generation failed", error);
     const providerError = parseProviderError(error);
     await markRequestFailed(

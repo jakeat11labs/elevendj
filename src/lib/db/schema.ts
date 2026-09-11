@@ -242,6 +242,9 @@ export const songRequests = pgTable(
     // portal's signed-in account. Displayed on the room/stage screen while the
     // track plays. Always an https URL (validated on the way in).
     requesterAvatarUrl: text("requester_avatar_url"),
+    // Optional allowlisted helper chosen in the request UI. Kept separate so
+    // the displayed prompt remains the requester's own words.
+    styleId: text("style_id"),
     // Discriminates a normal audience request from an auto-inserted generated
     // interstitial (currently just "station_id"). Generic on purpose so future
     // auto-inserted content reuses the same pipeline. Station IDs share this

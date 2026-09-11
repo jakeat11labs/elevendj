@@ -69,6 +69,7 @@ export const POST = route(async (request: Request, context: Ctx) => {
     {
       prompt: input.prompt,
       requesterName: principal.displayName.slice(0, 40),
+      styleId: null,
       instrumental: input.instrumental,
     },
     hashValue(`room-operator:${principal.actorId}`, "ip"),

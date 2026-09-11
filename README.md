@@ -115,6 +115,8 @@ a fullscreen `/stage` plays the floor with a reactive orb and word-synced lyrics
   reorder, blob storage + cleanup, per-host API key, Offsite console, …).
 - `/api/integration/v1/*` — server-to-server Offsite Integration API (see
   [`docs/OFFSITE_INTEGRATION.md`](docs/OFFSITE_INTEGRATION.md)).
+- `GET /api/music/styles` — public allowlisted request-style catalog shared by
+  native and portal forms.
 - `/api/player/*` — paired player pairing, state, heartbeat, and playback.
 
 ## Security

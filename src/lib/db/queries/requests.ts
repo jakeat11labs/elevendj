@@ -211,6 +211,7 @@ export async function createSongRequest(
           clientTokenHash: tokenHash,
           requesterName: input.requesterName ?? null,
           requesterAvatarUrl: sanitizeAvatarUrl(options.requesterAvatarUrl),
+          styleId: input.styleId ?? null,
           source,
           integrationClientId: options.integrationClientId ?? null,
           externalRequestId: options.externalRequestId ?? null,
@@ -374,12 +375,20 @@ export async function requeueRequest(hostId: string, id: string) {
       .where(
         and(
           eq(songRequests.id, id),
-          inArray(songRequests.sessionId, ownedSessionIds(hostId))
+          inArray(songRequests.sessionId, ownedSessionIds(hostId)),
+          inArray(songRequests.status, ["failed", "rejected"])
         )
       )
       .limit(1);
+    if (!existing) {
+      throw new AppError(
+        409,
+        "request_not_retryable",
+        "Only failed or rejected tracks can be retried."
+      );
+    }
 
-    await db
+    const [updated] = await db
       .update(songRequests)
       .set({
         status: "queued",
@@ -397,9 +406,18 @@ export async function requeueRequest(hostId: string, id: string) {
       .where(
         and(
           eq(songRequests.id, id),
-          inArray(songRequests.sessionId, ownedSessionIds(hostId))
+          inArray(songRequests.sessionId, ownedSessionIds(hostId)),
+          inArray(songRequests.status, ["failed", "rejected"])
         )
+      )
+      .returning({ id: songRequests.id });
+    if (!updated) {
+      throw new AppError(
+        409,
+        "request_not_retryable",
+        "This track changed before it could be retried."
       );
+    }
 
     // Delete the now-unreferenced blob so a requeued-but-not-yet-regenerated
     // track doesn't leave an orphan behind. Best-effort — a missing blob must
