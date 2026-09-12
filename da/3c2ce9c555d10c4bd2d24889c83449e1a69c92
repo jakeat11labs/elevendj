@@ -1,0 +1,276 @@
+public/offsite/cancun-2026/stinger-signoff-round2/C2-jams.json
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+public/offsite/cancun-2026/stinger-prompt-lab/B2-spoken-inline-7s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+public/offsite/cancun-2026/stinger-signoff-round2/E1-vibes.json
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+public/offsite/cancun-2026/stinger-batch-v1/E1-03.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/stinger-batch-v1/E1-05.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+public/offsite/cancun-2026/stinger-signoff-round2/D2-jams.json
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,42-47
+  s_4ff0480a11b441::t_91fa507314c478 1-3,5-8,10-41,48
+public/offsite/cancun-2026/stinger-signoff-round2/C1-jams.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-35,37,44
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,36,38-43
+public/offsite/cancun-2026/stinger-batch-v1/E1-01.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+public/offsite/cancun-2026/accent-fix/C2-fixed.json
+  s_4ff0480a11b441::t_c13f982752ee2f 1-3,5-46,52
+  s_4ff0480a11b441::t_4f16c931c1058f 4,47-51
+public/offsite/cancun-2026/radio-stinger-pilots/01-club-open.json
+  s_4ff0480a11b441::t_1de3fc57c8e275 38-40
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-20,22-27,29-30,32-33,41
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_405afdbd03718d 21,28,31,34-37
+public/offsite/cancun-2026/station-id-examples/09-sound-of-the-offsite.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_6cf0caec9e12c4 1,3,13-15,22-26,30,39
+  s_4ff0480a11b441::t_3b1adbf511a912 4-12,16-21,32-34,36-37
+  s_4ff0480a11b441::t_a7c841862cfb10 31
+public/offsite/cancun-2026/station-id-examples/20-good-days-great-people.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+scripts/offsite-station-ids.test.mjs
+  s_4ff0480a11b441::t_bf8fc86789046f 1-65
+public/offsite/cancun-2026/station-id-examples/16-bring-the-jams.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/stinger-batch-v1/E1-08.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+public/offsite/cancun-2026/station-id-examples/12-one-team-one-week.json
+  s_4ff0480a11b441::t_d36c2372459168 1,3,13-15,22-26,30,39
+  s_4ff0480a11b441::t_3b1adbf511a912 4-12,16-21,32-34,36-37
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_a7c841862cfb10 31
+public/offsite/cancun-2026/stinger-signoff-round2/C1-tunes.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-35,37,44
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,36,38-43
+public/offsite/cancun-2026/station-id-examples/18-learn-build-dance.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/station-id-examples/06-work-hard-vibe-easy.json
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+public/offsite/cancun-2026/stinger-batch-v1/E1-04.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/station-id-examples/07-island-time.json
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+public/offsite/cancun-2026/station-id-examples/01-good-vibes-all-week.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/station-id-examples/08-bold-ideas-latin-sounds.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/stinger-prompt-lab/D1-ultra-short-6s.json
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-39,45
+  s_4ff0480a11b441::t_1f6237629d0608 4,40-44
+public/offsite/cancun-2026/stinger-prompt-lab/B1-spoken-tag-8s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+scripts/retry-d2-jams.mjs
+  s_4ff0480a11b441::t_270f992d76849d 1-127
+public/offsite/cancun-2026/station-ids/manifest.json
+  s_4ff0480a11b441::t_661932bb3de5f4 1-114
+public/offsite/cancun-2026/radio-stinger-pilots/04-soca-spark.json
+  s_4ff0480a11b441::t_1de3fc57c8e275 38-40
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_405afdbd03718d 18,36-37,41
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-17,19-20,22-28,30,32-33
+  s_4ff0480a11b441::t_6b6df2d6827229 21,29,31,34-35
+public/offsite/cancun-2026/station-id-examples/11-sun-up-volume-up.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+src/lib/offsite-station-ids.ts
+  s_4ff0480a11b441::t_661932bb3de5f4 1-61,67-73
+  s_4ff0480a11b441::t_e3fa6bc251a0f0 62-66
+scripts/accent-fix-ab.mjs
+  s_4ff0480a11b441::t_5c15082b2d8402 1-211
+public/offsite/cancun-2026/station-id-examples/15-island-beats.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/accent-fix/D2-fixed.json
+  s_4ff0480a11b441::t_c13f982752ee2f 1-3,5-46,52
+  s_4ff0480a11b441::t_4f16c931c1058f 4,47-51
+public/offsite/cancun-2026/station-id-examples/04-sessions-to-sunset-jams.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/station-id-examples/19-little-sound-big-week.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/radio-stinger-pilots/03-beach-funk-punch.json
+  s_4ff0480a11b441::t_405afdbd03718d 36-37,40-41
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-20,22-27,32-33
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_1de3fc57c8e275 30,38-39
+  s_4ff0480a11b441::t_6f0b0f1b51c684 21,28-29,31,34-35
+public/offsite/cancun-2026/accent-fix/C1-fixed.json
+  s_4ff0480a11b441::t_4f16c931c1058f 4,46-50
+  s_4ff0480a11b441::t_c13f982752ee2f 1-3,5-45,51
+public/offsite/cancun-2026/stinger-batch-v1/C2-02.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+public/offsite/cancun-2026/stinger-batch-v1/C2-04.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/stinger-batch-v1/C2-05.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+public/offsite/cancun-2026/stinger-batch-v1/C2-06.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/radio-stinger-pilots/06-neon-tropics.json
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-27,29-30,32-33
+  s_4ff0480a11b441::t_405afdbd03718d 36-37,41
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_1de3fc57c8e275 38-40
+  s_4ff0480a11b441::t_63e150f6683ecf 28,31,34-35
+public/offsite/cancun-2026/stinger-signoff-round2/E1-jams.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+src/app/player/player-screen.tsx
+  s_4ff0480a11b441::t_4d4f8b4dd951b0 13-17
+  s_4ff0480a11b441::t_e22f1a5630e8e4 45-56
+  s_4ff0480a11b441::t_d5f9249fc7091b 225-265,272-284,286,290
+  s_4ff0480a11b441::t_26ce05286e5131 400
+scripts/stinger-prompt-lab.mjs
+  s_4ff0480a11b441::t_8a64afcd10c66e 1-351
+public/offsite/cancun-2026/stinger-prompt-lab/A2-harmony-group-7s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+public/offsite/cancun-2026/stinger-prompt-lab/C1-sung-open-spoken-signoff-9s.json
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-36,38,44
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,37,39-43
+public/offsite/cancun-2026/station-id-examples/03-sunshine-sea-breeze-ideas.json
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+public/offsite/cancun-2026/radio-stinger-pilots/02-sunlit-lounge.json
+  s_4ff0480a11b441::t_1de3fc57c8e275 30,38-40
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-20,22-27,29,32-33
+  s_4ff0480a11b441::t_405afdbd03718d 36-37,41
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_951cb7818eddec 21,28,31,34-35
+scripts/stinger-signoff-round2.mjs
+  s_4ff0480a11b441::t_7b8abac2c64c32 1-214
+public/offsite/cancun-2026/stinger-signoff-round2/C2-vibes.json
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+public/offsite/cancun-2026/station-id-examples/14-coffee-to-last-dance.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/stinger-signoff-round2/D2-vibes.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+scripts/stinger-batch-v1.mjs
+  s_4ff0480a11b441::t_d5d25816ce523d 1-198
+scripts/coverage-check.mjs
+  s_4ff0480a11b441::t_0546b8932f1145 1-48
+public/offsite/cancun-2026/stinger-batch-v1/C2-07.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/stinger-batch-v1/C2-03.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+scripts/tail-check.mjs
+  s_4ff0480a11b441::t_0c80a6ed6ff1fe 1-51
+public/offsite/cancun-2026/station-id-examples/10-ideas-sound-better.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/stinger-batch-v1/E1-06.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,5-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4,38-43
+public/offsite/cancun-2026/station-id-examples/05-fresh-ideas-island-tunes.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+public/offsite/cancun-2026/stinger-batch-v1/E1-07.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-34,36-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,35,38-43
+public/offsite/cancun-2026/stinger-prompt-lab/D2-control-10s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+public/offsite/cancun-2026/station-id-examples/17-caribbean-skies-future-sounds.json
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+public/offsite/cancun-2026/stinger-prompt-lab/C2-spoken-open-sung-signoff-9s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+public/offsite/cancun-2026/stinger-signoff-round2/C2-tunes.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+public/offsite/cancun-2026/stinger-prompt-lab/A1-sung-jingle-7s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,5-8,11-39,45
+public/offsite/cancun-2026/station-id-examples/13-sessions-sunsets-tunes.json
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+public/offsite/cancun-2026/stinger-prompt-lab/E1-retro-jingle-house-8s.json
+  s_4ff0480a11b441::t_1f6237629d0608 4-5,9-10,40-44
+  s_4ff0480a11b441::t_36681dafcd0a4e 1-3,6-8,11-39,45
+public/offsite/cancun-2026/stinger-signoff-round2/E1-tunes.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-38,45
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,39-44
+public/offsite/cancun-2026/stinger-signoff-round2/D2-tunes.json
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-36,38,45
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,37,39-44
+scripts/detect-language.mjs
+  s_4ff0480a11b441::t_24193abdecffd0 1-31
+public/offsite/cancun-2026/accent-fix/E1-fixed.json
+  s_4ff0480a11b441::t_c13f982752ee2f 1-3,5-46,52
+  s_4ff0480a11b441::t_4f16c931c1058f 4,47-51
+public/offsite/cancun-2026/stinger-signoff-round2/C1-vibes.json
+  s_4ff0480a11b441::t_8a9f5966d7f059 4,9,36,38-43
+  s_4ff0480a11b441::t_1a8cf63497cd1a 1-3,5-8,10-35,37,44
+scripts/retry-e1-02.mjs
+  s_4ff0480a11b441::t_8597a308fadb4f 1-127
+public/offsite/cancun-2026/stinger-batch-v1/C2-01.json
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+src/app/player/cancun-player-screen.tsx
+  s_4ff0480a11b441::t_7eb74758011795 132
+  s_4ff0480a11b441::t_a60e849699845c 223-227
+  s_4ff0480a11b441::t_bd9f627db59383 231,236
+  s_4ff0480a11b441::t_af2368670abe79 181-182
+  s_4ff0480a11b441::t_74b41788df0117 172-180
+  s_4ff0480a11b441::t_45da98f75c7299 147-148
+public/offsite/cancun-2026/stinger-batch-v1/E1-02.json
+  s_4ff0480a11b441::t_adf6191e82399e 1-3,6,8-40,47
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,41-46
+public/offsite/cancun-2026/stinger-batch-v1/C2-08.json
+  s_4ff0480a11b441::t_45b0d6eb47c58a 4-5,7,38-43
+  s_4ff0480a11b441::t_df02a2097a697f 1-3,6,8-37,44
+public/offsite/cancun-2026/radio-stinger-pilots/05-yacht-id.json
+  s_4ff0480a11b441::t_ffdca22a27f7c6 8-20,22-27,29,32-33
+  s_4ff0480a11b441::t_1de3fc57c8e275 30,38-40
+  s_4ff0480a11b441::t_405afdbd03718d 36-37,41
+  s_4ff0480a11b441::t_f846328d6db18b 1-7,42
+  s_4ff0480a11b441::t_9595b65fde4f3b 21,28,31,34-35
+public/offsite/cancun-2026/station-id-examples/02-official-offsite-soundtrack.json
+  s_4ff0480a11b441::t_d4c126dd89d02e 2,27-29,35,38
+  s_4ff0480a11b441::t_3b1adbf511a912 1,3-26,30-34,36-37,39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "da3c2ce9c555d10c4bd2d24889c83449e1a69c92",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
