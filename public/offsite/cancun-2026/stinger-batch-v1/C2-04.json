@@ -1,0 +1,44 @@
+{
+  "id": "C2-04",
+  "recipe": "C2",
+  "approach": "Spoken open \u2192 sung sign-off \u00b7 two chunks \u00b7 9s",
+  "line": "Sessions and sunsets. Offsite 2026. The soundtrack powered by Eleven Music.",
+  "keyword": "soundtrack",
+  "promptText": "[Tag]\nSessions and sunsets. Offsite 2026.\n---\n[Station ID]\nThe soundtrack powered by Eleven Music.",
+  "positiveStyles": [
+    "broadcast imaging",
+    "spoken announcer opening",
+    "sung brand sign-off",
+    "tropical funk bed",
+    "wah guitar and tight drums",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Sessions and Sunsets Offsite 2026. The soundtrack powered by Eleven Music.",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.9141693115234375,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.83,
+    "truePeakDb": -1.14,
+    "actualDurationS": 9.0
+  }
+}

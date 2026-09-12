@@ -1,0 +1,44 @@
+{
+  "id": "E1-05",
+  "recipe": "E1",
+  "approach": "Retro jingle-house \u00b7 [Jingle] \u00b7 8s",
+  "line": "Welcome to the Canc\u00fan Offsite 2026. Every beat powered by Eleven Music.",
+  "keyword": "beat",
+  "promptText": "[Jingle]\nWelcome to the Canc\u00fan Offsite 2026. Every beat powered by Eleven Music.",
+  "positiveStyles": [
+    "classic commercial radio jingle house production",
+    "big sung logo with brass section",
+    "retro pop jingle arrangement",
+    "tight rhythm section",
+    "triumphant final chord",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Welcome to the Cancun Offsite 2026. Every beat powered by Eleven Music.",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.9207890629768372,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.22,
+    "truePeakDb": -2.68,
+    "actualDurationS": 8.04
+  }
+}

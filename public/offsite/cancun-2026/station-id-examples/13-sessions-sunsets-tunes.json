@@ -1,0 +1,39 @@
+{
+  "spokenLine": "Sessions, sunsets, and seriously good tunes at the 2026 Offsite. Powered by Eleven Music.",
+  "positiveStyles": [
+    "fully intelligible neutral English voice performing every written word",
+    "exact words with a distinct spoken brand sign-off at the very end",
+    "friendly female radio host",
+    "acoustic island folk pop",
+    "ukulele and acoustic guitar",
+    "handclaps",
+    "warm upright bass",
+    "sunset singalong atmosphere",
+    "short professional ten-second station identification",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "mumbled speech",
+    "regional accent",
+    "Caribbean-accented vocal",
+    "patois",
+    "exaggerated character voice",
+    "long intro",
+    "fade before the final words",
+    "omitted brand sign-off",
+    "saying ElevenLabs Music instead of Eleven Music"
+  ],
+  "modelId": "music_v2_5",
+  "requiredAnchors": [
+    "Offsite",
+    "2026",
+    "Powered by Eleven Music."
+  ],
+  "anchorsVerified": true,
+  "transcript": "Sessions, sunsets, and seriously good tunes at the 2026 Offsite. Powered by Eleven Music."
+}

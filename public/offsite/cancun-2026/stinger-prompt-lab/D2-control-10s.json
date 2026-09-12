@@ -1,0 +1,45 @@
+{
+  "id": "D2",
+  "slug": "control-10s",
+  "approach": "Control \u00b7 10s \u00b7 strict anti-song negatives",
+  "rationale": "Same 10s length as the batch you have now, but with [Station ID] instead of [Chorus] and hard anti-song negatives.",
+  "sectionTag": "[Station ID]",
+  "durationMs": 10000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\nGood vibes all week long at the Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "spokenLine": "Good vibes all week long at the Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "positiveStyles": [
+    "radio station imaging, not a song",
+    "sung station identification",
+    "calypso pop bed",
+    "steel pan and hand percussion",
+    "bright and concise arrangement",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Good vibes all week long at the Cancun Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.47,
+    "truePeakDb": -1.54
+  }
+}

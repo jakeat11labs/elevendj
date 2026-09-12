@@ -129,6 +129,7 @@ export function CancunPlayerScreen({
   lyricLines,
   activeLineIndex,
   positionMs,
+  stationIdLine,
   onEnableAudio,
 }: {
   analyserRef: RefObject<AnalyserNode | null>;
@@ -143,6 +144,8 @@ export function CancunPlayerScreen({
   lyricLines: KaraokeLine[] | null;
   activeLineIndex: number;
   positionMs: number;
+  /** Spoken line of the station ID currently playing between songs, if any. */
+  stationIdLine: string | null;
   onEnableAudio: () => void;
 }) {
   const [fullscreen, setFullscreen] = useState(false);
@@ -166,10 +169,17 @@ export function CancunPlayerScreen({
 
   const requestUrl = requestUrlFor(session);
   const unassigned = !session;
-  const title = unassigned
-    ? "Waiting for room assignment"
-    : current?.title || current?.prompt || "Music is warming up";
-  const showPrompt = current?.title && current.prompt !== current.title;
+  // A station ID takes over the headline while it plays — the room should see
+  // the ident it is hearing, not the song that just finished.
+  const title = stationIdLine
+    ? stationIdLine
+    : unassigned
+      ? "Waiting for room assignment"
+      : current?.title || current?.prompt || "Music is warming up";
+  const showPrompt =
+    !stationIdLine && current?.title && current.prompt !== current.title;
+  // The finished song's karaoke must not keep scrolling under a station ID.
+  const showLyrics = !stationIdLine && lyricLines;
 
   return (
     <div className={styles.screen}>
@@ -210,16 +220,20 @@ export function CancunPlayerScreen({
         <main className={styles.hero}>
           <section className={styles.copy}>
             <p className={styles.nowPlaying}>
-              {unassigned ? "Player ready" : "Now playing"}
+              {stationIdLine
+                ? "Station ID"
+                : unassigned
+                  ? "Player ready"
+                  : "Now playing"}
             </p>
             <h1
               className={`${styles.title} ${
-                lyricLines ? styles.titleWithLyrics : ""
+                showLyrics ? styles.titleWithLyrics : ""
               }`}
             >
               {title}
             </h1>
-            {lyricLines ? (
+            {showLyrics ? (
               <div className={styles.karaokeWindow}>
                 <KaraokeViewport
                   lyricLines={lyricLines}

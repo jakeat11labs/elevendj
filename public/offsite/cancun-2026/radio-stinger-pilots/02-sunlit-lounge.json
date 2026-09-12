@@ -1,0 +1,42 @@
+{
+  "id": "02",
+  "slug": "sunlit-lounge",
+  "bed": "bossa nova resort imaging, nylon guitar, brushed percussion, vibraphone sparkle, elegant upright bass, quick mallet sweep and clean logo hit",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: bossa nova resort imaging, nylon guitar, brushed percussion, vibraphone sparkle, elegant upright bass, quick mallet sweep and clean logo hit. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "jqcCZkN6Knx8BJ5TBdYR",
+  "voiceName": "Zara",
+  "voiceProfile": "warm, clear, confident, relatable brand voice",
+  "voiceGender": "female",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4_hq",
+  "voiceModelRequested": "eleven_v4_hq",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 402,
+  "script": "[warm, bright radio delivery] Sunshine, sea breeze, and big ideas at the 2026 Offsite. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 700,
+    "bedGainDb": -5,
+    "sidechainThreshold": 0.035,
+    "sidechainRatio": 6,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 2500,
+    "voicePresenceEqDb": 2,
+    "voiceCompressionRatio": 2.5,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "Sunshine, sea breeze, and big ideas at the 2026 offsite, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -14.7,
+    "truePeakDb": -1.27,
+    "loudnessRangeLu": 8.5
+  }
+}

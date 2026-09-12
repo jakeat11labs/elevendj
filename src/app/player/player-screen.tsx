@@ -10,6 +10,11 @@ import {
 
 import { resolveColorway } from "@/components/orb/colorways";
 import { useLyricsLines } from "@/lib/use-lyrics";
+import {
+  OFFSITE_STATION_ID_CADENCE,
+  createStationIdRotation,
+  type OffsiteStationId,
+} from "@/lib/offsite-station-ids";
 import { useStageAudio } from "@/lib/use-stage-audio";
 import type { QueueItem } from "@/lib/status";
 import {
@@ -36,6 +41,18 @@ export function PlayerScreen() {
   const [positionMs, setPositionMs] = useState(0);
   const lastRevisionRef = useRef<number>(-1);
   const currentTrackRef = useRef<string | null>(null);
+
+  // ── Station ID rotation ──────────────────────────────────────
+  // Curated Offsite stingers play between songs. They are deliberately handled
+  // here rather than server-side: room playback keys a track's position off
+  // `playbackStartedAt`, so holding the next song back to make room for a
+  // jingle would seek that song ~9s in. Playing the stinger *before* reporting
+  // the song ended keeps the server's clock and the audio aligned.
+  const songsSinceStationIdRef = useRef(0);
+  const drawStationIdRef = useRef(createStationIdRotation());
+  const [activeStationId, setActiveStationId] =
+    useState<OffsiteStationId | null>(null);
+  const stationIdPlayingRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -205,19 +222,72 @@ export function PlayerScreen() {
     positionMs
   );
 
+  // Play one curated stinger on the idle deck and resolve when it finishes.
+  // Always resolves: a jingle that fails to load must not strand the room on a
+  // finished track, so errors and an over-length watchdog both fall through.
+  const playStationId = useCallback(async () => {
+    const deck = audioBRef.current;
+    const station = drawStationIdRef.current();
+    if (!deck || !station) return;
+
+    stationIdPlayingRef.current = true;
+    setActiveStationId(station);
+    try {
+      deck.src = station.url;
+      deck.currentTime = 0;
+      setDeckGain("a", 0);
+      setDeckGain("b", 1);
+      await new Promise<void>((resolve) => {
+        let settled = false;
+        const done = () => {
+          if (settled) return;
+          settled = true;
+          window.clearTimeout(watchdog);
+          deck.removeEventListener("ended", done);
+          deck.removeEventListener("error", done);
+          resolve();
+        };
+        const watchdog = window.setTimeout(done, station.durationMs + 2000);
+        deck.addEventListener("ended", done);
+        deck.addEventListener("error", done);
+        void deck.play().catch(done);
+      });
+    } catch {
+      /* fall through to the next song regardless */
+    } finally {
+      deck.pause();
+      setDeckGain("b", 0);
+      setDeckGain("a", 1);
+      stationIdPlayingRef.current = false;
+      setActiveStationId(null);
+    }
+  }, [setDeckGain]);
+
   useEffect(() => {
     const audio = audioARef.current;
     if (!audio) return;
     const onEnded = () => {
       const trackId = currentTrackRef.current;
       const revision = lastRevisionRef.current;
-      if (trackId != null && revision >= 0) {
-        void reportEnded(trackId, revision);
+      const reportFinished = () => {
+        if (trackId != null && revision >= 0) {
+          void reportEnded(trackId, revision);
+        }
+      };
+
+      songsSinceStationIdRef.current += 1;
+      if (songsSinceStationIdRef.current >= OFFSITE_STATION_ID_CADENCE) {
+        songsSinceStationIdRef.current = 0;
+        // Report only once the jingle is done, so the server starts the next
+        // track's clock when that track actually begins.
+        void playStationId().then(reportFinished, reportFinished);
+        return;
       }
+      reportFinished();
     };
     audio.addEventListener("ended", onEnded);
     return () => audio.removeEventListener("ended", onEnded);
-  }, [reportEnded]);
+  }, [reportEnded, playStationId]);
 
   const unlockAudioUrl = current?.audioUrl ?? null;
   const unlockPlayback = state?.playback ?? null;
@@ -327,6 +397,7 @@ export function PlayerScreen() {
         lyricLines={lyricLines}
         activeLineIndex={activeLineIndex}
         positionMs={positionMs}
+        stationIdLine={activeStationId?.line ?? null}
         onEnableAudio={() => void enableAudio()}
       />
     </>

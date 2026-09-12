@@ -1,0 +1,45 @@
+{
+  "id": "B2",
+  "slug": "spoken-inline-7s",
+  "approach": "Spoken announcer \u00b7 inline {braces} direction \u00b7 7s",
+  "rationale": "Tests whether inline curly-brace directions steer delivery better than style tags alone.",
+  "sectionTag": "[Station ID]",
+  "durationMs": 7000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\n{spoken station ident, confident radio announcer, no singing}\nCanc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "spokenLine": "Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "positiveStyles": [
+    "broadcast station identification",
+    "spoken announcer over music",
+    "sunset island disco bed",
+    "sparkling rhythm guitar",
+    "tight drums",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Cancun Offsite 2026, powered by Eleven Music",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.27,
+    "truePeakDb": -3.67
+  }
+}

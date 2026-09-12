@@ -1,0 +1,51 @@
+{
+  "id": "C1-fixed",
+  "recipeId": "C1",
+  "approach": "Sung hook \u2192 spoken sign-off \u00b7 two chunks \u00b7 9s",
+  "signoff": "Good vibes powered by Eleven Music.",
+  "promptText": "[Station ID]\nCancun Offsite 2026.\n---\n[Tag]\nGood vibes powered by Eleven Music.",
+  "positiveStyles": [
+    "clear neutral American English vocal",
+    "every word sung in English with standard American pronunciation",
+    "professional English-language radio jingle singers",
+    "radio jingle package",
+    "sung station logo",
+    "bright brass and percussion",
+    "spoken sign-off at the end",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "Spanish language",
+    "Spanish lyrics",
+    "Spanish vocals",
+    "Spanish accent",
+    "Latin American accent",
+    "Caribbean-accented vocal",
+    "patois",
+    "regional accent",
+    "non-English words",
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech"
+  ],
+  "modelId": "music_v2_5",
+  "transcript": "Cancun Offsite 2026. Good Vibes powered by Eleven Music",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.8867981433868408,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "actualDurationS": 9.02
+  }
+}

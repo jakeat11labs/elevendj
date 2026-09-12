@@ -1,0 +1,42 @@
+{
+  "id": "06",
+  "slug": "neon-tropics",
+  "bed": "tropical synthwave radio imaging, analog arpeggio, digital steel-drum accents, crisp electronic drums, neon bass pulse, fast synth riser and gated impact",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: tropical synthwave radio imaging, analog arpeggio, digital steel-drum accents, crisp electronic drums, neon bass pulse, fast synth riser and gated impact. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "lxYfHSkYm1EzQzGhdbfc",
+  "voiceName": "Jessica VO Pro",
+  "voiceProfile": "professional, confident, conversational, articulate",
+  "voiceGender": "female",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4",
+  "voiceModelRequested": "eleven_v4",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 406,
+  "script": "[energetic, precise radio delivery] Sessions by day, island jams by night. Offsite 2026. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 400,
+    "bedGainDb": -3.5,
+    "sidechainThreshold": 0.025,
+    "sidechainRatio": 10,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 3200,
+    "voicePresenceEqDb": 3,
+    "voiceCompressionRatio": 3.5,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "Sessions by day, island jams by night. Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -14.74,
+    "truePeakDb": -3.25,
+    "loudnessRangeLu": 8.4
+  }
+}

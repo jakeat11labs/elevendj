@@ -1,0 +1,52 @@
+{
+  "id": "D2-fixed",
+  "recipeId": "D2",
+  "approach": "Single chunk \u00b7 [Station ID] \u00b7 10s",
+  "signoff": "Good vibes powered by Eleven Music.",
+  "promptText": "[Station ID]\nAll week long at the Cancun Offsite 2026. Good vibes powered by Eleven Music.",
+  "positiveStyles": [
+    "clear neutral American English vocal",
+    "every word sung in English with standard American pronunciation",
+    "professional English-language radio jingle singers",
+    "radio station imaging, not a song",
+    "sung station identification",
+    "calypso pop bed",
+    "steel pan and hand percussion",
+    "bright and concise arrangement",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "Spanish language",
+    "Spanish lyrics",
+    "Spanish vocals",
+    "Spanish accent",
+    "Latin American accent",
+    "Caribbean-accented vocal",
+    "patois",
+    "regional accent",
+    "non-English words",
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech"
+  ],
+  "modelId": "music_v2_5",
+  "transcript": "All week long at the Cancun Offsite 2026. Good vibes powered by Eleven Music.",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.9210904240608215,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.5,
+    "actualDurationS": 10.03
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "spokenLine": "The Cancún 2026 Offsite is officially running on island time. Powered by Eleven Music.",
+  "positiveStyles": [
+    "fully intelligible neutral English voice performing every written word",
+    "exact words with a distinct spoken brand sign-off at the very end",
+    "bright female announcer-singer",
+    "clean reggae pop",
+    "upstroke guitar",
+    "round melodic bass",
+    "light organ bubbles",
+    "relaxed sunny groove",
+    "short professional ten-second station identification",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "mumbled speech",
+    "regional accent",
+    "Caribbean-accented vocal",
+    "patois",
+    "exaggerated character voice",
+    "long intro",
+    "fade before the final words",
+    "omitted brand sign-off",
+    "saying ElevenLabs Music instead of Eleven Music"
+  ],
+  "modelId": "music_v2_5",
+  "requiredAnchors": [
+    "Offsite",
+    "2026",
+    "Powered by Eleven Music."
+  ],
+  "anchorsVerified": true,
+  "transcript": "The Cancun 2026 offsite is officially running on island time, powered by Eleven Music."
+}

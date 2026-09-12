@@ -1,0 +1,42 @@
+{
+  "id": "04",
+  "slug": "soca-spark",
+  "bed": "soca brass festival imaging, punchy trumpets, rolling hand percussion, driving bass, bright carnival lift, fast drum fill and decisive brass button",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: soca brass festival imaging, punchy trumpets, rolling hand percussion, driving bass, bright carnival lift, fast drum fill and decisive brass button. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "kPzsL2i3teMYv0FxEYQ6",
+  "voiceName": "Brittney",
+  "voiceProfile": "young, vibrant, upbeat, informative",
+  "voiceGender": "female",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4",
+  "voiceModelRequested": "eleven_v4",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 404,
+  "script": "[upbeat radio delivery] Work hard. Vibe easy. Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 600,
+    "bedGainDb": -4,
+    "sidechainThreshold": 0.03,
+    "sidechainRatio": 8,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 3500,
+    "voicePresenceEqDb": 2.5,
+    "voiceCompressionRatio": 3,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "Work hard, vibe easy. Cancun Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -14.08,
+    "truePeakDb": -0.62,
+    "loudnessRangeLu": 1.3
+  }
+}

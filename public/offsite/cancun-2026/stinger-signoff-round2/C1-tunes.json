@@ -1,0 +1,44 @@
+{
+  "id": "C1-tunes",
+  "recipeId": "C1",
+  "approach": "Sung hook \u2192 spoken sign-off \u00b7 two chunks \u00b7 9s",
+  "signoffKey": "tunes",
+  "signoff": "Every tune powered by Eleven Music.",
+  "durationMs": 9000,
+  "chunkCount": 2,
+  "promptText": "[Station ID]\nCanc\u00fan Offsite 2026.\n---\n[Tag]\nEvery tune powered by Eleven Music.",
+  "positiveStyles": [
+    "radio jingle package",
+    "sung station logo",
+    "bright brass and percussion",
+    "spoken sign-off at the end",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Canc\u00fan Offsite 2026. Every tune powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 3,
+  "measured": {
+    "integratedLufs": -14.24,
+    "truePeakDb": -2.53,
+    "actualDurationS": 9.02
+  }
+}

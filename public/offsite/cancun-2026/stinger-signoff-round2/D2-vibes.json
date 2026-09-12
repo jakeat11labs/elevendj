@@ -1,0 +1,45 @@
+{
+  "id": "D2-vibes",
+  "recipeId": "D2",
+  "approach": "Single chunk \u00b7 [Station ID] \u00b7 10s",
+  "signoffKey": "vibes",
+  "signoff": "Good vibes powered by Eleven Music.",
+  "durationMs": 10000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\nAll week long at the Canc\u00fan Offsite 2026. Good vibes powered by Eleven Music.",
+  "positiveStyles": [
+    "radio station imaging, not a song",
+    "sung station identification",
+    "calypso pop bed",
+    "steel pan and hand percussion",
+    "bright and concise arrangement",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "All week long at the Cancun Offsite 2026. Good vibes powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.45,
+    "truePeakDb": -1.55,
+    "actualDurationS": 10.03
+  }
+}

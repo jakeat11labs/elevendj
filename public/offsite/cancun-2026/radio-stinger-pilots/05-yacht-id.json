@@ -1,0 +1,42 @@
+{
+  "id": "05",
+  "slug": "yacht-id",
+  "bed": "luxury yacht rock radio imaging, glossy electric piano, chorus guitar, smooth live drums, breezy bass, short cymbal swell and premium chord button",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: luxury yacht rock radio imaging, glossy electric piano, chorus guitar, smooth live drums, breezy bass, short cymbal swell and premium chord button. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "MFZUKuGQUsGJPQjTS4wC",
+  "voiceName": "Jon",
+  "voiceProfile": "mature, grounded, trustworthy, commercial",
+  "voiceGender": "male",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4_hq",
+  "voiceModelRequested": "eleven_v4_hq",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 405,
+  "script": "[smooth, premium radio delivery] One team, one week, one unforgettable 2026 Offsite. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 500,
+    "bedGainDb": -6,
+    "sidechainThreshold": 0.04,
+    "sidechainRatio": 5,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 2800,
+    "voicePresenceEqDb": 2,
+    "voiceCompressionRatio": 2.5,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "One team, one week, one unforgettable 2026 offsite, powered by 11 Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -15.38,
+    "truePeakDb": -1.17,
+    "loudnessRangeLu": 5.2
+  }
+}

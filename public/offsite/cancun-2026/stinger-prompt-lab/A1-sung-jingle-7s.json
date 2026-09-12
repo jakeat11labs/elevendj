@@ -1,0 +1,45 @@
+{
+  "id": "A1",
+  "slug": "sung-jingle-7s",
+  "approach": "Sung jingle \u00b7 [Station ID] tag \u00b7 7s",
+  "rationale": "Classic radio jingle house: a short sung logo, not a song. Jingle styles listed first so they set the tone.",
+  "sectionTag": "[Station ID]",
+  "durationMs": 7000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\nCanc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "spokenLine": "Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "positiveStyles": [
+    "radio station jingle package",
+    "tight sung jingle logo",
+    "close-harmony jingle singers",
+    "bright tropical horns",
+    "snappy island percussion",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Cancun Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.58,
+    "truePeakDb": -1.26
+  }
+}

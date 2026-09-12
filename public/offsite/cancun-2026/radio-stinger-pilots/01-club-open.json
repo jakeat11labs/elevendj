@@ -1,0 +1,42 @@
+{
+  "id": "01",
+  "slug": "club-open",
+  "bed": "tropical house club imaging, deep kick, warm sub bass, airy piano stab, glossy poolside production, fast reverse riser and punchy impact",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: tropical house club imaging, deep kick, warm sub bass, airy piano stab, glossy poolside production, fast reverse riser and punchy impact. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "uju3wxzG5OhpWcoi3SMy",
+  "voiceName": "Michael C. Vincent",
+  "voiceProfile": "confident, expressive, warm bass, commercial clarity",
+  "voiceGender": "male",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4_hq",
+  "voiceModelRequested": "eleven_v4_hq",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 401,
+  "script": "[confident, polished radio delivery] Canc\u00fan 2026 Offsite. Good vibes, all week long. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 550,
+    "bedGainDb": -3,
+    "sidechainThreshold": 0.025,
+    "sidechainRatio": 10,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 3000,
+    "voicePresenceEqDb": 3,
+    "voiceCompressionRatio": 3.5,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "Cancun 2026 Offsite, good vibes all week long. Powered by Eleven Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -14.53,
+    "truePeakDb": -1.86,
+    "loudnessRangeLu": 10.2
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "E1-01",
+  "recipe": "E1",
+  "approach": "Retro jingle-house \u00b7 [Jingle] \u00b7 8s",
+  "line": "Canc\u00fan Offsite 2026. Good vibes powered by Eleven Music.",
+  "keyword": "vibes",
+  "promptText": "[Jingle]\nCanc\u00fan Offsite 2026. Good vibes powered by Eleven Music.",
+  "positiveStyles": [
+    "classic commercial radio jingle house production",
+    "big sung logo with brass section",
+    "retro pop jingle arrangement",
+    "tight rhythm section",
+    "triumphant final chord",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Cancun Offsite 2026. Good vibes powered by Eleven Music.",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.9044904112815857,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.33,
+    "truePeakDb": -3.76,
+    "actualDurationS": 8.04
+  }
+}

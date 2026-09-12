@@ -1,0 +1,39 @@
+{
+  "spokenLine": "A little sound for a big week at the 2026 Offsite. Powered by Eleven Music.",
+  "positiveStyles": [
+    "fully intelligible neutral English voice performing every written word",
+    "exact words with a distinct spoken brand sign-off at the very end",
+    "deep minimal male station voice",
+    "premium marimba sonic logo",
+    "subtle oceanic synth swell",
+    "single crisp percussion hit",
+    "restrained sub bass",
+    "modern brand-film clarity",
+    "short professional ten-second station identification",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "mumbled speech",
+    "regional accent",
+    "Caribbean-accented vocal",
+    "patois",
+    "exaggerated character voice",
+    "long intro",
+    "fade before the final words",
+    "omitted brand sign-off",
+    "saying ElevenLabs Music instead of Eleven Music"
+  ],
+  "modelId": "music_v2_5",
+  "requiredAnchors": [
+    "Offsite",
+    "2026",
+    "Powered by Eleven Music."
+  ],
+  "anchorsVerified": true,
+  "transcript": "A little sound for a big week at the 2026 Offsite, powered by Eleven Music."
+}

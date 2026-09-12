@@ -1,0 +1,47 @@
+{
+  "id": "E1-02",
+  "recipe": "E1",
+  "approach": "Retro jingle-house \u00b7 [Jingle] \u00b7 8s",
+  "line": "Canc\u00fan Offsite 2026. Island jams powered by Eleven Music.",
+  "keyword": "jams",
+  "promptText": "[Jingle]\nCanc\u00fan Offsite 2026. Island jams powered by Eleven Music.",
+  "positiveStyles": [
+    "classic commercial radio jingle house production",
+    "big sung logo with brass section",
+    "clear sung words, every lyric intelligible",
+    "retro pop jingle arrangement",
+    "tight rhythm section",
+    "triumphant final chord",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Cancun Offsite 2026: Island Jams, powered by Eleven Music.",
+  "detectedLanguage": "eng",
+  "languageProbability": 0.9156234860420227,
+  "attempts": 1,
+  "note": "Needed 'clear sung words' style and a hard 'instrumental' negative; 'jams' is the least reliable word in the set.",
+  "measured": {
+    "integratedLufs": -14.63,
+    "truePeakDb": -3.41,
+    "actualDurationS": 8.04
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "B1",
+  "slug": "spoken-tag-8s",
+  "approach": "Spoken announcer \u00b7 [Tag] section \u00b7 8s",
+  "rationale": "Straight spoken read over a bed, using [Tag] to signal a sign-off rather than a lyric section.",
+  "sectionTag": "[Tag]",
+  "durationMs": 8000,
+  "chunkCount": 1,
+  "promptText": "[Tag]\nGood vibes all week at the Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "spokenLine": "Good vibes all week at the Canc\u00fan Offsite 2026. Powered by Eleven Music.",
+  "positiveStyles": [
+    "radio imaging bed with spoken station identification",
+    "clear neutral English announcer, not singing",
+    "tropical house groove underneath",
+    "warm bass and airy piano",
+    "voice sits forward in the mix",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Good vibes all week at the Cancun Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.6,
+    "truePeakDb": -1.18
+  }
+}

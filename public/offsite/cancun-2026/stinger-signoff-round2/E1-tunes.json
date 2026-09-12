@@ -1,0 +1,45 @@
+{
+  "id": "E1-tunes",
+  "recipeId": "E1",
+  "approach": "Retro jingle-house \u00b7 [Jingle] \u00b7 8s",
+  "signoffKey": "tunes",
+  "signoff": "Every tune powered by Eleven Music.",
+  "durationMs": 8000,
+  "chunkCount": 1,
+  "promptText": "[Jingle]\nCanc\u00fan Offsite 2026. Every tune powered by Eleven Music.",
+  "positiveStyles": [
+    "classic commercial radio jingle house production",
+    "big sung logo with brass section",
+    "retro pop jingle arrangement",
+    "tight rhythm section",
+    "triumphant final chord",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Cancun Offsite 2026. Every tune powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 4,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -2.57,
+    "actualDurationS": 8.04
+  }
+}

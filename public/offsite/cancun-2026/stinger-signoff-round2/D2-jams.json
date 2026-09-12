@@ -1,0 +1,48 @@
+{
+  "id": "D2-jams",
+  "recipeId": "D2",
+  "approach": "Single chunk \u00b7 [Station ID] \u00b7 10s",
+  "signoffKey": "jams",
+  "signoff": "Island jams powered by Eleven Music.",
+  "durationMs": 10000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\nAll week long at the Canc\u00fan Offsite 2026. Island jams powered by Eleven Music.",
+  "positiveStyles": [
+    "radio station imaging, not a song",
+    "sung station identification",
+    "clear sung words, every lyric intelligible",
+    "calypso pop bed",
+    "steel pan and hand percussion",
+    "bright and concise arrangement",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "All week long at the Cancun Offsite 2026, Island Jams, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "note": "Needed an explicit 'clear sung words' style and a hard 'instrumental' negative to stop returning a vocal-free take.",
+  "measured": {
+    "integratedLufs": -14.47,
+    "truePeakDb": -2.18,
+    "actualDurationS": 10.03
+  }
+}

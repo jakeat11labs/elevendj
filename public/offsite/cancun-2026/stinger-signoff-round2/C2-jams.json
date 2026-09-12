@@ -1,0 +1,45 @@
+{
+  "id": "C2-jams",
+  "recipeId": "C2",
+  "approach": "Spoken open \u2192 sung sign-off \u00b7 two chunks \u00b7 9s",
+  "signoffKey": "jams",
+  "signoff": "Island jams powered by Eleven Music.",
+  "durationMs": 9000,
+  "chunkCount": 2,
+  "promptText": "[Tag]\nThis is the Canc\u00fan Offsite 2026.\n---\n[Station ID]\nIsland jams powered by Eleven Music.",
+  "positiveStyles": [
+    "broadcast imaging",
+    "spoken announcer opening",
+    "sung brand sign-off",
+    "tropical funk bed",
+    "wah guitar and tight drums",
+    "hard stop ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "This is the Cancun Offsite 2026. Island Jams, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.9,
+    "truePeakDb": -1.17,
+    "actualDurationS": 9.0
+  }
+}

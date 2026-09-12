@@ -1,0 +1,42 @@
+{
+  "id": "03",
+  "slug": "beach-funk-punch",
+  "bed": "Caribbean beach funk imaging, wah guitar, tight live drums, rubbery bass, bright brass stab, tape-stop pickup and hard syncopated button",
+  "musicModel": "music_v2_5",
+  "bedPrompt": "Create a ten-second instrumental broadcast radio imaging stinger: Caribbean beach funk imaging, wah guitar, tight live drums, rubbery bass, bright brass stab, tape-stop pickup and hard syncopated button. Structure: immediate hook, fast riser, impact, sparse duckable middle with clear center space for an announcer, then a strong hard-stop sonic logo ending exactly at ten seconds. This is a station ID bed, not a song. No vocals, no singing, no verse, no chorus, no long melodic development, no fade-out.",
+  "bedDurationMs": 10000,
+  "bedOutput": "mp3_48000_192",
+  "voiceId": "EkK5I93UQWFDigLMpZcX",
+  "voiceName": "James",
+  "voiceProfile": "husky, bold, controlled, direct",
+  "voiceGender": "male",
+  "voiceLibraryCategory": "high_quality",
+  "voiceModel": "eleven_v4",
+  "voiceModelRequested": "eleven_v4",
+  "voiceOutput": "wav_48000",
+  "voiceSeed": 403,
+  "script": "[bold radio announcer delivery] From the ballroom to the beach, this is Offsite 2026. Powered by Eleven Music.",
+  "mix": {
+    "voiceDelayMs": 450,
+    "bedGainDb": -2,
+    "sidechainThreshold": 0.02,
+    "sidechainRatio": 12,
+    "sidechainAttackMs": 5,
+    "sidechainReleaseMs": 220,
+    "voiceHighPassHz": 90,
+    "voicePresenceEqHz": 4000,
+    "voicePresenceEqDb": 3,
+    "voiceCompressionRatio": 4,
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "finalDurationMs": 10000,
+    "finalOutput": "mp3_48000_192"
+  },
+  "finalTranscript": "From the ballroom to the beach, this is Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "measured": {
+    "integratedLufs": -14.28,
+    "truePeakDb": -2.36,
+    "loudnessRangeLu": 1.1
+  }
+}

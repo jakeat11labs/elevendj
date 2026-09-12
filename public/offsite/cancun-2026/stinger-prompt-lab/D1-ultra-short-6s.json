@@ -1,0 +1,45 @@
+{
+  "id": "D1",
+  "slug": "ultra-short-6s",
+  "approach": "Ultra-short punch \u00b7 [Station ID] \u00b7 6s",
+  "rationale": "Shortest viable stinger. Tests whether tight duration alone removes the drift.",
+  "sectionTag": "[Station ID]",
+  "durationMs": 6000,
+  "chunkCount": 1,
+  "promptText": "[Station ID]\nOffsite 2026. Powered by Eleven Music.",
+  "spokenLine": "Offsite 2026. Powered by Eleven Music.",
+  "positiveStyles": [
+    "six second radio station ident",
+    "immediate hook, no intro",
+    "punchy tropical percussion",
+    "one bright brass stab",
+    "sung station logo",
+    "hard button ending",
+    "great production quality"
+  ],
+  "negativeStyles": [
+    "song structure",
+    "verse",
+    "chorus",
+    "bridge",
+    "long melodic development",
+    "repeated hook",
+    "fade out",
+    "long intro",
+    "instrumental only",
+    "wordless vocals",
+    "omitted words",
+    "obscured speech",
+    "regional accent",
+    "patois"
+  ],
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "transcript": "Offsite 2026, powered by Eleven Music.",
+  "anchorsVerified": true,
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.35,
+    "truePeakDb": -4.34
+  }
+}
