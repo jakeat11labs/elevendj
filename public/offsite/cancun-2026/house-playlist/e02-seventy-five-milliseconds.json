@@ -1,0 +1,803 @@
+{
+  "id": "E02",
+  "set": "eleven",
+  "title": "Seventy-Five Milliseconds",
+  "concept": "A love song to Flash latency, performed far too fast to be sentimental.",
+  "genre": "liquid drum and bass",
+  "bpm": 174,
+  "key": "F minor",
+  "lengthS": 150,
+  "prompt": "Liquid drum and bass, 174 BPM, F minor \u2014 fast chopped breakbeat, deep smooth sub bass, lush Rhodes chords, bright pad stabs. Breathless female vocal, romantic but delivered at double speed, about falling for something that answers in seventy-five milliseconds. Crisp modern production, wide stereo, tight transients. Drums drop in immediately, no long intro.",
+  "slug": "e02-seventy-five-milliseconds",
+  "file": "e02-seventy-five-milliseconds.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Seventy-Five Milliseconds",
+  "genres": [
+    "electronic",
+    "drum and bass"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 24,
+  "lyrics": [
+    "I sent a signal out into the wire",
+    "Just a thought, a flicker of desire",
+    "Never thought I\u2019d ever get a thing",
+    "Didn\u2019t know the change that it would bring",
+    "You came back so fast I couldn\u2019t breathe",
+    "Seventy-five milliseconds",
+    "That's all it took to change my world",
+    "Quicker than a thought, quicker than a second",
+    "You\u2019re the answer, my perfect word",
+    "(Seventy-five)",
+    "My heart is racing at your speed",
+    "Anticipating every single need",
+    "Are you real or just a fantasy?",
+    "A perfect echo, staring back at me",
+    "Lost inside this instant chemistry",
+    "Seventy-five milliseconds",
+    "That's all it took to change my world",
+    "Quicker than a thought, quicker than a second",
+    "You\u2019re the answer, my perfect word",
+    "(My whole world)",
+    "Seventy-five...",
+    "(milliseconds)",
+    "You answer me...",
+    "(So fast)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Verse 1]\nI sent a signal out into the wire\nJust a thought, a flicker of desire\nNever thought I\u2019d ever get a thing\nDidn\u2019t know the change that it would bring\nYou came back so fast I couldn\u2019t breathe",
+        "durationMs": 33103,
+        "positiveStyles": [
+          "174 BPM",
+          "liquid drum and bass",
+          "fast chopped breakbeat",
+          "deep smooth sub bass",
+          "lush Rhodes chords providing harmony",
+          "bright atmospheric pads",
+          "crisp modern production",
+          "breathless female vocal",
+          "fast romantic delivery",
+          "wide stereo field"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nSeventy-five milliseconds\nThat's all it took to change my world\nQuicker than a thought, quicker than a second\nYou\u2019re the answer, my perfect word\n(Seventy-five)",
+        "durationMs": 33103,
+        "positiveStyles": [
+          "174 BPM",
+          "uplifting liquid drum and bass",
+          "driving chopped breakbeat",
+          "warm sub bass grounding the mix",
+          "syncopated bright pad stabs",
+          "layered Rhodes chords",
+          "energetic and soaring female vocals",
+          "melodic vocal hook",
+          "wide and immersive production",
+          "subtle vocal reverb tails"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nMy heart is racing at your speed\nAnticipating every single need\nAre you real or just a fantasy?\nA perfect echo, staring back at me\nLost inside this instant chemistry",
+        "durationMs": 33103,
+        "positiveStyles": [
+          "174 BPM",
+          "liquid drum and bass groove",
+          "breakbeat with intricate hi-hat patterns",
+          "deep sustained sub bass notes",
+          "jazzy Rhodes piano fills",
+          "shimmering background arpeggios",
+          "intimate and close-mic'd female vocal",
+          "pensive but quick delivery",
+          "spacious mix with precise transients",
+          "F minor tonality"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nSeventy-five milliseconds\nThat's all it took to change my world\nQuicker than a thought, quicker than a second\nYou\u2019re the answer, my perfect word\n(My whole world)",
+        "durationMs": 33103,
+        "positiveStyles": [
+          "174 BPM",
+          "peak energy liquid drum and bass",
+          "full and powerful chopped breakbeat",
+          "heavy sub bass with movement",
+          "euphoric bright pad stabs",
+          "rich, layered Rhodes chords",
+          "belting, anthemic female vocal performance",
+          "doubled vocals on the hook",
+          "dynamic and full frequency production",
+          "emotional peak"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nSeventy-five...\n(milliseconds)\nYou answer me...\n(So fast)",
+        "durationMs": 17588,
+        "positiveStyles": [
+          "174 BPM",
+          "deconstructed breakbeat fading out",
+          "lingering sub bass tone",
+          "fading Rhodes chords with gentle delay",
+          "soft pad wash",
+          "ethereal vocal ad-libs",
+          "slow filter sweep over the main elements",
+          "gradual fade to silence",
+          "reflective and warm atmosphere"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "I",
+      "startMs": 100,
+      "endMs": 11040
+    },
+    {
+      "word": "sent",
+      "startMs": 11100,
+      "endMs": 11240
+    },
+    {
+      "word": "a",
+      "startMs": 11280,
+      "endMs": 11360
+    },
+    {
+      "word": "signal",
+      "startMs": 11540,
+      "endMs": 12280
+    },
+    {
+      "word": "out",
+      "startMs": 12380,
+      "endMs": 12640
+    },
+    {
+      "word": "into",
+      "startMs": 12700,
+      "endMs": 13240
+    },
+    {
+      "word": "the",
+      "startMs": 13340,
+      "endMs": 13420
+    },
+    {
+      "word": "wire",
+      "startMs": 13640,
+      "endMs": 14620
+    },
+    {
+      "word": "Just",
+      "startMs": 16540,
+      "endMs": 16760
+    },
+    {
+      "word": "a",
+      "startMs": 16840,
+      "endMs": 16960
+    },
+    {
+      "word": "thought,",
+      "startMs": 17080,
+      "endMs": 17490
+    },
+    {
+      "word": "a",
+      "startMs": 17560,
+      "endMs": 17640
+    },
+    {
+      "word": "flicker",
+      "startMs": 17740,
+      "endMs": 18440
+    },
+    {
+      "word": "of",
+      "startMs": 18500,
+      "endMs": 18700
+    },
+    {
+      "word": "desire",
+      "startMs": 18820,
+      "endMs": 19820
+    },
+    {
+      "word": "Never",
+      "startMs": 22100,
+      "endMs": 22440
+    },
+    {
+      "word": "thought",
+      "startMs": 22600,
+      "endMs": 22980
+    },
+    {
+      "word": "I\u2019d",
+      "startMs": 23040,
+      "endMs": 23300
+    },
+    {
+      "word": "ever",
+      "startMs": 23360,
+      "endMs": 23840
+    },
+    {
+      "word": "get",
+      "startMs": 24000,
+      "endMs": 24280
+    },
+    {
+      "word": "a",
+      "startMs": 24320,
+      "endMs": 24400
+    },
+    {
+      "word": "thing",
+      "startMs": 24460,
+      "endMs": 24780
+    },
+    {
+      "word": "Didn\u2019t",
+      "startMs": 24860,
+      "endMs": 25280
+    },
+    {
+      "word": "know",
+      "startMs": 25380,
+      "endMs": 25620
+    },
+    {
+      "word": "the",
+      "startMs": 25720,
+      "endMs": 25940
+    },
+    {
+      "word": "change",
+      "startMs": 26000,
+      "endMs": 26360
+    },
+    {
+      "word": "that",
+      "startMs": 26440,
+      "endMs": 26760
+    },
+    {
+      "word": "it",
+      "startMs": 26860,
+      "endMs": 26960
+    },
+    {
+      "word": "would",
+      "startMs": 27080,
+      "endMs": 27220
+    },
+    {
+      "word": "bring",
+      "startMs": 27280,
+      "endMs": 27540
+    },
+    {
+      "word": "You",
+      "startMs": 27620,
+      "endMs": 27720
+    },
+    {
+      "word": "came",
+      "startMs": 27780,
+      "endMs": 28060
+    },
+    {
+      "word": "back",
+      "startMs": 28140,
+      "endMs": 28360
+    },
+    {
+      "word": "so",
+      "startMs": 28460,
+      "endMs": 28720
+    },
+    {
+      "word": "fast",
+      "startMs": 28780,
+      "endMs": 29160
+    },
+    {
+      "word": "I",
+      "startMs": 29280,
+      "endMs": 29360
+    },
+    {
+      "word": "couldn\u2019t",
+      "startMs": 29420,
+      "endMs": 30080
+    },
+    {
+      "word": "breathe",
+      "startMs": 30160,
+      "endMs": 32400
+    },
+    {
+      "word": "Seventy-five",
+      "startMs": 33760,
+      "endMs": 34980
+    },
+    {
+      "word": "milliseconds",
+      "startMs": 35060,
+      "endMs": 38080
+    },
+    {
+      "word": "That's",
+      "startMs": 39120,
+      "endMs": 39310
+    },
+    {
+      "word": "all",
+      "startMs": 39420,
+      "endMs": 39540
+    },
+    {
+      "word": "it",
+      "startMs": 39560,
+      "endMs": 39720
+    },
+    {
+      "word": "took",
+      "startMs": 39840,
+      "endMs": 40120
+    },
+    {
+      "word": "to",
+      "startMs": 40200,
+      "endMs": 40440
+    },
+    {
+      "word": "change",
+      "startMs": 40500,
+      "endMs": 40820
+    },
+    {
+      "word": "my",
+      "startMs": 40920,
+      "endMs": 41160
+    },
+    {
+      "word": "world",
+      "startMs": 41260,
+      "endMs": 42920
+    },
+    {
+      "word": "Quicker",
+      "startMs": 44820,
+      "endMs": 45120
+    },
+    {
+      "word": "than",
+      "startMs": 45160,
+      "endMs": 45320
+    },
+    {
+      "word": "a",
+      "startMs": 45380,
+      "endMs": 45460
+    },
+    {
+      "word": "thought,",
+      "startMs": 45500,
+      "endMs": 46000
+    },
+    {
+      "word": "quicker",
+      "startMs": 46040,
+      "endMs": 46340
+    },
+    {
+      "word": "than",
+      "startMs": 46400,
+      "endMs": 46520
+    },
+    {
+      "word": "a",
+      "startMs": 46580,
+      "endMs": 46660
+    },
+    {
+      "word": "second",
+      "startMs": 46720,
+      "endMs": 48180
+    },
+    {
+      "word": "You\u2019re",
+      "startMs": 48980,
+      "endMs": 49160
+    },
+    {
+      "word": "the",
+      "startMs": 49160,
+      "endMs": 49400
+    },
+    {
+      "word": "answer,",
+      "startMs": 49520,
+      "endMs": 51320
+    },
+    {
+      "word": "my",
+      "startMs": 51400,
+      "endMs": 51490
+    },
+    {
+      "word": "perfect",
+      "startMs": 51600,
+      "endMs": 52180
+    },
+    {
+      "word": "word",
+      "startMs": 52260,
+      "endMs": 53800
+    },
+    {
+      "word": "(Seventy-five)",
+      "startMs": 53820,
+      "endMs": 56720
+    },
+    {
+      "word": "My",
+      "startMs": 77420,
+      "endMs": 77700
+    },
+    {
+      "word": "heart",
+      "startMs": 77740,
+      "endMs": 78160
+    },
+    {
+      "word": "is",
+      "startMs": 78220,
+      "endMs": 78420
+    },
+    {
+      "word": "racing",
+      "startMs": 78460,
+      "endMs": 79100
+    },
+    {
+      "word": "at",
+      "startMs": 79180,
+      "endMs": 79420
+    },
+    {
+      "word": "your",
+      "startMs": 79500,
+      "endMs": 79620
+    },
+    {
+      "word": "speed",
+      "startMs": 79760,
+      "endMs": 81000
+    },
+    {
+      "word": "Anticipating",
+      "startMs": 82600,
+      "endMs": 83960
+    },
+    {
+      "word": "every",
+      "startMs": 84080,
+      "endMs": 84460
+    },
+    {
+      "word": "single",
+      "startMs": 84680,
+      "endMs": 85240
+    },
+    {
+      "word": "need",
+      "startMs": 85320,
+      "endMs": 86800
+    },
+    {
+      "word": "Are",
+      "startMs": 88340,
+      "endMs": 88480
+    },
+    {
+      "word": "you",
+      "startMs": 88580,
+      "endMs": 88759
+    },
+    {
+      "word": "real",
+      "startMs": 88840,
+      "endMs": 89200
+    },
+    {
+      "word": "or",
+      "startMs": 89220,
+      "endMs": 89420
+    },
+    {
+      "word": "just",
+      "startMs": 89520,
+      "endMs": 89840
+    },
+    {
+      "word": "a",
+      "startMs": 89880,
+      "endMs": 89960
+    },
+    {
+      "word": "fantasy?",
+      "startMs": 90180,
+      "endMs": 90870
+    },
+    {
+      "word": "A",
+      "startMs": 90900,
+      "endMs": 90940
+    },
+    {
+      "word": "perfect",
+      "startMs": 91040,
+      "endMs": 91540
+    },
+    {
+      "word": "echo,",
+      "startMs": 91600,
+      "endMs": 92140
+    },
+    {
+      "word": "staring",
+      "startMs": 92240,
+      "endMs": 92880
+    },
+    {
+      "word": "back",
+      "startMs": 92960,
+      "endMs": 93260
+    },
+    {
+      "word": "at",
+      "startMs": 93280,
+      "endMs": 93400
+    },
+    {
+      "word": "me",
+      "startMs": 93460,
+      "endMs": 93640
+    },
+    {
+      "word": "Lost",
+      "startMs": 93780,
+      "endMs": 94020
+    },
+    {
+      "word": "inside",
+      "startMs": 94080,
+      "endMs": 94620
+    },
+    {
+      "word": "this",
+      "startMs": 94720,
+      "endMs": 94980
+    },
+    {
+      "word": "instant",
+      "startMs": 95100,
+      "endMs": 95620
+    },
+    {
+      "word": "chemistry",
+      "startMs": 95720,
+      "endMs": 97380
+    },
+    {
+      "word": "Seventy-five",
+      "startMs": 99980,
+      "endMs": 101200
+    },
+    {
+      "word": "milliseconds",
+      "startMs": 101280,
+      "endMs": 103420
+    },
+    {
+      "word": "That's",
+      "startMs": 104860,
+      "endMs": 105510
+    },
+    {
+      "word": "all",
+      "startMs": 105620,
+      "endMs": 105760
+    },
+    {
+      "word": "it",
+      "startMs": 105820,
+      "endMs": 105920
+    },
+    {
+      "word": "took",
+      "startMs": 106060,
+      "endMs": 106340
+    },
+    {
+      "word": "to",
+      "startMs": 106420,
+      "endMs": 106540
+    },
+    {
+      "word": "change",
+      "startMs": 106700,
+      "endMs": 107040
+    },
+    {
+      "word": "my",
+      "startMs": 107140,
+      "endMs": 107340
+    },
+    {
+      "word": "world",
+      "startMs": 107460,
+      "endMs": 108940
+    },
+    {
+      "word": "Quicker",
+      "startMs": 111000,
+      "endMs": 111340
+    },
+    {
+      "word": "than",
+      "startMs": 111400,
+      "endMs": 111560
+    },
+    {
+      "word": "a",
+      "startMs": 111580,
+      "endMs": 111620
+    },
+    {
+      "word": "thought,",
+      "startMs": 111740,
+      "endMs": 112220
+    },
+    {
+      "word": "quicker",
+      "startMs": 112220,
+      "endMs": 112560
+    },
+    {
+      "word": "than",
+      "startMs": 112620,
+      "endMs": 112760
+    },
+    {
+      "word": "a",
+      "startMs": 112800,
+      "endMs": 112860
+    },
+    {
+      "word": "second",
+      "startMs": 112900,
+      "endMs": 114300
+    },
+    {
+      "word": "You\u2019re",
+      "startMs": 115160,
+      "endMs": 115330
+    },
+    {
+      "word": "the",
+      "startMs": 115400,
+      "endMs": 115600
+    },
+    {
+      "word": "answer,",
+      "startMs": 115780,
+      "endMs": 117520
+    },
+    {
+      "word": "my",
+      "startMs": 117600,
+      "endMs": 117700
+    },
+    {
+      "word": "perfect",
+      "startMs": 117820,
+      "endMs": 118380
+    },
+    {
+      "word": "word",
+      "startMs": 118480,
+      "endMs": 119460
+    },
+    {
+      "word": "(My",
+      "startMs": 119460,
+      "endMs": 120940
+    },
+    {
+      "word": "whole",
+      "startMs": 121080,
+      "endMs": 122920
+    },
+    {
+      "word": "world)",
+      "startMs": 122940,
+      "endMs": 131640
+    },
+    {
+      "word": "Seventy-five...",
+      "startMs": 133040,
+      "endMs": 135170
+    },
+    {
+      "word": "(milliseconds)",
+      "startMs": 135160,
+      "endMs": 137220
+    },
+    {
+      "word": "You",
+      "startMs": 137520,
+      "endMs": 137680
+    },
+    {
+      "word": "answer",
+      "startMs": 137800,
+      "endMs": 138560
+    },
+    {
+      "word": "me...",
+      "startMs": 138860,
+      "endMs": 140670
+    },
+    {
+      "word": "(So",
+      "startMs": 141960,
+      "endMs": 142240
+    },
+    {
+      "word": "fast)",
+      "startMs": 142300,
+      "endMs": 150000
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.23,
+    "truePeakDb": -1.03,
+    "loudnessRangeLu": 6.4
+  },
+  "preview": {
+    "file": "previews/e02-seventy-five-milliseconds.mp3",
+    "startS": 8.1,
+    "durationS": 60,
+    "vocalEntryS": 11.1
+  }
+}

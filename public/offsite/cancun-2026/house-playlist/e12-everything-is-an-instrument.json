@@ -1,0 +1,506 @@
+{
+  "id": "E12",
+  "set": "eleven",
+  "title": "Everything Is An Instrument",
+  "concept": "Sound design as the whole point. Ordinary noises get one property they have no business having.",
+  "genre": "playful electronic",
+  "bpm": 120,
+  "key": "C major",
+  "lengthS": 150,
+  "prompt": "Playful electronic, 120 BPM, C major \u2014 build the entire rhythm section out of non-musical sounds: a door latch as the snare, a coffee machine hiss as the hats, a notification chime as the lead melody, a server-room hum as the bass drone. Bright female vocal enters halfway through, delighted, singing that anything can be an instrument. Crisp modern production, wide stereo, ending on one enormous reversed cymbal that turns out to have been a choir all along.",
+  "slug": "e12-everything-is-an-instrument",
+  "file": "e12-everything-is-an-instrument.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Anything Can Be A Song",
+  "genres": [
+    "electronic",
+    "pop",
+    "experimental"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 11,
+  "lyrics": [
+    "A click, a hiss, a hum in the air",
+    "A little sound from anywhere",
+    "The world is humming out a tune",
+    "Beneath the sun and silent moon",
+    "Oh, anything can be a song",
+    "(Anything can be a song)",
+    "Just listen and you can't go wrong",
+    "A beat, a melody, a chord",
+    "It's music waiting to be poured",
+    "Every whisper, every ring",
+    "Holds a secret song to sing"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "120 BPM",
+          "Playful electronic",
+          "C major",
+          "Rhythm built from found sounds",
+          "Server-room hum as a bass drone",
+          "Coffee machine hiss as hi-hats",
+          "Minimal arrangement",
+          "Anticipatory feel",
+          "Wide stereo imaging",
+          "Dry production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "120 BPM",
+          "C major",
+          "Door latch click enters as snare backbeat",
+          "Notification chime melody introduced",
+          "Rhythmic and playful",
+          "Building layers",
+          "Server-room hum continues",
+          "Crisp, modern production",
+          "Upbeat electronic groove"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nA click, a hiss, a hum in the air\nA little sound from anywhere\nThe world is humming out a tune\nBeneath the sun and silent moon",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "120 BPM",
+          "Bright female vocals enter",
+          "Delighted and airy vocal delivery",
+          "Full found-sound rhythm section",
+          "Chime melody becomes more complex",
+          "C major synth pads for warmth",
+          "Dynamic build",
+          "Clear and present lead vocal",
+          "Playful electronic pop"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nOh, anything can be a song\n(Anything can be a song)\nJust listen and you can't go wrong\nA beat, a melody, a chord\nIt's music waiting to be poured",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "120 BPM",
+          "Energetic and joyful peak",
+          "Bright, layered female vocals",
+          "Catchy notification chime hook",
+          "Driving rhythm from latch and hiss",
+          "Warm synth chords in C major",
+          "Sidechain compression on bass hum",
+          "Euphoric and uplifting",
+          "Wide stereo field"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nEvery whisper, every ring\nHolds a secret song to sing",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "120 BPM",
+          "Found-sound elements drop out",
+          "Atmospheric and reflective",
+          "Floating synth pads",
+          "Softer, more intimate female vocal",
+          "Server-room hum fades in and out",
+          "Gentle arpeggiated synth",
+          "Spacious and clean mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "120 BPM",
+          "Huge reversed choral swell",
+          "Final chord in C major",
+          "Begins with silence and swells over the full duration",
+          "Sounds like a reversed cymbal at first",
+          "Resolves into a clear, sustained human choir 'Ahh'",
+          "Dramatic and surprising finale",
+          "No rhythmic elements",
+          "Epic and cinematic finish"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "A",
+      "startMs": 48540,
+      "endMs": 48620
+    },
+    {
+      "word": "click,",
+      "startMs": 48740,
+      "endMs": 49310
+    },
+    {
+      "word": "a",
+      "startMs": 49320,
+      "endMs": 49640
+    },
+    {
+      "word": "hiss,",
+      "startMs": 49700,
+      "endMs": 50490
+    },
+    {
+      "word": "a",
+      "startMs": 50560,
+      "endMs": 50620
+    },
+    {
+      "word": "hum",
+      "startMs": 50780,
+      "endMs": 51660
+    },
+    {
+      "word": "in",
+      "startMs": 53320,
+      "endMs": 53460
+    },
+    {
+      "word": "the",
+      "startMs": 53540,
+      "endMs": 53720
+    },
+    {
+      "word": "air",
+      "startMs": 53800,
+      "endMs": 54860
+    },
+    {
+      "word": "A",
+      "startMs": 56760,
+      "endMs": 56860
+    },
+    {
+      "word": "little",
+      "startMs": 56940,
+      "endMs": 57600
+    },
+    {
+      "word": "sound",
+      "startMs": 57660,
+      "endMs": 58420
+    },
+    {
+      "word": "from",
+      "startMs": 58480,
+      "endMs": 58760
+    },
+    {
+      "word": "anywhere",
+      "startMs": 58800,
+      "endMs": 60460
+    },
+    {
+      "word": "The",
+      "startMs": 63260,
+      "endMs": 63440
+    },
+    {
+      "word": "world",
+      "startMs": 63480,
+      "endMs": 63760
+    },
+    {
+      "word": "is",
+      "startMs": 63800,
+      "endMs": 63960
+    },
+    {
+      "word": "humming",
+      "startMs": 64040,
+      "endMs": 64800
+    },
+    {
+      "word": "out",
+      "startMs": 64920,
+      "endMs": 65300
+    },
+    {
+      "word": "a",
+      "startMs": 65360,
+      "endMs": 65560
+    },
+    {
+      "word": "tune",
+      "startMs": 65680,
+      "endMs": 66460
+    },
+    {
+      "word": "Beneath",
+      "startMs": 67260,
+      "endMs": 67710
+    },
+    {
+      "word": "the",
+      "startMs": 67760,
+      "endMs": 67900
+    },
+    {
+      "word": "sun",
+      "startMs": 68020,
+      "endMs": 68520
+    },
+    {
+      "word": "and",
+      "startMs": 68540,
+      "endMs": 68620
+    },
+    {
+      "word": "silent",
+      "startMs": 68780,
+      "endMs": 69620
+    },
+    {
+      "word": "moon",
+      "startMs": 69760,
+      "endMs": 70380
+    },
+    {
+      "word": "Oh,",
+      "startMs": 75280,
+      "endMs": 75990
+    },
+    {
+      "word": "anything",
+      "startMs": 76140,
+      "endMs": 78680
+    },
+    {
+      "word": "can",
+      "startMs": 78760,
+      "endMs": 78960
+    },
+    {
+      "word": "be",
+      "startMs": 79040,
+      "endMs": 79340
+    },
+    {
+      "word": "a",
+      "startMs": 79520,
+      "endMs": 79620
+    },
+    {
+      "word": "song",
+      "startMs": 79720,
+      "endMs": 81220
+    },
+    {
+      "word": "(Anything",
+      "startMs": 81720,
+      "endMs": 82720
+    },
+    {
+      "word": "can",
+      "startMs": 82760,
+      "endMs": 82910
+    },
+    {
+      "word": "be",
+      "startMs": 82980,
+      "endMs": 83160
+    },
+    {
+      "word": "a",
+      "startMs": 83180,
+      "endMs": 83190
+    },
+    {
+      "word": "song)",
+      "startMs": 83180,
+      "endMs": 83200
+    },
+    {
+      "word": "Just",
+      "startMs": 83280,
+      "endMs": 83920
+    },
+    {
+      "word": "listen",
+      "startMs": 84020,
+      "endMs": 86040
+    },
+    {
+      "word": "and",
+      "startMs": 86120,
+      "endMs": 86720
+    },
+    {
+      "word": "you",
+      "startMs": 86800,
+      "endMs": 86840
+    },
+    {
+      "word": "can't",
+      "startMs": 86980,
+      "endMs": 87200
+    },
+    {
+      "word": "go",
+      "startMs": 87280,
+      "endMs": 87580
+    },
+    {
+      "word": "wrong",
+      "startMs": 87720,
+      "endMs": 88440
+    },
+    {
+      "word": "A",
+      "startMs": 88740,
+      "endMs": 88840
+    },
+    {
+      "word": "beat,",
+      "startMs": 88980,
+      "endMs": 89700
+    },
+    {
+      "word": "a",
+      "startMs": 89760,
+      "endMs": 89840
+    },
+    {
+      "word": "melody,",
+      "startMs": 89980,
+      "endMs": 91280
+    },
+    {
+      "word": "a",
+      "startMs": 91340,
+      "endMs": 91680
+    },
+    {
+      "word": "chord",
+      "startMs": 91700,
+      "endMs": 92480
+    },
+    {
+      "word": "It's",
+      "startMs": 92760,
+      "endMs": 92940
+    },
+    {
+      "word": "music",
+      "startMs": 92980,
+      "endMs": 93860
+    },
+    {
+      "word": "waiting",
+      "startMs": 94020,
+      "endMs": 94640
+    },
+    {
+      "word": "to",
+      "startMs": 94760,
+      "endMs": 95160
+    },
+    {
+      "word": "be",
+      "startMs": 95280,
+      "endMs": 95620
+    },
+    {
+      "word": "poured",
+      "startMs": 95740,
+      "endMs": 97340
+    },
+    {
+      "word": "Every",
+      "startMs": 105060,
+      "endMs": 105640
+    },
+    {
+      "word": "whisper,",
+      "startMs": 105780,
+      "endMs": 106780
+    },
+    {
+      "word": "every",
+      "startMs": 106860,
+      "endMs": 107660
+    },
+    {
+      "word": "ring",
+      "startMs": 107720,
+      "endMs": 109260
+    },
+    {
+      "word": "Holds",
+      "startMs": 112980,
+      "endMs": 113480
+    },
+    {
+      "word": "a",
+      "startMs": 113520,
+      "endMs": 113640
+    },
+    {
+      "word": "secret",
+      "startMs": 113760,
+      "endMs": 114600
+    },
+    {
+      "word": "song",
+      "startMs": 114660,
+      "endMs": 115340
+    },
+    {
+      "word": "to",
+      "startMs": 115480,
+      "endMs": 115580
+    },
+    {
+      "word": "sing",
+      "startMs": 115680,
+      "endMs": 116679
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -2.23,
+    "loudnessRangeLu": 12.5
+  },
+  "preview": {
+    "file": "previews/e12-everything-is-an-instrument.mp3",
+    "startS": 45.54,
+    "durationS": 60,
+    "vocalEntryS": 48.54
+  }
+}

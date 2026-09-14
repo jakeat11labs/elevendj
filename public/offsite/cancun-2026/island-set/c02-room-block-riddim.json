@@ -1,0 +1,1030 @@
+{
+  "id": "C02",
+  "set": "cancun",
+  "title": "Room Block Riddim",
+  "concept": "A reggae strut about a hallway full of coworkers who all booked the same floor.",
+  "genre": "modern roots reggae",
+  "bpm": 76,
+  "key": "G minor",
+  "lengthS": 165,
+  "prompt": "Modern roots reggae, 76 BPM, G minor, sunny analog production — offbeat skank guitar, fat round bass, one-drop drums with rimshot, bubbling organ, horn section stabs. Laid-back male lead vocal in clear neutral American English with a smooth soulful tone, call-and-response backing vocals on the chorus, lyrics about a whole company sharing one hallway all week. Sung in English only, every word intelligible, no Jamaican patois, no Spanish lyrics. Organ bubble intro, horns enter on the chorus, dubby delay throws on the outro.",
+  "slug": "c02-room-block-riddim",
+  "file": "c02-room-block-riddim.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Hallway Flow",
+  "genres": [
+    "reggae",
+    "soul"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 27,
+  "lyrics": [
+    "Monday mornin', step into the light",
+    "Same old faces, same familiar sight",
+    "Just one long corridor, painted in beige",
+    "A hundred people on the very same page",
+    "We're all just walking down this one long hall",
+    "Trying not to stumble, trying not to fall",
+    "We got that hallway flow",
+    "(Hallway flow, goin' slow)",
+    "Watchin' the seasons come and go",
+    "(Come and go, don't you know)",
+    "From the front desk to the loading bay door",
+    "We're all connected, wanting something more",
+    "There's marketing on the left, accounting on the right",
+    "We nod hello beneath the fluorescent light",
+    "Hear the quiet murmur, the tapping of the keys",
+    "Sharing filtered air and a manufactured breeze",
+    "From nine to five, we tread the same worn ground",
+    "A silent rhythm in this little town",
+    "We got that hallway flow",
+    "(Hallway flow, goin' slow)",
+    "Watchin' the seasons come and go",
+    "(Come and go, don't you know)",
+    "From the front desk to the loading bay door",
+    "We're all connected, wanting something more",
+    "(Goin' slow)",
+    "(Don't you know)",
+    "(Hallway flow...)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "76 BPM",
+          "Modern roots reggae intro",
+          "Warm analog production",
+          "Bubbling Hammond B3 organ melody",
+          "One-drop drum pattern with rimshot",
+          "Muted bass guitar line",
+          "Clean electric guitar skank",
+          "Spacious mix",
+          "Instrumental"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nMonday mornin', step into the light\nSame old faces, same familiar sight\nJust one long corridor, painted in beige\nA hundred people on the very same page\nWe're all just walking down this one long hall\nTrying not to stumble, trying not to fall",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "76 BPM",
+          "Laid-back male lead vocal",
+          "Smooth soulful tone",
+          "Fat, round sub-bass line",
+          "Classic one-drop drum groove",
+          "Offbeat electric guitar skank",
+          "Subtle organ bubble underneath",
+          "Clear, intelligible American English vocal"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nWe got that hallway flow\n(Hallway flow, goin' slow)\nWatchin' the seasons come and go\n(Come and go, don't you know)\nFrom the front desk to the loading bay door\nWe're all connected, wanting something more",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "76 BPM",
+          "Uplifting chorus feel",
+          "Bright horn section stabs enter",
+          "Call-and-response female backing vocals",
+          "Fuller drum feel, more presence",
+          "Lead male vocal with more energy",
+          "Driving bassline",
+          "Sunny analog production aesthetic"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nThere's marketing on the left, accounting on the right\nWe nod hello beneath the fluorescent light\nHear the quiet murmur, the tapping of the keys\nSharing filtered air and a manufactured breeze\nFrom nine to five, we tread the same worn ground\nA silent rhythm in this little town",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "76 BPM",
+          "Verse arrangement returns",
+          "Laid-back soulful male vocal",
+          "Offbeat guitar skank prominent",
+          "Deep one-drop pocket",
+          "Bubbling organ fills gaps",
+          "Warm and clean production",
+          "Focus on the lyrical narrative"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nWe got that hallway flow\n(Hallway flow, goin' slow)\nWatchin' the seasons come and go\n(Come and go, don't you know)\nFrom the front desk to the loading bay door\nWe're all connected, wanting something more",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "76 BPM",
+          "Full energy chorus",
+          "Soaring horn section melody lines",
+          "Enthusiastic call-and-response backing vocals",
+          "Strong one-drop drum beat with crisp rimshots",
+          "Rich organ chords",
+          "Grooving bass and guitar interplay",
+          "Peak energy section"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\n(Goin' slow)\n(Don't you know)\n(Hallway flow...)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "76 BPM",
+          "Dub-style instrumental outro",
+          "Heavy use of tape delay throws on drums and guitar",
+          "Bassline becomes the focus",
+          "Organ bubbling fades in and out",
+          "Fragmented horn stabs with echo",
+          "Spacious, psychedelic mix",
+          "Gradual fade out"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Monday",
+      "startMs": 19820,
+      "endMs": 20420
+    },
+    {
+      "word": "mornin',",
+      "startMs": 20480,
+      "endMs": 21120
+    },
+    {
+      "word": "step",
+      "startMs": 21220,
+      "endMs": 21640
+    },
+    {
+      "word": "into",
+      "startMs": 21680,
+      "endMs": 22020
+    },
+    {
+      "word": "the",
+      "startMs": 22040,
+      "endMs": 22140
+    },
+    {
+      "word": "light",
+      "startMs": 22220,
+      "endMs": 22880
+    },
+    {
+      "word": "Same",
+      "startMs": 22940,
+      "endMs": 23300
+    },
+    {
+      "word": "old",
+      "startMs": 23320,
+      "endMs": 23600
+    },
+    {
+      "word": "faces,",
+      "startMs": 23660,
+      "endMs": 24360
+    },
+    {
+      "word": "same",
+      "startMs": 24440,
+      "endMs": 24720
+    },
+    {
+      "word": "familiar",
+      "startMs": 24820,
+      "endMs": 25340
+    },
+    {
+      "word": "sight",
+      "startMs": 25360,
+      "endMs": 25779
+    },
+    {
+      "word": "Just",
+      "startMs": 26040,
+      "endMs": 26180
+    },
+    {
+      "word": "one",
+      "startMs": 26280,
+      "endMs": 26500
+    },
+    {
+      "word": "long",
+      "startMs": 26620,
+      "endMs": 26900
+    },
+    {
+      "word": "corridor,",
+      "startMs": 27000,
+      "endMs": 27760
+    },
+    {
+      "word": "painted",
+      "startMs": 27820,
+      "endMs": 28240
+    },
+    {
+      "word": "in",
+      "startMs": 28300,
+      "endMs": 28520
+    },
+    {
+      "word": "beige",
+      "startMs": 28600,
+      "endMs": 29320
+    },
+    {
+      "word": "A",
+      "startMs": 29660,
+      "endMs": 29720
+    },
+    {
+      "word": "hundred",
+      "startMs": 29780,
+      "endMs": 30160
+    },
+    {
+      "word": "people",
+      "startMs": 30200,
+      "endMs": 30560
+    },
+    {
+      "word": "on",
+      "startMs": 30640,
+      "endMs": 30780
+    },
+    {
+      "word": "the",
+      "startMs": 30820,
+      "endMs": 30900
+    },
+    {
+      "word": "very",
+      "startMs": 31000,
+      "endMs": 31260
+    },
+    {
+      "word": "same",
+      "startMs": 31420,
+      "endMs": 31720
+    },
+    {
+      "word": "page",
+      "startMs": 31800,
+      "endMs": 32540
+    },
+    {
+      "word": "We're",
+      "startMs": 33160,
+      "endMs": 33380
+    },
+    {
+      "word": "all",
+      "startMs": 33480,
+      "endMs": 33740
+    },
+    {
+      "word": "just",
+      "startMs": 33800,
+      "endMs": 34100
+    },
+    {
+      "word": "walking",
+      "startMs": 34120,
+      "endMs": 34520
+    },
+    {
+      "word": "down",
+      "startMs": 34580,
+      "endMs": 34800
+    },
+    {
+      "word": "this",
+      "startMs": 34840,
+      "endMs": 35040
+    },
+    {
+      "word": "one",
+      "startMs": 35100,
+      "endMs": 35280
+    },
+    {
+      "word": "long",
+      "startMs": 35400,
+      "endMs": 36060
+    },
+    {
+      "word": "hall",
+      "startMs": 36120,
+      "endMs": 37480
+    },
+    {
+      "word": "Trying",
+      "startMs": 38900,
+      "endMs": 39300
+    },
+    {
+      "word": "not",
+      "startMs": 39340,
+      "endMs": 39460
+    },
+    {
+      "word": "to",
+      "startMs": 39540,
+      "endMs": 39620
+    },
+    {
+      "word": "stumble,",
+      "startMs": 39700,
+      "endMs": 40420
+    },
+    {
+      "word": "trying",
+      "startMs": 40480,
+      "endMs": 41280
+    },
+    {
+      "word": "not",
+      "startMs": 41340,
+      "endMs": 41510
+    },
+    {
+      "word": "to",
+      "startMs": 41520,
+      "endMs": 41640
+    },
+    {
+      "word": "fall",
+      "startMs": 41680,
+      "endMs": 44060
+    },
+    {
+      "word": "We",
+      "startMs": 46120,
+      "endMs": 46240
+    },
+    {
+      "word": "got",
+      "startMs": 46300,
+      "endMs": 46460
+    },
+    {
+      "word": "that",
+      "startMs": 46540,
+      "endMs": 46800
+    },
+    {
+      "word": "hallway",
+      "startMs": 46900,
+      "endMs": 48280
+    },
+    {
+      "word": "flow",
+      "startMs": 48420,
+      "endMs": 49000
+    },
+    {
+      "word": "(Hallway",
+      "startMs": 49200,
+      "endMs": 49920
+    },
+    {
+      "word": "flow,",
+      "startMs": 50020,
+      "endMs": 50800
+    },
+    {
+      "word": "goin'",
+      "startMs": 50860,
+      "endMs": 51540
+    },
+    {
+      "word": "slow)",
+      "startMs": 51620,
+      "endMs": 52380
+    },
+    {
+      "word": "Watchin'",
+      "startMs": 52400,
+      "endMs": 52860
+    },
+    {
+      "word": "the",
+      "startMs": 52900,
+      "endMs": 53020
+    },
+    {
+      "word": "seasons",
+      "startMs": 53200,
+      "endMs": 53940
+    },
+    {
+      "word": "come",
+      "startMs": 54080,
+      "endMs": 54440
+    },
+    {
+      "word": "and",
+      "startMs": 54520,
+      "endMs": 54740
+    },
+    {
+      "word": "go",
+      "startMs": 54860,
+      "endMs": 55180
+    },
+    {
+      "word": "(Come",
+      "startMs": 55560,
+      "endMs": 56020
+    },
+    {
+      "word": "and",
+      "startMs": 56120,
+      "endMs": 56340
+    },
+    {
+      "word": "go,",
+      "startMs": 56440,
+      "endMs": 57160
+    },
+    {
+      "word": "don't",
+      "startMs": 57240,
+      "endMs": 57580
+    },
+    {
+      "word": "you",
+      "startMs": 57660,
+      "endMs": 57880
+    },
+    {
+      "word": "know)",
+      "startMs": 57960,
+      "endMs": 59100
+    },
+    {
+      "word": "From",
+      "startMs": 59180,
+      "endMs": 59360
+    },
+    {
+      "word": "the",
+      "startMs": 59420,
+      "endMs": 59520
+    },
+    {
+      "word": "front",
+      "startMs": 59600,
+      "endMs": 59860
+    },
+    {
+      "word": "desk",
+      "startMs": 60000,
+      "endMs": 60720
+    },
+    {
+      "word": "to",
+      "startMs": 60780,
+      "endMs": 60960
+    },
+    {
+      "word": "the",
+      "startMs": 61020,
+      "endMs": 61100
+    },
+    {
+      "word": "loading",
+      "startMs": 61140,
+      "endMs": 61780
+    },
+    {
+      "word": "bay",
+      "startMs": 61800,
+      "endMs": 62260
+    },
+    {
+      "word": "door",
+      "startMs": 62340,
+      "endMs": 63340
+    },
+    {
+      "word": "We're",
+      "startMs": 65360,
+      "endMs": 65540
+    },
+    {
+      "word": "all",
+      "startMs": 65580,
+      "endMs": 65720
+    },
+    {
+      "word": "connected,",
+      "startMs": 65780,
+      "endMs": 66720
+    },
+    {
+      "word": "wanting",
+      "startMs": 66780,
+      "endMs": 67400
+    },
+    {
+      "word": "something",
+      "startMs": 67560,
+      "endMs": 68600
+    },
+    {
+      "word": "more",
+      "startMs": 68740,
+      "endMs": 69680
+    },
+    {
+      "word": "There's",
+      "startMs": 71820,
+      "endMs": 83400
+    },
+    {
+      "word": "marketing",
+      "startMs": 83440,
+      "endMs": 83820
+    },
+    {
+      "word": "on",
+      "startMs": 83900,
+      "endMs": 84040
+    },
+    {
+      "word": "the",
+      "startMs": 84080,
+      "endMs": 84140
+    },
+    {
+      "word": "left,",
+      "startMs": 84240,
+      "endMs": 84820
+    },
+    {
+      "word": "accounting",
+      "startMs": 84840,
+      "endMs": 85440
+    },
+    {
+      "word": "on",
+      "startMs": 85500,
+      "endMs": 85600
+    },
+    {
+      "word": "the",
+      "startMs": 85660,
+      "endMs": 85740
+    },
+    {
+      "word": "right",
+      "startMs": 85820,
+      "endMs": 86180
+    },
+    {
+      "word": "We",
+      "startMs": 86440,
+      "endMs": 86540
+    },
+    {
+      "word": "nod",
+      "startMs": 86560,
+      "endMs": 86800
+    },
+    {
+      "word": "hello",
+      "startMs": 86840,
+      "endMs": 87160
+    },
+    {
+      "word": "beneath",
+      "startMs": 87240,
+      "endMs": 87740
+    },
+    {
+      "word": "the",
+      "startMs": 87800,
+      "endMs": 87870
+    },
+    {
+      "word": "fluorescent",
+      "startMs": 88000,
+      "endMs": 88850
+    },
+    {
+      "word": "light",
+      "startMs": 88960,
+      "endMs": 89360
+    },
+    {
+      "word": "Hear",
+      "startMs": 89800,
+      "endMs": 89980
+    },
+    {
+      "word": "the",
+      "startMs": 90020,
+      "endMs": 90070
+    },
+    {
+      "word": "quiet",
+      "startMs": 90180,
+      "endMs": 90540
+    },
+    {
+      "word": "murmur,",
+      "startMs": 90620,
+      "endMs": 91160
+    },
+    {
+      "word": "the",
+      "startMs": 91200,
+      "endMs": 91320
+    },
+    {
+      "word": "tapping",
+      "startMs": 91380,
+      "endMs": 91800
+    },
+    {
+      "word": "of",
+      "startMs": 91860,
+      "endMs": 91960
+    },
+    {
+      "word": "the",
+      "startMs": 92000,
+      "endMs": 92150
+    },
+    {
+      "word": "keys",
+      "startMs": 92180,
+      "endMs": 92760
+    },
+    {
+      "word": "Sharing",
+      "startMs": 92880,
+      "endMs": 93320
+    },
+    {
+      "word": "filtered",
+      "startMs": 93360,
+      "endMs": 93780
+    },
+    {
+      "word": "air",
+      "startMs": 93860,
+      "endMs": 94180
+    },
+    {
+      "word": "and",
+      "startMs": 94240,
+      "endMs": 94360
+    },
+    {
+      "word": "a",
+      "startMs": 94400,
+      "endMs": 94480
+    },
+    {
+      "word": "manufactured",
+      "startMs": 94560,
+      "endMs": 95300
+    },
+    {
+      "word": "breeze",
+      "startMs": 95400,
+      "endMs": 96660
+    },
+    {
+      "word": "From",
+      "startMs": 96760,
+      "endMs": 96880
+    },
+    {
+      "word": "nine",
+      "startMs": 96980,
+      "endMs": 97520
+    },
+    {
+      "word": "to",
+      "startMs": 97560,
+      "endMs": 97680
+    },
+    {
+      "word": "five,",
+      "startMs": 97800,
+      "endMs": 98360
+    },
+    {
+      "word": "we",
+      "startMs": 98380,
+      "endMs": 98500
+    },
+    {
+      "word": "tread",
+      "startMs": 98600,
+      "endMs": 99100
+    },
+    {
+      "word": "the",
+      "startMs": 99120,
+      "endMs": 99240
+    },
+    {
+      "word": "same",
+      "startMs": 99360,
+      "endMs": 99700
+    },
+    {
+      "word": "worn",
+      "startMs": 99780,
+      "endMs": 100679
+    },
+    {
+      "word": "ground",
+      "startMs": 101160,
+      "endMs": 102179
+    },
+    {
+      "word": "A",
+      "startMs": 102280,
+      "endMs": 102360
+    },
+    {
+      "word": "silent",
+      "startMs": 102460,
+      "endMs": 103140
+    },
+    {
+      "word": "rhythm",
+      "startMs": 103260,
+      "endMs": 103720
+    },
+    {
+      "word": "in",
+      "startMs": 103800,
+      "endMs": 104040
+    },
+    {
+      "word": "this",
+      "startMs": 104140,
+      "endMs": 104640
+    },
+    {
+      "word": "little",
+      "startMs": 104720,
+      "endMs": 105000
+    },
+    {
+      "word": "town",
+      "startMs": 105100,
+      "endMs": 106240
+    },
+    {
+      "word": "We",
+      "startMs": 106520,
+      "endMs": 106640
+    },
+    {
+      "word": "got",
+      "startMs": 106700,
+      "endMs": 106880
+    },
+    {
+      "word": "that",
+      "startMs": 106960,
+      "endMs": 107180
+    },
+    {
+      "word": "hallway",
+      "startMs": 107300,
+      "endMs": 108660
+    },
+    {
+      "word": "flow",
+      "startMs": 108820,
+      "endMs": 109580
+    },
+    {
+      "word": "(Hallway",
+      "startMs": 109600,
+      "endMs": 110300
+    },
+    {
+      "word": "flow,",
+      "startMs": 110460,
+      "endMs": 111200
+    },
+    {
+      "word": "goin'",
+      "startMs": 111260,
+      "endMs": 111940
+    },
+    {
+      "word": "slow)",
+      "startMs": 112000,
+      "endMs": 112780
+    },
+    {
+      "word": "Watchin'",
+      "startMs": 112800,
+      "endMs": 113240
+    },
+    {
+      "word": "the",
+      "startMs": 113300,
+      "endMs": 113420
+    },
+    {
+      "word": "seasons",
+      "startMs": 113600,
+      "endMs": 114340
+    },
+    {
+      "word": "come",
+      "startMs": 114460,
+      "endMs": 114840
+    },
+    {
+      "word": "and",
+      "startMs": 114900,
+      "endMs": 115150
+    },
+    {
+      "word": "go",
+      "startMs": 115240,
+      "endMs": 115780
+    },
+    {
+      "word": "(Come",
+      "startMs": 115940,
+      "endMs": 116440
+    },
+    {
+      "word": "and",
+      "startMs": 116540,
+      "endMs": 116720
+    },
+    {
+      "word": "go,",
+      "startMs": 116820,
+      "endMs": 117540
+    },
+    {
+      "word": "don't",
+      "startMs": 117620,
+      "endMs": 117980
+    },
+    {
+      "word": "you",
+      "startMs": 118040,
+      "endMs": 118260
+    },
+    {
+      "word": "know)",
+      "startMs": 118400,
+      "endMs": 119500
+    },
+    {
+      "word": "From",
+      "startMs": 119560,
+      "endMs": 119760
+    },
+    {
+      "word": "the",
+      "startMs": 119820,
+      "endMs": 119920
+    },
+    {
+      "word": "front",
+      "startMs": 120000,
+      "endMs": 120280
+    },
+    {
+      "word": "desk",
+      "startMs": 120400,
+      "endMs": 120820
+    },
+    {
+      "word": "to",
+      "startMs": 121180,
+      "endMs": 121320
+    },
+    {
+      "word": "the",
+      "startMs": 121420,
+      "endMs": 121500
+    },
+    {
+      "word": "loading",
+      "startMs": 121520,
+      "endMs": 122160
+    },
+    {
+      "word": "bay",
+      "startMs": 122220,
+      "endMs": 122660
+    },
+    {
+      "word": "door",
+      "startMs": 122800,
+      "endMs": 123920
+    },
+    {
+      "word": "We're",
+      "startMs": 125760,
+      "endMs": 125940
+    },
+    {
+      "word": "all",
+      "startMs": 125980,
+      "endMs": 126120
+    },
+    {
+      "word": "connected,",
+      "startMs": 126180,
+      "endMs": 127100
+    },
+    {
+      "word": "wanting",
+      "startMs": 127200,
+      "endMs": 127820
+    },
+    {
+      "word": "something",
+      "startMs": 127940,
+      "endMs": 128920
+    },
+    {
+      "word": "more",
+      "startMs": 129140,
+      "endMs": 129880
+    },
+    {
+      "word": "(Goin'",
+      "startMs": 136600,
+      "endMs": 137360
+    },
+    {
+      "word": "slow)",
+      "startMs": 137420,
+      "endMs": 138440
+    },
+    {
+      "word": "(Don't",
+      "startMs": 139620,
+      "endMs": 140220
+    },
+    {
+      "word": "you",
+      "startMs": 140280,
+      "endMs": 140420
+    },
+    {
+      "word": "know)",
+      "startMs": 140620,
+      "endMs": 142880
+    },
+    {
+      "word": "(Hallway",
+      "startMs": 142960,
+      "endMs": 143700
+    },
+    {
+      "word": "flow...)",
+      "startMs": 143800,
+      "endMs": 153280
+    }
+  ],
+  "attempts": 1
+}

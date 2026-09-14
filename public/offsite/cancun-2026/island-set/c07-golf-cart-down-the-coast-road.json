@@ -1,0 +1,952 @@
+{
+  "id": "C07",
+  "set": "cancun",
+  "title": "Golf Cart Down The Coast Road",
+  "concept": "Six people, four seats, one resort shuttle that is definitely over capacity.",
+  "genre": "surf-rock cumbia",
+  "bpm": 120,
+  "key": "A minor",
+  "lengthS": 155,
+  "prompt": "Surf-rock cumbia mashup, 120 BPM, A minor — twangy spring-reverb surf guitar lead, tremolo picking, congas and güiro, walking bass, vintage combo organ, live-room drums. Loose male lead vocal in clear neutral American English with a grinning delivery, whoa-oh gang vocals, lyrics about six people crammed onto a four-seat golf cart racing down the coast road. Sung in English only, every lyric intelligible, no Spanish lyrics. Big surf guitar riff intro, driving verses, instrumental guitar break before the last chorus, warm retro mix.",
+  "slug": "c07-golf-cart-down-the-coast-road",
+  "file": "c07-golf-cart-down-the-coast-road.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Golf Cart Prayer",
+  "genres": [
+    "rock",
+    "latin",
+    "indie"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 26,
+  "lyrics": [
+    "Got the key, it's a four seat ride",
+    "But there's six of us crammed inside",
+    "Jimmy's got the wheel, foot is on the floor",
+    "Someone's sittin' on the cooler by the door",
+    "Racing down the coast road, wind is in our hair",
+    "Tires barely touching ground, flying through the air",
+    "Yeah!",
+    "Going way too fast but we just don't care",
+    "(Whoa-oh-oh-oh)",
+    "Six bodies on a golf cart prayer",
+    "Palm trees blur into a hazy green streak",
+    "Hear the little engine start to groan and creak",
+    "Sun is sinking low, painting up the sky",
+    "Another crazy memory money cannot buy",
+    "Racing down the coast road, wind is in our hair",
+    "Tires barely touching ground, flying through the air",
+    "(Whoa-oh-oh-oh)",
+    "Going way too fast but we just don't care",
+    "(Whoa-oh-oh-oh)",
+    "Six bodies on a golf cart prayer",
+    "Racing down the coast road!",
+    "(Whoa-oh-oh-oh)",
+    "Yeah, a golf cart prayer!",
+    "(Whoa-oh-oh-oh)",
+    "We're never gonna make it!",
+    "(Whoa-oh-oh-oh)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 16000,
+        "positiveStyles": [
+          "120 BPM",
+          "surf rock cumbia feel",
+          "twangy spring-reverb surf guitar lead riff",
+          "tremolo picking melody",
+          "live-room drums with a simple groove",
+          "congas and güiro establishing the cumbia rhythm",
+          "warm retro mix",
+          "instrumental intro"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nGot the key, it's a four seat ride\nBut there's six of us crammed inside\nJimmy's got the wheel, foot is on the floor\nSomeone's sittin' on the cooler by the door",
+        "durationMs": 24000,
+        "positiveStyles": [
+          "120 BPM",
+          "grinning male lead vocal",
+          "clear neutral American English delivery",
+          "reverb-drenched surf guitar playing counter-melodies",
+          "walking bassline enters",
+          "vintage combo organ adds rhythmic chords",
+          "driving cumbia-rock drum beat",
+          "prominent congas and güiro",
+          "full band energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nRacing down the coast road, wind is in our hair\nTires barely touching ground, flying through the air\nYeah!\nGoing way too fast but we just don't care\n(Whoa-oh-oh-oh)\nSix bodies on a golf cart prayer",
+        "durationMs": 24000,
+        "positiveStyles": [
+          "120 BPM",
+          "energetic gang vocals on 'whoa-oh'",
+          "lead vocal remains clear and upfront",
+          "surf guitar plays a catchy, memorable riff",
+          "walking bassline becomes more melodic",
+          "combo organ swells with sustained chords",
+          "drums playing a driving beat with more crash cymbals",
+          "upbeat and anthemic feel"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nPalm trees blur into a hazy green streak\nHear the little engine start to groan and creak\nSun is sinking low, painting up the sky\nAnother crazy memory money cannot buy",
+        "durationMs": 24000,
+        "positiveStyles": [
+          "120 BPM",
+          "male lead vocal with a slightly more rowdy delivery",
+          "surf guitar with heavy tremolo effect",
+          "congas and güiro are prominent in the mix",
+          "walking bassline is tight with the kick drum",
+          "vintage organ plays short, staccato stabs",
+          "steady cumbia-rock groove",
+          "live room drum sound"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nRacing down the coast road, wind is in our hair\nTires barely touching ground, flying through the air\n(Whoa-oh-oh-oh)\nGoing way too fast but we just don't care\n(Whoa-oh-oh-oh)\nSix bodies on a golf cart prayer",
+        "durationMs": 24000,
+        "positiveStyles": [
+          "120 BPM",
+          "full gang vocals, louder and more enthusiastic",
+          "powerful lead vocal delivery",
+          "main surf guitar riff is doubled for impact",
+          "bassline is driving and propulsive",
+          "combo organ holds long, shimmering notes",
+          "high-energy drumming, lots of cymbal work",
+          "peak energy section"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Guitar Break]",
+        "durationMs": 21000,
+        "positiveStyles": [
+          "120 BPM",
+          "instrumental surf guitar solo",
+          "heavy spring reverb and tremolo picking",
+          "improvisational and melodic lead guitar",
+          "rhythm section of bass, drums, congas, güiro holds a tight groove",
+          "combo organ provides a solid harmonic bed",
+          "dynamic build in intensity"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nRacing down the coast road!\n(Whoa-oh-oh-oh)\nYeah, a golf cart prayer!\n(Whoa-oh-oh-oh)\nWe're never gonna make it!\n(Whoa-oh-oh-oh)",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "120 BPM",
+          "reprise of the chorus with fade out",
+          "gang vocals repeating 'whoa-oh'",
+          "lead vocal ad-libs over the top",
+          "surf guitar continues riffing as it fades",
+          "all instruments slowly fade out over the last 8 seconds",
+          "warm retro tape saturation",
+          "final güiro scratch and a final cymbal hit"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Got",
+      "startMs": 16500,
+      "endMs": 16660
+    },
+    {
+      "word": "the",
+      "startMs": 16760,
+      "endMs": 16920
+    },
+    {
+      "word": "key,",
+      "startMs": 16980,
+      "endMs": 17500
+    },
+    {
+      "word": "it's",
+      "startMs": 17540,
+      "endMs": 17740
+    },
+    {
+      "word": "a",
+      "startMs": 17760,
+      "endMs": 17840
+    },
+    {
+      "word": "four",
+      "startMs": 17960,
+      "endMs": 18180
+    },
+    {
+      "word": "seat",
+      "startMs": 18300,
+      "endMs": 18600
+    },
+    {
+      "word": "ride",
+      "startMs": 18720,
+      "endMs": 19660
+    },
+    {
+      "word": "But",
+      "startMs": 20480,
+      "endMs": 20640
+    },
+    {
+      "word": "there's",
+      "startMs": 20780,
+      "endMs": 20960
+    },
+    {
+      "word": "six",
+      "startMs": 20980,
+      "endMs": 21240
+    },
+    {
+      "word": "of",
+      "startMs": 21320,
+      "endMs": 21500
+    },
+    {
+      "word": "us",
+      "startMs": 21580,
+      "endMs": 21820
+    },
+    {
+      "word": "crammed",
+      "startMs": 21920,
+      "endMs": 22320
+    },
+    {
+      "word": "inside",
+      "startMs": 22380,
+      "endMs": 23440
+    },
+    {
+      "word": "Jimmy's",
+      "startMs": 23980,
+      "endMs": 24430
+    },
+    {
+      "word": "got",
+      "startMs": 24500,
+      "endMs": 24720
+    },
+    {
+      "word": "the",
+      "startMs": 24780,
+      "endMs": 24880
+    },
+    {
+      "word": "wheel,",
+      "startMs": 25020,
+      "endMs": 25720
+    },
+    {
+      "word": "foot",
+      "startMs": 25980,
+      "endMs": 26260
+    },
+    {
+      "word": "is",
+      "startMs": 26320,
+      "endMs": 26480
+    },
+    {
+      "word": "on",
+      "startMs": 26580,
+      "endMs": 26720
+    },
+    {
+      "word": "the",
+      "startMs": 26780,
+      "endMs": 26840
+    },
+    {
+      "word": "floor",
+      "startMs": 26960,
+      "endMs": 27720
+    },
+    {
+      "word": "Someone's",
+      "startMs": 28480,
+      "endMs": 28980
+    },
+    {
+      "word": "sittin'",
+      "startMs": 29020,
+      "endMs": 29480
+    },
+    {
+      "word": "on",
+      "startMs": 29500,
+      "endMs": 29740
+    },
+    {
+      "word": "the",
+      "startMs": 29760,
+      "endMs": 29840
+    },
+    {
+      "word": "cooler",
+      "startMs": 29980,
+      "endMs": 30440
+    },
+    {
+      "word": "by",
+      "startMs": 30500,
+      "endMs": 30720
+    },
+    {
+      "word": "the",
+      "startMs": 30780,
+      "endMs": 30860
+    },
+    {
+      "word": "door",
+      "startMs": 30980,
+      "endMs": 31740
+    },
+    {
+      "word": "Racing",
+      "startMs": 35460,
+      "endMs": 48440
+    },
+    {
+      "word": "down",
+      "startMs": 48500,
+      "endMs": 48720
+    },
+    {
+      "word": "the",
+      "startMs": 48780,
+      "endMs": 48880
+    },
+    {
+      "word": "coast",
+      "startMs": 48980,
+      "endMs": 49400
+    },
+    {
+      "word": "road,",
+      "startMs": 49480,
+      "endMs": 49920
+    },
+    {
+      "word": "wind",
+      "startMs": 49940,
+      "endMs": 50260
+    },
+    {
+      "word": "is",
+      "startMs": 50280,
+      "endMs": 50500
+    },
+    {
+      "word": "in",
+      "startMs": 50620,
+      "endMs": 50740
+    },
+    {
+      "word": "our",
+      "startMs": 50800,
+      "endMs": 50960
+    },
+    {
+      "word": "hair",
+      "startMs": 51000,
+      "endMs": 51440
+    },
+    {
+      "word": "Tires",
+      "startMs": 51980,
+      "endMs": 52440
+    },
+    {
+      "word": "barely",
+      "startMs": 52520,
+      "endMs": 52920
+    },
+    {
+      "word": "touching",
+      "startMs": 52940,
+      "endMs": 53400
+    },
+    {
+      "word": "ground,",
+      "startMs": 53480,
+      "endMs": 53920
+    },
+    {
+      "word": "flying",
+      "startMs": 53980,
+      "endMs": 54400
+    },
+    {
+      "word": "through",
+      "startMs": 54480,
+      "endMs": 54740
+    },
+    {
+      "word": "the",
+      "startMs": 54800,
+      "endMs": 54940
+    },
+    {
+      "word": "air",
+      "startMs": 55040,
+      "endMs": 55480
+    },
+    {
+      "word": "Yeah!",
+      "startMs": 55540,
+      "endMs": 55970
+    },
+    {
+      "word": "Going",
+      "startMs": 56000,
+      "endMs": 56440
+    },
+    {
+      "word": "way",
+      "startMs": 56500,
+      "endMs": 56680
+    },
+    {
+      "word": "too",
+      "startMs": 56720,
+      "endMs": 56920
+    },
+    {
+      "word": "fast",
+      "startMs": 57000,
+      "endMs": 57380
+    },
+    {
+      "word": "but",
+      "startMs": 57500,
+      "endMs": 57720
+    },
+    {
+      "word": "we",
+      "startMs": 57780,
+      "endMs": 57940
+    },
+    {
+      "word": "just",
+      "startMs": 58020,
+      "endMs": 58320
+    },
+    {
+      "word": "don't",
+      "startMs": 58460,
+      "endMs": 58920
+    },
+    {
+      "word": "care",
+      "startMs": 58980,
+      "endMs": 59260
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 59280,
+      "endMs": 60400
+    },
+    {
+      "word": "Six",
+      "startMs": 60480,
+      "endMs": 60800
+    },
+    {
+      "word": "bodies",
+      "startMs": 60980,
+      "endMs": 61470
+    },
+    {
+      "word": "on",
+      "startMs": 61580,
+      "endMs": 61740
+    },
+    {
+      "word": "a",
+      "startMs": 61820,
+      "endMs": 61840
+    },
+    {
+      "word": "golf",
+      "startMs": 61980,
+      "endMs": 62360
+    },
+    {
+      "word": "cart",
+      "startMs": 62460,
+      "endMs": 62840
+    },
+    {
+      "word": "prayer",
+      "startMs": 62960,
+      "endMs": 63700
+    },
+    {
+      "word": "Palm",
+      "startMs": 64040,
+      "endMs": 64379
+    },
+    {
+      "word": "trees",
+      "startMs": 64460,
+      "endMs": 64860
+    },
+    {
+      "word": "blur",
+      "startMs": 64960,
+      "endMs": 65239
+    },
+    {
+      "word": "into",
+      "startMs": 65320,
+      "endMs": 65680
+    },
+    {
+      "word": "a",
+      "startMs": 65800,
+      "endMs": 65920
+    },
+    {
+      "word": "hazy",
+      "startMs": 65980,
+      "endMs": 66380
+    },
+    {
+      "word": "green",
+      "startMs": 66460,
+      "endMs": 66800
+    },
+    {
+      "word": "streak",
+      "startMs": 66900,
+      "endMs": 67840
+    },
+    {
+      "word": "Hear",
+      "startMs": 67980,
+      "endMs": 68220
+    },
+    {
+      "word": "the",
+      "startMs": 68240,
+      "endMs": 68360
+    },
+    {
+      "word": "little",
+      "startMs": 68480,
+      "endMs": 68980
+    },
+    {
+      "word": "engine",
+      "startMs": 69040,
+      "endMs": 69340
+    },
+    {
+      "word": "start",
+      "startMs": 69420,
+      "endMs": 69700
+    },
+    {
+      "word": "to",
+      "startMs": 69760,
+      "endMs": 69880
+    },
+    {
+      "word": "groan",
+      "startMs": 69940,
+      "endMs": 70300
+    },
+    {
+      "word": "and",
+      "startMs": 70360,
+      "endMs": 70600
+    },
+    {
+      "word": "creak",
+      "startMs": 70720,
+      "endMs": 71240
+    },
+    {
+      "word": "Sun",
+      "startMs": 71980,
+      "endMs": 72240
+    },
+    {
+      "word": "is",
+      "startMs": 72280,
+      "endMs": 72420
+    },
+    {
+      "word": "sinking",
+      "startMs": 72480,
+      "endMs": 72880
+    },
+    {
+      "word": "low,",
+      "startMs": 72960,
+      "endMs": 73920
+    },
+    {
+      "word": "painting",
+      "startMs": 73980,
+      "endMs": 74480
+    },
+    {
+      "word": "up",
+      "startMs": 74560,
+      "endMs": 74700
+    },
+    {
+      "word": "the",
+      "startMs": 74740,
+      "endMs": 74840
+    },
+    {
+      "word": "sky",
+      "startMs": 74960,
+      "endMs": 75480
+    },
+    {
+      "word": "Another",
+      "startMs": 75820,
+      "endMs": 76410
+    },
+    {
+      "word": "crazy",
+      "startMs": 76440,
+      "endMs": 76860
+    },
+    {
+      "word": "memory",
+      "startMs": 77000,
+      "endMs": 77380
+    },
+    {
+      "word": "money",
+      "startMs": 77480,
+      "endMs": 77840
+    },
+    {
+      "word": "cannot",
+      "startMs": 77980,
+      "endMs": 78680
+    },
+    {
+      "word": "buy",
+      "startMs": 78760,
+      "endMs": 79480
+    },
+    {
+      "word": "Racing",
+      "startMs": 83540,
+      "endMs": 96440
+    },
+    {
+      "word": "down",
+      "startMs": 96480,
+      "endMs": 96700
+    },
+    {
+      "word": "the",
+      "startMs": 96740,
+      "endMs": 96920
+    },
+    {
+      "word": "coast",
+      "startMs": 96960,
+      "endMs": 97380
+    },
+    {
+      "word": "road,",
+      "startMs": 97460,
+      "endMs": 97940
+    },
+    {
+      "word": "wind",
+      "startMs": 97980,
+      "endMs": 98260
+    },
+    {
+      "word": "is",
+      "startMs": 98320,
+      "endMs": 98480
+    },
+    {
+      "word": "in",
+      "startMs": 98560,
+      "endMs": 98740
+    },
+    {
+      "word": "our",
+      "startMs": 98800,
+      "endMs": 98940
+    },
+    {
+      "word": "hair",
+      "startMs": 99020,
+      "endMs": 99440
+    },
+    {
+      "word": "Tires",
+      "startMs": 99780,
+      "endMs": 100420
+    },
+    {
+      "word": "barely",
+      "startMs": 100500,
+      "endMs": 100920
+    },
+    {
+      "word": "touching",
+      "startMs": 101000,
+      "endMs": 101420
+    },
+    {
+      "word": "ground,",
+      "startMs": 101460,
+      "endMs": 101920
+    },
+    {
+      "word": "flying",
+      "startMs": 101980,
+      "endMs": 102380
+    },
+    {
+      "word": "through",
+      "startMs": 102460,
+      "endMs": 102700
+    },
+    {
+      "word": "the",
+      "startMs": 102780,
+      "endMs": 102900
+    },
+    {
+      "word": "air",
+      "startMs": 103120,
+      "endMs": 103460
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 103460,
+      "endMs": 103940
+    },
+    {
+      "word": "Going",
+      "startMs": 104000,
+      "endMs": 104400
+    },
+    {
+      "word": "way",
+      "startMs": 104500,
+      "endMs": 104630
+    },
+    {
+      "word": "too",
+      "startMs": 104720,
+      "endMs": 104920
+    },
+    {
+      "word": "fast",
+      "startMs": 104980,
+      "endMs": 105400
+    },
+    {
+      "word": "but",
+      "startMs": 105500,
+      "endMs": 105720
+    },
+    {
+      "word": "we",
+      "startMs": 105780,
+      "endMs": 105940
+    },
+    {
+      "word": "just",
+      "startMs": 106020,
+      "endMs": 106440
+    },
+    {
+      "word": "don't",
+      "startMs": 106480,
+      "endMs": 106920
+    },
+    {
+      "word": "care",
+      "startMs": 106980,
+      "endMs": 107480
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 107740,
+      "endMs": 108300
+    },
+    {
+      "word": "Six",
+      "startMs": 108480,
+      "endMs": 108840
+    },
+    {
+      "word": "bodies",
+      "startMs": 108980,
+      "endMs": 109480
+    },
+    {
+      "word": "on",
+      "startMs": 109560,
+      "endMs": 109740
+    },
+    {
+      "word": "a",
+      "startMs": 109820,
+      "endMs": 109840
+    },
+    {
+      "word": "golf",
+      "startMs": 109980,
+      "endMs": 110380
+    },
+    {
+      "word": "cart",
+      "startMs": 110480,
+      "endMs": 110800
+    },
+    {
+      "word": "prayer",
+      "startMs": 110960,
+      "endMs": 111720
+    },
+    {
+      "word": "Racing",
+      "startMs": 133960,
+      "endMs": 134420
+    },
+    {
+      "word": "down",
+      "startMs": 134500,
+      "endMs": 134720
+    },
+    {
+      "word": "the",
+      "startMs": 134780,
+      "endMs": 134860
+    },
+    {
+      "word": "coast",
+      "startMs": 134980,
+      "endMs": 135240
+    },
+    {
+      "word": "road!",
+      "startMs": 135400,
+      "endMs": 135920
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 135940,
+      "endMs": 138240
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 138280,
+      "endMs": 140980
+    },
+    {
+      "word": "a",
+      "startMs": 141800,
+      "endMs": 141940
+    },
+    {
+      "word": "golf",
+      "startMs": 141980,
+      "endMs": 142380
+    },
+    {
+      "word": "cart",
+      "startMs": 142480,
+      "endMs": 142840
+    },
+    {
+      "word": "prayer!",
+      "startMs": 142960,
+      "endMs": 143700
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 143720,
+      "endMs": 143810
+    },
+    {
+      "word": "We're",
+      "startMs": 143800,
+      "endMs": 143890
+    },
+    {
+      "word": "never",
+      "startMs": 144040,
+      "endMs": 144360
+    },
+    {
+      "word": "gonna",
+      "startMs": 144480,
+      "endMs": 144940
+    },
+    {
+      "word": "make",
+      "startMs": 145020,
+      "endMs": 145480
+    },
+    {
+      "word": "it!",
+      "startMs": 145580,
+      "endMs": 147240
+    },
+    {
+      "word": "(Whoa-oh-oh-oh)",
+      "startMs": 147240,
+      "endMs": 151600
+    }
+  ],
+  "attempts": 1
+}

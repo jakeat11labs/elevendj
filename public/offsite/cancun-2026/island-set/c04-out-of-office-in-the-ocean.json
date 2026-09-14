@@ -1,0 +1,800 @@
+{
+  "id": "C04",
+  "set": "cancun",
+  "title": "Out Of Office, In The Ocean",
+  "concept": "The auto-reply is on. The auto-reply is swimming.",
+  "genre": "soca",
+  "bpm": 148,
+  "key": "F major",
+  "lengthS": 155,
+  "prompt": "Modern soca, 148 BPM, F major, festival production — driving four-on-the-floor kick, rapid-fire iron and cowbell, syncopated steel pan melody, bright brass riffs, huge synth bass. Energetic male lead vocal in clear neutral American English, hype crowd-chant hook about the out-of-office reply being on while everyone is in the ocean, whistle and airhorn accents. Sung in English only, every word intelligible, no Trinidadian patois, no Spanish lyrics. Pan hook intro, build into a jump-up chorus, arms-up final section.",
+  "slug": "c04-out-of-office-in-the-ocean",
+  "file": "c04-out-of-office-in-the-ocean.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "In The Ocean",
+  "genres": [
+    "soca",
+    "electronic",
+    "pop"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 21,
+  "lyrics": [
+    "Got the email, see the subject line",
+    "Sayin' 'Urgent', need it now, by nine",
+    "But the sun is high and the water's fine",
+    "Gonna leave that nine-to-five behind",
+    "That automatic reply is set to send",
+    "My only meeting is with my friends",
+    "The real work starts where the pavement ends",
+    "Out of office, in the ocean",
+    "(In the ocean!)",
+    "Got the whole world in slow motion",
+    "(Slow motion!)",
+    "No deadline, just devotion",
+    "To the sunshine and the vibes we're holding",
+    "All the pressure, just let it go",
+    "Feel the rhythm in your soul",
+    "Out of office, in the ocean",
+    "(In the ocean!)",
+    "Got the whole world in slow motion",
+    "(Slow motion!)",
+    "No deadline, just devotion",
+    "To the sunshine and the vibes we're holding!"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "modern soca",
+          "148 BPM",
+          "F major",
+          "solo steel pan melody",
+          "syncopated rhythm",
+          "light shaker percussion",
+          "expectant atmosphere",
+          "clean studio production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nGot the email, see the subject line\nSayin' 'Urgent', need it now, by nine\nBut the sun is high and the water's fine\nGonna leave that nine-to-five behind",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "148 BPM",
+          "energetic male lead vocal",
+          "clear neutral american english accent",
+          "driving four-on-the-floor kick enters",
+          "rapid-fire hi-hats",
+          "syncopated synth bass line",
+          "steel pan continues as counter-melody",
+          "building excitement"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nThat automatic reply is set to send\nMy only meeting is with my friends\nThe real work starts where the pavement ends",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "148 BPM",
+          "brass section enters with short stabs",
+          "pre-chorus build",
+          "rising synth filter sweep",
+          "rapid-fire cowbell pattern",
+          "anticipation builds",
+          "vocal melody rising in pitch"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nOut of office, in the ocean\n(In the ocean!)\nGot the whole world in slow motion\n(Slow motion!)\nNo deadline, just devotion\nTo the sunshine and the vibes we're holding",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "148 BPM",
+          "jump-up chorus",
+          "festival energy",
+          "huge synth bass",
+          "bright brass section riffs",
+          "hype crowd chant backing vocals",
+          "energetic male lead",
+          "driving four-on-the-floor beat",
+          "steel pan melody hook",
+          "{air horn}"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Instrumental Break]",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "148 BPM",
+          "instrumental section",
+          "featured steel pan solo",
+          "call and response between brass and steel pan",
+          "heavy drum and percussion break",
+          "driving rhythm section",
+          "high energy",
+          "{whistle}"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nAll the pressure, just let it go\nFeel the rhythm in your soul",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "148 BPM",
+          "half-time feel",
+          "filtered drums",
+          "atmospheric synth pads",
+          "reverb-washed steel pan chords",
+          "thoughtful male vocal",
+          "building tension for the final drop"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Final Chorus]\nOut of office, in the ocean\n(In the ocean!)\nGot the whole world in slow motion\n(Slow motion!)\nNo deadline, just devotion\nTo the sunshine and the vibes we're holding!",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "148 BPM",
+          "explosive final chorus",
+          "arms-up section",
+          "full energy",
+          "doubled lead vocals",
+          "enthusiastic crowd chants",
+          "all instrumental layers at peak",
+          "driving rhythm",
+          "bright brass fanfares",
+          "{air horn}",
+          "{whistle}"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Got",
+      "startMs": 25540,
+      "endMs": 25740
+    },
+    {
+      "word": "the",
+      "startMs": 25800,
+      "endMs": 25920
+    },
+    {
+      "word": "email,",
+      "startMs": 26060,
+      "endMs": 27060
+    },
+    {
+      "word": "see",
+      "startMs": 27140,
+      "endMs": 27320
+    },
+    {
+      "word": "the",
+      "startMs": 27380,
+      "endMs": 27500
+    },
+    {
+      "word": "subject",
+      "startMs": 27540,
+      "endMs": 28080
+    },
+    {
+      "word": "line",
+      "startMs": 28160,
+      "endMs": 28640
+    },
+    {
+      "word": "Sayin'",
+      "startMs": 28760,
+      "endMs": 29160
+    },
+    {
+      "word": "'Urgent',",
+      "startMs": 29160,
+      "endMs": 30350
+    },
+    {
+      "word": "need",
+      "startMs": 30480,
+      "endMs": 30620
+    },
+    {
+      "word": "it",
+      "startMs": 30660,
+      "endMs": 30760
+    },
+    {
+      "word": "now,",
+      "startMs": 30820,
+      "endMs": 31080
+    },
+    {
+      "word": "by",
+      "startMs": 31120,
+      "endMs": 31300
+    },
+    {
+      "word": "nine",
+      "startMs": 31400,
+      "endMs": 31800
+    },
+    {
+      "word": "But",
+      "startMs": 32020,
+      "endMs": 32180
+    },
+    {
+      "word": "the",
+      "startMs": 32180,
+      "endMs": 32340
+    },
+    {
+      "word": "sun",
+      "startMs": 32420,
+      "endMs": 32840
+    },
+    {
+      "word": "is",
+      "startMs": 32940,
+      "endMs": 33210
+    },
+    {
+      "word": "high",
+      "startMs": 33260,
+      "endMs": 33620
+    },
+    {
+      "word": "and",
+      "startMs": 33720,
+      "endMs": 33840
+    },
+    {
+      "word": "the",
+      "startMs": 33880,
+      "endMs": 34000
+    },
+    {
+      "word": "water's",
+      "startMs": 34080,
+      "endMs": 34620
+    },
+    {
+      "word": "fine",
+      "startMs": 34680,
+      "endMs": 35180
+    },
+    {
+      "word": "Gonna",
+      "startMs": 35280,
+      "endMs": 35600
+    },
+    {
+      "word": "leave",
+      "startMs": 35700,
+      "endMs": 36060
+    },
+    {
+      "word": "that",
+      "startMs": 36120,
+      "endMs": 36420
+    },
+    {
+      "word": "nine-to-five",
+      "startMs": 36500,
+      "endMs": 37440
+    },
+    {
+      "word": "behind",
+      "startMs": 37540,
+      "endMs": 38460
+    },
+    {
+      "word": "That",
+      "startMs": 41520,
+      "endMs": 41780
+    },
+    {
+      "word": "automatic",
+      "startMs": 41840,
+      "endMs": 42680
+    },
+    {
+      "word": "reply",
+      "startMs": 42740,
+      "endMs": 43360
+    },
+    {
+      "word": "is",
+      "startMs": 43520,
+      "endMs": 43700
+    },
+    {
+      "word": "set",
+      "startMs": 43760,
+      "endMs": 44020
+    },
+    {
+      "word": "to",
+      "startMs": 44040,
+      "endMs": 44260
+    },
+    {
+      "word": "send",
+      "startMs": 44340,
+      "endMs": 45140
+    },
+    {
+      "word": "My",
+      "startMs": 45220,
+      "endMs": 45390
+    },
+    {
+      "word": "only",
+      "startMs": 45500,
+      "endMs": 46150
+    },
+    {
+      "word": "meeting",
+      "startMs": 46200,
+      "endMs": 46820
+    },
+    {
+      "word": "is",
+      "startMs": 46880,
+      "endMs": 47010
+    },
+    {
+      "word": "with",
+      "startMs": 47060,
+      "endMs": 47310
+    },
+    {
+      "word": "my",
+      "startMs": 47320,
+      "endMs": 47600
+    },
+    {
+      "word": "friends",
+      "startMs": 47620,
+      "endMs": 48150
+    },
+    {
+      "word": "The",
+      "startMs": 48420,
+      "endMs": 48560
+    },
+    {
+      "word": "real",
+      "startMs": 48700,
+      "endMs": 48940
+    },
+    {
+      "word": "work",
+      "startMs": 49020,
+      "endMs": 49280
+    },
+    {
+      "word": "starts",
+      "startMs": 49340,
+      "endMs": 49820
+    },
+    {
+      "word": "where",
+      "startMs": 49840,
+      "endMs": 50040
+    },
+    {
+      "word": "the",
+      "startMs": 50060,
+      "endMs": 50150
+    },
+    {
+      "word": "pavement",
+      "startMs": 50240,
+      "endMs": 50900
+    },
+    {
+      "word": "ends",
+      "startMs": 50940,
+      "endMs": 53480
+    },
+    {
+      "word": "Out",
+      "startMs": 54740,
+      "endMs": 67940
+    },
+    {
+      "word": "of",
+      "startMs": 67960,
+      "endMs": 68140
+    },
+    {
+      "word": "office,",
+      "startMs": 68200,
+      "endMs": 69300
+    },
+    {
+      "word": "in",
+      "startMs": 69400,
+      "endMs": 69500
+    },
+    {
+      "word": "the",
+      "startMs": 69560,
+      "endMs": 69680
+    },
+    {
+      "word": "ocean",
+      "startMs": 69860,
+      "endMs": 70230
+    },
+    {
+      "word": "(In",
+      "startMs": 70220,
+      "endMs": 70230
+    },
+    {
+      "word": "the",
+      "startMs": 70220,
+      "endMs": 70230
+    },
+    {
+      "word": "ocean!)",
+      "startMs": 70220,
+      "endMs": 70830
+    },
+    {
+      "word": "Got",
+      "startMs": 70960,
+      "endMs": 71120
+    },
+    {
+      "word": "the",
+      "startMs": 71180,
+      "endMs": 71300
+    },
+    {
+      "word": "whole",
+      "startMs": 71380,
+      "endMs": 71700
+    },
+    {
+      "word": "world",
+      "startMs": 71800,
+      "endMs": 72160
+    },
+    {
+      "word": "in",
+      "startMs": 72280,
+      "endMs": 72460
+    },
+    {
+      "word": "slow",
+      "startMs": 72540,
+      "endMs": 72840
+    },
+    {
+      "word": "motion",
+      "startMs": 73000,
+      "endMs": 73640
+    },
+    {
+      "word": "(Slow",
+      "startMs": 73640,
+      "endMs": 73860
+    },
+    {
+      "word": "motion!)",
+      "startMs": 73880,
+      "endMs": 74370
+    },
+    {
+      "word": "No",
+      "startMs": 74400,
+      "endMs": 74500
+    },
+    {
+      "word": "deadline,",
+      "startMs": 74620,
+      "endMs": 75760
+    },
+    {
+      "word": "just",
+      "startMs": 75800,
+      "endMs": 76020
+    },
+    {
+      "word": "devotion",
+      "startMs": 76040,
+      "endMs": 77000
+    },
+    {
+      "word": "To",
+      "startMs": 77380,
+      "endMs": 77600
+    },
+    {
+      "word": "the",
+      "startMs": 77640,
+      "endMs": 77740
+    },
+    {
+      "word": "sunshine",
+      "startMs": 77820,
+      "endMs": 78780
+    },
+    {
+      "word": "and",
+      "startMs": 79100,
+      "endMs": 79220
+    },
+    {
+      "word": "the",
+      "startMs": 79280,
+      "endMs": 79350
+    },
+    {
+      "word": "vibes",
+      "startMs": 79460,
+      "endMs": 79850
+    },
+    {
+      "word": "we're",
+      "startMs": 79920,
+      "endMs": 80200
+    },
+    {
+      "word": "holding",
+      "startMs": 80300,
+      "endMs": 81060
+    },
+    {
+      "word": "All",
+      "startMs": 113180,
+      "endMs": 113300
+    },
+    {
+      "word": "the",
+      "startMs": 113320,
+      "endMs": 113460
+    },
+    {
+      "word": "pressure,",
+      "startMs": 113520,
+      "endMs": 114500
+    },
+    {
+      "word": "just",
+      "startMs": 116140,
+      "endMs": 116300
+    },
+    {
+      "word": "let",
+      "startMs": 116380,
+      "endMs": 116560
+    },
+    {
+      "word": "it",
+      "startMs": 116580,
+      "endMs": 116630
+    },
+    {
+      "word": "go",
+      "startMs": 116780,
+      "endMs": 117120
+    },
+    {
+      "word": "Feel",
+      "startMs": 119580,
+      "endMs": 119780
+    },
+    {
+      "word": "the",
+      "startMs": 119820,
+      "endMs": 119960
+    },
+    {
+      "word": "rhythm",
+      "startMs": 120040,
+      "endMs": 120580
+    },
+    {
+      "word": "in",
+      "startMs": 122560,
+      "endMs": 122820
+    },
+    {
+      "word": "your",
+      "startMs": 122860,
+      "endMs": 122980
+    },
+    {
+      "word": "soul",
+      "startMs": 123060,
+      "endMs": 123720
+    },
+    {
+      "word": "Out",
+      "startMs": 126140,
+      "endMs": 126320
+    },
+    {
+      "word": "of",
+      "startMs": 126360,
+      "endMs": 126440
+    },
+    {
+      "word": "office,",
+      "startMs": 126540,
+      "endMs": 127700
+    },
+    {
+      "word": "in",
+      "startMs": 127780,
+      "endMs": 127880
+    },
+    {
+      "word": "the",
+      "startMs": 127920,
+      "endMs": 128060
+    },
+    {
+      "word": "ocean",
+      "startMs": 128199,
+      "endMs": 128720
+    },
+    {
+      "word": "(In",
+      "startMs": 128759,
+      "endMs": 128769
+    },
+    {
+      "word": "the",
+      "startMs": 128759,
+      "endMs": 128769
+    },
+    {
+      "word": "ocean!)",
+      "startMs": 128759,
+      "endMs": 129259
+    },
+    {
+      "word": "Got",
+      "startMs": 129320,
+      "endMs": 129500
+    },
+    {
+      "word": "the",
+      "startMs": 129539,
+      "endMs": 129680
+    },
+    {
+      "word": "whole",
+      "startMs": 129759,
+      "endMs": 130039
+    },
+    {
+      "word": "world",
+      "startMs": 130120,
+      "endMs": 130539
+    },
+    {
+      "word": "in",
+      "startMs": 130660,
+      "endMs": 130820
+    },
+    {
+      "word": "slow",
+      "startMs": 130900,
+      "endMs": 131200
+    },
+    {
+      "word": "motion",
+      "startMs": 131360,
+      "endMs": 132040
+    },
+    {
+      "word": "(Slow",
+      "startMs": 132120,
+      "endMs": 132170
+    },
+    {
+      "word": "motion!)",
+      "startMs": 132180,
+      "endMs": 132740
+    },
+    {
+      "word": "No",
+      "startMs": 132780,
+      "endMs": 132880
+    },
+    {
+      "word": "deadline,",
+      "startMs": 133020,
+      "endMs": 134140
+    },
+    {
+      "word": "just",
+      "startMs": 134200,
+      "endMs": 134400
+    },
+    {
+      "word": "devotion",
+      "startMs": 134420,
+      "endMs": 135340
+    },
+    {
+      "word": "To",
+      "startMs": 135760,
+      "endMs": 135980
+    },
+    {
+      "word": "the",
+      "startMs": 136040,
+      "endMs": 136090
+    },
+    {
+      "word": "sunshine",
+      "startMs": 136200,
+      "endMs": 137160
+    },
+    {
+      "word": "and",
+      "startMs": 137480,
+      "endMs": 137609
+    },
+    {
+      "word": "the",
+      "startMs": 137660,
+      "endMs": 137760
+    },
+    {
+      "word": "vibes",
+      "startMs": 137840,
+      "endMs": 138230
+    },
+    {
+      "word": "we're",
+      "startMs": 138300,
+      "endMs": 138580
+    },
+    {
+      "word": "holding!",
+      "startMs": 138680,
+      "endMs": 140060
+    }
+  ],
+  "attempts": 1
+}

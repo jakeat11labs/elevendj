@@ -1,0 +1,846 @@
+{
+  "id": "E11",
+  "set": "eleven",
+  "title": "Section By Section",
+  "concept": "A composition plan performed as a song. Each section announces itself and arrives on cue.",
+  "genre": "progressive funk",
+  "bpm": 110,
+  "key": "E minor",
+  "lengthS": 175,
+  "prompt": "Progressive funk, 110 BPM, E minor \u2014 clavinet, syncopated wah guitar, punchy horn section, tight live drums, elastic bass. Playful male vocal narrating a song being assembled in real time. Start with just drums, add bass after four bars, then clavinet, then guitar, then horns \u2014 each entrance clearly announced and clearly audible. Dry, punchy 1970s production, everything close-mic'd.",
+  "slug": "e11-section-by-section",
+  "file": "e11-section-by-section.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Build-A-Groove",
+  "genres": [
+    "funk",
+    "progressive rock",
+    "soul"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 31,
+  "lyrics": [
+    "Alright, let's build a groove.",
+    "Starting with the foundation...",
+    "Just the drums, nice and tight.",
+    "(One, two, three, four!)",
+    "Yeah, that's the feel.",
+    "Now, let's get that low end rumblin'.",
+    "Mr. Bassman, if you please...",
+    "(bom-bom-bada-bom)",
+    "Ooh, feel that bounce!",
+    "Now for the funk machine... bring in the clavinet!",
+    "(chicka-wow)",
+    "There it is!",
+    "That sticky, funky sound.",
+    "Now, let's get some attitude in here...",
+    "A little scratch from the guitar.",
+    "(wah-chicka-wah)",
+    "The pocket's gettin' deep now.",
+    "Wait, I hear 'em comin'...",
+    "Here come the horns!",
+    "SOUND THE ALARM!",
+    "Everybody in the pool!",
+    "(Yeah!)",
+    "This is the sound!",
+    "Can you feel it now?",
+    "The whole crew is here!",
+    "Let's ride this groove!",
+    "And that's how you build a jam.",
+    "(oh yeah!)",
+    "From the ground up.",
+    "Take it home, horns!",
+    "Fade it out nice and slow..."
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro - Drums]\nAlright, let's build a groove.\nStarting with the foundation...\nJust the drums, nice and tight.\n(One, two, three, four!)",
+        "durationMs": 17000,
+        "positiveStyles": [
+          "110 BPM",
+          "progressive funk",
+          "intro",
+          "tight live drums",
+          "crisp hi-hat",
+          "ghost notes on snare",
+          "four-on-the-floor kick pattern",
+          "dry studio room sound",
+          "close-mic'd",
+          "playful male vocal",
+          "narrator persona"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1 - Bass Enters]\nYeah, that's the feel.\nNow, let's get that low end rumblin'.\nMr. Bassman, if you please...\n(bom-bom-bada-bom)\nOoh, feel that bounce!\nNow for the funk machine... bring in the clavinet!\n(chicka-wow)",
+        "durationMs": 35000,
+        "positiveStyles": [
+          "110 BPM",
+          "E minor",
+          "elastic bass guitar entry",
+          "syncopated bassline",
+          "tight pocket with drums",
+          "clavinet enters at the end",
+          "wah guitar teases",
+          "playful male vocal",
+          "building the groove",
+          "dry 1970s production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2 - Guitar and Clav]\nThere it is!\nThat sticky, funky sound.\nNow, let's get some attitude in here...\nA little scratch from the guitar.\n(wah-chicka-wah)\nThe pocket's gettin' deep now.\nWait, I hear 'em comin'...",
+        "durationMs": 35000,
+        "positiveStyles": [
+          "110 BPM",
+          "E minor",
+          "funky clavinet riff",
+          "syncopated wah guitar comping",
+          "drums and bass locked in",
+          "horns swell in the background",
+          "developing the arrangement",
+          "animated male vocal",
+          "close-mic'd instruments"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus - Full Band]\nHere come the horns!\nSOUND THE ALARM!\nEverybody in the pool!\n(Yeah!)\nThis is the sound!\nCan you feel it now?\nThe whole crew is here!\nLet's ride this groove!",
+        "durationMs": 50000,
+        "positiveStyles": [
+          "110 BPM",
+          "E minor",
+          "full band groove",
+          "punchy horn section stabs",
+          "brass and saxophones in unison",
+          "syncopated interplay between all instruments",
+          "energetic and driving",
+          "celebratory male vocal",
+          "peak energy",
+          "tight 1970s funk production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nAnd that's how you build a jam.\n(oh yeah!)\nFrom the ground up.\nTake it home, horns!\nFade it out nice and slow...",
+        "durationMs": 38000,
+        "positiveStyles": [
+          "110 BPM",
+          "E minor",
+          "full ensemble playing out",
+          "horns holding long notes",
+          "bass and clavinet interplay",
+          "drums holding the groove",
+          "gradual fade out",
+          "coda",
+          "concluding the track"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Alright,",
+      "startMs": 100,
+      "endMs": 1660
+    },
+    {
+      "word": "let's",
+      "startMs": 1660,
+      "endMs": 3480
+    },
+    {
+      "word": "build",
+      "startMs": 3480,
+      "endMs": 3630
+    },
+    {
+      "word": "a",
+      "startMs": 3640,
+      "endMs": 3650
+    },
+    {
+      "word": "groove.",
+      "startMs": 3640,
+      "endMs": 3670
+    },
+    {
+      "word": "Starting",
+      "startMs": 3660,
+      "endMs": 4020
+    },
+    {
+      "word": "with",
+      "startMs": 4020,
+      "endMs": 4030
+    },
+    {
+      "word": "the",
+      "startMs": 4020,
+      "endMs": 4030
+    },
+    {
+      "word": "foundation...",
+      "startMs": 4020,
+      "endMs": 4189
+    },
+    {
+      "word": "Just",
+      "startMs": 4180,
+      "endMs": 4720
+    },
+    {
+      "word": "the",
+      "startMs": 5120,
+      "endMs": 5830
+    },
+    {
+      "word": "drums,",
+      "startMs": 5820,
+      "endMs": 6490
+    },
+    {
+      "word": "nice",
+      "startMs": 6480,
+      "endMs": 6780
+    },
+    {
+      "word": "and",
+      "startMs": 6900,
+      "endMs": 6979
+    },
+    {
+      "word": "tight.",
+      "startMs": 7000,
+      "endMs": 8120
+    },
+    {
+      "word": "(One,",
+      "startMs": 8120,
+      "endMs": 8130
+    },
+    {
+      "word": "two,",
+      "startMs": 8120,
+      "endMs": 8130
+    },
+    {
+      "word": "three,",
+      "startMs": 8120,
+      "endMs": 8130
+    },
+    {
+      "word": "four!)",
+      "startMs": 8120,
+      "endMs": 18670
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 20500,
+      "endMs": 21420
+    },
+    {
+      "word": "that's",
+      "startMs": 21440,
+      "endMs": 21700
+    },
+    {
+      "word": "the",
+      "startMs": 21740,
+      "endMs": 21880
+    },
+    {
+      "word": "feel.",
+      "startMs": 21940,
+      "endMs": 23420
+    },
+    {
+      "word": "Now,",
+      "startMs": 25180,
+      "endMs": 25260
+    },
+    {
+      "word": "let's",
+      "startMs": 25280,
+      "endMs": 25400
+    },
+    {
+      "word": "get",
+      "startMs": 25440,
+      "endMs": 25540
+    },
+    {
+      "word": "that",
+      "startMs": 25560,
+      "endMs": 25680
+    },
+    {
+      "word": "low",
+      "startMs": 25720,
+      "endMs": 25900
+    },
+    {
+      "word": "end",
+      "startMs": 25980,
+      "endMs": 26140
+    },
+    {
+      "word": "rumblin'.",
+      "startMs": 26220,
+      "endMs": 27660
+    },
+    {
+      "word": "Mr.",
+      "startMs": 27780,
+      "endMs": 28099
+    },
+    {
+      "word": "Bassman,",
+      "startMs": 28200,
+      "endMs": 28700
+    },
+    {
+      "word": "if",
+      "startMs": 28740,
+      "endMs": 28820
+    },
+    {
+      "word": "you",
+      "startMs": 28860,
+      "endMs": 28900
+    },
+    {
+      "word": "please...",
+      "startMs": 28980,
+      "endMs": 31900
+    },
+    {
+      "word": "(bom-bom-bada-bom)",
+      "startMs": 32700,
+      "endMs": 33520
+    },
+    {
+      "word": "Ooh,",
+      "startMs": 34060,
+      "endMs": 34070
+    },
+    {
+      "word": "feel",
+      "startMs": 34080,
+      "endMs": 34200
+    },
+    {
+      "word": "that",
+      "startMs": 34240,
+      "endMs": 34340
+    },
+    {
+      "word": "bounce!",
+      "startMs": 34400,
+      "endMs": 37060
+    },
+    {
+      "word": "Now",
+      "startMs": 37660,
+      "endMs": 37840
+    },
+    {
+      "word": "for",
+      "startMs": 37900,
+      "endMs": 38000
+    },
+    {
+      "word": "the",
+      "startMs": 38060,
+      "endMs": 38140
+    },
+    {
+      "word": "funk",
+      "startMs": 38160,
+      "endMs": 38360
+    },
+    {
+      "word": "machine...",
+      "startMs": 38400,
+      "endMs": 42790
+    },
+    {
+      "word": "bring",
+      "startMs": 42960,
+      "endMs": 43140
+    },
+    {
+      "word": "in",
+      "startMs": 43180,
+      "endMs": 43240
+    },
+    {
+      "word": "the",
+      "startMs": 43260,
+      "endMs": 43320
+    },
+    {
+      "word": "clavinet!",
+      "startMs": 43380,
+      "endMs": 45240
+    },
+    {
+      "word": "(chicka-wow)",
+      "startMs": 50940,
+      "endMs": 52060
+    },
+    {
+      "word": "There",
+      "startMs": 52080,
+      "endMs": 52260
+    },
+    {
+      "word": "it",
+      "startMs": 52300,
+      "endMs": 52400
+    },
+    {
+      "word": "is!",
+      "startMs": 52580,
+      "endMs": 53420
+    },
+    {
+      "word": "That",
+      "startMs": 55380,
+      "endMs": 55540
+    },
+    {
+      "word": "sticky,",
+      "startMs": 55560,
+      "endMs": 55910
+    },
+    {
+      "word": "funky",
+      "startMs": 55960,
+      "endMs": 56280
+    },
+    {
+      "word": "sound.",
+      "startMs": 56320,
+      "endMs": 56980
+    },
+    {
+      "word": "Now,",
+      "startMs": 59900,
+      "endMs": 59990
+    },
+    {
+      "word": "let's",
+      "startMs": 60040,
+      "endMs": 60220
+    },
+    {
+      "word": "get",
+      "startMs": 60260,
+      "endMs": 60360
+    },
+    {
+      "word": "some",
+      "startMs": 60400,
+      "endMs": 60550
+    },
+    {
+      "word": "attitude",
+      "startMs": 60600,
+      "endMs": 61000
+    },
+    {
+      "word": "in",
+      "startMs": 61020,
+      "endMs": 61140
+    },
+    {
+      "word": "here...",
+      "startMs": 61160,
+      "endMs": 63940
+    },
+    {
+      "word": "A",
+      "startMs": 64000,
+      "endMs": 64019
+    },
+    {
+      "word": "little",
+      "startMs": 64080,
+      "endMs": 64280
+    },
+    {
+      "word": "scratch",
+      "startMs": 64300,
+      "endMs": 64580
+    },
+    {
+      "word": "from",
+      "startMs": 64620,
+      "endMs": 64739
+    },
+    {
+      "word": "the",
+      "startMs": 64780,
+      "endMs": 64860
+    },
+    {
+      "word": "guitar.",
+      "startMs": 64900,
+      "endMs": 66720
+    },
+    {
+      "word": "(wah-chicka-wah)",
+      "startMs": 68140,
+      "endMs": 70740
+    },
+    {
+      "word": "The",
+      "startMs": 70800,
+      "endMs": 70860
+    },
+    {
+      "word": "pocket's",
+      "startMs": 70900,
+      "endMs": 71700
+    },
+    {
+      "word": "gettin'",
+      "startMs": 71740,
+      "endMs": 71980
+    },
+    {
+      "word": "deep",
+      "startMs": 72020,
+      "endMs": 72240
+    },
+    {
+      "word": "now.",
+      "startMs": 72300,
+      "endMs": 73900
+    },
+    {
+      "word": "Wait,",
+      "startMs": 77720,
+      "endMs": 77870
+    },
+    {
+      "word": "I",
+      "startMs": 77920,
+      "endMs": 77940
+    },
+    {
+      "word": "hear",
+      "startMs": 78000,
+      "endMs": 78100
+    },
+    {
+      "word": "'em",
+      "startMs": 78120,
+      "endMs": 78240
+    },
+    {
+      "word": "comin'...",
+      "startMs": 78300,
+      "endMs": 82080
+    },
+    {
+      "word": "Here",
+      "startMs": 95760,
+      "endMs": 95910
+    },
+    {
+      "word": "come",
+      "startMs": 96020,
+      "endMs": 96960
+    },
+    {
+      "word": "the",
+      "startMs": 96960,
+      "endMs": 97100
+    },
+    {
+      "word": "horns!",
+      "startMs": 97100,
+      "endMs": 98170
+    },
+    {
+      "word": "SOUND",
+      "startMs": 99520,
+      "endMs": 99530
+    },
+    {
+      "word": "THE",
+      "startMs": 99520,
+      "endMs": 99530
+    },
+    {
+      "word": "ALARM!",
+      "startMs": 99520,
+      "endMs": 99530
+    },
+    {
+      "word": "Everybody",
+      "startMs": 99560,
+      "endMs": 100120
+    },
+    {
+      "word": "in",
+      "startMs": 100120,
+      "endMs": 100240
+    },
+    {
+      "word": "the",
+      "startMs": 100280,
+      "endMs": 100340
+    },
+    {
+      "word": "pool!",
+      "startMs": 100440,
+      "endMs": 101170
+    },
+    {
+      "word": "(Yeah!)",
+      "startMs": 104420,
+      "endMs": 114490
+    },
+    {
+      "word": "This",
+      "startMs": 114520,
+      "endMs": 114800
+    },
+    {
+      "word": "is",
+      "startMs": 114860,
+      "endMs": 115000
+    },
+    {
+      "word": "the",
+      "startMs": 115040,
+      "endMs": 115140
+    },
+    {
+      "word": "sound!",
+      "startMs": 115320,
+      "endMs": 116400
+    },
+    {
+      "word": "Can",
+      "startMs": 116440,
+      "endMs": 116550
+    },
+    {
+      "word": "you",
+      "startMs": 116600,
+      "endMs": 116640
+    },
+    {
+      "word": "feel",
+      "startMs": 116760,
+      "endMs": 116920
+    },
+    {
+      "word": "it",
+      "startMs": 116960,
+      "endMs": 117080
+    },
+    {
+      "word": "now?",
+      "startMs": 117140,
+      "endMs": 118760
+    },
+    {
+      "word": "The",
+      "startMs": 119760,
+      "endMs": 125100
+    },
+    {
+      "word": "whole",
+      "startMs": 125100,
+      "endMs": 125400
+    },
+    {
+      "word": "crew",
+      "startMs": 125420,
+      "endMs": 125660
+    },
+    {
+      "word": "is",
+      "startMs": 125700,
+      "endMs": 125820
+    },
+    {
+      "word": "here!",
+      "startMs": 125860,
+      "endMs": 126520
+    },
+    {
+      "word": "Let's",
+      "startMs": 127920,
+      "endMs": 128140
+    },
+    {
+      "word": "ride",
+      "startMs": 128160,
+      "endMs": 128420
+    },
+    {
+      "word": "this",
+      "startMs": 128460,
+      "endMs": 128660
+    },
+    {
+      "word": "groove!",
+      "startMs": 128720,
+      "endMs": 129520
+    },
+    {
+      "word": "And",
+      "startMs": 134960,
+      "endMs": 146180
+    },
+    {
+      "word": "that's",
+      "startMs": 146220,
+      "endMs": 146440
+    },
+    {
+      "word": "how",
+      "startMs": 146460,
+      "endMs": 146920
+    },
+    {
+      "word": "you",
+      "startMs": 147060,
+      "endMs": 147239
+    },
+    {
+      "word": "build",
+      "startMs": 147780,
+      "endMs": 148080
+    },
+    {
+      "word": "a",
+      "startMs": 148100,
+      "endMs": 148180
+    },
+    {
+      "word": "jam.",
+      "startMs": 148220,
+      "endMs": 149300
+    },
+    {
+      "word": "(oh",
+      "startMs": 150820,
+      "endMs": 155570
+    },
+    {
+      "word": "yeah!)",
+      "startMs": 156560,
+      "endMs": 157860
+    },
+    {
+      "word": "From",
+      "startMs": 157880,
+      "endMs": 158000
+    },
+    {
+      "word": "the",
+      "startMs": 158040,
+      "endMs": 158109
+    },
+    {
+      "word": "ground",
+      "startMs": 158160,
+      "endMs": 158640
+    },
+    {
+      "word": "up.",
+      "startMs": 158820,
+      "endMs": 160080
+    },
+    {
+      "word": "Take",
+      "startMs": 161400,
+      "endMs": 161570
+    },
+    {
+      "word": "it",
+      "startMs": 161640,
+      "endMs": 161670
+    },
+    {
+      "word": "home,",
+      "startMs": 161740,
+      "endMs": 162120
+    },
+    {
+      "word": "horns!",
+      "startMs": 162160,
+      "endMs": 163280
+    },
+    {
+      "word": "Fade",
+      "startMs": 163340,
+      "endMs": 163520
+    },
+    {
+      "word": "it",
+      "startMs": 163560,
+      "endMs": 163609
+    },
+    {
+      "word": "out",
+      "startMs": 163720,
+      "endMs": 164020
+    },
+    {
+      "word": "nice",
+      "startMs": 165240,
+      "endMs": 165740
+    },
+    {
+      "word": "and",
+      "startMs": 166340,
+      "endMs": 167860
+    },
+    {
+      "word": "slow...",
+      "startMs": 167940,
+      "endMs": 170590
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.24,
+    "truePeakDb": -1.03,
+    "loudnessRangeLu": 3.5
+  },
+  "preview": {
+    "file": "previews/e11-section-by-section.mp3",
+    "startS": 0.0,
+    "durationS": 60,
+    "vocalEntryS": 0.1
+  }
+}

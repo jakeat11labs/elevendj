@@ -1,0 +1,911 @@
+{
+  "id": "E10",
+  "set": "eleven",
+  "title": "Cleared For Commercial Use",
+  "concept": "No sync fees. No clearance delays. The most joyful song ever written about licensing.",
+  "genre": "big band swing",
+  "bpm": 152,
+  "key": "B flat major",
+  "lengthS": 150,
+  "prompt": "Big band swing, 152 BPM, B flat major, 1940s production \u2014 full brass section, swinging ride cymbal, walking upright bass, comping piano, clarinet lead. Brassy female lead with a crooning ensemble, absurdly triumphant about music that is cleared for commercial use. Live room, natural dynamics, big shout chorus and a full brass break in the middle.",
+  "slug": "e10-cleared-for-commercial-use",
+  "file": "e10-cleared-for-commercial-use.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Cleared for Commercial Use",
+  "genres": [
+    "swing",
+    "jazz",
+    "big band"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 28,
+  "lyrics": [
+    "One, two, one two three four!",
+    "Got a tune that's fresh and snazzy,",
+    "Makes the lawyers feel all jazzy.",
+    "No more letters, cease, desist,",
+    "Just a song you can't resist!",
+    "Every note is squeaky clean,",
+    "The most delightful legal scene.",
+    "Oh, it's cleared for commercial use!",
+    "(Royalty-free!)",
+    "Let the good times all cut loose!",
+    "(Guaranteed!)",
+    "From the jingle to the score,",
+    "They'll be begging you for more,",
+    "This sync license is the juice!",
+    "You can sell it on the air,",
+    "Use it here and everywhere.",
+    "Put it in a big-time ad,",
+    "It's the best hit you've ever had.",
+    "Every sample's been approved,",
+    "All the legal risks removed.",
+    "Oh, it's cleared for commercial use!",
+    "(Royalty-free!)",
+    "Let the good times all cut loose!",
+    "(Guaranteed!)",
+    "From the jingle to the score,",
+    "They'll be begging you for more,",
+    "This sync license is the juice!",
+    "Yeah, this music's on the loose!"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]\nOne, two, one two three four!",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "152 BPM",
+          "big band swing",
+          "walking upright bass intro",
+          "light comping piano in B flat major",
+          "gentle ride cymbal taps",
+          "1940s live room production",
+          "anticipatory and bright"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nGot a tune that's fresh and snazzy,\nMakes the lawyers feel all jazzy.\nNo more letters, cease, desist,\nJust a song you can't resist!\nEvery note is squeaky clean,\nThe most delightful legal scene.",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "152 BPM",
+          "full swing groove",
+          "walking upright bass",
+          "swinging ride cymbal pattern",
+          "playful clarinet lead weaving around vocals",
+          "brassy female lead vocal",
+          "warm piano comping",
+          "light brass section stabs"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nOh, it's cleared for commercial use!\n(Royalty-free!)\nLet the good times all cut loose!\n(Guaranteed!)\nFrom the jingle to the score,\nThey'll be begging you for more,\nThis sync license is the juice!",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "152 BPM",
+          "big shout chorus",
+          "full brass section hits",
+          "triumphant and bombastic",
+          "brassy female lead with crooning male ensemble harmony",
+          "energetic drum fills",
+          "walking bass line driving forward",
+          "1940s big band sound"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Instrumental Break]",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "152 BPM",
+          "full brass break",
+          "call and response between trumpets and trombones",
+          "virtuosic clarinet solo",
+          "powerful drum fills and cymbal crashes",
+          "piano runs and flourishes",
+          "high-energy instrumental showcase",
+          "walking bass holding down the harmony"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nYou can sell it on the air,\nUse it here and everywhere.\nPut it in a big-time ad,\nIt's the best hit you've ever had.\nEvery sample's been approved,\nAll the legal risks removed.",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "152 BPM",
+          "swing groove with more intensity",
+          "walking upright bass",
+          "brassy female lead vocal with confident delivery",
+          " clarinet answers vocal phrases",
+          "punchy muted trumpet fills",
+          "dynamic piano comping",
+          "building energy for the final chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro Chorus]\nOh, it's cleared for commercial use!\n(Royalty-free!)\nLet the good times all cut loose!\n(Guaranteed!)\nFrom the jingle to the score,\nThey'll be begging you for more,\nThis sync license is the juice!\nYeah, this music's on the loose!",
+        "durationMs": 35000,
+        "positiveStyles": [
+          "152 BPM",
+          "final big shout chorus",
+          "full brass section swells and hits",
+          "brassy female lead with ensemble backup vocals",
+          "triumphant and conclusive",
+          "big drum fills and cymbal splashes",
+          "final brass chord with a long decay",
+          "classic big band ending"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "One,",
+      "startMs": 100,
+      "endMs": 780
+    },
+    {
+      "word": "two,",
+      "startMs": 820,
+      "endMs": 1600
+    },
+    {
+      "word": "one",
+      "startMs": 1660,
+      "endMs": 1980
+    },
+    {
+      "word": "two",
+      "startMs": 2040,
+      "endMs": 2300
+    },
+    {
+      "word": "three",
+      "startMs": 2420,
+      "endMs": 2780
+    },
+    {
+      "word": "four!",
+      "startMs": 2840,
+      "endMs": 3180
+    },
+    {
+      "word": "Got",
+      "startMs": 16160,
+      "endMs": 16480
+    },
+    {
+      "word": "a",
+      "startMs": 16540,
+      "endMs": 16620
+    },
+    {
+      "word": "tune",
+      "startMs": 16660,
+      "endMs": 17020
+    },
+    {
+      "word": "that's",
+      "startMs": 17060,
+      "endMs": 17320
+    },
+    {
+      "word": "fresh",
+      "startMs": 17480,
+      "endMs": 17820
+    },
+    {
+      "word": "and",
+      "startMs": 17860,
+      "endMs": 17980
+    },
+    {
+      "word": "snazzy,",
+      "startMs": 18120,
+      "endMs": 18800
+    },
+    {
+      "word": "Makes",
+      "startMs": 19320,
+      "endMs": 19600
+    },
+    {
+      "word": "the",
+      "startMs": 19700,
+      "endMs": 19780
+    },
+    {
+      "word": "lawyers",
+      "startMs": 19860,
+      "endMs": 20440
+    },
+    {
+      "word": "feel",
+      "startMs": 20600,
+      "endMs": 21000
+    },
+    {
+      "word": "all",
+      "startMs": 21000,
+      "endMs": 21240
+    },
+    {
+      "word": "jazzy.",
+      "startMs": 21300,
+      "endMs": 22400
+    },
+    {
+      "word": "No",
+      "startMs": 22460,
+      "endMs": 22660
+    },
+    {
+      "word": "more",
+      "startMs": 22700,
+      "endMs": 22920
+    },
+    {
+      "word": "letters,",
+      "startMs": 23000,
+      "endMs": 23670
+    },
+    {
+      "word": "cease,",
+      "startMs": 23720,
+      "endMs": 24100
+    },
+    {
+      "word": "desist,",
+      "startMs": 24160,
+      "endMs": 25560
+    },
+    {
+      "word": "Just",
+      "startMs": 25620,
+      "endMs": 26000
+    },
+    {
+      "word": "a",
+      "startMs": 26040,
+      "endMs": 26100
+    },
+    {
+      "word": "song",
+      "startMs": 26160,
+      "endMs": 26510
+    },
+    {
+      "word": "you",
+      "startMs": 26600,
+      "endMs": 26840
+    },
+    {
+      "word": "can't",
+      "startMs": 26920,
+      "endMs": 27280
+    },
+    {
+      "word": "resist!",
+      "startMs": 27320,
+      "endMs": 28740
+    },
+    {
+      "word": "Every",
+      "startMs": 28820,
+      "endMs": 29280
+    },
+    {
+      "word": "note",
+      "startMs": 29320,
+      "endMs": 29710
+    },
+    {
+      "word": "is",
+      "startMs": 29740,
+      "endMs": 30000
+    },
+    {
+      "word": "squeaky",
+      "startMs": 30000,
+      "endMs": 30660
+    },
+    {
+      "word": "clean,",
+      "startMs": 30680,
+      "endMs": 31480
+    },
+    {
+      "word": "The",
+      "startMs": 31500,
+      "endMs": 31620
+    },
+    {
+      "word": "most",
+      "startMs": 31920,
+      "endMs": 32200
+    },
+    {
+      "word": "delightful",
+      "startMs": 32299,
+      "endMs": 33120
+    },
+    {
+      "word": "legal",
+      "startMs": 33260,
+      "endMs": 33720
+    },
+    {
+      "word": "scene.",
+      "startMs": 33860,
+      "endMs": 35440
+    },
+    {
+      "word": "Oh,",
+      "startMs": 35920,
+      "endMs": 36200
+    },
+    {
+      "word": "it's",
+      "startMs": 36240,
+      "endMs": 36360
+    },
+    {
+      "word": "cleared",
+      "startMs": 36400,
+      "endMs": 36720
+    },
+    {
+      "word": "for",
+      "startMs": 36780,
+      "endMs": 36980
+    },
+    {
+      "word": "commercial",
+      "startMs": 37040,
+      "endMs": 37700
+    },
+    {
+      "word": "use!",
+      "startMs": 38040,
+      "endMs": 40680
+    },
+    {
+      "word": "(Royalty-free!)",
+      "startMs": 41060,
+      "endMs": 42210
+    },
+    {
+      "word": "Let",
+      "startMs": 42220,
+      "endMs": 42480
+    },
+    {
+      "word": "the",
+      "startMs": 42560,
+      "endMs": 42620
+    },
+    {
+      "word": "good",
+      "startMs": 42720,
+      "endMs": 42920
+    },
+    {
+      "word": "times",
+      "startMs": 43060,
+      "endMs": 43449
+    },
+    {
+      "word": "all",
+      "startMs": 43500,
+      "endMs": 43740
+    },
+    {
+      "word": "cut",
+      "startMs": 43860,
+      "endMs": 44040
+    },
+    {
+      "word": "loose!",
+      "startMs": 44140,
+      "endMs": 47000
+    },
+    {
+      "word": "(Guaranteed!)",
+      "startMs": 47380,
+      "endMs": 48470
+    },
+    {
+      "word": "From",
+      "startMs": 48500,
+      "endMs": 48820
+    },
+    {
+      "word": "the",
+      "startMs": 48840,
+      "endMs": 48949
+    },
+    {
+      "word": "jingle",
+      "startMs": 49000,
+      "endMs": 49640
+    },
+    {
+      "word": "to",
+      "startMs": 49800,
+      "endMs": 50020
+    },
+    {
+      "word": "the",
+      "startMs": 50080,
+      "endMs": 50170
+    },
+    {
+      "word": "score,",
+      "startMs": 50320,
+      "endMs": 51600
+    },
+    {
+      "word": "They'll",
+      "startMs": 51640,
+      "endMs": 52000
+    },
+    {
+      "word": "be",
+      "startMs": 52040,
+      "endMs": 52120
+    },
+    {
+      "word": "begging",
+      "startMs": 52200,
+      "endMs": 52720
+    },
+    {
+      "word": "you",
+      "startMs": 52860,
+      "endMs": 53060
+    },
+    {
+      "word": "for",
+      "startMs": 53220,
+      "endMs": 53520
+    },
+    {
+      "word": "more,",
+      "startMs": 53620,
+      "endMs": 54760
+    },
+    {
+      "word": "This",
+      "startMs": 54800,
+      "endMs": 55040
+    },
+    {
+      "word": "sync",
+      "startMs": 55140,
+      "endMs": 55280
+    },
+    {
+      "word": "license",
+      "startMs": 55320,
+      "endMs": 55880
+    },
+    {
+      "word": "is",
+      "startMs": 56020,
+      "endMs": 56260
+    },
+    {
+      "word": "the",
+      "startMs": 56380,
+      "endMs": 56620
+    },
+    {
+      "word": "juice!",
+      "startMs": 56740,
+      "endMs": 58220
+    },
+    {
+      "word": "You",
+      "startMs": 93540,
+      "endMs": 93680
+    },
+    {
+      "word": "can",
+      "startMs": 93840,
+      "endMs": 93940
+    },
+    {
+      "word": "sell",
+      "startMs": 94060,
+      "endMs": 94400
+    },
+    {
+      "word": "it",
+      "startMs": 94460,
+      "endMs": 94600
+    },
+    {
+      "word": "on",
+      "startMs": 94860,
+      "endMs": 95120
+    },
+    {
+      "word": "the",
+      "startMs": 95200,
+      "endMs": 95360
+    },
+    {
+      "word": "air,",
+      "startMs": 95440,
+      "endMs": 96600
+    },
+    {
+      "word": "Use",
+      "startMs": 96700,
+      "endMs": 97020
+    },
+    {
+      "word": "it",
+      "startMs": 97040,
+      "endMs": 97140
+    },
+    {
+      "word": "here",
+      "startMs": 97220,
+      "endMs": 97560
+    },
+    {
+      "word": "and",
+      "startMs": 97620,
+      "endMs": 97840
+    },
+    {
+      "word": "everywhere.",
+      "startMs": 98060,
+      "endMs": 99780
+    },
+    {
+      "word": "Put",
+      "startMs": 99840,
+      "endMs": 100060
+    },
+    {
+      "word": "it",
+      "startMs": 100120,
+      "endMs": 100360
+    },
+    {
+      "word": "in",
+      "startMs": 100480,
+      "endMs": 100720
+    },
+    {
+      "word": "a",
+      "startMs": 100760,
+      "endMs": 100860
+    },
+    {
+      "word": "big-time",
+      "startMs": 101120,
+      "endMs": 101780
+    },
+    {
+      "word": "ad,",
+      "startMs": 101800,
+      "endMs": 102940
+    },
+    {
+      "word": "It's",
+      "startMs": 103000,
+      "endMs": 103280
+    },
+    {
+      "word": "the",
+      "startMs": 103300,
+      "endMs": 103400
+    },
+    {
+      "word": "best",
+      "startMs": 103460,
+      "endMs": 103760
+    },
+    {
+      "word": "hit",
+      "startMs": 103820,
+      "endMs": 104020
+    },
+    {
+      "word": "you've",
+      "startMs": 104140,
+      "endMs": 104480
+    },
+    {
+      "word": "ever",
+      "startMs": 104540,
+      "endMs": 104780
+    },
+    {
+      "word": "had.",
+      "startMs": 104920,
+      "endMs": 105580
+    },
+    {
+      "word": "Every",
+      "startMs": 106180,
+      "endMs": 106520
+    },
+    {
+      "word": "sample's",
+      "startMs": 106600,
+      "endMs": 107280
+    },
+    {
+      "word": "been",
+      "startMs": 107420,
+      "endMs": 107760
+    },
+    {
+      "word": "approved,",
+      "startMs": 107820,
+      "endMs": 108820
+    },
+    {
+      "word": "All",
+      "startMs": 109280,
+      "endMs": 109540
+    },
+    {
+      "word": "the",
+      "startMs": 109620,
+      "endMs": 109700
+    },
+    {
+      "word": "legal",
+      "startMs": 109800,
+      "endMs": 110380
+    },
+    {
+      "word": "risks",
+      "startMs": 110560,
+      "endMs": 110940
+    },
+    {
+      "word": "removed.",
+      "startMs": 111000,
+      "endMs": 114760
+    },
+    {
+      "word": "Oh,",
+      "startMs": 117960,
+      "endMs": 118230
+    },
+    {
+      "word": "it's",
+      "startMs": 118300,
+      "endMs": 118440
+    },
+    {
+      "word": "cleared",
+      "startMs": 118460,
+      "endMs": 118740
+    },
+    {
+      "word": "for",
+      "startMs": 118820,
+      "endMs": 118980
+    },
+    {
+      "word": "commercial",
+      "startMs": 119080,
+      "endMs": 119780
+    },
+    {
+      "word": "use!",
+      "startMs": 119980,
+      "endMs": 121490
+    },
+    {
+      "word": "(Royalty-free!)",
+      "startMs": 123140,
+      "endMs": 124210
+    },
+    {
+      "word": "Let",
+      "startMs": 124220,
+      "endMs": 124520
+    },
+    {
+      "word": "the",
+      "startMs": 124600,
+      "endMs": 124690
+    },
+    {
+      "word": "good",
+      "startMs": 124760,
+      "endMs": 125000
+    },
+    {
+      "word": "times",
+      "startMs": 125040,
+      "endMs": 125480
+    },
+    {
+      "word": "all",
+      "startMs": 125540,
+      "endMs": 125820
+    },
+    {
+      "word": "cut",
+      "startMs": 125900,
+      "endMs": 126110
+    },
+    {
+      "word": "loose!",
+      "startMs": 126180,
+      "endMs": 128259
+    },
+    {
+      "word": "(Guaranteed!)",
+      "startMs": 129440,
+      "endMs": 130509
+    },
+    {
+      "word": "From",
+      "startMs": 130539,
+      "endMs": 130720
+    },
+    {
+      "word": "the",
+      "startMs": 130900,
+      "endMs": 131049
+    },
+    {
+      "word": "jingle",
+      "startMs": 131140,
+      "endMs": 131800
+    },
+    {
+      "word": "to",
+      "startMs": 131820,
+      "endMs": 132100
+    },
+    {
+      "word": "the",
+      "startMs": 132160,
+      "endMs": 132250
+    },
+    {
+      "word": "score,",
+      "startMs": 132400,
+      "endMs": 133340
+    },
+    {
+      "word": "They'll",
+      "startMs": 133720,
+      "endMs": 134049
+    },
+    {
+      "word": "be",
+      "startMs": 134100,
+      "endMs": 134200
+    },
+    {
+      "word": "begging",
+      "startMs": 134260,
+      "endMs": 134780
+    },
+    {
+      "word": "you",
+      "startMs": 134920,
+      "endMs": 135140
+    },
+    {
+      "word": "for",
+      "startMs": 135300,
+      "endMs": 135460
+    },
+    {
+      "word": "more,",
+      "startMs": 135640,
+      "endMs": 136560
+    },
+    {
+      "word": "This",
+      "startMs": 136620,
+      "endMs": 137160
+    },
+    {
+      "word": "sync",
+      "startMs": 137200,
+      "endMs": 137340
+    },
+    {
+      "word": "license",
+      "startMs": 137380,
+      "endMs": 138020
+    },
+    {
+      "word": "is",
+      "startMs": 138100,
+      "endMs": 138360
+    },
+    {
+      "word": "the",
+      "startMs": 138400,
+      "endMs": 138640
+    },
+    {
+      "word": "juice!",
+      "startMs": 138820,
+      "endMs": 140760
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 141540,
+      "endMs": 141740
+    },
+    {
+      "word": "this",
+      "startMs": 141780,
+      "endMs": 142060
+    },
+    {
+      "word": "music's",
+      "startMs": 142120,
+      "endMs": 142760
+    },
+    {
+      "word": "on",
+      "startMs": 142840,
+      "endMs": 143280
+    },
+    {
+      "word": "the",
+      "startMs": 143320,
+      "endMs": 143450
+    },
+    {
+      "word": "loose!",
+      "startMs": 143540,
+      "endMs": 146420
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -1.11,
+    "loudnessRangeLu": 5.0
+  },
+  "preview": {
+    "file": "previews/e10-cleared-for-commercial-use.mp3",
+    "startS": 0.0,
+    "durationS": 60,
+    "vocalEntryS": 0.1
+  }
+}

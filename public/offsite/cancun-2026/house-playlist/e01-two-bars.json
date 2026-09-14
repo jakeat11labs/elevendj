@@ -1,0 +1,1081 @@
+{
+  "id": "E01",
+  "set": "eleven",
+  "title": "Two Bars",
+  "concept": "The mark is two bars. Music is measured in bars. The hotel wifi has two bars. One chorus, three meanings.",
+  "genre": "anthemic indie rock",
+  "bpm": 126,
+  "key": "D major",
+  "lengthS": 165,
+  "prompt": "Anthemic indie rock, 126 BPM, D major, modern stadium production \u2014 chiming delayed guitars, driving toms, warm melodic bass, swelling synth pad. Earnest male lead opening into a huge gang-vocal chorus, playing on three meanings of two bars: the logo, the music, and the signal. Start with two bars of solo guitar, literally, then the full band. Long reverb tails, cathartic final chorus with everyone singing.",
+  "slug": "e01-two-bars",
+  "file": "e01-two-bars.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Two Bars",
+  "genres": [
+    "rock",
+    "indie"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 28,
+  "lyrics": [
+    "A broken sign on a lonely street",
+    "Flickering out to a silent beat",
+    "I trace the lines that I used to know",
+    "A faded promise from long ago",
+    "Waiting for the static to clear",
+    "Waiting for the sound to reappear",
+    "We've only got two bars",
+    "To make them hear our hearts",
+    "Yeah, we've only got two bars",
+    "To show them who we are",
+    "A fragile tune on a lost cassette",
+    "Every note a sweet regret",
+    "Playing it back just to feel alive",
+    "A melody where our hopes survive",
+    "Looking for a signal in the noise",
+    "Looking for a reason, for a voice",
+    "We've only got two bars",
+    "To make them hear our hearts",
+    "Yeah, we've only got two bars",
+    "To show them who we are",
+    "No reception here, just fading light...",
+    "But I can see the signal burning bright.",
+    "We've only got two bars!",
+    "(Two bars!)",
+    "To make them hear our hearts!",
+    "(Hear our hearts!)",
+    "Yeah, we've only got two bars!",
+    "To show them who we are!"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 7619,
+        "positiveStyles": [
+          "126 BPM",
+          "chiming electric guitar melody",
+          "D major key",
+          "long delay trails",
+          "spacious mix",
+          "anticipatory atmosphere",
+          "solo guitar intro"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nA broken sign on a lonely street\nFlickering out to a silent beat\nI trace the lines that I used to know\nA faded promise from long ago",
+        "durationMs": 22857,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "full band enters",
+          "driving tom-heavy drum beat",
+          "warm melodic bass line",
+          "chiming delayed guitars continue",
+          "earnest male lead vocal",
+          "clean and present vocal production",
+          "building energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nWaiting for the static to clear\nWaiting for the sound to reappear",
+        "durationMs": 15238,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "swelling synth pad enters",
+          "kick drum adds four-on-the-floor pulse",
+          "intensifying guitar layers",
+          "rising dynamics",
+          "vocal intensity builds",
+          "pre-chorus lift",
+          "subtle shaker adds texture"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nWe've only got two bars\nTo make them hear our hearts\nYeah, we've only got two bars\nTo show them who we are",
+        "durationMs": 22857,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "huge gang vocal chorus",
+          "layered male vocals",
+          "powerful and open drum sound",
+          "shimmering cymbals",
+          "guitars become a wall of sound",
+          "anthemic peak",
+          "bright synth pad swells",
+          "long reverb tails on vocals and drums"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nA fragile tune on a lost cassette\nEvery note a sweet regret\nPlaying it back just to feel alive\nA melody where our hopes survive",
+        "durationMs": 22857,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "energy pulls back slightly",
+          "bassline becomes more prominent",
+          "syncopated hi-hat pattern",
+          "arpeggiated guitar texture",
+          "thoughtful male lead vocal",
+          "intimate vocal delivery",
+          "synth pad holds a low drone"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus 2]\nLooking for a signal in the noise\nLooking for a reason, for a voice",
+        "durationMs": 15238,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "swelling synth pad returns stronger",
+          "tom-heavy drum fill builds",
+          "guitars layer with more intensity",
+          "second build-up section",
+          "vocal harmony layer enters",
+          "anticipation builds for the chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nWe've only got two bars\nTo make them hear our hearts\nYeah, we've only got two bars\nTo show them who we are",
+        "durationMs": 22857,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "full-force gang vocal chorus",
+          "even bigger vocal layers",
+          "driving rhythm section",
+          "crashing cymbals accent the downbeats",
+          "broad stereo guitar image",
+          "euphoric synth layers",
+          "high energy",
+          "melodic lead guitar lick appears"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nNo reception here, just fading light...\nBut I can see the signal burning bright.",
+        "durationMs": 15238,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "breakdown section",
+          "minimal instrumentation",
+          "pulsing synth pad and bass",
+          "single guitar chimes a simple motif",
+          "drums are just a heartbeat kick",
+          "reflective and emotive male vocal",
+          "builds slowly with returning elements",
+          "long reverb tails"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Final Chorus]\nWe've only got two bars!\n(Two bars!)\nTo make them hear our hearts!\n(Hear our hearts!)\nYeah, we've only got two bars!\nTo show them who we are!",
+        "durationMs": 20239,
+        "positiveStyles": [
+          "126 BPM",
+          "D major key",
+          "cathartic and explosive final chorus",
+          "massive gang vocals, everyone shouting",
+          "drums at maximum power",
+          "floor toms pounding",
+          "huge wall of layered guitars",
+          "synth pads at full swell",
+          "ad-lib vocals add texture",
+          "stadium-sized reverb",
+          "ultimate peak of the song"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "A",
+      "startMs": 15580,
+      "endMs": 15700
+    },
+    {
+      "word": "broken",
+      "startMs": 15780,
+      "endMs": 16219
+    },
+    {
+      "word": "sign",
+      "startMs": 16300,
+      "endMs": 16780
+    },
+    {
+      "word": "on",
+      "startMs": 16880,
+      "endMs": 17040
+    },
+    {
+      "word": "a",
+      "startMs": 17120,
+      "endMs": 17160
+    },
+    {
+      "word": "lonely",
+      "startMs": 17260,
+      "endMs": 17780
+    },
+    {
+      "word": "street",
+      "startMs": 17860,
+      "endMs": 18440
+    },
+    {
+      "word": "Flickering",
+      "startMs": 19400,
+      "endMs": 20180
+    },
+    {
+      "word": "out",
+      "startMs": 20280,
+      "endMs": 20520
+    },
+    {
+      "word": "to",
+      "startMs": 20620,
+      "endMs": 20820
+    },
+    {
+      "word": "a",
+      "startMs": 20880,
+      "endMs": 21000
+    },
+    {
+      "word": "silent",
+      "startMs": 21040,
+      "endMs": 21760
+    },
+    {
+      "word": "beat",
+      "startMs": 21820,
+      "endMs": 23220
+    },
+    {
+      "word": "I",
+      "startMs": 23240,
+      "endMs": 23360
+    },
+    {
+      "word": "trace",
+      "startMs": 23460,
+      "endMs": 23720
+    },
+    {
+      "word": "the",
+      "startMs": 23780,
+      "endMs": 23880
+    },
+    {
+      "word": "lines",
+      "startMs": 23940,
+      "endMs": 24440
+    },
+    {
+      "word": "that",
+      "startMs": 24460,
+      "endMs": 24720
+    },
+    {
+      "word": "I",
+      "startMs": 24800,
+      "endMs": 24880
+    },
+    {
+      "word": "used",
+      "startMs": 25040,
+      "endMs": 25260
+    },
+    {
+      "word": "to",
+      "startMs": 25340,
+      "endMs": 25540
+    },
+    {
+      "word": "know",
+      "startMs": 25640,
+      "endMs": 26140
+    },
+    {
+      "word": "A",
+      "startMs": 27120,
+      "endMs": 27220
+    },
+    {
+      "word": "faded",
+      "startMs": 27320,
+      "endMs": 27700
+    },
+    {
+      "word": "promise",
+      "startMs": 27820,
+      "endMs": 28439
+    },
+    {
+      "word": "from",
+      "startMs": 28540,
+      "endMs": 28720
+    },
+    {
+      "word": "long",
+      "startMs": 28820,
+      "endMs": 29180
+    },
+    {
+      "word": "ago",
+      "startMs": 29320,
+      "endMs": 29960
+    },
+    {
+      "word": "Waiting",
+      "startMs": 30740,
+      "endMs": 31780
+    },
+    {
+      "word": "for",
+      "startMs": 31920,
+      "endMs": 32119
+    },
+    {
+      "word": "the",
+      "startMs": 32160,
+      "endMs": 32280
+    },
+    {
+      "word": "static",
+      "startMs": 32299,
+      "endMs": 33680
+    },
+    {
+      "word": "to",
+      "startMs": 33740,
+      "endMs": 34140
+    },
+    {
+      "word": "clear",
+      "startMs": 34260,
+      "endMs": 35480
+    },
+    {
+      "word": "Waiting",
+      "startMs": 38200,
+      "endMs": 39440
+    },
+    {
+      "word": "for",
+      "startMs": 39600,
+      "endMs": 39800
+    },
+    {
+      "word": "the",
+      "startMs": 39840,
+      "endMs": 39920
+    },
+    {
+      "word": "sound",
+      "startMs": 40060,
+      "endMs": 40480
+    },
+    {
+      "word": "to",
+      "startMs": 40540,
+      "endMs": 40940
+    },
+    {
+      "word": "reappear",
+      "startMs": 41080,
+      "endMs": 43780
+    },
+    {
+      "word": "We've",
+      "startMs": 46760,
+      "endMs": 47060
+    },
+    {
+      "word": "only",
+      "startMs": 47120,
+      "endMs": 47480
+    },
+    {
+      "word": "got",
+      "startMs": 47540,
+      "endMs": 47880
+    },
+    {
+      "word": "two",
+      "startMs": 47960,
+      "endMs": 48340
+    },
+    {
+      "word": "bars",
+      "startMs": 48480,
+      "endMs": 50800
+    },
+    {
+      "word": "To",
+      "startMs": 51580,
+      "endMs": 51720
+    },
+    {
+      "word": "make",
+      "startMs": 51820,
+      "endMs": 52080
+    },
+    {
+      "word": "them",
+      "startMs": 52140,
+      "endMs": 52260
+    },
+    {
+      "word": "hear",
+      "startMs": 52360,
+      "endMs": 52780
+    },
+    {
+      "word": "our",
+      "startMs": 52880,
+      "endMs": 53200
+    },
+    {
+      "word": "hearts",
+      "startMs": 53260,
+      "endMs": 54700
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 55180,
+      "endMs": 55400
+    },
+    {
+      "word": "we've",
+      "startMs": 55460,
+      "endMs": 55700
+    },
+    {
+      "word": "only",
+      "startMs": 55780,
+      "endMs": 56080
+    },
+    {
+      "word": "got",
+      "startMs": 56180,
+      "endMs": 56520
+    },
+    {
+      "word": "two",
+      "startMs": 56620,
+      "endMs": 56940
+    },
+    {
+      "word": "bars",
+      "startMs": 57120,
+      "endMs": 58740
+    },
+    {
+      "word": "To",
+      "startMs": 59260,
+      "endMs": 59380
+    },
+    {
+      "word": "show",
+      "startMs": 59480,
+      "endMs": 59720
+    },
+    {
+      "word": "them",
+      "startMs": 59800,
+      "endMs": 59960
+    },
+    {
+      "word": "who",
+      "startMs": 60020,
+      "endMs": 60180
+    },
+    {
+      "word": "we",
+      "startMs": 60280,
+      "endMs": 60420
+    },
+    {
+      "word": "are",
+      "startMs": 60580,
+      "endMs": 61780
+    },
+    {
+      "word": "A",
+      "startMs": 71260,
+      "endMs": 71380
+    },
+    {
+      "word": "fragile",
+      "startMs": 71420,
+      "endMs": 71920
+    },
+    {
+      "word": "tune",
+      "startMs": 72020,
+      "endMs": 72480
+    },
+    {
+      "word": "on",
+      "startMs": 72580,
+      "endMs": 72740
+    },
+    {
+      "word": "a",
+      "startMs": 72760,
+      "endMs": 72860
+    },
+    {
+      "word": "lost",
+      "startMs": 72980,
+      "endMs": 73300
+    },
+    {
+      "word": "cassette",
+      "startMs": 73320,
+      "endMs": 74360
+    },
+    {
+      "word": "Every",
+      "startMs": 75440,
+      "endMs": 75690
+    },
+    {
+      "word": "note",
+      "startMs": 75860,
+      "endMs": 76300
+    },
+    {
+      "word": "a",
+      "startMs": 76560,
+      "endMs": 76680
+    },
+    {
+      "word": "sweet",
+      "startMs": 76700,
+      "endMs": 77100
+    },
+    {
+      "word": "regret",
+      "startMs": 77200,
+      "endMs": 78199
+    },
+    {
+      "word": "Playing",
+      "startMs": 78920,
+      "endMs": 79440
+    },
+    {
+      "word": "it",
+      "startMs": 79480,
+      "endMs": 79660
+    },
+    {
+      "word": "back",
+      "startMs": 79720,
+      "endMs": 80080
+    },
+    {
+      "word": "just",
+      "startMs": 80160,
+      "endMs": 80360
+    },
+    {
+      "word": "to",
+      "startMs": 80400,
+      "endMs": 80600
+    },
+    {
+      "word": "feel",
+      "startMs": 80660,
+      "endMs": 81000
+    },
+    {
+      "word": "alive",
+      "startMs": 81100,
+      "endMs": 82040
+    },
+    {
+      "word": "A",
+      "startMs": 82820,
+      "endMs": 82880
+    },
+    {
+      "word": "melody",
+      "startMs": 83000,
+      "endMs": 83880
+    },
+    {
+      "word": "where",
+      "startMs": 83980,
+      "endMs": 84240
+    },
+    {
+      "word": "our",
+      "startMs": 84300,
+      "endMs": 84400
+    },
+    {
+      "word": "hopes",
+      "startMs": 84480,
+      "endMs": 84860
+    },
+    {
+      "word": "survive",
+      "startMs": 84880,
+      "endMs": 86620
+    },
+    {
+      "word": "Looking",
+      "startMs": 88840,
+      "endMs": 95130
+    },
+    {
+      "word": "for",
+      "startMs": 95280,
+      "endMs": 95500
+    },
+    {
+      "word": "a",
+      "startMs": 95580,
+      "endMs": 95600
+    },
+    {
+      "word": "signal",
+      "startMs": 95780,
+      "endMs": 96680
+    },
+    {
+      "word": "in",
+      "startMs": 96840,
+      "endMs": 97140
+    },
+    {
+      "word": "the",
+      "startMs": 97240,
+      "endMs": 97380
+    },
+    {
+      "word": "noise",
+      "startMs": 97660,
+      "endMs": 99560
+    },
+    {
+      "word": "Looking",
+      "startMs": 101740,
+      "endMs": 102800
+    },
+    {
+      "word": "for",
+      "startMs": 102960,
+      "endMs": 103220
+    },
+    {
+      "word": "a",
+      "startMs": 103280,
+      "endMs": 103380
+    },
+    {
+      "word": "reason,",
+      "startMs": 103480,
+      "endMs": 104360
+    },
+    {
+      "word": "for",
+      "startMs": 104420,
+      "endMs": 104860
+    },
+    {
+      "word": "a",
+      "startMs": 104960,
+      "endMs": 105240
+    },
+    {
+      "word": "voice",
+      "startMs": 105320,
+      "endMs": 107390
+    },
+    {
+      "word": "We've",
+      "startMs": 108260,
+      "endMs": 108500
+    },
+    {
+      "word": "only",
+      "startMs": 108560,
+      "endMs": 108920
+    },
+    {
+      "word": "got",
+      "startMs": 108980,
+      "endMs": 109300
+    },
+    {
+      "word": "two",
+      "startMs": 109400,
+      "endMs": 109800
+    },
+    {
+      "word": "bars",
+      "startMs": 109920,
+      "endMs": 112300
+    },
+    {
+      "word": "To",
+      "startMs": 113020,
+      "endMs": 113180
+    },
+    {
+      "word": "make",
+      "startMs": 113220,
+      "endMs": 113500
+    },
+    {
+      "word": "them",
+      "startMs": 113540,
+      "endMs": 113700
+    },
+    {
+      "word": "hear",
+      "startMs": 113780,
+      "endMs": 114210
+    },
+    {
+      "word": "our",
+      "startMs": 114280,
+      "endMs": 114680
+    },
+    {
+      "word": "hearts",
+      "startMs": 114680,
+      "endMs": 116200
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 116620,
+      "endMs": 116860
+    },
+    {
+      "word": "we've",
+      "startMs": 116920,
+      "endMs": 117120
+    },
+    {
+      "word": "only",
+      "startMs": 117200,
+      "endMs": 117480
+    },
+    {
+      "word": "got",
+      "startMs": 117620,
+      "endMs": 117940
+    },
+    {
+      "word": "two",
+      "startMs": 118060,
+      "endMs": 118420
+    },
+    {
+      "word": "bars",
+      "startMs": 118580,
+      "endMs": 120179
+    },
+    {
+      "word": "To",
+      "startMs": 120700,
+      "endMs": 120820
+    },
+    {
+      "word": "show",
+      "startMs": 120900,
+      "endMs": 121160
+    },
+    {
+      "word": "them",
+      "startMs": 121240,
+      "endMs": 121420
+    },
+    {
+      "word": "who",
+      "startMs": 121460,
+      "endMs": 121600
+    },
+    {
+      "word": "we",
+      "startMs": 121700,
+      "endMs": 121860
+    },
+    {
+      "word": "are",
+      "startMs": 121940,
+      "endMs": 122860
+    },
+    {
+      "word": "No",
+      "startMs": 130960,
+      "endMs": 131180
+    },
+    {
+      "word": "reception",
+      "startMs": 131240,
+      "endMs": 132120
+    },
+    {
+      "word": "here,",
+      "startMs": 132240,
+      "endMs": 132680
+    },
+    {
+      "word": "just",
+      "startMs": 132740,
+      "endMs": 133100
+    },
+    {
+      "word": "fading",
+      "startMs": 133200,
+      "endMs": 133980
+    },
+    {
+      "word": "light...",
+      "startMs": 134140,
+      "endMs": 136070
+    },
+    {
+      "word": "But",
+      "startMs": 138460,
+      "endMs": 138720
+    },
+    {
+      "word": "I",
+      "startMs": 138820,
+      "endMs": 138840
+    },
+    {
+      "word": "can",
+      "startMs": 138940,
+      "endMs": 139040
+    },
+    {
+      "word": "see",
+      "startMs": 139200,
+      "endMs": 139620
+    },
+    {
+      "word": "the",
+      "startMs": 139640,
+      "endMs": 139740
+    },
+    {
+      "word": "signal",
+      "startMs": 139940,
+      "endMs": 140720
+    },
+    {
+      "word": "burning",
+      "startMs": 140900,
+      "endMs": 141780
+    },
+    {
+      "word": "bright.",
+      "startMs": 141840,
+      "endMs": 144680
+    },
+    {
+      "word": "We've",
+      "startMs": 144740,
+      "endMs": 144989
+    },
+    {
+      "word": "only",
+      "startMs": 145040,
+      "endMs": 145400
+    },
+    {
+      "word": "got",
+      "startMs": 145460,
+      "endMs": 145780
+    },
+    {
+      "word": "two",
+      "startMs": 145900,
+      "endMs": 146280
+    },
+    {
+      "word": "bars!",
+      "startMs": 146380,
+      "endMs": 147780
+    },
+    {
+      "word": "(Two",
+      "startMs": 147780,
+      "endMs": 148120
+    },
+    {
+      "word": "bars!)",
+      "startMs": 148660,
+      "endMs": 149020
+    },
+    {
+      "word": "To",
+      "startMs": 149500,
+      "endMs": 149660
+    },
+    {
+      "word": "make",
+      "startMs": 149760,
+      "endMs": 149980
+    },
+    {
+      "word": "them",
+      "startMs": 150020,
+      "endMs": 150200
+    },
+    {
+      "word": "hear",
+      "startMs": 150260,
+      "endMs": 150700
+    },
+    {
+      "word": "our",
+      "startMs": 150760,
+      "endMs": 151140
+    },
+    {
+      "word": "hearts!",
+      "startMs": 151220,
+      "endMs": 151710
+    },
+    {
+      "word": "(Hear",
+      "startMs": 151700,
+      "endMs": 151850
+    },
+    {
+      "word": "our",
+      "startMs": 151840,
+      "endMs": 151850
+    },
+    {
+      "word": "hearts!)",
+      "startMs": 151840,
+      "endMs": 153090
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 153120,
+      "endMs": 153340
+    },
+    {
+      "word": "we've",
+      "startMs": 153400,
+      "endMs": 153590
+    },
+    {
+      "word": "only",
+      "startMs": 153660,
+      "endMs": 153980
+    },
+    {
+      "word": "got",
+      "startMs": 154060,
+      "endMs": 154380
+    },
+    {
+      "word": "two",
+      "startMs": 154540,
+      "endMs": 154920
+    },
+    {
+      "word": "bars!",
+      "startMs": 155060,
+      "endMs": 157160
+    },
+    {
+      "word": "To",
+      "startMs": 157200,
+      "endMs": 157320
+    },
+    {
+      "word": "show",
+      "startMs": 157400,
+      "endMs": 157660
+    },
+    {
+      "word": "them",
+      "startMs": 157720,
+      "endMs": 157900
+    },
+    {
+      "word": "who",
+      "startMs": 157940,
+      "endMs": 158120
+    },
+    {
+      "word": "we",
+      "startMs": 158180,
+      "endMs": 158380
+    },
+    {
+      "word": "are!",
+      "startMs": 158480,
+      "endMs": 160300
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -3.57,
+    "loudnessRangeLu": 5.3
+  },
+  "preview": {
+    "file": "previews/e01-two-bars.mp3",
+    "startS": 12.58,
+    "durationS": 60,
+    "vocalEntryS": 15.58
+  }
+}

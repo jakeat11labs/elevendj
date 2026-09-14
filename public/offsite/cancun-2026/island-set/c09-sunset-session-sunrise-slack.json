@@ -1,0 +1,841 @@
+{
+  "id": "C09",
+  "set": "cancun",
+  "title": "Sunset Session, Sunrise Slack",
+  "concept": "The night was long. The notifications were longer. Worth it.",
+  "genre": "afro-house",
+  "bpm": 122,
+  "key": "F minor",
+  "lengthS": 175,
+  "prompt": "Afro-house, 122 BPM, F minor, club-ready production — rolling organic percussion, log drum bass, kalimba and marimba textures, airy filtered pads, sparse piano chords. Soulful female lead vocal in clear neutral American English, hypnotic repeated hook about dancing through sunset and answering messages at sunrise, ethereal layered backing vocals. Sung in English only, every lyric intelligible, no Spanish lyrics. Percussion-only intro, vocal enters at twenty seconds, filter-sweep build into an euphoric drop, long hypnotic outro.",
+  "slug": "c09-sunset-session-sunrise-slack",
+  "file": "c09-sunset-session-sunrise-slack.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Sunrise Message",
+  "genres": [
+    "afro-house",
+    "electronic",
+    "dance"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 26,
+  "lyrics": [
+    "Twilight paints the skyline gold",
+    "A rhythm takes a hold",
+    "World outside is getting cold",
+    "But in here, a story's told",
+    "Don't need a screen, don't need a light",
+    "Just the beat to make it right",
+    "Losing track of space and time",
+    "This feeling is sublime",
+    "(Ooh-ooh, sublime)",
+    "Yeah, your message has to wait in line",
+    "(Wait in line)",
+    "We can dance until the sunset bleeds",
+    "Answering at sunrise, planting seeds",
+    "(Sunrise, sunrise)",
+    "All night long, the music leads",
+    "This is everything my spirit needs",
+    "(Oh-oh, my spirit needs)",
+    "Morning glow is on the way",
+    "But I just want to stay",
+    "Let the phone buzz and display",
+    "I'll get back to you someday",
+    "Right now, this moment is the prize",
+    "(Sunrise, sunrise)",
+    "(Answering at sunrise)",
+    "(Oh-oh, dance until the sunset)",
+    "(Sunrise)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Percussion-only intro",
+          "Rolling organic percussion",
+          "Congas, shakers, and light djembe patterns",
+          "Minimal log drum pulse establishing the groove",
+          "Spacious and atmospheric mix",
+          "Anticipatory energy"
+        ],
+        "negativeStyles": [
+          "no melodic instruments",
+          "no vocals"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nTwilight paints the skyline gold\nA rhythm takes a hold\nWorld outside is getting cold\nBut in here, a story's told\nDon't need a screen, don't need a light\nJust the beat to make it right",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Soulful female lead vocal enters",
+          "Clear, neutral American English delivery",
+          "Rolling organic percussion continues",
+          "Subtle log drum bassline",
+          "Airy filtered synth pads enter",
+          "Sparse kalimba melody accents",
+          "Intimate and warm production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nLosing track of space and time\nThis feeling is sublime\n(Ooh-ooh, sublime)\nYeah, your message has to wait in line\n(Wait in line)",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Building energy",
+          "Filter sweep rising over 8 bars",
+          "Marimba layers added",
+          "Percussion becomes more dense",
+          "Ethereal layered backing vocals introduced",
+          "Soulful female lead",
+          "Anticipation for the drop"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus (Drop)]\nWe can dance until the sunset bleeds\nAnswering at sunrise, planting seeds\n(Sunrise, sunrise)\nAll night long, the music leads\nThis is everything my spirit needs\n(Oh-oh, my spirit needs)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Euphoric drop",
+          "Club-ready production",
+          "Full log drum bassline driving the track",
+          "Four-on-the-floor kick anchors the beat",
+          "Layered kalimba and marimba create a hypnotic texture",
+          "Open-filtered pads creating a wide, airy atmosphere",
+          "Soulful, confident female lead vocal",
+          "Lush, layered backing vocals",
+          "Sparse, sustained piano chords"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nMorning glow is on the way\nBut I just want to stay\nLet the phone buzz and display\nI'll get back to you someday\nRight now, this moment is the prize",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Energy pulls back slightly",
+          "Kick drum softens, percussion thins out",
+          "Log drum bass becomes more melodic and less driving",
+          "Soulful female lead, more reflective delivery",
+          "Kalimba melody becomes the focus",
+          "Airy pads create space",
+          "Warm piano chords"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\n(Sunrise, sunrise)\n(Answering at sunrise)\n(Oh-oh, dance until the sunset)\n(Sunrise)",
+        "durationMs": 50000,
+        "positiveStyles": [
+          "122 BPM",
+          "Afro-house",
+          "F minor",
+          "Long hypnotic instrumental section",
+          "Gradual fade and deconstruction of elements",
+          "Log drum bass and main kick slowly filter out",
+          "Rolling organic percussion becomes prominent again",
+          "Fragments of the kalimba and marimba melodies echo",
+          "Ethereal backing vocal ad-libs fade in and out",
+          "Airy pads wash over the track",
+          "Extended fade to silence"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Twilight",
+      "startMs": 31360,
+      "endMs": 32160
+    },
+    {
+      "word": "paints",
+      "startMs": 32180,
+      "endMs": 32540
+    },
+    {
+      "word": "the",
+      "startMs": 32619,
+      "endMs": 32720
+    },
+    {
+      "word": "skyline",
+      "startMs": 32780,
+      "endMs": 33260
+    },
+    {
+      "word": "gold",
+      "startMs": 33320,
+      "endMs": 34140
+    },
+    {
+      "word": "A",
+      "startMs": 35220,
+      "endMs": 35360
+    },
+    {
+      "word": "rhythm",
+      "startMs": 35440,
+      "endMs": 36060
+    },
+    {
+      "word": "takes",
+      "startMs": 36160,
+      "endMs": 36660
+    },
+    {
+      "word": "a",
+      "startMs": 36720,
+      "endMs": 36800
+    },
+    {
+      "word": "hold",
+      "startMs": 36860,
+      "endMs": 38580
+    },
+    {
+      "word": "World",
+      "startMs": 39360,
+      "endMs": 39740
+    },
+    {
+      "word": "outside",
+      "startMs": 39800,
+      "endMs": 40560
+    },
+    {
+      "word": "is",
+      "startMs": 40600,
+      "endMs": 40780
+    },
+    {
+      "word": "getting",
+      "startMs": 40820,
+      "endMs": 41080
+    },
+    {
+      "word": "cold",
+      "startMs": 41180,
+      "endMs": 42160
+    },
+    {
+      "word": "But",
+      "startMs": 43140,
+      "endMs": 43240
+    },
+    {
+      "word": "in",
+      "startMs": 43360,
+      "endMs": 43600
+    },
+    {
+      "word": "here,",
+      "startMs": 43660,
+      "endMs": 43990
+    },
+    {
+      "word": "a",
+      "startMs": 44020,
+      "endMs": 44040
+    },
+    {
+      "word": "story's",
+      "startMs": 44220,
+      "endMs": 44660
+    },
+    {
+      "word": "told",
+      "startMs": 44740,
+      "endMs": 45600
+    },
+    {
+      "word": "Don't",
+      "startMs": 46960,
+      "endMs": 47140
+    },
+    {
+      "word": "need",
+      "startMs": 47240,
+      "endMs": 47480
+    },
+    {
+      "word": "a",
+      "startMs": 47520,
+      "endMs": 47600
+    },
+    {
+      "word": "screen,",
+      "startMs": 47680,
+      "endMs": 48400
+    },
+    {
+      "word": "don't",
+      "startMs": 48420,
+      "endMs": 48620
+    },
+    {
+      "word": "need",
+      "startMs": 48700,
+      "endMs": 48920
+    },
+    {
+      "word": "a",
+      "startMs": 48960,
+      "endMs": 49020
+    },
+    {
+      "word": "light",
+      "startMs": 49080,
+      "endMs": 49440
+    },
+    {
+      "word": "Just",
+      "startMs": 49600,
+      "endMs": 49650
+    },
+    {
+      "word": "the",
+      "startMs": 49640,
+      "endMs": 49650
+    },
+    {
+      "word": "beat",
+      "startMs": 49640,
+      "endMs": 49880
+    },
+    {
+      "word": "to",
+      "startMs": 49920,
+      "endMs": 50130
+    },
+    {
+      "word": "make",
+      "startMs": 50120,
+      "endMs": 50440
+    },
+    {
+      "word": "it",
+      "startMs": 50440,
+      "endMs": 50490
+    },
+    {
+      "word": "right",
+      "startMs": 50480,
+      "endMs": 50560
+    },
+    {
+      "word": "Losing",
+      "startMs": 50620,
+      "endMs": 51040
+    },
+    {
+      "word": "track",
+      "startMs": 51080,
+      "endMs": 51480
+    },
+    {
+      "word": "of",
+      "startMs": 51560,
+      "endMs": 51720
+    },
+    {
+      "word": "space",
+      "startMs": 51800,
+      "endMs": 52580
+    },
+    {
+      "word": "and",
+      "startMs": 52640,
+      "endMs": 52769
+    },
+    {
+      "word": "time",
+      "startMs": 52880,
+      "endMs": 53940
+    },
+    {
+      "word": "This",
+      "startMs": 54840,
+      "endMs": 55020
+    },
+    {
+      "word": "feeling",
+      "startMs": 55060,
+      "endMs": 55820
+    },
+    {
+      "word": "is",
+      "startMs": 55940,
+      "endMs": 56520
+    },
+    {
+      "word": "sublime",
+      "startMs": 56580,
+      "endMs": 57980
+    },
+    {
+      "word": "(Ooh-ooh,",
+      "startMs": 58000,
+      "endMs": 60400
+    },
+    {
+      "word": "sublime)",
+      "startMs": 60420,
+      "endMs": 62400
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 62420,
+      "endMs": 62660
+    },
+    {
+      "word": "your",
+      "startMs": 62720,
+      "endMs": 62830
+    },
+    {
+      "word": "message",
+      "startMs": 62960,
+      "endMs": 63380
+    },
+    {
+      "word": "has",
+      "startMs": 63480,
+      "endMs": 63700
+    },
+    {
+      "word": "to",
+      "startMs": 63740,
+      "endMs": 63900
+    },
+    {
+      "word": "wait",
+      "startMs": 63980,
+      "endMs": 64400
+    },
+    {
+      "word": "in",
+      "startMs": 64460,
+      "endMs": 64700
+    },
+    {
+      "word": "line",
+      "startMs": 64760,
+      "endMs": 65780
+    },
+    {
+      "word": "(Wait",
+      "startMs": 65860,
+      "endMs": 66360
+    },
+    {
+      "word": "in",
+      "startMs": 66420,
+      "endMs": 66560
+    },
+    {
+      "word": "line)",
+      "startMs": 66620,
+      "endMs": 68820
+    },
+    {
+      "word": "We",
+      "startMs": 70840,
+      "endMs": 71140
+    },
+    {
+      "word": "can",
+      "startMs": 71300,
+      "endMs": 71720
+    },
+    {
+      "word": "dance",
+      "startMs": 71760,
+      "endMs": 72080
+    },
+    {
+      "word": "until",
+      "startMs": 72140,
+      "endMs": 72520
+    },
+    {
+      "word": "the",
+      "startMs": 72560,
+      "endMs": 72700
+    },
+    {
+      "word": "sunset",
+      "startMs": 72760,
+      "endMs": 73640
+    },
+    {
+      "word": "bleeds",
+      "startMs": 73720,
+      "endMs": 74480
+    },
+    {
+      "word": "Answering",
+      "startMs": 75300,
+      "endMs": 76220
+    },
+    {
+      "word": "at",
+      "startMs": 76280,
+      "endMs": 76580
+    },
+    {
+      "word": "sunrise,",
+      "startMs": 76700,
+      "endMs": 77660
+    },
+    {
+      "word": "planting",
+      "startMs": 77660,
+      "endMs": 78320
+    },
+    {
+      "word": "seeds",
+      "startMs": 78440,
+      "endMs": 79200
+    },
+    {
+      "word": "(Sunrise,",
+      "startMs": 79200,
+      "endMs": 80100
+    },
+    {
+      "word": "sunrise)",
+      "startMs": 80200,
+      "endMs": 83060
+    },
+    {
+      "word": "All",
+      "startMs": 83140,
+      "endMs": 83320
+    },
+    {
+      "word": "night",
+      "startMs": 83380,
+      "endMs": 83500
+    },
+    {
+      "word": "long,",
+      "startMs": 83560,
+      "endMs": 83820
+    },
+    {
+      "word": "the",
+      "startMs": 83880,
+      "endMs": 83960
+    },
+    {
+      "word": "music",
+      "startMs": 84080,
+      "endMs": 84460
+    },
+    {
+      "word": "leads",
+      "startMs": 84520,
+      "endMs": 85980
+    },
+    {
+      "word": "This",
+      "startMs": 86520,
+      "endMs": 87020
+    },
+    {
+      "word": "is",
+      "startMs": 87140,
+      "endMs": 87420
+    },
+    {
+      "word": "everything",
+      "startMs": 87560,
+      "endMs": 88200
+    },
+    {
+      "word": "my",
+      "startMs": 88260,
+      "endMs": 88400
+    },
+    {
+      "word": "spirit",
+      "startMs": 88500,
+      "endMs": 89380
+    },
+    {
+      "word": "needs",
+      "startMs": 89520,
+      "endMs": 89980
+    },
+    {
+      "word": "(Oh-oh,",
+      "startMs": 89980,
+      "endMs": 91180
+    },
+    {
+      "word": "my",
+      "startMs": 91260,
+      "endMs": 91350
+    },
+    {
+      "word": "spirit",
+      "startMs": 91460,
+      "endMs": 92140
+    },
+    {
+      "word": "needs)",
+      "startMs": 92180,
+      "endMs": 93160
+    },
+    {
+      "word": "Morning",
+      "startMs": 103720,
+      "endMs": 104180
+    },
+    {
+      "word": "glow",
+      "startMs": 104220,
+      "endMs": 104960
+    },
+    {
+      "word": "is",
+      "startMs": 105040,
+      "endMs": 105220
+    },
+    {
+      "word": "on",
+      "startMs": 105280,
+      "endMs": 105680
+    },
+    {
+      "word": "the",
+      "startMs": 105740,
+      "endMs": 105860
+    },
+    {
+      "word": "way",
+      "startMs": 106000,
+      "endMs": 106940
+    },
+    {
+      "word": "But",
+      "startMs": 109980,
+      "endMs": 110140
+    },
+    {
+      "word": "I",
+      "startMs": 110320,
+      "endMs": 110500
+    },
+    {
+      "word": "just",
+      "startMs": 110580,
+      "endMs": 110880
+    },
+    {
+      "word": "want",
+      "startMs": 110960,
+      "endMs": 111380
+    },
+    {
+      "word": "to",
+      "startMs": 111400,
+      "endMs": 111500
+    },
+    {
+      "word": "stay",
+      "startMs": 111620,
+      "endMs": 112600
+    },
+    {
+      "word": "Let",
+      "startMs": 113620,
+      "endMs": 113820
+    },
+    {
+      "word": "the",
+      "startMs": 113860,
+      "endMs": 113960
+    },
+    {
+      "word": "phone",
+      "startMs": 114060,
+      "endMs": 114420
+    },
+    {
+      "word": "buzz",
+      "startMs": 114500,
+      "endMs": 114820
+    },
+    {
+      "word": "and",
+      "startMs": 114960,
+      "endMs": 115390
+    },
+    {
+      "word": "display",
+      "startMs": 115460,
+      "endMs": 116240
+    },
+    {
+      "word": "I'll",
+      "startMs": 116600,
+      "endMs": 116760
+    },
+    {
+      "word": "get",
+      "startMs": 116800,
+      "endMs": 117020
+    },
+    {
+      "word": "back",
+      "startMs": 117060,
+      "endMs": 117240
+    },
+    {
+      "word": "to",
+      "startMs": 117260,
+      "endMs": 117400
+    },
+    {
+      "word": "you",
+      "startMs": 117480,
+      "endMs": 117620
+    },
+    {
+      "word": "someday",
+      "startMs": 117760,
+      "endMs": 118880
+    },
+    {
+      "word": "Right",
+      "startMs": 119540,
+      "endMs": 119860
+    },
+    {
+      "word": "now,",
+      "startMs": 120020,
+      "endMs": 121660
+    },
+    {
+      "word": "this",
+      "startMs": 121720,
+      "endMs": 121920
+    },
+    {
+      "word": "moment",
+      "startMs": 121980,
+      "endMs": 122720
+    },
+    {
+      "word": "is",
+      "startMs": 122780,
+      "endMs": 123180
+    },
+    {
+      "word": "the",
+      "startMs": 123200,
+      "endMs": 123300
+    },
+    {
+      "word": "prize",
+      "startMs": 123400,
+      "endMs": 124720
+    },
+    {
+      "word": "(Sunrise,",
+      "startMs": 126120,
+      "endMs": 127370
+    },
+    {
+      "word": "sunrise)",
+      "startMs": 127360,
+      "endMs": 128720
+    },
+    {
+      "word": "(Answering",
+      "startMs": 129199,
+      "endMs": 129500
+    },
+    {
+      "word": "at",
+      "startMs": 129500,
+      "endMs": 129509
+    },
+    {
+      "word": "sunrise)",
+      "startMs": 129640,
+      "endMs": 130180
+    },
+    {
+      "word": "(Oh-oh,",
+      "startMs": 134560,
+      "endMs": 135700
+    },
+    {
+      "word": "dance",
+      "startMs": 136740,
+      "endMs": 137000
+    },
+    {
+      "word": "until",
+      "startMs": 137060,
+      "endMs": 137440
+    },
+    {
+      "word": "the",
+      "startMs": 137520,
+      "endMs": 137760
+    },
+    {
+      "word": "sunset)",
+      "startMs": 137860,
+      "endMs": 139040
+    },
+    {
+      "word": "(Sunrise)",
+      "startMs": 139060,
+      "endMs": 143179
+    }
+  ],
+  "attempts": 1
+}

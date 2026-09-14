@@ -1,0 +1,988 @@
+{
+  "id": "C03",
+  "set": "cancun",
+  "title": "Salt Rim Standup",
+  "concept": "The daily standup has relocated to the swim-up bar and productivity is arguably up.",
+  "genre": "cumbia pop",
+  "bpm": 98,
+  "key": "D minor",
+  "lengthS": 160,
+  "prompt": "Upbeat cumbia pop, 98 BPM, D minor — güira scrape, congas and timbales, bouncing bass, bright accordion riff, clean tremolo guitar, punchy brass hits. Playful female lead vocal singing in clear neutral American English over the Latin groove, cheeky lyrics about holding the morning standup at the swim-up bar, big singalong chorus with handclaps. Sung in English only, every lyric intelligible, no Spanish lyrics, no accented delivery. Accordion hook up front, full percussion by the first chorus, festive live-band energy.",
+  "slug": "c03-salt-rim-standup",
+  "file": "c03-salt-rim-standup.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Swim-Up Standup",
+  "genres": [
+    "pop",
+    "cumbia",
+    "latin"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 25,
+  "lyrics": [
+    "Nine AM, the calendar's glowing red",
+    "Another meeting fills my head",
+    "But the forecast's hot and the sky is blue",
+    "I've got a better point of view",
+    "So I sent a message to the team",
+    "Let's make this morning live the dream",
+    "Let's take the standup to the swim-up bar",
+    "Doesn't matter where we are",
+    "Trade the spreadsheets for a little sun",
+    "Agile planning can be fun!",
+    "Yeah, the daily sync is at the swim-up bar",
+    "Who needs a stiff and stuffy conference star?",
+    "Our scrum master's floating on a big pink swan",
+    "The product owner's got shades on",
+    "We're tracking tickets, making witty remarks",
+    "Avoiding all the office sharks",
+    "Let's take the standup to the swim-up bar",
+    "Doesn't matter where we are",
+    "Trade the spreadsheets for a little sun",
+    "Agile planning can be fun!",
+    "Yeah, the daily sync is at the swim-up bar",
+    "Who needs a stiff and stuffy conference star?",
+    "At the swim-up bar!",
+    "(hahaha)",
+    "Best meeting ever!"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "bright accordion riff hook",
+          "simple güira scrape rhythm",
+          "light percussion",
+          "clean tremolo electric guitar melody",
+          "upbeat cumbia pop feel",
+          "anticipatory intro"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nNine AM, the calendar's glowing red\nAnother meeting fills my head\nBut the forecast's hot and the sky is blue\nI've got a better point of view",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "bouncing cumbia bassline enters",
+          "güira and congas driving the rhythm",
+          "clean tremolo guitar chords",
+          "playful female lead vocal",
+          "clear neutral American English vocal delivery",
+          "lively cumbia pop groove"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nSo I sent a message to the team\nLet's make this morning live the dream",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "building energy",
+          "timbales add fills",
+          "accordion swells underneath",
+          "bassline becomes more melodic",
+          "anticipation for the chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nLet's take the standup to the swim-up bar\nDoesn't matter where we are\nTrade the spreadsheets for a little sun\nAgile planning can be fun!\nYeah, the daily sync is at the swim-up bar\nWho needs a stiff and stuffy conference star?",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "full band energy",
+          "festive live-band feel",
+          "punchy brass stabs",
+          "bright accordion hook",
+          "full percussion with timbales, congas, güira",
+          "catchy singalong female vocal",
+          "syncopated handclaps"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nOur scrum master's floating on a big pink swan\nThe product owner's got shades on\nWe're tracking tickets, making witty remarks\nAvoiding all the office sharks",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "slightly pulled-back energy",
+          "bass and congas lead the groove",
+          "tremolo guitar answers vocal lines",
+          "cheeky female vocal delivery",
+          "accordion plays simple chords",
+          "warm and relaxed cumbia feel"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nLet's take the standup to the swim-up bar\nDoesn't matter where we are\nTrade the spreadsheets for a little sun\nAgile planning can be fun!\nYeah, the daily sync is at the swim-up bar\nWho needs a stiff and stuffy conference star?",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "full band energy",
+          "festive live-band feel",
+          "punchy brass stabs",
+          "bright accordion hook",
+          "full percussion with timbales, congas, güira",
+          "catchy singalong female vocal",
+          "syncopated handclaps",
+          "high energy peak"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nAt the swim-up bar!\n(hahaha)\nBest meeting ever!",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "98 BPM",
+          "D minor key",
+          "festive instrumental jam",
+          "accordion and guitar trade solos",
+          "percussion feature with timbale fills",
+          "punchy brass hits continue",
+          "gradual fade out",
+          "energetic cumbia pop groove"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Nine",
+      "startMs": 20180,
+      "endMs": 20420
+    },
+    {
+      "word": "AM,",
+      "startMs": 20580,
+      "endMs": 21080
+    },
+    {
+      "word": "the",
+      "startMs": 21140,
+      "endMs": 21240
+    },
+    {
+      "word": "calendar's",
+      "startMs": 21420,
+      "endMs": 21940
+    },
+    {
+      "word": "glowing",
+      "startMs": 22000,
+      "endMs": 22860
+    },
+    {
+      "word": "red",
+      "startMs": 22920,
+      "endMs": 23700
+    },
+    {
+      "word": "Another",
+      "startMs": 25400,
+      "endMs": 26140
+    },
+    {
+      "word": "meeting",
+      "startMs": 26300,
+      "endMs": 26780
+    },
+    {
+      "word": "fills",
+      "startMs": 26920,
+      "endMs": 27360
+    },
+    {
+      "word": "my",
+      "startMs": 27400,
+      "endMs": 27740
+    },
+    {
+      "word": "head",
+      "startMs": 27840,
+      "endMs": 28740
+    },
+    {
+      "word": "But",
+      "startMs": 30280,
+      "endMs": 30400
+    },
+    {
+      "word": "the",
+      "startMs": 30440,
+      "endMs": 30520
+    },
+    {
+      "word": "forecast's",
+      "startMs": 30580,
+      "endMs": 31220
+    },
+    {
+      "word": "hot",
+      "startMs": 31240,
+      "endMs": 31460
+    },
+    {
+      "word": "and",
+      "startMs": 31560,
+      "endMs": 31640
+    },
+    {
+      "word": "the",
+      "startMs": 31660,
+      "endMs": 31760
+    },
+    {
+      "word": "sky",
+      "startMs": 31780,
+      "endMs": 32240
+    },
+    {
+      "word": "is",
+      "startMs": 32340,
+      "endMs": 32680
+    },
+    {
+      "word": "blue",
+      "startMs": 32720,
+      "endMs": 33480
+    },
+    {
+      "word": "I've",
+      "startMs": 35240,
+      "endMs": 35440
+    },
+    {
+      "word": "got",
+      "startMs": 35500,
+      "endMs": 35840
+    },
+    {
+      "word": "a",
+      "startMs": 35900,
+      "endMs": 35940
+    },
+    {
+      "word": "better",
+      "startMs": 36120,
+      "endMs": 36540
+    },
+    {
+      "word": "point",
+      "startMs": 36720,
+      "endMs": 37180
+    },
+    {
+      "word": "of",
+      "startMs": 37320,
+      "endMs": 37540
+    },
+    {
+      "word": "view",
+      "startMs": 37680,
+      "endMs": 38380
+    },
+    {
+      "word": "So",
+      "startMs": 41260,
+      "endMs": 41380
+    },
+    {
+      "word": "I",
+      "startMs": 41460,
+      "endMs": 41540
+    },
+    {
+      "word": "sent",
+      "startMs": 41580,
+      "endMs": 42260
+    },
+    {
+      "word": "a",
+      "startMs": 42360,
+      "endMs": 42720
+    },
+    {
+      "word": "message",
+      "startMs": 42840,
+      "endMs": 43380
+    },
+    {
+      "word": "to",
+      "startMs": 43480,
+      "endMs": 43720
+    },
+    {
+      "word": "the",
+      "startMs": 43800,
+      "endMs": 43870
+    },
+    {
+      "word": "team",
+      "startMs": 44060,
+      "endMs": 45280
+    },
+    {
+      "word": "Let's",
+      "startMs": 46200,
+      "endMs": 46460
+    },
+    {
+      "word": "make",
+      "startMs": 46540,
+      "endMs": 47100
+    },
+    {
+      "word": "this",
+      "startMs": 47180,
+      "endMs": 47700
+    },
+    {
+      "word": "morning",
+      "startMs": 47760,
+      "endMs": 48200
+    },
+    {
+      "word": "live",
+      "startMs": 48340,
+      "endMs": 48620
+    },
+    {
+      "word": "the",
+      "startMs": 48660,
+      "endMs": 48720
+    },
+    {
+      "word": "dream",
+      "startMs": 48780,
+      "endMs": 49560
+    },
+    {
+      "word": "Let's",
+      "startMs": 60220,
+      "endMs": 60540
+    },
+    {
+      "word": "take",
+      "startMs": 60560,
+      "endMs": 60880
+    },
+    {
+      "word": "the",
+      "startMs": 60920,
+      "endMs": 61020
+    },
+    {
+      "word": "standup",
+      "startMs": 61080,
+      "endMs": 62070
+    },
+    {
+      "word": "to",
+      "startMs": 62060,
+      "endMs": 62240
+    },
+    {
+      "word": "the",
+      "startMs": 62280,
+      "endMs": 62350
+    },
+    {
+      "word": "swim-up",
+      "startMs": 62400,
+      "endMs": 62860
+    },
+    {
+      "word": "bar",
+      "startMs": 62880,
+      "endMs": 63240
+    },
+    {
+      "word": "Doesn't",
+      "startMs": 63340,
+      "endMs": 63620
+    },
+    {
+      "word": "matter",
+      "startMs": 63700,
+      "endMs": 64080
+    },
+    {
+      "word": "where",
+      "startMs": 64120,
+      "endMs": 64400
+    },
+    {
+      "word": "we",
+      "startMs": 64460,
+      "endMs": 64739
+    },
+    {
+      "word": "are",
+      "startMs": 64820,
+      "endMs": 65179
+    },
+    {
+      "word": "Trade",
+      "startMs": 65480,
+      "endMs": 65780
+    },
+    {
+      "word": "the",
+      "startMs": 65820,
+      "endMs": 65930
+    },
+    {
+      "word": "spreadsheets",
+      "startMs": 66080,
+      "endMs": 66940
+    },
+    {
+      "word": "for",
+      "startMs": 67020,
+      "endMs": 67200
+    },
+    {
+      "word": "a",
+      "startMs": 67260,
+      "endMs": 67280
+    },
+    {
+      "word": "little",
+      "startMs": 67360,
+      "endMs": 67600
+    },
+    {
+      "word": "sun",
+      "startMs": 67780,
+      "endMs": 68120
+    },
+    {
+      "word": "Agile",
+      "startMs": 68260,
+      "endMs": 68540
+    },
+    {
+      "word": "planning",
+      "startMs": 68580,
+      "endMs": 69000
+    },
+    {
+      "word": "can",
+      "startMs": 69060,
+      "endMs": 69260
+    },
+    {
+      "word": "be",
+      "startMs": 69360,
+      "endMs": 69560
+    },
+    {
+      "word": "fun!",
+      "startMs": 69640,
+      "endMs": 70360
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 70380,
+      "endMs": 70690
+    },
+    {
+      "word": "the",
+      "startMs": 70760,
+      "endMs": 70860
+    },
+    {
+      "word": "daily",
+      "startMs": 71020,
+      "endMs": 72040
+    },
+    {
+      "word": "sync",
+      "startMs": 72200,
+      "endMs": 72580
+    },
+    {
+      "word": "is",
+      "startMs": 72600,
+      "endMs": 72840
+    },
+    {
+      "word": "at",
+      "startMs": 72900,
+      "endMs": 73100
+    },
+    {
+      "word": "the",
+      "startMs": 73180,
+      "endMs": 73270
+    },
+    {
+      "word": "swim-up",
+      "startMs": 73400,
+      "endMs": 74180
+    },
+    {
+      "word": "bar",
+      "startMs": 74360,
+      "endMs": 75119
+    },
+    {
+      "word": "Who",
+      "startMs": 75240,
+      "endMs": 75600
+    },
+    {
+      "word": "needs",
+      "startMs": 75860,
+      "endMs": 76540
+    },
+    {
+      "word": "a",
+      "startMs": 76580,
+      "endMs": 76800
+    },
+    {
+      "word": "stiff",
+      "startMs": 77100,
+      "endMs": 77420
+    },
+    {
+      "word": "and",
+      "startMs": 77460,
+      "endMs": 77580
+    },
+    {
+      "word": "stuffy",
+      "startMs": 77720,
+      "endMs": 78240
+    },
+    {
+      "word": "conference",
+      "startMs": 78340,
+      "endMs": 79220
+    },
+    {
+      "word": "star?",
+      "startMs": 79240,
+      "endMs": 90720
+    },
+    {
+      "word": "Our",
+      "startMs": 90720,
+      "endMs": 90810
+    },
+    {
+      "word": "scrum",
+      "startMs": 90920,
+      "endMs": 91120
+    },
+    {
+      "word": "master's",
+      "startMs": 91220,
+      "endMs": 91720
+    },
+    {
+      "word": "floating",
+      "startMs": 91800,
+      "endMs": 92420
+    },
+    {
+      "word": "on",
+      "startMs": 92540,
+      "endMs": 92740
+    },
+    {
+      "word": "a",
+      "startMs": 92840,
+      "endMs": 92920
+    },
+    {
+      "word": "big",
+      "startMs": 93060,
+      "endMs": 93340
+    },
+    {
+      "word": "pink",
+      "startMs": 93460,
+      "endMs": 93840
+    },
+    {
+      "word": "swan",
+      "startMs": 93940,
+      "endMs": 94700
+    },
+    {
+      "word": "The",
+      "startMs": 96420,
+      "endMs": 96560
+    },
+    {
+      "word": "product",
+      "startMs": 96680,
+      "endMs": 97260
+    },
+    {
+      "word": "owner's",
+      "startMs": 97400,
+      "endMs": 97920
+    },
+    {
+      "word": "got",
+      "startMs": 97980,
+      "endMs": 98300
+    },
+    {
+      "word": "shades",
+      "startMs": 98380,
+      "endMs": 98900
+    },
+    {
+      "word": "on",
+      "startMs": 99000,
+      "endMs": 99620
+    },
+    {
+      "word": "We're",
+      "startMs": 100680,
+      "endMs": 100840
+    },
+    {
+      "word": "tracking",
+      "startMs": 100920,
+      "endMs": 101520
+    },
+    {
+      "word": "tickets,",
+      "startMs": 101580,
+      "endMs": 102200
+    },
+    {
+      "word": "making",
+      "startMs": 102240,
+      "endMs": 102720
+    },
+    {
+      "word": "witty",
+      "startMs": 102820,
+      "endMs": 103260
+    },
+    {
+      "word": "remarks",
+      "startMs": 103360,
+      "endMs": 104600
+    },
+    {
+      "word": "Avoiding",
+      "startMs": 106280,
+      "endMs": 107120
+    },
+    {
+      "word": "all",
+      "startMs": 107240,
+      "endMs": 107420
+    },
+    {
+      "word": "the",
+      "startMs": 107500,
+      "endMs": 107700
+    },
+    {
+      "word": "office",
+      "startMs": 107880,
+      "endMs": 108560
+    },
+    {
+      "word": "sharks",
+      "startMs": 108640,
+      "endMs": 109420
+    },
+    {
+      "word": "Let's",
+      "startMs": 110480,
+      "endMs": 110760
+    },
+    {
+      "word": "take",
+      "startMs": 110760,
+      "endMs": 111090
+    },
+    {
+      "word": "the",
+      "startMs": 111140,
+      "endMs": 111320
+    },
+    {
+      "word": "standup",
+      "startMs": 111380,
+      "endMs": 112260
+    },
+    {
+      "word": "to",
+      "startMs": 112280,
+      "endMs": 112460
+    },
+    {
+      "word": "the",
+      "startMs": 112500,
+      "endMs": 112580
+    },
+    {
+      "word": "swim-up",
+      "startMs": 112620,
+      "endMs": 113040
+    },
+    {
+      "word": "bar",
+      "startMs": 113100,
+      "endMs": 113520
+    },
+    {
+      "word": "Doesn't",
+      "startMs": 113560,
+      "endMs": 113840
+    },
+    {
+      "word": "matter",
+      "startMs": 113920,
+      "endMs": 114300
+    },
+    {
+      "word": "where",
+      "startMs": 114360,
+      "endMs": 114620
+    },
+    {
+      "word": "we",
+      "startMs": 114660,
+      "endMs": 114940
+    },
+    {
+      "word": "are",
+      "startMs": 115040,
+      "endMs": 115540
+    },
+    {
+      "word": "Trade",
+      "startMs": 115700,
+      "endMs": 116020
+    },
+    {
+      "word": "the",
+      "startMs": 116060,
+      "endMs": 116200
+    },
+    {
+      "word": "spreadsheets",
+      "startMs": 116300,
+      "endMs": 117200
+    },
+    {
+      "word": "for",
+      "startMs": 117240,
+      "endMs": 117400
+    },
+    {
+      "word": "a",
+      "startMs": 117460,
+      "endMs": 117480
+    },
+    {
+      "word": "little",
+      "startMs": 117560,
+      "endMs": 117960
+    },
+    {
+      "word": "sun",
+      "startMs": 118000,
+      "endMs": 118440
+    },
+    {
+      "word": "Agile",
+      "startMs": 118520,
+      "endMs": 118740
+    },
+    {
+      "word": "planning",
+      "startMs": 118800,
+      "endMs": 119180
+    },
+    {
+      "word": "can",
+      "startMs": 119280,
+      "endMs": 119500
+    },
+    {
+      "word": "be",
+      "startMs": 119560,
+      "endMs": 119660
+    },
+    {
+      "word": "fun!",
+      "startMs": 119860,
+      "endMs": 120560
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 120640,
+      "endMs": 120880
+    },
+    {
+      "word": "the",
+      "startMs": 120920,
+      "endMs": 121020
+    },
+    {
+      "word": "daily",
+      "startMs": 121180,
+      "endMs": 121870
+    },
+    {
+      "word": "sync",
+      "startMs": 122340,
+      "endMs": 122680
+    },
+    {
+      "word": "is",
+      "startMs": 122800,
+      "endMs": 123040
+    },
+    {
+      "word": "at",
+      "startMs": 123100,
+      "endMs": 123320
+    },
+    {
+      "word": "the",
+      "startMs": 123380,
+      "endMs": 123460
+    },
+    {
+      "word": "swim-up",
+      "startMs": 123640,
+      "endMs": 124360
+    },
+    {
+      "word": "bar",
+      "startMs": 124580,
+      "endMs": 125080
+    },
+    {
+      "word": "Who",
+      "startMs": 125520,
+      "endMs": 125900
+    },
+    {
+      "word": "needs",
+      "startMs": 126040,
+      "endMs": 126760
+    },
+    {
+      "word": "a",
+      "startMs": 126800,
+      "endMs": 127000
+    },
+    {
+      "word": "stiff",
+      "startMs": 127280,
+      "endMs": 127580
+    },
+    {
+      "word": "and",
+      "startMs": 127660,
+      "endMs": 127770
+    },
+    {
+      "word": "stuffy",
+      "startMs": 127920,
+      "endMs": 128400
+    },
+    {
+      "word": "conference",
+      "startMs": 128539,
+      "endMs": 129420
+    },
+    {
+      "word": "star?",
+      "startMs": 129440,
+      "endMs": 130680
+    },
+    {
+      "word": "At",
+      "startMs": 132740,
+      "endMs": 141680
+    },
+    {
+      "word": "the",
+      "startMs": 141720,
+      "endMs": 141920
+    },
+    {
+      "word": "swim-up",
+      "startMs": 141980,
+      "endMs": 142470
+    },
+    {
+      "word": "bar!",
+      "startMs": 142560,
+      "endMs": 143540
+    },
+    {
+      "word": "(hahaha)",
+      "startMs": 143540,
+      "endMs": 144370
+    },
+    {
+      "word": "Best",
+      "startMs": 144380,
+      "endMs": 144940
+    },
+    {
+      "word": "meeting",
+      "startMs": 145080,
+      "endMs": 145520
+    },
+    {
+      "word": "ever!",
+      "startMs": 145680,
+      "endMs": 147780
+    }
+  ],
+  "attempts": 1
+}

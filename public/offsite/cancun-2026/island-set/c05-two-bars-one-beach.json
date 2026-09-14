@@ -1,0 +1,1057 @@
+{
+  "id": "C05",
+  "set": "cancun",
+  "title": "Two Bars, One Beach",
+  "concept": "Callback to the logo mark, now with a piña colada in it.",
+  "genre": "reggaeton pop",
+  "bpm": 94,
+  "key": "B minor",
+  "lengthS": 160,
+  "prompt": "Glossy reggaeton pop, 94 BPM, B minor — classic dembow drum pattern, deep 808 sub, plucky nylon guitar riff, airy tropical synth topline, tight percussion fills. Confident female lead vocal singing in clear neutral American English, sleek hook playing on two bars meaning the logo, the music, and the beach bar, layered harmony stacks on the chorus. Sung in English only, every lyric intelligible, no Spanish lyrics, no reggaeton ad-libs in Spanish. Guitar riff cold open, dembow enters after four bars, wide modern mix.",
+  "slug": "c05-two-bars-one-beach",
+  "file": "c05-two-bars-one-beach.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Two Bars",
+  "genres": [
+    "reggaeton",
+    "pop",
+    "electronic"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 33,
+  "lyrics": [
+    "Yeah",
+    "You see it shining from afar",
+    "Sun is high up in the sky",
+    "Got that feeling, can't deny",
+    "It's the rhythm in the air",
+    "A vibration everywhere",
+    "Every moment feels so right",
+    "Underneath the golden light",
+    "Everybody knows the two bars",
+    "(Oh-oh)",
+    "Playing on repeat in our cars",
+    "Meet me down at the two bars",
+    "From the city to the coast",
+    "It's the sound we love the most",
+    "No escaping from the sign",
+    "Makes you feel so alive",
+    "Every moment feels so right",
+    "Underneath the golden light",
+    "Everybody knows the two bars",
+    "(Oh-oh)",
+    "Playing on repeat in our cars",
+    "Meet me down at the two bars",
+    "The logo, the music, the place to be",
+    "It's more than a feeling, it sets you free",
+    "From sunrise to sunset, you and me",
+    "(Yeah, you and me)",
+    "Everybody knows the two bars!",
+    "(Oh-oh, yeah!)",
+    "Playing on repeat in our cars",
+    "Meet me down at the two bars",
+    "The two bars...",
+    "(Oh-oh)",
+    "Yeah, the two bars..."
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]\nYeah\nYou see it shining from afar",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "94 BPM",
+          "B minor key",
+          "plucky nylon guitar riff playing solo",
+          "clean and intimate recording",
+          "anticipatory atmosphere",
+          "no drums"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nSun is high up in the sky\nGot that feeling, can't deny\nIt's the rhythm in the air\nA vibration everywhere",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "classic dembow drum pattern enters",
+          "deep 808 sub-bass playing a simple root note pattern",
+          "plucky nylon guitar riff continues",
+          "subtle shaker and tight percussion fills",
+          "confident female lead vocal",
+          "clean and upfront vocal mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nEvery moment feels so right\nUnderneath the golden light",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "94 BPM",
+          "dembow beat continues",
+          "airy tropical synth pad enters, adding warmth",
+          "808 bass becomes more melodic",
+          "tension building with a filtered drum roll",
+          "confident and clear female vocals",
+          "slight reverb on vocals"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nEverybody knows the two bars\n(Oh-oh)\nPlaying on repeat in our cars\nMeet me down at the two bars",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "full energy dembow groove",
+          "deep 808 sub with punch",
+          "catchy tropical synth topline melody",
+          "plucky nylon guitar riff supporting the harmony",
+          "layered female harmony stacks on hook lines",
+          "wide modern stereo mix",
+          "confident lead vocal"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nFrom the city to the coast\nIt's the sound we love the most\nNo escaping from the sign\nMakes you feel so alive",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "dembow groove continues",
+          "808 bass line is more active",
+          "nylon guitar riff plays a variation",
+          "airy synth textures in the background",
+          "tight percussion fills at end of phrases",
+          "confident female vocal delivery",
+          "dry and present vocal sound"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nEvery moment feels so right\nUnderneath the golden light",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "94 BPM",
+          "dembow beat builds intensity",
+          "airy tropical synth pad swells",
+          "bassline builds anticipation",
+          "riser effect leading into the chorus",
+          "confident female vocals with building energy",
+          "pre-delay on vocal reverb"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nEverybody knows the two bars\n(Oh-oh)\nPlaying on repeat in our cars\nMeet me down at the two bars",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "high energy dembow rhythm",
+          "powerful 808 sub-bass drop",
+          "bright and euphoric tropical synth lead",
+          "nylon guitar chords driving the rhythm",
+          "lush, wide female harmony stacks on hook",
+          "dynamic and powerful mix",
+          "belting lead vocal performance"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nThe logo, the music, the place to be\nIt's more than a feeling, it sets you free\nFrom sunrise to sunset, you and me\n(Yeah, you and me)",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "breakdown section",
+          "drums simplify to just kick and snaps",
+          "deep sub-bass pulse",
+          "filtered nylon guitar riff",
+          "ethereal synth pads create space",
+          "intimate, breathy female vocal",
+          "dreamy atmosphere"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nEverybody knows the two bars!\n(Oh-oh, yeah!)\nPlaying on repeat in our cars\nMeet me down at the two bars",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "94 BPM",
+          "explosive return of the full dembow beat",
+          "driving 808 bassline",
+          "main tropical synth melody at full volume",
+          "energetic nylon guitar strumming",
+          "richest vocal harmony stacks of the song",
+          "peak energy section",
+          "powerful, anthemic lead vocal"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nThe two bars...\n(Oh-oh)\nYeah, the two bars...",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "94 BPM",
+          "plucky nylon guitar riff repeating",
+          "dembow beat fades out slowly",
+          "airy synth pad holds and decays",
+          "final deep 808 note resonates",
+          "gradual fade out",
+          "clean and polished finish"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Yeah",
+      "startMs": 2300,
+      "endMs": 2460
+    },
+    {
+      "word": "You",
+      "startMs": 6660,
+      "endMs": 6760
+    },
+    {
+      "word": "see",
+      "startMs": 6800,
+      "endMs": 6960
+    },
+    {
+      "word": "it",
+      "startMs": 7000,
+      "endMs": 7080
+    },
+    {
+      "word": "shining",
+      "startMs": 7100,
+      "endMs": 7420
+    },
+    {
+      "word": "from",
+      "startMs": 7480,
+      "endMs": 7600
+    },
+    {
+      "word": "afar",
+      "startMs": 7640,
+      "endMs": 8060
+    },
+    {
+      "word": "Sun",
+      "startMs": 10140,
+      "endMs": 11340
+    },
+    {
+      "word": "is",
+      "startMs": 11380,
+      "endMs": 11580
+    },
+    {
+      "word": "high",
+      "startMs": 11680,
+      "endMs": 11980
+    },
+    {
+      "word": "up",
+      "startMs": 12080,
+      "endMs": 12300
+    },
+    {
+      "word": "in",
+      "startMs": 12400,
+      "endMs": 12540
+    },
+    {
+      "word": "the",
+      "startMs": 12580,
+      "endMs": 12680
+    },
+    {
+      "word": "sky",
+      "startMs": 12800,
+      "endMs": 13540
+    },
+    {
+      "word": "Got",
+      "startMs": 16180,
+      "endMs": 16450
+    },
+    {
+      "word": "that",
+      "startMs": 16540,
+      "endMs": 16700
+    },
+    {
+      "word": "feeling,",
+      "startMs": 16820,
+      "endMs": 17400
+    },
+    {
+      "word": "can't",
+      "startMs": 17480,
+      "endMs": 17680
+    },
+    {
+      "word": "deny",
+      "startMs": 17800,
+      "endMs": 18560
+    },
+    {
+      "word": "It's",
+      "startMs": 21340,
+      "endMs": 21600
+    },
+    {
+      "word": "the",
+      "startMs": 21620,
+      "endMs": 21900
+    },
+    {
+      "word": "rhythm",
+      "startMs": 21940,
+      "endMs": 22580
+    },
+    {
+      "word": "in",
+      "startMs": 22660,
+      "endMs": 22900
+    },
+    {
+      "word": "the",
+      "startMs": 22960,
+      "endMs": 23020
+    },
+    {
+      "word": "air",
+      "startMs": 23200,
+      "endMs": 23860
+    },
+    {
+      "word": "A",
+      "startMs": 26580,
+      "endMs": 26720
+    },
+    {
+      "word": "vibration",
+      "startMs": 26840,
+      "endMs": 27740
+    },
+    {
+      "word": "everywhere",
+      "startMs": 27940,
+      "endMs": 28700
+    },
+    {
+      "word": "Every",
+      "startMs": 31780,
+      "endMs": 32140
+    },
+    {
+      "word": "moment",
+      "startMs": 32320,
+      "endMs": 32800
+    },
+    {
+      "word": "feels",
+      "startMs": 32920,
+      "endMs": 33180
+    },
+    {
+      "word": "so",
+      "startMs": 33280,
+      "endMs": 33540
+    },
+    {
+      "word": "right",
+      "startMs": 33620,
+      "endMs": 34519
+    },
+    {
+      "word": "Underneath",
+      "startMs": 36860,
+      "endMs": 37740
+    },
+    {
+      "word": "the",
+      "startMs": 37800,
+      "endMs": 37960
+    },
+    {
+      "word": "golden",
+      "startMs": 38100,
+      "endMs": 38600
+    },
+    {
+      "word": "light",
+      "startMs": 38720,
+      "endMs": 39400
+    },
+    {
+      "word": "Everybody",
+      "startMs": 40660,
+      "endMs": 41240
+    },
+    {
+      "word": "knows",
+      "startMs": 41280,
+      "endMs": 42540
+    },
+    {
+      "word": "the",
+      "startMs": 42660,
+      "endMs": 42840
+    },
+    {
+      "word": "two",
+      "startMs": 43180,
+      "endMs": 43519
+    },
+    {
+      "word": "bars",
+      "startMs": 43880,
+      "endMs": 45020
+    },
+    {
+      "word": "(Oh-oh)",
+      "startMs": 46440,
+      "endMs": 50280
+    },
+    {
+      "word": "Playing",
+      "startMs": 50280,
+      "endMs": 51020
+    },
+    {
+      "word": "on",
+      "startMs": 51080,
+      "endMs": 51280
+    },
+    {
+      "word": "repeat",
+      "startMs": 51360,
+      "endMs": 53000
+    },
+    {
+      "word": "in",
+      "startMs": 53040,
+      "endMs": 53500
+    },
+    {
+      "word": "our",
+      "startMs": 53660,
+      "endMs": 54040
+    },
+    {
+      "word": "cars",
+      "startMs": 54200,
+      "endMs": 55260
+    },
+    {
+      "word": "Meet",
+      "startMs": 57460,
+      "endMs": 57720
+    },
+    {
+      "word": "me",
+      "startMs": 57780,
+      "endMs": 57920
+    },
+    {
+      "word": "down",
+      "startMs": 58120,
+      "endMs": 58400
+    },
+    {
+      "word": "at",
+      "startMs": 58440,
+      "endMs": 58530
+    },
+    {
+      "word": "the",
+      "startMs": 58580,
+      "endMs": 58660
+    },
+    {
+      "word": "two",
+      "startMs": 58720,
+      "endMs": 58980
+    },
+    {
+      "word": "bars",
+      "startMs": 59100,
+      "endMs": 59780
+    },
+    {
+      "word": "From",
+      "startMs": 62560,
+      "endMs": 62900
+    },
+    {
+      "word": "the",
+      "startMs": 62960,
+      "endMs": 63050
+    },
+    {
+      "word": "city",
+      "startMs": 63240,
+      "endMs": 63800
+    },
+    {
+      "word": "to",
+      "startMs": 63900,
+      "endMs": 64180
+    },
+    {
+      "word": "the",
+      "startMs": 64239,
+      "endMs": 64320
+    },
+    {
+      "word": "coast",
+      "startMs": 64440,
+      "endMs": 65480
+    },
+    {
+      "word": "It's",
+      "startMs": 67740,
+      "endMs": 68060
+    },
+    {
+      "word": "the",
+      "startMs": 68100,
+      "endMs": 68280
+    },
+    {
+      "word": "sound",
+      "startMs": 68380,
+      "endMs": 68700
+    },
+    {
+      "word": "we",
+      "startMs": 68780,
+      "endMs": 68980
+    },
+    {
+      "word": "love",
+      "startMs": 69080,
+      "endMs": 69320
+    },
+    {
+      "word": "the",
+      "startMs": 69380,
+      "endMs": 69500
+    },
+    {
+      "word": "most",
+      "startMs": 69580,
+      "endMs": 70460
+    },
+    {
+      "word": "No",
+      "startMs": 72880,
+      "endMs": 73160
+    },
+    {
+      "word": "escaping",
+      "startMs": 73300,
+      "endMs": 74120
+    },
+    {
+      "word": "from",
+      "startMs": 74200,
+      "endMs": 74460
+    },
+    {
+      "word": "the",
+      "startMs": 74500,
+      "endMs": 74640
+    },
+    {
+      "word": "sign",
+      "startMs": 74740,
+      "endMs": 75800
+    },
+    {
+      "word": "Makes",
+      "startMs": 78120,
+      "endMs": 78380
+    },
+    {
+      "word": "you",
+      "startMs": 78460,
+      "endMs": 78560
+    },
+    {
+      "word": "feel",
+      "startMs": 78720,
+      "endMs": 78920
+    },
+    {
+      "word": "so",
+      "startMs": 79080,
+      "endMs": 79340
+    },
+    {
+      "word": "alive",
+      "startMs": 79440,
+      "endMs": 80340
+    },
+    {
+      "word": "Every",
+      "startMs": 80740,
+      "endMs": 81160
+    },
+    {
+      "word": "moment",
+      "startMs": 81340,
+      "endMs": 81840
+    },
+    {
+      "word": "feels",
+      "startMs": 81960,
+      "endMs": 82220
+    },
+    {
+      "word": "so",
+      "startMs": 82320,
+      "endMs": 82560
+    },
+    {
+      "word": "right",
+      "startMs": 82640,
+      "endMs": 83520
+    },
+    {
+      "word": "Underneath",
+      "startMs": 85880,
+      "endMs": 86820
+    },
+    {
+      "word": "the",
+      "startMs": 86840,
+      "endMs": 86940
+    },
+    {
+      "word": "golden",
+      "startMs": 87120,
+      "endMs": 87640
+    },
+    {
+      "word": "light",
+      "startMs": 87740,
+      "endMs": 88539
+    },
+    {
+      "word": "Everybody",
+      "startMs": 92360,
+      "endMs": 92840
+    },
+    {
+      "word": "knows",
+      "startMs": 92940,
+      "endMs": 94180
+    },
+    {
+      "word": "the",
+      "startMs": 94240,
+      "endMs": 94500
+    },
+    {
+      "word": "two",
+      "startMs": 94820,
+      "endMs": 95320
+    },
+    {
+      "word": "bars",
+      "startMs": 95480,
+      "endMs": 96440
+    },
+    {
+      "word": "(Oh-oh)",
+      "startMs": 96460,
+      "endMs": 97260
+    },
+    {
+      "word": "Playing",
+      "startMs": 101880,
+      "endMs": 102580
+    },
+    {
+      "word": "on",
+      "startMs": 102700,
+      "endMs": 102880
+    },
+    {
+      "word": "repeat",
+      "startMs": 102960,
+      "endMs": 104600
+    },
+    {
+      "word": "in",
+      "startMs": 104680,
+      "endMs": 105180
+    },
+    {
+      "word": "our",
+      "startMs": 105260,
+      "endMs": 105680
+    },
+    {
+      "word": "cars",
+      "startMs": 105800,
+      "endMs": 106420
+    },
+    {
+      "word": "Meet",
+      "startMs": 106440,
+      "endMs": 106740
+    },
+    {
+      "word": "me",
+      "startMs": 106820,
+      "endMs": 106980
+    },
+    {
+      "word": "down",
+      "startMs": 107140,
+      "endMs": 107440
+    },
+    {
+      "word": "at",
+      "startMs": 107480,
+      "endMs": 107560
+    },
+    {
+      "word": "the",
+      "startMs": 107620,
+      "endMs": 107690
+    },
+    {
+      "word": "two",
+      "startMs": 107740,
+      "endMs": 108000
+    },
+    {
+      "word": "bars",
+      "startMs": 108120,
+      "endMs": 108720
+    },
+    {
+      "word": "The",
+      "startMs": 110680,
+      "endMs": 110840
+    },
+    {
+      "word": "logo,",
+      "startMs": 110940,
+      "endMs": 111920
+    },
+    {
+      "word": "the",
+      "startMs": 111980,
+      "endMs": 112080
+    },
+    {
+      "word": "music,",
+      "startMs": 112240,
+      "endMs": 113220
+    },
+    {
+      "word": "the",
+      "startMs": 113240,
+      "endMs": 113340
+    },
+    {
+      "word": "place",
+      "startMs": 113500,
+      "endMs": 114020
+    },
+    {
+      "word": "to",
+      "startMs": 114100,
+      "endMs": 114380
+    },
+    {
+      "word": "be",
+      "startMs": 114560,
+      "endMs": 114979
+    },
+    {
+      "word": "It's",
+      "startMs": 115860,
+      "endMs": 116100
+    },
+    {
+      "word": "more",
+      "startMs": 116180,
+      "endMs": 116580
+    },
+    {
+      "word": "than",
+      "startMs": 116620,
+      "endMs": 117100
+    },
+    {
+      "word": "a",
+      "startMs": 117180,
+      "endMs": 117280
+    },
+    {
+      "word": "feeling,",
+      "startMs": 117420,
+      "endMs": 118400
+    },
+    {
+      "word": "it",
+      "startMs": 118480,
+      "endMs": 118560
+    },
+    {
+      "word": "sets",
+      "startMs": 118700,
+      "endMs": 119140
+    },
+    {
+      "word": "you",
+      "startMs": 119260,
+      "endMs": 119520
+    },
+    {
+      "word": "free",
+      "startMs": 119660,
+      "endMs": 120900
+    },
+    {
+      "word": "From",
+      "startMs": 120980,
+      "endMs": 121230
+    },
+    {
+      "word": "sunrise",
+      "startMs": 121300,
+      "endMs": 122240
+    },
+    {
+      "word": "to",
+      "startMs": 122300,
+      "endMs": 122460
+    },
+    {
+      "word": "sunset,",
+      "startMs": 122580,
+      "endMs": 123860
+    },
+    {
+      "word": "you",
+      "startMs": 123960,
+      "endMs": 124340
+    },
+    {
+      "word": "and",
+      "startMs": 124420,
+      "endMs": 124800
+    },
+    {
+      "word": "me",
+      "startMs": 124900,
+      "endMs": 126080
+    },
+    {
+      "word": "(Yeah,",
+      "startMs": 126100,
+      "endMs": 126420
+    },
+    {
+      "word": "you",
+      "startMs": 126540,
+      "endMs": 126900
+    },
+    {
+      "word": "and",
+      "startMs": 127020,
+      "endMs": 127380
+    },
+    {
+      "word": "me)",
+      "startMs": 127500,
+      "endMs": 129360
+    },
+    {
+      "word": "Everybody",
+      "startMs": 131039,
+      "endMs": 131580
+    },
+    {
+      "word": "knows",
+      "startMs": 131600,
+      "endMs": 132880
+    },
+    {
+      "word": "the",
+      "startMs": 132940,
+      "endMs": 133480
+    },
+    {
+      "word": "two",
+      "startMs": 133600,
+      "endMs": 133820
+    },
+    {
+      "word": "bars!",
+      "startMs": 134200,
+      "endMs": 135160
+    },
+    {
+      "word": "(Oh-oh,",
+      "startMs": 136940,
+      "endMs": 139510
+    },
+    {
+      "word": "yeah!)",
+      "startMs": 139600,
+      "endMs": 139829
+    },
+    {
+      "word": "Playing",
+      "startMs": 140600,
+      "endMs": 141340
+    },
+    {
+      "word": "on",
+      "startMs": 141400,
+      "endMs": 141620
+    },
+    {
+      "word": "repeat",
+      "startMs": 141660,
+      "endMs": 143300
+    },
+    {
+      "word": "in",
+      "startMs": 143380,
+      "endMs": 143900
+    },
+    {
+      "word": "our",
+      "startMs": 143980,
+      "endMs": 144360
+    },
+    {
+      "word": "cars",
+      "startMs": 144520,
+      "endMs": 145120
+    },
+    {
+      "word": "Meet",
+      "startMs": 145180,
+      "endMs": 145440
+    },
+    {
+      "word": "me",
+      "startMs": 145520,
+      "endMs": 145700
+    },
+    {
+      "word": "down",
+      "startMs": 145860,
+      "endMs": 146120
+    },
+    {
+      "word": "at",
+      "startMs": 146180,
+      "endMs": 146260
+    },
+    {
+      "word": "the",
+      "startMs": 146320,
+      "endMs": 146400
+    },
+    {
+      "word": "two",
+      "startMs": 146440,
+      "endMs": 146700
+    },
+    {
+      "word": "bars",
+      "startMs": 146780,
+      "endMs": 147420
+    },
+    {
+      "word": "The",
+      "startMs": 147620,
+      "endMs": 148000
+    },
+    {
+      "word": "two",
+      "startMs": 148000,
+      "endMs": 148010
+    },
+    {
+      "word": "bars...",
+      "startMs": 148000,
+      "endMs": 148090
+    },
+    {
+      "word": "(Oh-oh)",
+      "startMs": 148100,
+      "endMs": 150170
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 151300,
+      "endMs": 151450
+    },
+    {
+      "word": "the",
+      "startMs": 151460,
+      "endMs": 151560
+    },
+    {
+      "word": "two",
+      "startMs": 151600,
+      "endMs": 151860
+    },
+    {
+      "word": "bars...",
+      "startMs": 151940,
+      "endMs": 157100
+    }
+  ],
+  "attempts": 1
+}

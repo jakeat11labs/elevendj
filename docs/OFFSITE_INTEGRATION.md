@@ -71,17 +71,37 @@ Base path: `/api/integration/v1`
 
 ### AutoDJ
 
-With `autoDj.enabled`, the room writes its own tracks so it never runs dry —
-audience requests always take priority, and AutoDJ only makes up the shortfall
-below `target`. Send a `brief` per agenda item; it's the single strongest lever
-you have over what a room sounds like. Without one the room falls back to a
-house style shaped by its title, room name, and time of day.
+AutoDJ keeps a room from ever running dry — audience requests always take
+priority, and AutoDJ only makes up the shortfall below `target`.
+
+**`autoDj.enabled` defaults to `true`** for agenda sessions, so a paired room
+screen never sits in silence waiting for its first request. Pass `false` to opt
+a room out.
+
+A room fills that shortfall from two places, in order:
+
+1. **The curated house playlist** — 22 pre-rendered, reviewed Cancún 2026 tracks
+   (an ElevenLabs product block and an island block). These cost no generation
+   credits and appear instantly, complete with karaoke lyrics. A room plays all
+   22 before repeating any, and each room gets its own running order.
+2. **Live generation** — once every curated track is already queued, AutoDJ
+   generates to the room's `brief`. Send a `brief` per agenda item; it's the
+   single strongest lever you have over what a generated track sounds like.
+   Without one the room falls back to a house style shaped by its title, room
+   name, and time of day.
+
+Curated tracks are ordinary queue entries: they play, crossfade, drive the
+karaoke display and anchor station IDs exactly like an audience request, and
+they carry no requester name. They have vocals regardless of
+`forceInstrumental`, which constrains generated output rather than vetted house
+content.
 
 Three behaviors matter for unattended rooms:
 
-- **Pre-roll** — upserting a room as `live` starts generating immediately, so
-  there's music ready before people walk in. Generation takes ~30–60s, so upsert
-  a few minutes ahead of the agenda block rather than at its start.
+- **Pre-roll** — upserting a room as `live` stocks it immediately. Curated
+  tracks are ready the moment they're queued; generated ones take ~30–60s, so
+  upserting a few minutes ahead of the agenda block still helps once a room has
+  worked through the playlist.
 - **Autoplay** — a room with ready audio and nothing playing starts itself. A
   room an operator deliberately paused is left alone.
 - **Wind-down** — top-ups stop within 5 minutes of `endsAt`, so a finishing room

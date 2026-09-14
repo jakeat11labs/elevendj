@@ -1,0 +1,1148 @@
+{
+  "id": "E03",
+  "set": "eleven",
+  "title": "Say It In Seventy Languages",
+  "concept": "Starts in English and does not stay there. The multilingual pitch as a party record.",
+  "genre": "global pop",
+  "bpm": 118,
+  "key": "A minor",
+  "lengthS": 170,
+  "prompt": "Global pop, 118 BPM, A minor \u2014 driving four-on-the-floor kick, bright guitar ostinato, hand percussion, warm synth bass, brass accents. Joyful female lead with a full backing group. Sing the first verse and chorus in English, then carry the same melody through Spanish, French, Japanese and Portuguese verses, and bring all the languages back together stacked in the final chorus. Polished, celebratory, festival-sized.",
+  "slug": "e03-say-it-in-seventy-languages",
+  "file": "e03-say-it-in-seventy-languages.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Dance With Me Tonight",
+  "genres": [
+    "pop",
+    "world"
+  ],
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "ja",
+    "pt"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 39,
+  "lyrics": [
+    "(Ooh-la-la)",
+    "(Yeah, yeah)",
+    "(Hey!)",
+    "Morning sun is on the rise",
+    "A new day in our hands",
+    "No more gray in our blue skies",
+    "The rhythm of the lands",
+    "Oh, can you feel the love tonight?",
+    "(Oh, can you feel it?)",
+    "Shining ever so bright",
+    "From every city to the sea",
+    "Come on and dance with me",
+    "El sol en el amanecer",
+    "Un nuevo d\u00eda, una canci\u00f3n",
+    "No hay nubes que puedan vencer",
+    "El pulso del coraz\u00f3n",
+    "Oh, \u00bfsientes el amor aqu\u00ed?",
+    "(\u00bfPuedes sentirlo?)",
+    "Brillando para ti y pa' m\u00ed",
+    "De la ciudad hasta el mar",
+    "\u00a1Ven y ponte a bailar!",
+    "Le soleil quand le jour se l\u00e8ve",
+    "Une promesse dans nos mains",
+    "Plus de gris dans notre r\u00eave",
+    "Le rythme nous est souverain",
+    "\u671d\u306e\u5149\u304c\u6607\u308b",
+    "\u65b0\u3057\u3044\u65e5\u304c\u624b\u306e\u4e2d\u306b",
+    "\u7a7a\u306b\u306f\u3082\u3046\u96f2\u3082\u306a\u304f",
+    "\u3053\u306e\u571f\u5730\u306e\u30ea\u30ba\u30e0",
+    "Manh\u00e3 de sol vai come\u00e7ar",
+    "Um novo dia em nossas m\u00e3os",
+    "Oh, can you feel the love tonight?",
+    "(Oh, \u00bfsientes el amor aqu\u00ed?)",
+    "Brillando para ti y pa' m\u00ed",
+    "(Le rythme nous est souverain)",
+    "From every city to the sea",
+    "(Kono tochi no rizumu)",
+    "Come on and dance with me!",
+    "(Vem dan\u00e7ar!)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]\n(Ooh-la-la)\n(Yeah, yeah)\n(Hey!)",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "118 BPM",
+          "global pop",
+          "festive atmosphere",
+          "A minor key",
+          "bright guitar ostinato enters",
+          "rhythmic hand percussion (congas, shakers)",
+          "warm synth pad swell",
+          "four-on-the-floor kick with a soft attack"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1 (English)]\nMorning sun is on the rise\nA new day in our hands\nNo more gray in our blue skies\nThe rhythm of the lands",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "joyful female lead vocal",
+          "warm synth bass enters",
+          "driving four-on-the-floor kick",
+          "bright clean electric guitar ostinato",
+          "light hand percussion",
+          "pop vocal harmonies"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1 (English)]\nOh, can you feel the love tonight?\n(Oh, can you feel it?)\nShining ever so bright\nFrom every city to the sea\nCome on and dance with me",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "full energy",
+          "anthemic female lead vocal with layered backing group",
+          "punchy brass section stabs",
+          "driving four-on-the-floor beat",
+          "warm synth bass carries the groove",
+          "celebratory festival feel",
+          "wide stereo mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2 (Spanish)]\nEl sol en el amanecer\nUn nuevo d\u00eda, una canci\u00f3n\nNo hay nubes que puedan vencer\nEl pulso del coraz\u00f3n",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "joyful female lead vocal in Spanish",
+          "rhythm guitar chord stabs",
+          "driving four-on-the-floor",
+          "warm synth bass",
+          "continued hand percussion groove",
+          "supporting backing vocals (oohs and aahs)"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2 (Spanish)]\nOh, \u00bfsientes el amor aqu\u00ed?\n(\u00bfPuedes sentirlo?)\nBrillando para ti y pa' m\u00ed\nDe la ciudad hasta el mar\n\u00a1Ven y ponte a bailar!",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "full energy",
+          "anthemic female lead vocal in Spanish with layered backing group",
+          "punchy brass section accents",
+          "driving four-on-the-floor beat",
+          "warm synth bass",
+          "celebratory festival feel",
+          "energetic mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 3 (French)]\nLe soleil quand le jour se l\u00e8ve\nUne promesse dans nos mains\nPlus de gris dans notre r\u00eave\nLe rythme nous est souverain",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "joyful female lead vocal in French",
+          "breakdown feel",
+          "kick and bass prominent",
+          "filtered guitar ostinato",
+          "light shaker percussion",
+          "intimate vocal production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 4 (Japanese)]\n\u671d\u306e\u5149\u304c\u6607\u308b\n\u65b0\u3057\u3044\u65e5\u304c\u624b\u306e\u4e2d\u306b\n\u7a7a\u306b\u306f\u3082\u3046\u96f2\u3082\u306a\u304f\n\u3053\u306e\u571f\u5730\u306e\u30ea\u30ba\u30e0",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "building energy",
+          "joyful female lead vocal in Japanese",
+          "re-introducing brass swells",
+          "driving four-on-the-floor rhythm",
+          "bright guitar returns",
+          "fuller backing vocals"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 5 (Portuguese)]\nManh\u00e3 de sol vai come\u00e7ar\nUm novo dia em nossas m\u00e3os",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "pre-chorus build",
+          "joyful female lead vocal in Portuguese",
+          "all elements present",
+          "rising synth filter sweep",
+          "drum fills building excitement",
+          "anticipatory energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Final Chorus (Multilingual)]\nOh, can you feel the love tonight?\n(Oh, \u00bfsientes el amor aqu\u00ed?)\nBrillando para ti y pa' m\u00ed\n(Le rythme nous est souverain)\nFrom every city to the sea\n(Kono tochi no rizumu)\nCome on and dance with me!\n(Vem dan\u00e7ar!)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "118 BPM",
+          "A minor key",
+          "peak energy",
+          "explosive festival drop",
+          "layered multilingual vocals from all previous languages",
+          "powerful brass section fanfares",
+          "pounding four-on-the-floor kick",
+          "euphoric synth leads",
+          "massive celebratory sound"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "(Ooh-la-la)",
+      "startMs": 100,
+      "endMs": 11400
+    },
+    {
+      "word": "(Yeah,",
+      "startMs": 11400,
+      "endMs": 11410
+    },
+    {
+      "word": "yeah)",
+      "startMs": 11700,
+      "endMs": 13440
+    },
+    {
+      "word": "(Hey!)",
+      "startMs": 13440,
+      "endMs": 15700
+    },
+    {
+      "word": "Morning",
+      "startMs": 15760,
+      "endMs": 16120
+    },
+    {
+      "word": "sun",
+      "startMs": 16240,
+      "endMs": 17060
+    },
+    {
+      "word": "is",
+      "startMs": 17120,
+      "endMs": 17300
+    },
+    {
+      "word": "on",
+      "startMs": 17380,
+      "endMs": 17520
+    },
+    {
+      "word": "the",
+      "startMs": 17580,
+      "endMs": 17660
+    },
+    {
+      "word": "rise",
+      "startMs": 17760,
+      "endMs": 18520
+    },
+    {
+      "word": "A",
+      "startMs": 19100,
+      "endMs": 19160
+    },
+    {
+      "word": "new",
+      "startMs": 19300,
+      "endMs": 19520
+    },
+    {
+      "word": "day",
+      "startMs": 19580,
+      "endMs": 19780
+    },
+    {
+      "word": "in",
+      "startMs": 19940,
+      "endMs": 20080
+    },
+    {
+      "word": "our",
+      "startMs": 20140,
+      "endMs": 20260
+    },
+    {
+      "word": "hands",
+      "startMs": 20360,
+      "endMs": 21180
+    },
+    {
+      "word": "No",
+      "startMs": 23860,
+      "endMs": 24100
+    },
+    {
+      "word": "more",
+      "startMs": 24120,
+      "endMs": 24320
+    },
+    {
+      "word": "gray",
+      "startMs": 24360,
+      "endMs": 25140
+    },
+    {
+      "word": "in",
+      "startMs": 25220,
+      "endMs": 25420
+    },
+    {
+      "word": "our",
+      "startMs": 25480,
+      "endMs": 25600
+    },
+    {
+      "word": "blue",
+      "startMs": 25640,
+      "endMs": 25800
+    },
+    {
+      "word": "skies",
+      "startMs": 25900,
+      "endMs": 26720
+    },
+    {
+      "word": "The",
+      "startMs": 27200,
+      "endMs": 27400
+    },
+    {
+      "word": "rhythm",
+      "startMs": 27440,
+      "endMs": 27980
+    },
+    {
+      "word": "of",
+      "startMs": 28100,
+      "endMs": 28200
+    },
+    {
+      "word": "the",
+      "startMs": 28240,
+      "endMs": 28340
+    },
+    {
+      "word": "lands",
+      "startMs": 28440,
+      "endMs": 29320
+    },
+    {
+      "word": "Oh,",
+      "startMs": 30780,
+      "endMs": 30960
+    },
+    {
+      "word": "can",
+      "startMs": 31020,
+      "endMs": 31260
+    },
+    {
+      "word": "you",
+      "startMs": 31300,
+      "endMs": 31460
+    },
+    {
+      "word": "feel",
+      "startMs": 31540,
+      "endMs": 31960
+    },
+    {
+      "word": "the",
+      "startMs": 32060,
+      "endMs": 32180
+    },
+    {
+      "word": "love",
+      "startMs": 32280,
+      "endMs": 33140
+    },
+    {
+      "word": "tonight?",
+      "startMs": 33320,
+      "endMs": 34200
+    },
+    {
+      "word": "(Oh,",
+      "startMs": 35800,
+      "endMs": 36040
+    },
+    {
+      "word": "can",
+      "startMs": 36120,
+      "endMs": 36340
+    },
+    {
+      "word": "you",
+      "startMs": 36380,
+      "endMs": 36519
+    },
+    {
+      "word": "feel",
+      "startMs": 36620,
+      "endMs": 36960
+    },
+    {
+      "word": "it?)",
+      "startMs": 37020,
+      "endMs": 38820
+    },
+    {
+      "word": "Shining",
+      "startMs": 38880,
+      "endMs": 39640
+    },
+    {
+      "word": "ever",
+      "startMs": 39720,
+      "endMs": 40000
+    },
+    {
+      "word": "so",
+      "startMs": 40160,
+      "endMs": 40400
+    },
+    {
+      "word": "bright",
+      "startMs": 40660,
+      "endMs": 41660
+    },
+    {
+      "word": "From",
+      "startMs": 42940,
+      "endMs": 43180
+    },
+    {
+      "word": "every",
+      "startMs": 43200,
+      "endMs": 43580
+    },
+    {
+      "word": "city",
+      "startMs": 43700,
+      "endMs": 44160
+    },
+    {
+      "word": "to",
+      "startMs": 44260,
+      "endMs": 44460
+    },
+    {
+      "word": "the",
+      "startMs": 44520,
+      "endMs": 44640
+    },
+    {
+      "word": "sea",
+      "startMs": 44720,
+      "endMs": 45480
+    },
+    {
+      "word": "Come",
+      "startMs": 47020,
+      "endMs": 47300
+    },
+    {
+      "word": "on",
+      "startMs": 47360,
+      "endMs": 47560
+    },
+    {
+      "word": "and",
+      "startMs": 47600,
+      "endMs": 47720
+    },
+    {
+      "word": "dance",
+      "startMs": 47820,
+      "endMs": 48280
+    },
+    {
+      "word": "with",
+      "startMs": 48340,
+      "endMs": 48500
+    },
+    {
+      "word": "me",
+      "startMs": 48560,
+      "endMs": 49160
+    },
+    {
+      "word": "El",
+      "startMs": 51120,
+      "endMs": 51220
+    },
+    {
+      "word": "sol",
+      "startMs": 51300,
+      "endMs": 51620
+    },
+    {
+      "word": "en",
+      "startMs": 51660,
+      "endMs": 51860
+    },
+    {
+      "word": "el",
+      "startMs": 51880,
+      "endMs": 52120
+    },
+    {
+      "word": "amanecer",
+      "startMs": 52160,
+      "endMs": 53600
+    },
+    {
+      "word": "Un",
+      "startMs": 55220,
+      "endMs": 55360
+    },
+    {
+      "word": "nuevo",
+      "startMs": 55400,
+      "endMs": 55860
+    },
+    {
+      "word": "d\u00eda,",
+      "startMs": 55920,
+      "endMs": 56340
+    },
+    {
+      "word": "una",
+      "startMs": 56360,
+      "endMs": 56580
+    },
+    {
+      "word": "canci\u00f3n",
+      "startMs": 56680,
+      "endMs": 57420
+    },
+    {
+      "word": "No",
+      "startMs": 59200,
+      "endMs": 59280
+    },
+    {
+      "word": "hay",
+      "startMs": 59300,
+      "endMs": 59440
+    },
+    {
+      "word": "nubes",
+      "startMs": 59500,
+      "endMs": 59920
+    },
+    {
+      "word": "que",
+      "startMs": 60000,
+      "endMs": 60120
+    },
+    {
+      "word": "puedan",
+      "startMs": 60240,
+      "endMs": 60720
+    },
+    {
+      "word": "vencer",
+      "startMs": 60740,
+      "endMs": 61500
+    },
+    {
+      "word": "El",
+      "startMs": 63320,
+      "endMs": 63480
+    },
+    {
+      "word": "pulso",
+      "startMs": 63540,
+      "endMs": 63960
+    },
+    {
+      "word": "del",
+      "startMs": 64080,
+      "endMs": 64440
+    },
+    {
+      "word": "coraz\u00f3n",
+      "startMs": 64560,
+      "endMs": 65680
+    },
+    {
+      "word": "Oh,",
+      "startMs": 67400,
+      "endMs": 71600
+    },
+    {
+      "word": "\u00bfsientes",
+      "startMs": 71620,
+      "endMs": 72180
+    },
+    {
+      "word": "el",
+      "startMs": 72400,
+      "endMs": 72700
+    },
+    {
+      "word": "amor",
+      "startMs": 72860,
+      "endMs": 73980
+    },
+    {
+      "word": "aqu\u00ed?",
+      "startMs": 74040,
+      "endMs": 74720
+    },
+    {
+      "word": "(\u00bfPuedes",
+      "startMs": 76480,
+      "endMs": 76950
+    },
+    {
+      "word": "sentirlo?)",
+      "startMs": 77020,
+      "endMs": 79500
+    },
+    {
+      "word": "Brillando",
+      "startMs": 79540,
+      "endMs": 80180
+    },
+    {
+      "word": "para",
+      "startMs": 80320,
+      "endMs": 81220
+    },
+    {
+      "word": "ti",
+      "startMs": 81340,
+      "endMs": 81980
+    },
+    {
+      "word": "y",
+      "startMs": 81980,
+      "endMs": 81990
+    },
+    {
+      "word": "pa'",
+      "startMs": 82100,
+      "endMs": 82280
+    },
+    {
+      "word": "m\u00ed",
+      "startMs": 82400,
+      "endMs": 82860
+    },
+    {
+      "word": "De",
+      "startMs": 83600,
+      "endMs": 83840
+    },
+    {
+      "word": "la",
+      "startMs": 83880,
+      "endMs": 84000
+    },
+    {
+      "word": "ciudad",
+      "startMs": 84100,
+      "endMs": 84900
+    },
+    {
+      "word": "hasta",
+      "startMs": 84940,
+      "endMs": 85200
+    },
+    {
+      "word": "el",
+      "startMs": 85240,
+      "endMs": 85360
+    },
+    {
+      "word": "mar",
+      "startMs": 85440,
+      "endMs": 86420
+    },
+    {
+      "word": "\u00a1Ven",
+      "startMs": 86920,
+      "endMs": 87960
+    },
+    {
+      "word": "y",
+      "startMs": 88000,
+      "endMs": 88080
+    },
+    {
+      "word": "ponte",
+      "startMs": 88200,
+      "endMs": 88540
+    },
+    {
+      "word": "a",
+      "startMs": 88600,
+      "endMs": 88920
+    },
+    {
+      "word": "bailar!",
+      "startMs": 88980,
+      "endMs": 90230
+    },
+    {
+      "word": "Le",
+      "startMs": 91780,
+      "endMs": 91840
+    },
+    {
+      "word": "soleil",
+      "startMs": 91940,
+      "endMs": 92420
+    },
+    {
+      "word": "quand",
+      "startMs": 92500,
+      "endMs": 92760
+    },
+    {
+      "word": "le",
+      "startMs": 92800,
+      "endMs": 92940
+    },
+    {
+      "word": "jour",
+      "startMs": 93020,
+      "endMs": 93200
+    },
+    {
+      "word": "se",
+      "startMs": 93260,
+      "endMs": 93420
+    },
+    {
+      "word": "l\u00e8ve",
+      "startMs": 93540,
+      "endMs": 94520
+    },
+    {
+      "word": "Une",
+      "startMs": 95900,
+      "endMs": 96180
+    },
+    {
+      "word": "promesse",
+      "startMs": 96280,
+      "endMs": 97040
+    },
+    {
+      "word": "dans",
+      "startMs": 97140,
+      "endMs": 97320
+    },
+    {
+      "word": "nos",
+      "startMs": 97380,
+      "endMs": 97540
+    },
+    {
+      "word": "mains",
+      "startMs": 97600,
+      "endMs": 98360
+    },
+    {
+      "word": "Plus",
+      "startMs": 100100,
+      "endMs": 100300
+    },
+    {
+      "word": "de",
+      "startMs": 100320,
+      "endMs": 100580
+    },
+    {
+      "word": "gris",
+      "startMs": 100620,
+      "endMs": 100880
+    },
+    {
+      "word": "dans",
+      "startMs": 100920,
+      "endMs": 101140
+    },
+    {
+      "word": "notre",
+      "startMs": 101220,
+      "endMs": 101560
+    },
+    {
+      "word": "r\u00eave",
+      "startMs": 101680,
+      "endMs": 102680
+    },
+    {
+      "word": "Le",
+      "startMs": 104000,
+      "endMs": 104100
+    },
+    {
+      "word": "rythme",
+      "startMs": 104220,
+      "endMs": 104580
+    },
+    {
+      "word": "nous",
+      "startMs": 104720,
+      "endMs": 104980
+    },
+    {
+      "word": "est",
+      "startMs": 105020,
+      "endMs": 105160
+    },
+    {
+      "word": "souverain",
+      "startMs": 105260,
+      "endMs": 106240
+    },
+    {
+      "word": "\u671d\u306e\u5149\u304c\u6607\u308b",
+      "startMs": 113180,
+      "endMs": 116400
+    },
+    {
+      "word": "\u65b0\u3057\u3044\u65e5\u304c\u624b\u306e\u4e2d\u306b",
+      "startMs": 117360,
+      "endMs": 119940
+    },
+    {
+      "word": "\u7a7a\u306b\u306f\u3082\u3046\u96f2\u3082\u306a\u304f",
+      "startMs": 119960,
+      "endMs": 125060
+    },
+    {
+      "word": "\u3053\u306e\u571f\u5730\u306e\u30ea\u30ba\u30e0",
+      "startMs": 125820,
+      "endMs": 128259
+    },
+    {
+      "word": "Manh\u00e3",
+      "startMs": 131380,
+      "endMs": 131880
+    },
+    {
+      "word": "de",
+      "startMs": 131920,
+      "endMs": 132040
+    },
+    {
+      "word": "sol",
+      "startMs": 132140,
+      "endMs": 132640
+    },
+    {
+      "word": "vai",
+      "startMs": 132700,
+      "endMs": 133080
+    },
+    {
+      "word": "come\u00e7ar",
+      "startMs": 133200,
+      "endMs": 134600
+    },
+    {
+      "word": "Um",
+      "startMs": 135540,
+      "endMs": 135680
+    },
+    {
+      "word": "novo",
+      "startMs": 135720,
+      "endMs": 136140
+    },
+    {
+      "word": "dia",
+      "startMs": 136200,
+      "endMs": 137020
+    },
+    {
+      "word": "em",
+      "startMs": 137080,
+      "endMs": 137200
+    },
+    {
+      "word": "nossas",
+      "startMs": 137260,
+      "endMs": 137960
+    },
+    {
+      "word": "m\u00e3os",
+      "startMs": 138040,
+      "endMs": 140500
+    },
+    {
+      "word": "Oh,",
+      "startMs": 141120,
+      "endMs": 141800
+    },
+    {
+      "word": "can",
+      "startMs": 141860,
+      "endMs": 142100
+    },
+    {
+      "word": "you",
+      "startMs": 142140,
+      "endMs": 142320
+    },
+    {
+      "word": "feel",
+      "startMs": 142380,
+      "endMs": 142780
+    },
+    {
+      "word": "the",
+      "startMs": 142900,
+      "endMs": 143200
+    },
+    {
+      "word": "love",
+      "startMs": 143320,
+      "endMs": 143760
+    },
+    {
+      "word": "tonight?",
+      "startMs": 143880,
+      "endMs": 144880
+    },
+    {
+      "word": "(Oh,",
+      "startMs": 144900,
+      "endMs": 145340
+    },
+    {
+      "word": "\u00bfsientes",
+      "startMs": 145340,
+      "endMs": 145920
+    },
+    {
+      "word": "el",
+      "startMs": 146040,
+      "endMs": 146200
+    },
+    {
+      "word": "amor",
+      "startMs": 146220,
+      "endMs": 146960
+    },
+    {
+      "word": "aqu\u00ed?)",
+      "startMs": 147000,
+      "endMs": 147329
+    },
+    {
+      "word": "Brillando",
+      "startMs": 147320,
+      "endMs": 147820
+    },
+    {
+      "word": "para",
+      "startMs": 147980,
+      "endMs": 148320
+    },
+    {
+      "word": "ti",
+      "startMs": 148460,
+      "endMs": 148780
+    },
+    {
+      "word": "y",
+      "startMs": 149040,
+      "endMs": 149160
+    },
+    {
+      "word": "pa'",
+      "startMs": 149240,
+      "endMs": 149440
+    },
+    {
+      "word": "m\u00ed",
+      "startMs": 149520,
+      "endMs": 149900
+    },
+    {
+      "word": "(Le",
+      "startMs": 150180,
+      "endMs": 150460
+    },
+    {
+      "word": "rythme",
+      "startMs": 150480,
+      "endMs": 150940
+    },
+    {
+      "word": "nous",
+      "startMs": 151040,
+      "endMs": 151260
+    },
+    {
+      "word": "est",
+      "startMs": 151280,
+      "endMs": 151460
+    },
+    {
+      "word": "souverain)",
+      "startMs": 151540,
+      "endMs": 152740
+    },
+    {
+      "word": "From",
+      "startMs": 152780,
+      "endMs": 153000
+    },
+    {
+      "word": "every",
+      "startMs": 153100,
+      "endMs": 153410
+    },
+    {
+      "word": "city",
+      "startMs": 153540,
+      "endMs": 153980
+    },
+    {
+      "word": "to",
+      "startMs": 154060,
+      "endMs": 154280
+    },
+    {
+      "word": "the",
+      "startMs": 154340,
+      "endMs": 154400
+    },
+    {
+      "word": "sea",
+      "startMs": 154540,
+      "endMs": 155060
+    },
+    {
+      "word": "(Kono",
+      "startMs": 155300,
+      "endMs": 155430
+    },
+    {
+      "word": "tochi",
+      "startMs": 155500,
+      "endMs": 155960
+    },
+    {
+      "word": "no",
+      "startMs": 156080,
+      "endMs": 156220
+    },
+    {
+      "word": "rizumu)",
+      "startMs": 156240,
+      "endMs": 156820
+    },
+    {
+      "word": "Come",
+      "startMs": 156880,
+      "endMs": 157100
+    },
+    {
+      "word": "on",
+      "startMs": 157200,
+      "endMs": 157360
+    },
+    {
+      "word": "and",
+      "startMs": 157420,
+      "endMs": 157540
+    },
+    {
+      "word": "dance",
+      "startMs": 157640,
+      "endMs": 158080
+    },
+    {
+      "word": "with",
+      "startMs": 158180,
+      "endMs": 158400
+    },
+    {
+      "word": "me!",
+      "startMs": 158660,
+      "endMs": 161410
+    },
+    {
+      "word": "(Vem",
+      "startMs": 163660,
+      "endMs": 163960
+    },
+    {
+      "word": "dan\u00e7ar!)",
+      "startMs": 164100,
+      "endMs": 166130
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.24,
+    "truePeakDb": -2.14,
+    "loudnessRangeLu": 5.2
+  },
+  "preview": {
+    "file": "previews/e03-say-it-in-seventy-languages.mp3",
+    "startS": 8.4,
+    "durationS": 60,
+    "vocalEntryS": 11.4
+  }
+}

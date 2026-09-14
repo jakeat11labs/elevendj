@@ -1,0 +1,650 @@
+{
+  "id": "C06",
+  "set": "cancun",
+  "title": "The Cenote Deep Dive",
+  "concept": "Someone said 'let's take this offline' and meant twelve meters underwater.",
+  "genre": "downtempo dub",
+  "bpm": 88,
+  "key": "E minor",
+  "lengthS": 170,
+  "prompt": "Downtempo dub, 88 BPM, E minor, spacious atmospheric production — deep rolling bassline, heavily delayed skank chords, brushed live drums, melodica lead, water-like reverb tails and tape echo. Cool understated male lead vocal in clear neutral American English, hypnotic half-sung hook about taking the conversation offline and diving into the cenote, sparse phrasing with lots of space. Sung in English only, every word intelligible, no Spanish lyrics. Melodica motif intro, bass drops in at fifteen seconds, dub delay breakdown in the final third.",
+  "slug": "c06-the-cenote-deep-dive",
+  "file": "c06-the-cenote-deep-dive.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Cenote Offline",
+  "genres": [
+    "electronic",
+    "dub",
+    "downtempo"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 20,
+  "lyrics": [
+    "Too much static on the wire",
+    "Can't hear the signal through the sound",
+    "Lost in the glow of the fire",
+    "Let the empty talk just burn down",
+    "Let's take this offline",
+    "Dive into the deep blue light",
+    "Meet me at the cenote",
+    "Where the water's cool and bright",
+    "Surface tension holding on",
+    "Reflecting what we want to see",
+    "The current's pulling, soft and strong",
+    "Washing over you and me",
+    "Let's take this offline",
+    "(offline)",
+    "Dive into the deep blue light",
+    "Meet me at the cenote",
+    "Where the silence feels so right",
+    "(offline)",
+    "(dive...)",
+    "(cenote...)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "88 BPM",
+          "downtempo dub intro",
+          "spacious atmospheric production",
+          "hypnotic melodica lead motif in E minor",
+          "lightly brushed live drums with a gentle rimshot pattern",
+          "subtle filtered synth pads creating a watery texture",
+          "long tape echo trails",
+          "anticipatory feel"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nToo much static on the wire\nCan't hear the signal through the sound\nLost in the glow of the fire\nLet the empty talk just burn down",
+        "durationMs": 35000,
+        "positiveStyles": [
+          "88 BPM",
+          "deep rolling sub-bassline enters",
+          "brushed live drums with a steady, hypnotic groove",
+          "heavily delayed reggae skank chords on a clean guitar",
+          "melodica plays sparse counter-melodies",
+          "cool, understated male lead vocal",
+          "clear neutral American English vocal delivery",
+          "spacious mix with prominent reverb tails"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nLet's take this offline\nDive into the deep blue light\nMeet me at the cenote\nWhere the water's cool and bright",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "88 BPM",
+          "hypnotic half-sung male hook",
+          "warm vocal harmonies enter on the hook",
+          "bassline becomes more prominent and melodic",
+          "melodica echoes the main vocal phrase",
+          "skank chords are pushed back slightly with more delay",
+          "shimmering cymbal washes",
+          "wide stereo image"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nSurface tension holding on\nReflecting what we want to see\nThe current's pulling, soft and strong\nWashing over you and me",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "88 BPM",
+          "stripped-back arrangement",
+          "bass and drums lock into a tight groove",
+          "vocal delivery is more intimate and close-mic'd",
+          "melodica is quiet, holding long single notes",
+          "sparse guitar skank chords punctuate the rhythm",
+          "lots of space between vocal phrases",
+          "dry vocal sound with clean reverb"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nLet's take this offline\n(offline)\nDive into the deep blue light\nMeet me at the cenote\nWhere the silence feels so right",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "88 BPM",
+          "full energy hypnotic hook",
+          "layered male vocals with harmonies",
+          "driving sub-bassline",
+          "melodica plays a more complex, interwoven lead line",
+          "brushed drums with more active hi-hats",
+          "guitar skank chords are brighter and more present",
+          "euphoric and spacious feeling"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Dub Breakdown]\n(offline)\n(dive...)\n(cenote...)",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "88 BPM",
+          "instrumental dub breakdown",
+          "bass and drums are the focus",
+          "heavy use of tape echo and feedback on drum hits and chord fragments",
+          "vocal snippets from the chorus fade in and out",
+          "melodica fragments processed with cascading delays",
+          "sonically deconstructed and trippy",
+          "watery reverb washes over the mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "88 BPM",
+          "fade out section",
+          "bassline slowly fades out",
+          "melodica repeats its initial motif, drenched in echo",
+          "brushed cymbals and sparse rimshots slowly decay",
+          "elements drop out one by one",
+          "final chord echoes into silence"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Too",
+      "startMs": 22500,
+      "endMs": 22800
+    },
+    {
+      "word": "much",
+      "startMs": 22860,
+      "endMs": 23140
+    },
+    {
+      "word": "static",
+      "startMs": 23180,
+      "endMs": 23880
+    },
+    {
+      "word": "on",
+      "startMs": 23940,
+      "endMs": 24180
+    },
+    {
+      "word": "the",
+      "startMs": 24240,
+      "endMs": 24320
+    },
+    {
+      "word": "wire",
+      "startMs": 24400,
+      "endMs": 25740
+    },
+    {
+      "word": "Can't",
+      "startMs": 27640,
+      "endMs": 27920
+    },
+    {
+      "word": "hear",
+      "startMs": 27980,
+      "endMs": 28240
+    },
+    {
+      "word": "the",
+      "startMs": 28340,
+      "endMs": 28460
+    },
+    {
+      "word": "signal",
+      "startMs": 28660,
+      "endMs": 29220
+    },
+    {
+      "word": "through",
+      "startMs": 29300,
+      "endMs": 29600
+    },
+    {
+      "word": "the",
+      "startMs": 29680,
+      "endMs": 29790
+    },
+    {
+      "word": "sound",
+      "startMs": 29980,
+      "endMs": 31000
+    },
+    {
+      "word": "Lost",
+      "startMs": 33360,
+      "endMs": 33760
+    },
+    {
+      "word": "in",
+      "startMs": 33820,
+      "endMs": 33920
+    },
+    {
+      "word": "the",
+      "startMs": 33960,
+      "endMs": 34030
+    },
+    {
+      "word": "glow",
+      "startMs": 34120,
+      "endMs": 34760
+    },
+    {
+      "word": "of",
+      "startMs": 34900,
+      "endMs": 35080
+    },
+    {
+      "word": "the",
+      "startMs": 35160,
+      "endMs": 35210
+    },
+    {
+      "word": "fire",
+      "startMs": 35380,
+      "endMs": 36320
+    },
+    {
+      "word": "Let",
+      "startMs": 38520,
+      "endMs": 38700
+    },
+    {
+      "word": "the",
+      "startMs": 38740,
+      "endMs": 38880
+    },
+    {
+      "word": "empty",
+      "startMs": 38980,
+      "endMs": 39380
+    },
+    {
+      "word": "talk",
+      "startMs": 39580,
+      "endMs": 40100
+    },
+    {
+      "word": "just",
+      "startMs": 40260,
+      "endMs": 40540
+    },
+    {
+      "word": "burn",
+      "startMs": 40600,
+      "endMs": 41180
+    },
+    {
+      "word": "down",
+      "startMs": 41220,
+      "endMs": 42060
+    },
+    {
+      "word": "Let's",
+      "startMs": 54180,
+      "endMs": 54520
+    },
+    {
+      "word": "take",
+      "startMs": 54560,
+      "endMs": 56220
+    },
+    {
+      "word": "this",
+      "startMs": 56260,
+      "endMs": 56560
+    },
+    {
+      "word": "offline",
+      "startMs": 56660,
+      "endMs": 58620
+    },
+    {
+      "word": "Dive",
+      "startMs": 59300,
+      "endMs": 59680
+    },
+    {
+      "word": "into",
+      "startMs": 59780,
+      "endMs": 61000
+    },
+    {
+      "word": "the",
+      "startMs": 61020,
+      "endMs": 61200
+    },
+    {
+      "word": "deep",
+      "startMs": 61380,
+      "endMs": 61680
+    },
+    {
+      "word": "blue",
+      "startMs": 61740,
+      "endMs": 62240
+    },
+    {
+      "word": "light",
+      "startMs": 62360,
+      "endMs": 63380
+    },
+    {
+      "word": "Meet",
+      "startMs": 65480,
+      "endMs": 66060
+    },
+    {
+      "word": "me",
+      "startMs": 66120,
+      "endMs": 66460
+    },
+    {
+      "word": "at",
+      "startMs": 66860,
+      "endMs": 67120
+    },
+    {
+      "word": "the",
+      "startMs": 67200,
+      "endMs": 67290
+    },
+    {
+      "word": "cenote",
+      "startMs": 67400,
+      "endMs": 68360
+    },
+    {
+      "word": "Where",
+      "startMs": 70240,
+      "endMs": 70540
+    },
+    {
+      "word": "the",
+      "startMs": 70620,
+      "endMs": 70860
+    },
+    {
+      "word": "water's",
+      "startMs": 70920,
+      "endMs": 72180
+    },
+    {
+      "word": "cool",
+      "startMs": 72260,
+      "endMs": 72660
+    },
+    {
+      "word": "and",
+      "startMs": 72680,
+      "endMs": 73200
+    },
+    {
+      "word": "bright",
+      "startMs": 73280,
+      "endMs": 74300
+    },
+    {
+      "word": "Surface",
+      "startMs": 76960,
+      "endMs": 77620
+    },
+    {
+      "word": "tension",
+      "startMs": 77760,
+      "endMs": 78340
+    },
+    {
+      "word": "holding",
+      "startMs": 78400,
+      "endMs": 78960
+    },
+    {
+      "word": "on",
+      "startMs": 79020,
+      "endMs": 80240
+    },
+    {
+      "word": "Reflecting",
+      "startMs": 82200,
+      "endMs": 83140
+    },
+    {
+      "word": "what",
+      "startMs": 83200,
+      "endMs": 83500
+    },
+    {
+      "word": "we",
+      "startMs": 83580,
+      "endMs": 83760
+    },
+    {
+      "word": "want",
+      "startMs": 83900,
+      "endMs": 84220
+    },
+    {
+      "word": "to",
+      "startMs": 84240,
+      "endMs": 84400
+    },
+    {
+      "word": "see",
+      "startMs": 84520,
+      "endMs": 85200
+    },
+    {
+      "word": "The",
+      "startMs": 87680,
+      "endMs": 87900
+    },
+    {
+      "word": "current's",
+      "startMs": 87980,
+      "endMs": 88620
+    },
+    {
+      "word": "pulling,",
+      "startMs": 88700,
+      "endMs": 89240
+    },
+    {
+      "word": "soft",
+      "startMs": 89320,
+      "endMs": 89680
+    },
+    {
+      "word": "and",
+      "startMs": 89720,
+      "endMs": 89820
+    },
+    {
+      "word": "strong",
+      "startMs": 89960,
+      "endMs": 91500
+    },
+    {
+      "word": "Washing",
+      "startMs": 93400,
+      "endMs": 94100
+    },
+    {
+      "word": "over",
+      "startMs": 94220,
+      "endMs": 94720
+    },
+    {
+      "word": "you",
+      "startMs": 94840,
+      "endMs": 95080
+    },
+    {
+      "word": "and",
+      "startMs": 95160,
+      "endMs": 95700
+    },
+    {
+      "word": "me",
+      "startMs": 95820,
+      "endMs": 96300
+    },
+    {
+      "word": "Let's",
+      "startMs": 108760,
+      "endMs": 109060
+    },
+    {
+      "word": "take",
+      "startMs": 109080,
+      "endMs": 110760
+    },
+    {
+      "word": "this",
+      "startMs": 110780,
+      "endMs": 111120
+    },
+    {
+      "word": "offline",
+      "startMs": 111160,
+      "endMs": 113160
+    },
+    {
+      "word": "(offline)",
+      "startMs": 113800,
+      "endMs": 113810
+    },
+    {
+      "word": "Dive",
+      "startMs": 113840,
+      "endMs": 114220
+    },
+    {
+      "word": "into",
+      "startMs": 114320,
+      "endMs": 115520
+    },
+    {
+      "word": "the",
+      "startMs": 115620,
+      "endMs": 115740
+    },
+    {
+      "word": "deep",
+      "startMs": 115920,
+      "endMs": 116180
+    },
+    {
+      "word": "blue",
+      "startMs": 116280,
+      "endMs": 116780
+    },
+    {
+      "word": "light",
+      "startMs": 116940,
+      "endMs": 117880
+    },
+    {
+      "word": "Meet",
+      "startMs": 119960,
+      "endMs": 120620
+    },
+    {
+      "word": "me",
+      "startMs": 120660,
+      "endMs": 121320
+    },
+    {
+      "word": "at",
+      "startMs": 121420,
+      "endMs": 121660
+    },
+    {
+      "word": "the",
+      "startMs": 121720,
+      "endMs": 121880
+    },
+    {
+      "word": "cenote",
+      "startMs": 122000,
+      "endMs": 123020
+    },
+    {
+      "word": "Where",
+      "startMs": 124620,
+      "endMs": 125060
+    },
+    {
+      "word": "the",
+      "startMs": 125140,
+      "endMs": 125280
+    },
+    {
+      "word": "silence",
+      "startMs": 125380,
+      "endMs": 126680
+    },
+    {
+      "word": "feels",
+      "startMs": 126820,
+      "endMs": 127080
+    },
+    {
+      "word": "so",
+      "startMs": 127180,
+      "endMs": 127740
+    },
+    {
+      "word": "right",
+      "startMs": 127860,
+      "endMs": 128840
+    },
+    {
+      "word": "(offline)",
+      "startMs": 130880,
+      "endMs": 132580
+    },
+    {
+      "word": "(dive...)",
+      "startMs": 134980,
+      "endMs": 138320
+    },
+    {
+      "word": "(cenote...)",
+      "startMs": 147160,
+      "endMs": 159180
+    }
+  ],
+  "attempts": 1
+}

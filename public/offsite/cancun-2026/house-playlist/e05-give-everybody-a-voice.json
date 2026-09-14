@@ -1,0 +1,1110 @@
+{
+  "id": "E05",
+  "set": "eleven",
+  "title": "Give Everybody A Voice",
+  "concept": "The actual mission, played completely straight. The one that should make the room go quiet.",
+  "genre": "gospel soul",
+  "bpm": 78,
+  "key": "E flat major",
+  "lengthS": 180,
+  "prompt": "Big gospel soul, 78 BPM, E flat major, 1972 production \u2014 Hammond organ, full horn section, gospel choir, live drums, warm bass. Powerhouse female lead building from a whisper to a full belt, with the choir answering, about giving a voice to people who did not have one. Start with organ and solo voice, add choir at the second verse, horns at the bridge. Warm tape, huge live room, entirely sincere.",
+  "slug": "e05-give-everybody-a-voice",
+  "file": "e05-give-everybody-a-voice.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Voice For The Voiceless",
+  "genres": [
+    "gospel",
+    "soul"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 29,
+  "lyrics": [
+    "So many years, a silent crowd",
+    "A million voices, never spoken out loud",
+    "Just a prayer on the wind, a hope in the heart",
+    "Waiting for a fire, waiting for a start",
+    "I'm gonna sing for the ones who can't be heard",
+    "(Can't be heard)",
+    "Gonna give a meaning to every single word",
+    "(Every single word)",
+    "This is for the quiet, this is for the lost",
+    "I'll carry every story, no matter what the cost",
+    "I see the faces, in every town",
+    "Burdened by the silence that holds them down",
+    "(Holds them down now)",
+    "But a change is coming, feel it on the breeze",
+    "A holy thunder rustlin' through the trees",
+    "Let the sound ring out, let it fill the air!",
+    "(Fill the air!)",
+    "For every soul in sorrow and despair!",
+    "(Oh yes!)",
+    "We're lifting up the fallen!",
+    "Answering the call!",
+    "I'm gonna sing for the ones who can't be heard!",
+    "(Sing it now!)",
+    "Gonna give a meaning to every single word!",
+    "(Every single word!)",
+    "This is for the quiet, this is for the lost!",
+    "(Oh-oh-oh!)",
+    "I'll carry every story, no matter the cost!",
+    "(No matter the cost!)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Verse 1]\nSo many years, a silent crowd\nA million voices, never spoken out loud\nJust a prayer on the wind, a hope in the heart\nWaiting for a fire, waiting for a start",
+        "durationMs": 37000,
+        "positiveStyles": [
+          "78 BPM",
+          "gospel soul intro",
+          "E flat major",
+          "solo Hammond B3 organ with gentle tremolo",
+          "warm, deep bass line enters halfway",
+          "powerhouse female lead vocal",
+          "starts with a quiet, intimate, almost whispered delivery",
+          "huge live room acoustics",
+          "analog tape saturation warmth"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nI'm gonna sing for the ones who can't be heard\n(Can't be heard)\nGonna give a meaning to every single word\n(Every single word)\nThis is for the quiet, this is for the lost\nI'll carry every story, no matter what the cost",
+        "durationMs": 37000,
+        "positiveStyles": [
+          "78 BPM",
+          "building gospel chorus",
+          "live gospel choir enters with lush harmonies",
+          "choir provides call-and-response backing vocals",
+          "live drums enter with a simple, solid backbeat",
+          "Hammond organ becomes more present",
+          "female lead vocal grows in power and conviction",
+          "warm electric bass holding the foundation",
+          "1972 vintage soul production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nI see the faces, in every town\nBurdened by the silence that holds them down\n(Holds them down now)\nBut a change is coming, feel it on the breeze\nA holy thunder rustlin' through the trees",
+        "durationMs": 37000,
+        "positiveStyles": [
+          "78 BPM",
+          "fuller gospel verse",
+          "female lead sings with more strength, medium intensity",
+          "gospel choir provides sustained chords and harmonies ('oohs' and 'aahs')",
+          "steady live drum groove continues",
+          "Hammond organ plays more active fills",
+          "warm bass line is more melodic",
+          "huge live room sound",
+          "expressive female lead"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nLet the sound ring out, let it fill the air!\n(Fill the air!)\nFor every soul in sorrow and despair!\n(Oh yes!)\nWe're lifting up the fallen!\nAnswering the call!",
+        "durationMs": 32000,
+        "positiveStyles": [
+          "78 BPM",
+          "powerful gospel bridge",
+          "full horn section enters with triumphant, soulful stabs and swells",
+          "female lead vocal starts to belt, raw and emotional",
+          "gospel choir sings with full force, answering lead vocals",
+          "Hammond organ swells with intensity",
+          "live drums add syncopated fills and cymbal crashes",
+          "horn arrangement with trumpets, saxophones, and trombone",
+          "building towards musical peak"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2 / Outro]\nI'm gonna sing for the ones who can't be heard!\n(Sing it now!)\nGonna give a meaning to every single word!\n(Every single word!)\nThis is for the quiet, this is for the lost!\n(Oh-oh-oh!)\nI'll carry every story, no matter the cost!\n(No matter the cost!)",
+        "durationMs": 37000,
+        "positiveStyles": [
+          "78 BPM",
+          "peak gospel soul outro",
+          "female lead vocal at full belt, ad-libbing with passion",
+          "entire gospel choir at maximum power",
+          "horn section playing powerful, sustained lines",
+          "Hammond organ is roaring, energetic glissandos",
+          "live drums are dynamic and powerful",
+          "warm bassline driving the groove",
+          "huge, celebratory, emotional peak",
+          "sincere and cathartic energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "So",
+      "startMs": 12820,
+      "endMs": 13140
+    },
+    {
+      "word": "many",
+      "startMs": 13280,
+      "endMs": 13860
+    },
+    {
+      "word": "years,",
+      "startMs": 14060,
+      "endMs": 15680
+    },
+    {
+      "word": "a",
+      "startMs": 15720,
+      "endMs": 15820
+    },
+    {
+      "word": "silent",
+      "startMs": 15920,
+      "endMs": 16980
+    },
+    {
+      "word": "crowd",
+      "startMs": 17060,
+      "endMs": 17900
+    },
+    {
+      "word": "A",
+      "startMs": 18840,
+      "endMs": 18920
+    },
+    {
+      "word": "million",
+      "startMs": 19000,
+      "endMs": 20040
+    },
+    {
+      "word": "voices,",
+      "startMs": 20160,
+      "endMs": 21580
+    },
+    {
+      "word": "never",
+      "startMs": 21660,
+      "endMs": 21960
+    },
+    {
+      "word": "spoken",
+      "startMs": 21960,
+      "endMs": 22680
+    },
+    {
+      "word": "out",
+      "startMs": 22780,
+      "endMs": 23180
+    },
+    {
+      "word": "loud",
+      "startMs": 23260,
+      "endMs": 24180
+    },
+    {
+      "word": "Just",
+      "startMs": 24800,
+      "endMs": 24960
+    },
+    {
+      "word": "a",
+      "startMs": 25080,
+      "endMs": 25100
+    },
+    {
+      "word": "prayer",
+      "startMs": 25140,
+      "endMs": 25580
+    },
+    {
+      "word": "on",
+      "startMs": 25700,
+      "endMs": 25950
+    },
+    {
+      "word": "the",
+      "startMs": 26000,
+      "endMs": 26110
+    },
+    {
+      "word": "wind,",
+      "startMs": 26340,
+      "endMs": 28020
+    },
+    {
+      "word": "a",
+      "startMs": 28080,
+      "endMs": 28160
+    },
+    {
+      "word": "hope",
+      "startMs": 28240,
+      "endMs": 28660
+    },
+    {
+      "word": "in",
+      "startMs": 28760,
+      "endMs": 29000
+    },
+    {
+      "word": "the",
+      "startMs": 29060,
+      "endMs": 29360
+    },
+    {
+      "word": "heart",
+      "startMs": 29400,
+      "endMs": 30260
+    },
+    {
+      "word": "Waiting",
+      "startMs": 31280,
+      "endMs": 31900
+    },
+    {
+      "word": "for",
+      "startMs": 32060,
+      "endMs": 32400
+    },
+    {
+      "word": "a",
+      "startMs": 32439,
+      "endMs": 32500
+    },
+    {
+      "word": "fire,",
+      "startMs": 32640,
+      "endMs": 34340
+    },
+    {
+      "word": "waiting",
+      "startMs": 34420,
+      "endMs": 35000
+    },
+    {
+      "word": "for",
+      "startMs": 35160,
+      "endMs": 35500
+    },
+    {
+      "word": "a",
+      "startMs": 35540,
+      "endMs": 35580
+    },
+    {
+      "word": "start",
+      "startMs": 35740,
+      "endMs": 36680
+    },
+    {
+      "word": "I'm",
+      "startMs": 37080,
+      "endMs": 37089
+    },
+    {
+      "word": "gonna",
+      "startMs": 37120,
+      "endMs": 37380
+    },
+    {
+      "word": "sing",
+      "startMs": 37480,
+      "endMs": 37839
+    },
+    {
+      "word": "for",
+      "startMs": 37900,
+      "endMs": 38200
+    },
+    {
+      "word": "the",
+      "startMs": 38320,
+      "endMs": 38440
+    },
+    {
+      "word": "ones",
+      "startMs": 38680,
+      "endMs": 39900
+    },
+    {
+      "word": "who",
+      "startMs": 40360,
+      "endMs": 40420
+    },
+    {
+      "word": "can't",
+      "startMs": 40580,
+      "endMs": 40940
+    },
+    {
+      "word": "be",
+      "startMs": 41000,
+      "endMs": 41640
+    },
+    {
+      "word": "heard",
+      "startMs": 41700,
+      "endMs": 42080
+    },
+    {
+      "word": "(Can't",
+      "startMs": 42100,
+      "endMs": 42440
+    },
+    {
+      "word": "be",
+      "startMs": 42540,
+      "endMs": 42720
+    },
+    {
+      "word": "heard)",
+      "startMs": 42840,
+      "endMs": 43600
+    },
+    {
+      "word": "Gonna",
+      "startMs": 43680,
+      "endMs": 44320
+    },
+    {
+      "word": "give",
+      "startMs": 44440,
+      "endMs": 44800
+    },
+    {
+      "word": "a",
+      "startMs": 44860,
+      "endMs": 44960
+    },
+    {
+      "word": "meaning",
+      "startMs": 45020,
+      "endMs": 45800
+    },
+    {
+      "word": "to",
+      "startMs": 46480,
+      "endMs": 46720
+    },
+    {
+      "word": "every",
+      "startMs": 46880,
+      "endMs": 47200
+    },
+    {
+      "word": "single",
+      "startMs": 47320,
+      "endMs": 47800
+    },
+    {
+      "word": "word",
+      "startMs": 47900,
+      "endMs": 48240
+    },
+    {
+      "word": "(Every",
+      "startMs": 48280,
+      "endMs": 48820
+    },
+    {
+      "word": "single",
+      "startMs": 49020,
+      "endMs": 49640
+    },
+    {
+      "word": "word)",
+      "startMs": 49820,
+      "endMs": 49830
+    },
+    {
+      "word": "This",
+      "startMs": 49840,
+      "endMs": 50140
+    },
+    {
+      "word": "is",
+      "startMs": 50180,
+      "endMs": 50340
+    },
+    {
+      "word": "for",
+      "startMs": 50380,
+      "endMs": 50680
+    },
+    {
+      "word": "the",
+      "startMs": 50940,
+      "endMs": 51080
+    },
+    {
+      "word": "quiet,",
+      "startMs": 51140,
+      "endMs": 52820
+    },
+    {
+      "word": "this",
+      "startMs": 52860,
+      "endMs": 53040
+    },
+    {
+      "word": "is",
+      "startMs": 53080,
+      "endMs": 53200
+    },
+    {
+      "word": "for",
+      "startMs": 53280,
+      "endMs": 53580
+    },
+    {
+      "word": "the",
+      "startMs": 53680,
+      "endMs": 53900
+    },
+    {
+      "word": "lost",
+      "startMs": 54040,
+      "endMs": 55160
+    },
+    {
+      "word": "I'll",
+      "startMs": 55760,
+      "endMs": 55900
+    },
+    {
+      "word": "carry",
+      "startMs": 55960,
+      "endMs": 56540
+    },
+    {
+      "word": "every",
+      "startMs": 56960,
+      "endMs": 57230
+    },
+    {
+      "word": "story,",
+      "startMs": 57300,
+      "endMs": 58800
+    },
+    {
+      "word": "no",
+      "startMs": 58840,
+      "endMs": 58940
+    },
+    {
+      "word": "matter",
+      "startMs": 59080,
+      "endMs": 59600
+    },
+    {
+      "word": "what",
+      "startMs": 59640,
+      "endMs": 59880
+    },
+    {
+      "word": "the",
+      "startMs": 59980,
+      "endMs": 60080
+    },
+    {
+      "word": "cost",
+      "startMs": 60180,
+      "endMs": 62000
+    },
+    {
+      "word": "I",
+      "startMs": 69880,
+      "endMs": 81260
+    },
+    {
+      "word": "see",
+      "startMs": 81280,
+      "endMs": 81700
+    },
+    {
+      "word": "the",
+      "startMs": 81700,
+      "endMs": 81900
+    },
+    {
+      "word": "faces,",
+      "startMs": 81940,
+      "endMs": 83460
+    },
+    {
+      "word": "in",
+      "startMs": 83520,
+      "endMs": 83700
+    },
+    {
+      "word": "every",
+      "startMs": 83880,
+      "endMs": 84720
+    },
+    {
+      "word": "town",
+      "startMs": 84820,
+      "endMs": 85940
+    },
+    {
+      "word": "Burdened",
+      "startMs": 86740,
+      "endMs": 87460
+    },
+    {
+      "word": "by",
+      "startMs": 87500,
+      "endMs": 87840
+    },
+    {
+      "word": "the",
+      "startMs": 87900,
+      "endMs": 88040
+    },
+    {
+      "word": "silence",
+      "startMs": 88080,
+      "endMs": 89020
+    },
+    {
+      "word": "that",
+      "startMs": 89640,
+      "endMs": 89800
+    },
+    {
+      "word": "holds",
+      "startMs": 89860,
+      "endMs": 90540
+    },
+    {
+      "word": "them",
+      "startMs": 90600,
+      "endMs": 90900
+    },
+    {
+      "word": "down",
+      "startMs": 90980,
+      "endMs": 91340
+    },
+    {
+      "word": "(Holds",
+      "startMs": 91400,
+      "endMs": 91810
+    },
+    {
+      "word": "them",
+      "startMs": 91820,
+      "endMs": 92050
+    },
+    {
+      "word": "down",
+      "startMs": 92160,
+      "endMs": 92420
+    },
+    {
+      "word": "now)",
+      "startMs": 92540,
+      "endMs": 93240
+    },
+    {
+      "word": "But",
+      "startMs": 93280,
+      "endMs": 93440
+    },
+    {
+      "word": "a",
+      "startMs": 93460,
+      "endMs": 93560
+    },
+    {
+      "word": "change",
+      "startMs": 93620,
+      "endMs": 94040
+    },
+    {
+      "word": "is",
+      "startMs": 94080,
+      "endMs": 94220
+    },
+    {
+      "word": "coming,",
+      "startMs": 94280,
+      "endMs": 95840
+    },
+    {
+      "word": "feel",
+      "startMs": 95940,
+      "endMs": 96380
+    },
+    {
+      "word": "it",
+      "startMs": 96420,
+      "endMs": 96540
+    },
+    {
+      "word": "on",
+      "startMs": 96660,
+      "endMs": 96900
+    },
+    {
+      "word": "the",
+      "startMs": 96960,
+      "endMs": 97020
+    },
+    {
+      "word": "breeze",
+      "startMs": 97100,
+      "endMs": 98400
+    },
+    {
+      "word": "A",
+      "startMs": 98860,
+      "endMs": 98960
+    },
+    {
+      "word": "holy",
+      "startMs": 99060,
+      "endMs": 99680
+    },
+    {
+      "word": "thunder",
+      "startMs": 99760,
+      "endMs": 100360
+    },
+    {
+      "word": "rustlin'",
+      "startMs": 100400,
+      "endMs": 101540
+    },
+    {
+      "word": "through",
+      "startMs": 102040,
+      "endMs": 102820
+    },
+    {
+      "word": "the",
+      "startMs": 102900,
+      "endMs": 103100
+    },
+    {
+      "word": "trees",
+      "startMs": 103220,
+      "endMs": 105910
+    },
+    {
+      "word": "Let",
+      "startMs": 110400,
+      "endMs": 123380
+    },
+    {
+      "word": "the",
+      "startMs": 123460,
+      "endMs": 123530
+    },
+    {
+      "word": "sound",
+      "startMs": 123600,
+      "endMs": 124360
+    },
+    {
+      "word": "ring",
+      "startMs": 124480,
+      "endMs": 124840
+    },
+    {
+      "word": "out,",
+      "startMs": 124960,
+      "endMs": 126300
+    },
+    {
+      "word": "let",
+      "startMs": 126320,
+      "endMs": 126540
+    },
+    {
+      "word": "it",
+      "startMs": 126580,
+      "endMs": 126660
+    },
+    {
+      "word": "fill",
+      "startMs": 126780,
+      "endMs": 127440
+    },
+    {
+      "word": "the",
+      "startMs": 127560,
+      "endMs": 127760
+    },
+    {
+      "word": "air!",
+      "startMs": 128000,
+      "endMs": 128860
+    },
+    {
+      "word": "(Fill",
+      "startMs": 129000,
+      "endMs": 129449
+    },
+    {
+      "word": "the",
+      "startMs": 129440,
+      "endMs": 129449
+    },
+    {
+      "word": "air!)",
+      "startMs": 129460,
+      "endMs": 129789
+    },
+    {
+      "word": "For",
+      "startMs": 129780,
+      "endMs": 129800
+    },
+    {
+      "word": "every",
+      "startMs": 129979,
+      "endMs": 130800
+    },
+    {
+      "word": "soul",
+      "startMs": 130960,
+      "endMs": 132020
+    },
+    {
+      "word": "in",
+      "startMs": 132520,
+      "endMs": 132760
+    },
+    {
+      "word": "sorrow",
+      "startMs": 132800,
+      "endMs": 133480
+    },
+    {
+      "word": "and",
+      "startMs": 133560,
+      "endMs": 133760
+    },
+    {
+      "word": "despair!",
+      "startMs": 133840,
+      "endMs": 135160
+    },
+    {
+      "word": "(Oh",
+      "startMs": 135160,
+      "endMs": 135480
+    },
+    {
+      "word": "yes!)",
+      "startMs": 135540,
+      "endMs": 135829
+    },
+    {
+      "word": "We're",
+      "startMs": 135840,
+      "endMs": 135900
+    },
+    {
+      "word": "lifting",
+      "startMs": 136000,
+      "endMs": 136560
+    },
+    {
+      "word": "up",
+      "startMs": 136660,
+      "endMs": 137060
+    },
+    {
+      "word": "the",
+      "startMs": 137140,
+      "endMs": 137260
+    },
+    {
+      "word": "fallen!",
+      "startMs": 137340,
+      "endMs": 139020
+    },
+    {
+      "word": "Answering",
+      "startMs": 139100,
+      "endMs": 139960
+    },
+    {
+      "word": "the",
+      "startMs": 140020,
+      "endMs": 140100
+    },
+    {
+      "word": "call!",
+      "startMs": 140180,
+      "endMs": 142100
+    },
+    {
+      "word": "I'm",
+      "startMs": 144660,
+      "endMs": 144780
+    },
+    {
+      "word": "gonna",
+      "startMs": 144820,
+      "endMs": 145120
+    },
+    {
+      "word": "sing",
+      "startMs": 145140,
+      "endMs": 145560
+    },
+    {
+      "word": "for",
+      "startMs": 145620,
+      "endMs": 145900
+    },
+    {
+      "word": "the",
+      "startMs": 146060,
+      "endMs": 146250
+    },
+    {
+      "word": "ones",
+      "startMs": 146460,
+      "endMs": 147489
+    },
+    {
+      "word": "who",
+      "startMs": 148060,
+      "endMs": 148180
+    },
+    {
+      "word": "can't",
+      "startMs": 148280,
+      "endMs": 148580
+    },
+    {
+      "word": "be",
+      "startMs": 148700,
+      "endMs": 149340
+    },
+    {
+      "word": "heard!",
+      "startMs": 149400,
+      "endMs": 150440
+    },
+    {
+      "word": "(Sing",
+      "startMs": 150620,
+      "endMs": 150800
+    },
+    {
+      "word": "it",
+      "startMs": 150840,
+      "endMs": 150940
+    },
+    {
+      "word": "now!)",
+      "startMs": 151000,
+      "endMs": 151329
+    },
+    {
+      "word": "Gonna",
+      "startMs": 151360,
+      "endMs": 151760
+    },
+    {
+      "word": "give",
+      "startMs": 152100,
+      "endMs": 152489
+    },
+    {
+      "word": "a",
+      "startMs": 152560,
+      "endMs": 152640
+    },
+    {
+      "word": "meaning",
+      "startMs": 152720,
+      "endMs": 153480
+    },
+    {
+      "word": "to",
+      "startMs": 154220,
+      "endMs": 154400
+    },
+    {
+      "word": "every",
+      "startMs": 154540,
+      "endMs": 154940
+    },
+    {
+      "word": "single",
+      "startMs": 155000,
+      "endMs": 155500
+    },
+    {
+      "word": "word!",
+      "startMs": 155600,
+      "endMs": 155940
+    },
+    {
+      "word": "(Every",
+      "startMs": 155940,
+      "endMs": 156549
+    },
+    {
+      "word": "single",
+      "startMs": 156680,
+      "endMs": 157400
+    },
+    {
+      "word": "word!)",
+      "startMs": 157500,
+      "endMs": 157880
+    },
+    {
+      "word": "This",
+      "startMs": 157900,
+      "endMs": 158000
+    },
+    {
+      "word": "is",
+      "startMs": 158060,
+      "endMs": 158070
+    },
+    {
+      "word": "for",
+      "startMs": 158080,
+      "endMs": 158600
+    },
+    {
+      "word": "the",
+      "startMs": 158680,
+      "endMs": 158780
+    },
+    {
+      "word": "quiet,",
+      "startMs": 158860,
+      "endMs": 160520
+    },
+    {
+      "word": "this",
+      "startMs": 160540,
+      "endMs": 160740
+    },
+    {
+      "word": "is",
+      "startMs": 160780,
+      "endMs": 160940
+    },
+    {
+      "word": "for",
+      "startMs": 160980,
+      "endMs": 161280
+    },
+    {
+      "word": "the",
+      "startMs": 161400,
+      "endMs": 161640
+    },
+    {
+      "word": "lost!",
+      "startMs": 161720,
+      "endMs": 162900
+    },
+    {
+      "word": "(Oh-oh-oh!)",
+      "startMs": 162920,
+      "endMs": 163450
+    },
+    {
+      "word": "I'll",
+      "startMs": 163480,
+      "endMs": 163630
+    },
+    {
+      "word": "carry",
+      "startMs": 163680,
+      "endMs": 164260
+    },
+    {
+      "word": "every",
+      "startMs": 164360,
+      "endMs": 164900
+    },
+    {
+      "word": "story,",
+      "startMs": 164960,
+      "endMs": 166480
+    },
+    {
+      "word": "no",
+      "startMs": 166540,
+      "endMs": 166640
+    },
+    {
+      "word": "matter",
+      "startMs": 166780,
+      "endMs": 167300
+    },
+    {
+      "word": "the",
+      "startMs": 167340,
+      "endMs": 167820
+    },
+    {
+      "word": "cost!",
+      "startMs": 167860,
+      "endMs": 168960
+    },
+    {
+      "word": "(No",
+      "startMs": 168960,
+      "endMs": 169320
+    },
+    {
+      "word": "matter",
+      "startMs": 169400,
+      "endMs": 173340
+    },
+    {
+      "word": "the",
+      "startMs": 173340,
+      "endMs": 173710
+    },
+    {
+      "word": "cost!)",
+      "startMs": 173700,
+      "endMs": 178530
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -3.08,
+    "loudnessRangeLu": 7.2
+  },
+  "preview": {
+    "file": "previews/e05-give-everybody-a-voice.mp3",
+    "startS": 9.82,
+    "durationS": 60,
+    "vocalEntryS": 12.82
+  }
+}

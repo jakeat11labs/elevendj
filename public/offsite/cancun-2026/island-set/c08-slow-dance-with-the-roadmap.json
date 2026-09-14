@@ -1,0 +1,1498 @@
+{
+  "id": "C08",
+  "set": "cancun",
+  "title": "Slow Dance With The Roadmap",
+  "concept": "A sincere bachata ballad about a product roadmap that keeps moving. It is a love story.",
+  "genre": "bachata",
+  "bpm": 130,
+  "key": "C minor",
+  "lengthS": 170,
+  "prompt": "Romantic modern bachata, 130 BPM, C minor — signature arpeggiated requinto guitar lead, syncopated bongo and güira, deep bass, soft rhythm guitar, subtle strings. Tender male lead vocal in clear neutral American English, earnest and smooth, singing a straight-faced love song to a roadmap that keeps slipping, breathy harmonies on the chorus. Sung in English only, every word intelligible, no Spanish lyrics, no Dominican Spanish ad-libs. Solo requinto intro, full percussion by the first verse, emotional key lift in the final chorus.",
+  "slug": "c08-slow-dance-with-the-roadmap",
+  "file": "c08-slow-dance-with-the-roadmap.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Roadmap Love",
+  "genres": [
+    "bachata",
+    "latin",
+    "pop"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 35,
+  "lyrics": [
+    "I unfold you in the passenger seat light",
+    "A paper ghost with tangled lines",
+    "Tracing a path I thought I knew by heart",
+    "But every crease just tears us more apart",
+    "This highway's whispering a different name",
+    "And your thin edges tremble in the frame",
+    "(Ooh-oh)",
+    "My roadmap love, you're slipping from my hands",
+    "A thousand futures, a thousand different plans",
+    "You fold a new way every time I try",
+    "To find the route back to your heart and why",
+    "We're lost inside these fading ink-drawn lands",
+    "Remember holding you beneath the sun?",
+    "Our destination seemed the only one",
+    "I marked a star right where we were supposed to be",
+    "But now the page is worn, I can't quite see",
+    "That confident X I drew with so much hope",
+    "Just another intersection I can't cope",
+    "(Ooh-oh, my love)",
+    "My roadmap love, you're slipping from my hands",
+    "A thousand futures, a thousand different plans",
+    "You fold a new way every time I try",
+    "To find the route back to your heart and why",
+    "We're lost inside these fading ink-drawn lands",
+    "Maybe I should just let the corners tear",
+    "And let the wind decide the when and where",
+    "Stop trying to refold you back to the start",
+    "(Back to the start)",
+    "And learn to read the map of my own heart",
+    "(Ohhh)",
+    "My roadmap love, slipping from my hands!",
+    "A thousand futures, a thousand different plans!",
+    "You fold a new way every time I try!",
+    "To find the way back, oh I have to try!",
+    "We're lost inside these fading ink-drawn lands!"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "solo requinto guitar intro",
+          "clean tone with light reverb",
+          "arpeggiated melody",
+          "delicate and romantic",
+          "anticipatory feel",
+          "no percussion"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nI unfold you in the passenger seat light\nA paper ghost with tangled lines\nTracing a path I thought I knew by heart\nBut every crease just tears us more apart\nThis highway's whispering a different name\nAnd your thin edges tremble in the frame",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "full percussion enters",
+          "syncopated bongo and güira",
+          "deep, round bassline",
+          "soft nylon rhythm guitar",
+          "tender male lead vocal",
+          "earnest and smooth delivery",
+          "requinto guitar plays fills"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\n(Ooh-oh)\nMy roadmap love, you're slipping from my hands\nA thousand futures, a thousand different plans\nYou fold a new way every time I try\nTo find the route back to your heart and why\nWe're lost inside these fading ink-drawn lands",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "uplifting chorus feel",
+          "breathy male harmonies enter",
+          "subtle string pads swell underneath",
+          "lead vocal becomes more emotional",
+          "requinto lead becomes more prominent",
+          "driving bongos"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nRemember holding you beneath the sun?\nOur destination seemed the only one\nI marked a star right where we were supposed to be\nBut now the page is worn, I can't quite see\nThat confident X I drew with so much hope\nJust another intersection I can't cope",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "percussion pulls back slightly",
+          "bassline more melodic",
+          "requinto plays counter-melodies to vocal",
+          "smooth male vocal",
+          "intimate atmosphere",
+          "steady güira rhythm"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\n(Ooh-oh, my love)\nMy roadmap love, you're slipping from my hands\nA thousand futures, a thousand different plans\nYou fold a new way every time I try\nTo find the route back to your heart and why\nWe're lost inside these fading ink-drawn lands",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "full energy chorus",
+          "breathy harmonies are stronger",
+          "string section is more lush and present",
+          "vocal delivery with more passion",
+          "syncopated bongos and güira driving the rhythm",
+          "expressive requinto lead"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nMaybe I should just let the corners tear\nAnd let the wind decide the when and where\nStop trying to refold you back to the start\n(Back to the start)\nAnd learn to read the map of my own heart",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "130 BPM",
+          "C minor",
+          "breakdown feel",
+          "rhythm guitar and bass only at start",
+          "percussion drops to minimal güira scrape",
+          "contemplative requinto melody",
+          "vocal is soft and vulnerable",
+          "builds tension for the final chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 3 (Key Change)]\n(Ohhh)\nMy roadmap love, slipping from my hands!\nA thousand futures, a thousand different plans!\nYou fold a new way every time I try!\nTo find the way back, oh I have to try!\nWe're lost inside these fading ink-drawn lands!",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "130 BPM",
+          "D minor",
+          "emotional key change up a whole step",
+          "peak of the song",
+          "powerful belting male lead vocal",
+          "soaring requinto guitar solo intertwined with vocals",
+          "full percussion with energetic fills",
+          "rich, layered harmonies",
+          "dynamic and passionate orchestra strings"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "I",
+      "startMs": 22700,
+      "endMs": 22760
+    },
+    {
+      "word": "unfold",
+      "startMs": 22840,
+      "endMs": 23340
+    },
+    {
+      "word": "you",
+      "startMs": 23380,
+      "endMs": 23500
+    },
+    {
+      "word": "in",
+      "startMs": 23600,
+      "endMs": 23740
+    },
+    {
+      "word": "the",
+      "startMs": 23780,
+      "endMs": 23940
+    },
+    {
+      "word": "passenger",
+      "startMs": 23980,
+      "endMs": 24540
+    },
+    {
+      "word": "seat",
+      "startMs": 24620,
+      "endMs": 25000
+    },
+    {
+      "word": "light",
+      "startMs": 25100,
+      "endMs": 25580
+    },
+    {
+      "word": "A",
+      "startMs": 26120,
+      "endMs": 26180
+    },
+    {
+      "word": "paper",
+      "startMs": 26280,
+      "endMs": 26620
+    },
+    {
+      "word": "ghost",
+      "startMs": 26760,
+      "endMs": 27200
+    },
+    {
+      "word": "with",
+      "startMs": 27240,
+      "endMs": 27380
+    },
+    {
+      "word": "tangled",
+      "startMs": 27480,
+      "endMs": 28320
+    },
+    {
+      "word": "lines",
+      "startMs": 28400,
+      "endMs": 29119
+    },
+    {
+      "word": "Tracing",
+      "startMs": 29720,
+      "endMs": 30220
+    },
+    {
+      "word": "a",
+      "startMs": 30280,
+      "endMs": 30300
+    },
+    {
+      "word": "path",
+      "startMs": 30440,
+      "endMs": 30700
+    },
+    {
+      "word": "I",
+      "startMs": 30760,
+      "endMs": 30800
+    },
+    {
+      "word": "thought",
+      "startMs": 30900,
+      "endMs": 31160
+    },
+    {
+      "word": "I",
+      "startMs": 31220,
+      "endMs": 31300
+    },
+    {
+      "word": "knew",
+      "startMs": 31360,
+      "endMs": 31560
+    },
+    {
+      "word": "by",
+      "startMs": 31620,
+      "endMs": 32000
+    },
+    {
+      "word": "heart",
+      "startMs": 32060,
+      "endMs": 33340
+    },
+    {
+      "word": "But",
+      "startMs": 33460,
+      "endMs": 33680
+    },
+    {
+      "word": "every",
+      "startMs": 33740,
+      "endMs": 34000
+    },
+    {
+      "word": "crease",
+      "startMs": 34100,
+      "endMs": 34540
+    },
+    {
+      "word": "just",
+      "startMs": 34620,
+      "endMs": 34800
+    },
+    {
+      "word": "tears",
+      "startMs": 34840,
+      "endMs": 35320
+    },
+    {
+      "word": "us",
+      "startMs": 35420,
+      "endMs": 35660
+    },
+    {
+      "word": "more",
+      "startMs": 35740,
+      "endMs": 36200
+    },
+    {
+      "word": "apart",
+      "startMs": 36280,
+      "endMs": 37100
+    },
+    {
+      "word": "This",
+      "startMs": 37600,
+      "endMs": 37800
+    },
+    {
+      "word": "highway's",
+      "startMs": 37840,
+      "endMs": 38480
+    },
+    {
+      "word": "whispering",
+      "startMs": 38580,
+      "endMs": 39460
+    },
+    {
+      "word": "a",
+      "startMs": 39540,
+      "endMs": 39560
+    },
+    {
+      "word": "different",
+      "startMs": 39700,
+      "endMs": 40080
+    },
+    {
+      "word": "name",
+      "startMs": 40180,
+      "endMs": 40660
+    },
+    {
+      "word": "And",
+      "startMs": 41320,
+      "endMs": 41430
+    },
+    {
+      "word": "your",
+      "startMs": 41520,
+      "endMs": 41680
+    },
+    {
+      "word": "thin",
+      "startMs": 41700,
+      "endMs": 41940
+    },
+    {
+      "word": "edges",
+      "startMs": 42040,
+      "endMs": 42400
+    },
+    {
+      "word": "tremble",
+      "startMs": 42440,
+      "endMs": 43160
+    },
+    {
+      "word": "in",
+      "startMs": 43240,
+      "endMs": 43540
+    },
+    {
+      "word": "the",
+      "startMs": 43640,
+      "endMs": 43690
+    },
+    {
+      "word": "frame",
+      "startMs": 43800,
+      "endMs": 45200
+    },
+    {
+      "word": "(Ooh-oh)",
+      "startMs": 46800,
+      "endMs": 47720
+    },
+    {
+      "word": "My",
+      "startMs": 47780,
+      "endMs": 47960
+    },
+    {
+      "word": "roadmap",
+      "startMs": 48040,
+      "endMs": 48820
+    },
+    {
+      "word": "love,",
+      "startMs": 48880,
+      "endMs": 49360
+    },
+    {
+      "word": "you're",
+      "startMs": 49380,
+      "endMs": 49520
+    },
+    {
+      "word": "slipping",
+      "startMs": 49600,
+      "endMs": 50400
+    },
+    {
+      "word": "from",
+      "startMs": 50520,
+      "endMs": 50880
+    },
+    {
+      "word": "my",
+      "startMs": 51000,
+      "endMs": 51180
+    },
+    {
+      "word": "hands",
+      "startMs": 51260,
+      "endMs": 51660
+    },
+    {
+      "word": "A",
+      "startMs": 51920,
+      "endMs": 52020
+    },
+    {
+      "word": "thousand",
+      "startMs": 52140,
+      "endMs": 52480
+    },
+    {
+      "word": "futures,",
+      "startMs": 52600,
+      "endMs": 53080
+    },
+    {
+      "word": "a",
+      "startMs": 53100,
+      "endMs": 53220
+    },
+    {
+      "word": "thousand",
+      "startMs": 53300,
+      "endMs": 54120
+    },
+    {
+      "word": "different",
+      "startMs": 54240,
+      "endMs": 54820
+    },
+    {
+      "word": "plans",
+      "startMs": 54900,
+      "endMs": 55360
+    },
+    {
+      "word": "You",
+      "startMs": 55620,
+      "endMs": 55720
+    },
+    {
+      "word": "fold",
+      "startMs": 55820,
+      "endMs": 56080
+    },
+    {
+      "word": "a",
+      "startMs": 56140,
+      "endMs": 56200
+    },
+    {
+      "word": "new",
+      "startMs": 56320,
+      "endMs": 56700
+    },
+    {
+      "word": "way",
+      "startMs": 56780,
+      "endMs": 57140
+    },
+    {
+      "word": "every",
+      "startMs": 57360,
+      "endMs": 57720
+    },
+    {
+      "word": "time",
+      "startMs": 57920,
+      "endMs": 58400
+    },
+    {
+      "word": "I",
+      "startMs": 58540,
+      "endMs": 58720
+    },
+    {
+      "word": "try",
+      "startMs": 58820,
+      "endMs": 59060
+    },
+    {
+      "word": "To",
+      "startMs": 59320,
+      "endMs": 59440
+    },
+    {
+      "word": "find",
+      "startMs": 59540,
+      "endMs": 59760
+    },
+    {
+      "word": "the",
+      "startMs": 59820,
+      "endMs": 59940
+    },
+    {
+      "word": "route",
+      "startMs": 60020,
+      "endMs": 60420
+    },
+    {
+      "word": "back",
+      "startMs": 60480,
+      "endMs": 60820
+    },
+    {
+      "word": "to",
+      "startMs": 60900,
+      "endMs": 61100
+    },
+    {
+      "word": "your",
+      "startMs": 61160,
+      "endMs": 61480
+    },
+    {
+      "word": "heart",
+      "startMs": 61580,
+      "endMs": 62100
+    },
+    {
+      "word": "and",
+      "startMs": 62160,
+      "endMs": 62400
+    },
+    {
+      "word": "why",
+      "startMs": 62520,
+      "endMs": 63180
+    },
+    {
+      "word": "We're",
+      "startMs": 64360,
+      "endMs": 64540
+    },
+    {
+      "word": "lost",
+      "startMs": 64599,
+      "endMs": 65060
+    },
+    {
+      "word": "inside",
+      "startMs": 65080,
+      "endMs": 65740
+    },
+    {
+      "word": "these",
+      "startMs": 65840,
+      "endMs": 66160
+    },
+    {
+      "word": "fading",
+      "startMs": 66240,
+      "endMs": 67100
+    },
+    {
+      "word": "ink-drawn",
+      "startMs": 67280,
+      "endMs": 68000
+    },
+    {
+      "word": "lands",
+      "startMs": 68100,
+      "endMs": 69280
+    },
+    {
+      "word": "Remember",
+      "startMs": 70400,
+      "endMs": 71020
+    },
+    {
+      "word": "holding",
+      "startMs": 71120,
+      "endMs": 71760
+    },
+    {
+      "word": "you",
+      "startMs": 71840,
+      "endMs": 72200
+    },
+    {
+      "word": "beneath",
+      "startMs": 72680,
+      "endMs": 73320
+    },
+    {
+      "word": "the",
+      "startMs": 73360,
+      "endMs": 73480
+    },
+    {
+      "word": "sun?",
+      "startMs": 73600,
+      "endMs": 75900
+    },
+    {
+      "word": "Our",
+      "startMs": 78220,
+      "endMs": 78380
+    },
+    {
+      "word": "destination",
+      "startMs": 78460,
+      "endMs": 79700
+    },
+    {
+      "word": "seemed",
+      "startMs": 79820,
+      "endMs": 80060
+    },
+    {
+      "word": "the",
+      "startMs": 80100,
+      "endMs": 80260
+    },
+    {
+      "word": "only",
+      "startMs": 80380,
+      "endMs": 80900
+    },
+    {
+      "word": "one",
+      "startMs": 81060,
+      "endMs": 81640
+    },
+    {
+      "word": "I",
+      "startMs": 85180,
+      "endMs": 85260
+    },
+    {
+      "word": "marked",
+      "startMs": 85320,
+      "endMs": 85600
+    },
+    {
+      "word": "a",
+      "startMs": 85640,
+      "endMs": 85700
+    },
+    {
+      "word": "star",
+      "startMs": 85800,
+      "endMs": 86220
+    },
+    {
+      "word": "right",
+      "startMs": 86340,
+      "endMs": 86600
+    },
+    {
+      "word": "where",
+      "startMs": 86740,
+      "endMs": 86960
+    },
+    {
+      "word": "we",
+      "startMs": 87040,
+      "endMs": 87160
+    },
+    {
+      "word": "were",
+      "startMs": 87200,
+      "endMs": 87380
+    },
+    {
+      "word": "supposed",
+      "startMs": 87440,
+      "endMs": 88080
+    },
+    {
+      "word": "to",
+      "startMs": 88160,
+      "endMs": 88260
+    },
+    {
+      "word": "be",
+      "startMs": 88400,
+      "endMs": 88740
+    },
+    {
+      "word": "But",
+      "startMs": 88860,
+      "endMs": 89000
+    },
+    {
+      "word": "now",
+      "startMs": 89040,
+      "endMs": 89280
+    },
+    {
+      "word": "the",
+      "startMs": 89320,
+      "endMs": 89480
+    },
+    {
+      "word": "page",
+      "startMs": 89560,
+      "endMs": 90000
+    },
+    {
+      "word": "is",
+      "startMs": 90060,
+      "endMs": 90200
+    },
+    {
+      "word": "worn,",
+      "startMs": 90260,
+      "endMs": 90720
+    },
+    {
+      "word": "I",
+      "startMs": 90820,
+      "endMs": 90960
+    },
+    {
+      "word": "can't",
+      "startMs": 91140,
+      "endMs": 91480
+    },
+    {
+      "word": "quite",
+      "startMs": 91600,
+      "endMs": 91960
+    },
+    {
+      "word": "see",
+      "startMs": 92060,
+      "endMs": 92500
+    },
+    {
+      "word": "That",
+      "startMs": 92960,
+      "endMs": 93120
+    },
+    {
+      "word": "confident",
+      "startMs": 93240,
+      "endMs": 93920
+    },
+    {
+      "word": "X",
+      "startMs": 94260,
+      "endMs": 94360
+    },
+    {
+      "word": "I",
+      "startMs": 94420,
+      "endMs": 94520
+    },
+    {
+      "word": "drew",
+      "startMs": 94580,
+      "endMs": 94800
+    },
+    {
+      "word": "with",
+      "startMs": 94840,
+      "endMs": 94960
+    },
+    {
+      "word": "so",
+      "startMs": 95060,
+      "endMs": 95220
+    },
+    {
+      "word": "much",
+      "startMs": 95360,
+      "endMs": 95700
+    },
+    {
+      "word": "hope",
+      "startMs": 95760,
+      "endMs": 96200
+    },
+    {
+      "word": "Just",
+      "startMs": 96460,
+      "endMs": 96680
+    },
+    {
+      "word": "another",
+      "startMs": 96740,
+      "endMs": 97360
+    },
+    {
+      "word": "intersection",
+      "startMs": 97500,
+      "endMs": 98530
+    },
+    {
+      "word": "I",
+      "startMs": 98740,
+      "endMs": 98940
+    },
+    {
+      "word": "can't",
+      "startMs": 99020,
+      "endMs": 99400
+    },
+    {
+      "word": "cope",
+      "startMs": 99440,
+      "endMs": 100340
+    },
+    {
+      "word": "(Ooh-oh,",
+      "startMs": 100340,
+      "endMs": 101240
+    },
+    {
+      "word": "my",
+      "startMs": 101260,
+      "endMs": 101430
+    },
+    {
+      "word": "love)",
+      "startMs": 101420,
+      "endMs": 101430
+    },
+    {
+      "word": "My",
+      "startMs": 101420,
+      "endMs": 101490
+    },
+    {
+      "word": "roadmap",
+      "startMs": 101520,
+      "endMs": 102340
+    },
+    {
+      "word": "love,",
+      "startMs": 102440,
+      "endMs": 102900
+    },
+    {
+      "word": "you're",
+      "startMs": 102920,
+      "endMs": 103060
+    },
+    {
+      "word": "slipping",
+      "startMs": 103120,
+      "endMs": 105760
+    },
+    {
+      "word": "from",
+      "startMs": 105920,
+      "endMs": 106280
+    },
+    {
+      "word": "my",
+      "startMs": 106380,
+      "endMs": 106560
+    },
+    {
+      "word": "hands",
+      "startMs": 106640,
+      "endMs": 107040
+    },
+    {
+      "word": "A",
+      "startMs": 107320,
+      "endMs": 107380
+    },
+    {
+      "word": "thousand",
+      "startMs": 107520,
+      "endMs": 107880
+    },
+    {
+      "word": "futures,",
+      "startMs": 107980,
+      "endMs": 108460
+    },
+    {
+      "word": "a",
+      "startMs": 108520,
+      "endMs": 108580
+    },
+    {
+      "word": "thousand",
+      "startMs": 108700,
+      "endMs": 109500
+    },
+    {
+      "word": "different",
+      "startMs": 109640,
+      "endMs": 110200
+    },
+    {
+      "word": "plans",
+      "startMs": 110280,
+      "endMs": 110720
+    },
+    {
+      "word": "You",
+      "startMs": 111020,
+      "endMs": 111140
+    },
+    {
+      "word": "fold",
+      "startMs": 111180,
+      "endMs": 111480
+    },
+    {
+      "word": "a",
+      "startMs": 111500,
+      "endMs": 111580
+    },
+    {
+      "word": "new",
+      "startMs": 111680,
+      "endMs": 112100
+    },
+    {
+      "word": "way",
+      "startMs": 112140,
+      "endMs": 112540
+    },
+    {
+      "word": "every",
+      "startMs": 112740,
+      "endMs": 113100
+    },
+    {
+      "word": "time",
+      "startMs": 113300,
+      "endMs": 113780
+    },
+    {
+      "word": "I",
+      "startMs": 113960,
+      "endMs": 114060
+    },
+    {
+      "word": "try",
+      "startMs": 114200,
+      "endMs": 114640
+    },
+    {
+      "word": "To",
+      "startMs": 114700,
+      "endMs": 114860
+    },
+    {
+      "word": "find",
+      "startMs": 114920,
+      "endMs": 115140
+    },
+    {
+      "word": "the",
+      "startMs": 115180,
+      "endMs": 115280
+    },
+    {
+      "word": "route",
+      "startMs": 115360,
+      "endMs": 115820
+    },
+    {
+      "word": "back",
+      "startMs": 115880,
+      "endMs": 116180
+    },
+    {
+      "word": "to",
+      "startMs": 116240,
+      "endMs": 116500
+    },
+    {
+      "word": "your",
+      "startMs": 116560,
+      "endMs": 116920
+    },
+    {
+      "word": "heart",
+      "startMs": 116980,
+      "endMs": 117480
+    },
+    {
+      "word": "and",
+      "startMs": 117560,
+      "endMs": 117840
+    },
+    {
+      "word": "why",
+      "startMs": 117940,
+      "endMs": 118580
+    },
+    {
+      "word": "We're",
+      "startMs": 119760,
+      "endMs": 119900
+    },
+    {
+      "word": "lost",
+      "startMs": 120000,
+      "endMs": 120440
+    },
+    {
+      "word": "inside",
+      "startMs": 120480,
+      "endMs": 121120
+    },
+    {
+      "word": "these",
+      "startMs": 121180,
+      "endMs": 121540
+    },
+    {
+      "word": "fading",
+      "startMs": 121660,
+      "endMs": 122460
+    },
+    {
+      "word": "ink-drawn",
+      "startMs": 122620,
+      "endMs": 123380
+    },
+    {
+      "word": "lands",
+      "startMs": 123420,
+      "endMs": 124820
+    },
+    {
+      "word": "Maybe",
+      "startMs": 125980,
+      "endMs": 126480
+    },
+    {
+      "word": "I",
+      "startMs": 126720,
+      "endMs": 126740
+    },
+    {
+      "word": "should",
+      "startMs": 126860,
+      "endMs": 127100
+    },
+    {
+      "word": "just",
+      "startMs": 127180,
+      "endMs": 127560
+    },
+    {
+      "word": "let",
+      "startMs": 127640,
+      "endMs": 128039
+    },
+    {
+      "word": "the",
+      "startMs": 128080,
+      "endMs": 128220
+    },
+    {
+      "word": "corners",
+      "startMs": 128280,
+      "endMs": 128889
+    },
+    {
+      "word": "tear",
+      "startMs": 128979,
+      "endMs": 129660
+    },
+    {
+      "word": "And",
+      "startMs": 130360,
+      "endMs": 130500
+    },
+    {
+      "word": "let",
+      "startMs": 130560,
+      "endMs": 130800
+    },
+    {
+      "word": "the",
+      "startMs": 130840,
+      "endMs": 130979
+    },
+    {
+      "word": "wind",
+      "startMs": 131100,
+      "endMs": 131480
+    },
+    {
+      "word": "decide",
+      "startMs": 131540,
+      "endMs": 132380
+    },
+    {
+      "word": "the",
+      "startMs": 132460,
+      "endMs": 132620
+    },
+    {
+      "word": "when",
+      "startMs": 132720,
+      "endMs": 133160
+    },
+    {
+      "word": "and",
+      "startMs": 133240,
+      "endMs": 133540
+    },
+    {
+      "word": "where",
+      "startMs": 133620,
+      "endMs": 134240
+    },
+    {
+      "word": "Stop",
+      "startMs": 135420,
+      "endMs": 135640
+    },
+    {
+      "word": "trying",
+      "startMs": 135720,
+      "endMs": 136100
+    },
+    {
+      "word": "to",
+      "startMs": 136180,
+      "endMs": 136320
+    },
+    {
+      "word": "refold",
+      "startMs": 136380,
+      "endMs": 137100
+    },
+    {
+      "word": "you",
+      "startMs": 137140,
+      "endMs": 137200
+    },
+    {
+      "word": "back",
+      "startMs": 137340,
+      "endMs": 137640
+    },
+    {
+      "word": "to",
+      "startMs": 137760,
+      "endMs": 137940
+    },
+    {
+      "word": "the",
+      "startMs": 138000,
+      "endMs": 138070
+    },
+    {
+      "word": "start",
+      "startMs": 138200,
+      "endMs": 138900
+    },
+    {
+      "word": "(Back",
+      "startMs": 139120,
+      "endMs": 139540
+    },
+    {
+      "word": "to",
+      "startMs": 139620,
+      "endMs": 139800
+    },
+    {
+      "word": "the",
+      "startMs": 139880,
+      "endMs": 139900
+    },
+    {
+      "word": "start)",
+      "startMs": 140040,
+      "endMs": 140960
+    },
+    {
+      "word": "And",
+      "startMs": 140980,
+      "endMs": 141109
+    },
+    {
+      "word": "learn",
+      "startMs": 141180,
+      "endMs": 141480
+    },
+    {
+      "word": "to",
+      "startMs": 141500,
+      "endMs": 141620
+    },
+    {
+      "word": "read",
+      "startMs": 141660,
+      "endMs": 141900
+    },
+    {
+      "word": "the",
+      "startMs": 141940,
+      "endMs": 142020
+    },
+    {
+      "word": "map",
+      "startMs": 142160,
+      "endMs": 142600
+    },
+    {
+      "word": "of",
+      "startMs": 142660,
+      "endMs": 142760
+    },
+    {
+      "word": "my",
+      "startMs": 142860,
+      "endMs": 143240
+    },
+    {
+      "word": "own",
+      "startMs": 143360,
+      "endMs": 143700
+    },
+    {
+      "word": "heart",
+      "startMs": 143780,
+      "endMs": 145120
+    },
+    {
+      "word": "(Ohhh)",
+      "startMs": 146500,
+      "endMs": 147400
+    },
+    {
+      "word": "My",
+      "startMs": 147460,
+      "endMs": 147640
+    },
+    {
+      "word": "roadmap",
+      "startMs": 147700,
+      "endMs": 148460
+    },
+    {
+      "word": "love,",
+      "startMs": 148560,
+      "endMs": 149060
+    },
+    {
+      "word": "slipping",
+      "startMs": 149280,
+      "endMs": 150060
+    },
+    {
+      "word": "from",
+      "startMs": 150180,
+      "endMs": 150600
+    },
+    {
+      "word": "my",
+      "startMs": 150680,
+      "endMs": 150880
+    },
+    {
+      "word": "hands!",
+      "startMs": 150900,
+      "endMs": 151600
+    },
+    {
+      "word": "A",
+      "startMs": 151620,
+      "endMs": 151700
+    },
+    {
+      "word": "thousand",
+      "startMs": 151820,
+      "endMs": 152180
+    },
+    {
+      "word": "futures,",
+      "startMs": 152280,
+      "endMs": 152780
+    },
+    {
+      "word": "a",
+      "startMs": 152800,
+      "endMs": 152900
+    },
+    {
+      "word": "thousand",
+      "startMs": 153000,
+      "endMs": 153800
+    },
+    {
+      "word": "different",
+      "startMs": 153960,
+      "endMs": 154500
+    },
+    {
+      "word": "plans!",
+      "startMs": 154580,
+      "endMs": 155280
+    },
+    {
+      "word": "You",
+      "startMs": 155320,
+      "endMs": 155420
+    },
+    {
+      "word": "fold",
+      "startMs": 155520,
+      "endMs": 155800
+    },
+    {
+      "word": "a",
+      "startMs": 155840,
+      "endMs": 155900
+    },
+    {
+      "word": "new",
+      "startMs": 156060,
+      "endMs": 156320
+    },
+    {
+      "word": "way",
+      "startMs": 156480,
+      "endMs": 156880
+    },
+    {
+      "word": "every",
+      "startMs": 157040,
+      "endMs": 157420
+    },
+    {
+      "word": "time",
+      "startMs": 157640,
+      "endMs": 158120
+    },
+    {
+      "word": "I",
+      "startMs": 158280,
+      "endMs": 158360
+    },
+    {
+      "word": "try!",
+      "startMs": 158500,
+      "endMs": 158960
+    },
+    {
+      "word": "To",
+      "startMs": 159000,
+      "endMs": 159120
+    },
+    {
+      "word": "find",
+      "startMs": 159220,
+      "endMs": 159440
+    },
+    {
+      "word": "the",
+      "startMs": 159500,
+      "endMs": 159560
+    },
+    {
+      "word": "way",
+      "startMs": 159720,
+      "endMs": 159980
+    },
+    {
+      "word": "back,",
+      "startMs": 160180,
+      "endMs": 160600
+    },
+    {
+      "word": "oh",
+      "startMs": 160640,
+      "endMs": 160860
+    },
+    {
+      "word": "I",
+      "startMs": 161180,
+      "endMs": 161240
+    },
+    {
+      "word": "have",
+      "startMs": 161340,
+      "endMs": 161720
+    },
+    {
+      "word": "to",
+      "startMs": 161800,
+      "endMs": 162140
+    },
+    {
+      "word": "try!",
+      "startMs": 162220,
+      "endMs": 163360
+    },
+    {
+      "word": "We're",
+      "startMs": 164080,
+      "endMs": 164220
+    },
+    {
+      "word": "lost",
+      "startMs": 164320,
+      "endMs": 164760
+    },
+    {
+      "word": "inside",
+      "startMs": 164820,
+      "endMs": 165460
+    },
+    {
+      "word": "these",
+      "startMs": 165520,
+      "endMs": 165900
+    },
+    {
+      "word": "fading",
+      "startMs": 165960,
+      "endMs": 166880
+    },
+    {
+      "word": "ink-drawn",
+      "startMs": 166960,
+      "endMs": 167680
+    },
+    {
+      "word": "lands!",
+      "startMs": 167780,
+      "endMs": 169740
+    }
+  ],
+  "attempts": 1
+}

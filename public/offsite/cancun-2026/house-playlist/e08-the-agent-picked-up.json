@@ -1,0 +1,1097 @@
+{
+  "id": "E08",
+  "set": "eleven",
+  "title": "The Agent Picked Up",
+  "concept": "Called at 2am expecting hold music. Something answered, and it was lovely about it.",
+  "genre": "retro soul",
+  "bpm": 96,
+  "key": "F major",
+  "lengthS": 155,
+  "prompt": "Retro soul, 96 BPM, F major, 1965 Motown production \u2014 tight live drums, melodic bassline, bright horn stabs, tambourine on the backbeat, shimmering vibraphone. Charming male lead with a doo-wop backing group, delighted that something answered the phone at two in the morning and was genuinely helpful. Warm tape saturation, mono-leaning mix, live room.",
+  "slug": "e08-the-agent-picked-up",
+  "file": "e08-the-agent-picked-up.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Got Through To You",
+  "genres": [
+    "soul",
+    "r&b",
+    "pop"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 33,
+  "lyrics": [
+    "Two in the morning, phone in my hand",
+    "Thought I was dreaming, or sinking in sand",
+    "Just needed a number, a voice I could trust",
+    "My last hope was turning slowly to dust",
+    "And then you answered!",
+    "(Doo-wop, doo-wop)",
+    "A friendly hello!",
+    "(Shoo-be-doo-wop)",
+    "You saved my night, you know it's true",
+    "Oh, I can't believe I got through to you",
+    "I stumbled my words, I couldn't explain",
+    "The mess I was in, the pouring down rain",
+    "You didn't ask questions, you just understood",
+    "And told me exactly what I needed to hear, you were so good",
+    "Oh, you answered!",
+    "(Doo-wop, doo-wop)",
+    "Your friendly hello!",
+    "(Shoo-be-doo-wop)",
+    "You saved my night, you know it's true",
+    "Oh, I can't believe I got through to you",
+    "Most folks would hang up, or tell me I'm wrong",
+    "(Ooooh)",
+    "But you stayed on the line where I belong",
+    "(Aaaah-aah)",
+    "Like a lighthouse shining in the dark",
+    "I got through!",
+    "(Got through!)",
+    "So glad I got through to you!",
+    "(Got through!)",
+    "Yeah, you answered!",
+    "(Got through!)",
+    "In the middle of the night!",
+    "(Got through!)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "96 BPM",
+          "melodic bassline intro",
+          "F major",
+          "clean electric guitar chords",
+          "light hi-hat",
+          "shimmering vibraphone flourish",
+          "1960s soul",
+          "live room feel",
+          "warm tape saturation"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nTwo in the morning, phone in my hand\nThought I was dreaming, or sinking in sand\nJust needed a number, a voice I could trust\nMy last hope was turning slowly to dust",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "96 BPM",
+          "tight live drums enter",
+          "melodic bassline driving",
+          "tambourine on backbeat",
+          "subtle rhythm guitar",
+          "F major",
+          "charming male lead vocal",
+          "early soul production",
+          "mono-leaning mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nAnd then you answered!\n(Doo-wop, doo-wop)\nA friendly hello!\n(Shoo-be-doo-wop)\nYou saved my night, you know it's true\nOh, I can't believe I got through to you",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "96 BPM",
+          "full arrangement",
+          "bright horn stabs (trombones, trumpets)",
+          "doo-wop male backing group",
+          "uplifting energy",
+          "vibraphone accents",
+          "driving bass and drums",
+          "gleeful male lead vocal",
+          "classic soul chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nI stumbled my words, I couldn't explain\nThe mess I was in, the pouring down rain\nYou didn't ask questions, you just understood\nAnd told me exactly what I needed to hear, you were so good",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "96 BPM",
+          "pulled back arrangement",
+          "bass and drums carry the groove",
+          "light piano chords added",
+          "tambourine continues",
+          "warm male lead",
+          "F major",
+          "intimate storytelling",
+          "vibraphone quiet"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nOh, you answered!\n(Doo-wop, doo-wop)\nYour friendly hello!\n(Shoo-be-doo-wop)\nYou saved my night, you know it's true\nOh, I can't believe I got through to you",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "96 BPM",
+          "full energy returns",
+          "bright horn stabs",
+          "enthusiastic doo-wop backing group",
+          "celebratory feel",
+          "vibraphone melodies return",
+          "driving rhythm section",
+          "confident male lead vocal",
+          "iconic soul sound"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nMost folks would hang up, or tell me I'm wrong\n(Ooooh)\nBut you stayed on the line where I belong\n(Aaaah-aah)\nLike a lighthouse shining in the dark",
+        "durationMs": 25000,
+        "positiveStyles": [
+          "96 BPM",
+          "breakdown feel",
+          "vibraphone solo feature",
+          "walking bassline",
+          "soft drum brushes",
+          "sparse horn pads",
+          "backing group sings 'oohs' and 'aahs'",
+          "reflective male lead vocal",
+          "soulful bridge"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nI got through!\n(Got through!)\nSo glad I got through to you!\n(Got through!)\nYeah, you answered!\n(Got through!)\nIn the middle of the night!\n(Got through!)",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "96 BPM",
+          "big finale",
+          "repetitive horn riff",
+          "lead vocal ad-libs",
+          "backing vocals chant 'Got through!'",
+          "fade out over last 5 seconds",
+          "tambourine and vibraphone accents",
+          "full band playing out",
+          "joyful energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Two",
+      "startMs": 15580,
+      "endMs": 15800
+    },
+    {
+      "word": "in",
+      "startMs": 15840,
+      "endMs": 15940
+    },
+    {
+      "word": "the",
+      "startMs": 15980,
+      "endMs": 16040
+    },
+    {
+      "word": "morning,",
+      "startMs": 16160,
+      "endMs": 16980
+    },
+    {
+      "word": "phone",
+      "startMs": 17460,
+      "endMs": 18000
+    },
+    {
+      "word": "in",
+      "startMs": 18060,
+      "endMs": 18260
+    },
+    {
+      "word": "my",
+      "startMs": 18300,
+      "endMs": 18520
+    },
+    {
+      "word": "hand",
+      "startMs": 18640,
+      "endMs": 19340
+    },
+    {
+      "word": "Thought",
+      "startMs": 20460,
+      "endMs": 20780
+    },
+    {
+      "word": "I",
+      "startMs": 20920,
+      "endMs": 20930
+    },
+    {
+      "word": "was",
+      "startMs": 20940,
+      "endMs": 21080
+    },
+    {
+      "word": "dreaming,",
+      "startMs": 21120,
+      "endMs": 22160
+    },
+    {
+      "word": "or",
+      "startMs": 22180,
+      "endMs": 22340
+    },
+    {
+      "word": "sinking",
+      "startMs": 22400,
+      "endMs": 23100
+    },
+    {
+      "word": "in",
+      "startMs": 23220,
+      "endMs": 23520
+    },
+    {
+      "word": "sand",
+      "startMs": 23560,
+      "endMs": 24340
+    },
+    {
+      "word": "Just",
+      "startMs": 25440,
+      "endMs": 25580
+    },
+    {
+      "word": "needed",
+      "startMs": 25600,
+      "endMs": 25940
+    },
+    {
+      "word": "a",
+      "startMs": 26000,
+      "endMs": 26060
+    },
+    {
+      "word": "number,",
+      "startMs": 26160,
+      "endMs": 27340
+    },
+    {
+      "word": "a",
+      "startMs": 27400,
+      "endMs": 27440
+    },
+    {
+      "word": "voice",
+      "startMs": 27520,
+      "endMs": 27800
+    },
+    {
+      "word": "I",
+      "startMs": 27900,
+      "endMs": 27960
+    },
+    {
+      "word": "could",
+      "startMs": 28100,
+      "endMs": 28320
+    },
+    {
+      "word": "trust",
+      "startMs": 28380,
+      "endMs": 29520
+    },
+    {
+      "word": "My",
+      "startMs": 29720,
+      "endMs": 29860
+    },
+    {
+      "word": "last",
+      "startMs": 29960,
+      "endMs": 30600
+    },
+    {
+      "word": "hope",
+      "startMs": 30640,
+      "endMs": 30920
+    },
+    {
+      "word": "was",
+      "startMs": 30980,
+      "endMs": 31180
+    },
+    {
+      "word": "turning",
+      "startMs": 31240,
+      "endMs": 31900
+    },
+    {
+      "word": "slowly",
+      "startMs": 32140,
+      "endMs": 33080
+    },
+    {
+      "word": "to",
+      "startMs": 33100,
+      "endMs": 33380
+    },
+    {
+      "word": "dust",
+      "startMs": 33420,
+      "endMs": 35440
+    },
+    {
+      "word": "And",
+      "startMs": 35500,
+      "endMs": 35580
+    },
+    {
+      "word": "then",
+      "startMs": 35660,
+      "endMs": 35920
+    },
+    {
+      "word": "you",
+      "startMs": 36000,
+      "endMs": 36220
+    },
+    {
+      "word": "answered!",
+      "startMs": 36400,
+      "endMs": 37460
+    },
+    {
+      "word": "(Doo-wop,",
+      "startMs": 37460,
+      "endMs": 38720
+    },
+    {
+      "word": "doo-wop)",
+      "startMs": 38780,
+      "endMs": 39600
+    },
+    {
+      "word": "A",
+      "startMs": 40480,
+      "endMs": 40560
+    },
+    {
+      "word": "friendly",
+      "startMs": 40620,
+      "endMs": 41040
+    },
+    {
+      "word": "hello!",
+      "startMs": 41140,
+      "endMs": 42400
+    },
+    {
+      "word": "(Shoo-be-doo-wop)",
+      "startMs": 42400,
+      "endMs": 44500
+    },
+    {
+      "word": "You",
+      "startMs": 45060,
+      "endMs": 45240
+    },
+    {
+      "word": "saved",
+      "startMs": 45460,
+      "endMs": 45730
+    },
+    {
+      "word": "my",
+      "startMs": 45820,
+      "endMs": 45980
+    },
+    {
+      "word": "night,",
+      "startMs": 46100,
+      "endMs": 46660
+    },
+    {
+      "word": "you",
+      "startMs": 46740,
+      "endMs": 46800
+    },
+    {
+      "word": "know",
+      "startMs": 46840,
+      "endMs": 47060
+    },
+    {
+      "word": "it's",
+      "startMs": 47140,
+      "endMs": 47420
+    },
+    {
+      "word": "true",
+      "startMs": 47460,
+      "endMs": 49120
+    },
+    {
+      "word": "Oh,",
+      "startMs": 49720,
+      "endMs": 49990
+    },
+    {
+      "word": "I",
+      "startMs": 50260,
+      "endMs": 50280
+    },
+    {
+      "word": "can't",
+      "startMs": 50500,
+      "endMs": 50760
+    },
+    {
+      "word": "believe",
+      "startMs": 50820,
+      "endMs": 51860
+    },
+    {
+      "word": "I",
+      "startMs": 51980,
+      "endMs": 52020
+    },
+    {
+      "word": "got",
+      "startMs": 52080,
+      "endMs": 52300
+    },
+    {
+      "word": "through",
+      "startMs": 52440,
+      "endMs": 52880
+    },
+    {
+      "word": "to",
+      "startMs": 53080,
+      "endMs": 53300
+    },
+    {
+      "word": "you",
+      "startMs": 53380,
+      "endMs": 54200
+    },
+    {
+      "word": "I",
+      "startMs": 65480,
+      "endMs": 65540
+    },
+    {
+      "word": "stumbled",
+      "startMs": 65600,
+      "endMs": 66020
+    },
+    {
+      "word": "my",
+      "startMs": 66060,
+      "endMs": 66220
+    },
+    {
+      "word": "words,",
+      "startMs": 66280,
+      "endMs": 67320
+    },
+    {
+      "word": "I",
+      "startMs": 67380,
+      "endMs": 67400
+    },
+    {
+      "word": "couldn't",
+      "startMs": 67520,
+      "endMs": 68100
+    },
+    {
+      "word": "explain",
+      "startMs": 68180,
+      "endMs": 69280
+    },
+    {
+      "word": "The",
+      "startMs": 70460,
+      "endMs": 70560
+    },
+    {
+      "word": "mess",
+      "startMs": 70600,
+      "endMs": 70840
+    },
+    {
+      "word": "I",
+      "startMs": 70880,
+      "endMs": 70980
+    },
+    {
+      "word": "was",
+      "startMs": 71060,
+      "endMs": 71300
+    },
+    {
+      "word": "in,",
+      "startMs": 71380,
+      "endMs": 72320
+    },
+    {
+      "word": "the",
+      "startMs": 72340,
+      "endMs": 72460
+    },
+    {
+      "word": "pouring",
+      "startMs": 72540,
+      "endMs": 73060
+    },
+    {
+      "word": "down",
+      "startMs": 73180,
+      "endMs": 73540
+    },
+    {
+      "word": "rain",
+      "startMs": 73600,
+      "endMs": 74340
+    },
+    {
+      "word": "You",
+      "startMs": 75480,
+      "endMs": 75580
+    },
+    {
+      "word": "didn't",
+      "startMs": 75660,
+      "endMs": 75940
+    },
+    {
+      "word": "ask",
+      "startMs": 76020,
+      "endMs": 76180
+    },
+    {
+      "word": "questions,",
+      "startMs": 76260,
+      "endMs": 77340
+    },
+    {
+      "word": "you",
+      "startMs": 77400,
+      "endMs": 77460
+    },
+    {
+      "word": "just",
+      "startMs": 77540,
+      "endMs": 77840
+    },
+    {
+      "word": "understood",
+      "startMs": 77920,
+      "endMs": 79040
+    },
+    {
+      "word": "And",
+      "startMs": 79660,
+      "endMs": 79790
+    },
+    {
+      "word": "told",
+      "startMs": 79880,
+      "endMs": 80240
+    },
+    {
+      "word": "me",
+      "startMs": 80320,
+      "endMs": 80440
+    },
+    {
+      "word": "exactly",
+      "startMs": 80480,
+      "endMs": 81200
+    },
+    {
+      "word": "what",
+      "startMs": 81580,
+      "endMs": 81740
+    },
+    {
+      "word": "I",
+      "startMs": 81800,
+      "endMs": 81840
+    },
+    {
+      "word": "needed",
+      "startMs": 81880,
+      "endMs": 82140
+    },
+    {
+      "word": "to",
+      "startMs": 82200,
+      "endMs": 82300
+    },
+    {
+      "word": "hear,",
+      "startMs": 82380,
+      "endMs": 82840
+    },
+    {
+      "word": "you",
+      "startMs": 82900,
+      "endMs": 83060
+    },
+    {
+      "word": "were",
+      "startMs": 83140,
+      "endMs": 83280
+    },
+    {
+      "word": "so",
+      "startMs": 83440,
+      "endMs": 83720
+    },
+    {
+      "word": "good",
+      "startMs": 84080,
+      "endMs": 84800
+    },
+    {
+      "word": "Oh,",
+      "startMs": 85100,
+      "endMs": 85890
+    },
+    {
+      "word": "you",
+      "startMs": 86000,
+      "endMs": 86160
+    },
+    {
+      "word": "answered!",
+      "startMs": 86340,
+      "endMs": 87380
+    },
+    {
+      "word": "(Doo-wop,",
+      "startMs": 87440,
+      "endMs": 88720
+    },
+    {
+      "word": "doo-wop)",
+      "startMs": 88780,
+      "endMs": 90420
+    },
+    {
+      "word": "Your",
+      "startMs": 90460,
+      "endMs": 90580
+    },
+    {
+      "word": "friendly",
+      "startMs": 90620,
+      "endMs": 91050
+    },
+    {
+      "word": "hello!",
+      "startMs": 91140,
+      "endMs": 91840
+    },
+    {
+      "word": "(Shoo-be-doo-wop)",
+      "startMs": 92400,
+      "endMs": 94970
+    },
+    {
+      "word": "You",
+      "startMs": 95060,
+      "endMs": 95280
+    },
+    {
+      "word": "saved",
+      "startMs": 95480,
+      "endMs": 95760
+    },
+    {
+      "word": "my",
+      "startMs": 95820,
+      "endMs": 96020
+    },
+    {
+      "word": "night,",
+      "startMs": 96040,
+      "endMs": 96620
+    },
+    {
+      "word": "you",
+      "startMs": 96740,
+      "endMs": 96780
+    },
+    {
+      "word": "know",
+      "startMs": 96880,
+      "endMs": 97080
+    },
+    {
+      "word": "it's",
+      "startMs": 97160,
+      "endMs": 97420
+    },
+    {
+      "word": "true",
+      "startMs": 97420,
+      "endMs": 99339
+    },
+    {
+      "word": "Oh,",
+      "startMs": 99740,
+      "endMs": 99970
+    },
+    {
+      "word": "I",
+      "startMs": 100300,
+      "endMs": 100320
+    },
+    {
+      "word": "can't",
+      "startMs": 100480,
+      "endMs": 100760
+    },
+    {
+      "word": "believe",
+      "startMs": 100820,
+      "endMs": 101860
+    },
+    {
+      "word": "I",
+      "startMs": 101980,
+      "endMs": 102040
+    },
+    {
+      "word": "got",
+      "startMs": 102080,
+      "endMs": 102400
+    },
+    {
+      "word": "through",
+      "startMs": 102440,
+      "endMs": 102800
+    },
+    {
+      "word": "to",
+      "startMs": 103140,
+      "endMs": 103320
+    },
+    {
+      "word": "you",
+      "startMs": 103460,
+      "endMs": 103720
+    },
+    {
+      "word": "Most",
+      "startMs": 115320,
+      "endMs": 115560
+    },
+    {
+      "word": "folks",
+      "startMs": 115600,
+      "endMs": 115920
+    },
+    {
+      "word": "would",
+      "startMs": 115980,
+      "endMs": 116080
+    },
+    {
+      "word": "hang",
+      "startMs": 116160,
+      "endMs": 116440
+    },
+    {
+      "word": "up,",
+      "startMs": 116520,
+      "endMs": 117780
+    },
+    {
+      "word": "or",
+      "startMs": 117820,
+      "endMs": 118040
+    },
+    {
+      "word": "tell",
+      "startMs": 118100,
+      "endMs": 118360
+    },
+    {
+      "word": "me",
+      "startMs": 118460,
+      "endMs": 118580
+    },
+    {
+      "word": "I'm",
+      "startMs": 118700,
+      "endMs": 118840
+    },
+    {
+      "word": "wrong",
+      "startMs": 118900,
+      "endMs": 119960
+    },
+    {
+      "word": "(Ooooh)",
+      "startMs": 119960,
+      "endMs": 122660
+    },
+    {
+      "word": "But",
+      "startMs": 123280,
+      "endMs": 123380
+    },
+    {
+      "word": "you",
+      "startMs": 123480,
+      "endMs": 123580
+    },
+    {
+      "word": "stayed",
+      "startMs": 123720,
+      "endMs": 124240
+    },
+    {
+      "word": "on",
+      "startMs": 124320,
+      "endMs": 124520
+    },
+    {
+      "word": "the",
+      "startMs": 124580,
+      "endMs": 124670
+    },
+    {
+      "word": "line",
+      "startMs": 124860,
+      "endMs": 125560
+    },
+    {
+      "word": "where",
+      "startMs": 126560,
+      "endMs": 126740
+    },
+    {
+      "word": "I",
+      "startMs": 126820,
+      "endMs": 127000
+    },
+    {
+      "word": "belong",
+      "startMs": 127040,
+      "endMs": 128419
+    },
+    {
+      "word": "(Aaaah-aah)",
+      "startMs": 129660,
+      "endMs": 130460
+    },
+    {
+      "word": "Like",
+      "startMs": 131560,
+      "endMs": 131720
+    },
+    {
+      "word": "a",
+      "startMs": 131780,
+      "endMs": 131820
+    },
+    {
+      "word": "lighthouse",
+      "startMs": 131880,
+      "endMs": 132380
+    },
+    {
+      "word": "shining",
+      "startMs": 132460,
+      "endMs": 132989
+    },
+    {
+      "word": "in",
+      "startMs": 133080,
+      "endMs": 133220
+    },
+    {
+      "word": "the",
+      "startMs": 133300,
+      "endMs": 133400
+    },
+    {
+      "word": "dark",
+      "startMs": 133460,
+      "endMs": 134660
+    },
+    {
+      "word": "I",
+      "startMs": 135820,
+      "endMs": 135840
+    },
+    {
+      "word": "got",
+      "startMs": 135920,
+      "endMs": 136200
+    },
+    {
+      "word": "through!",
+      "startMs": 136220,
+      "endMs": 136840
+    },
+    {
+      "word": "(Got",
+      "startMs": 136840,
+      "endMs": 137320
+    },
+    {
+      "word": "through!)",
+      "startMs": 137480,
+      "endMs": 138340
+    },
+    {
+      "word": "So",
+      "startMs": 138440,
+      "endMs": 138680
+    },
+    {
+      "word": "glad",
+      "startMs": 138720,
+      "endMs": 138940
+    },
+    {
+      "word": "I",
+      "startMs": 139000,
+      "endMs": 139020
+    },
+    {
+      "word": "got",
+      "startMs": 139080,
+      "endMs": 139220
+    },
+    {
+      "word": "through",
+      "startMs": 139360,
+      "endMs": 139640
+    },
+    {
+      "word": "to",
+      "startMs": 139720,
+      "endMs": 139820
+    },
+    {
+      "word": "you!",
+      "startMs": 139920,
+      "endMs": 141080
+    },
+    {
+      "word": "(Got",
+      "startMs": 141840,
+      "endMs": 142160
+    },
+    {
+      "word": "through!)",
+      "startMs": 142460,
+      "endMs": 143080
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 143460,
+      "endMs": 143920
+    },
+    {
+      "word": "you",
+      "startMs": 143980,
+      "endMs": 144140
+    },
+    {
+      "word": "answered!",
+      "startMs": 144240,
+      "endMs": 145840
+    },
+    {
+      "word": "(Got",
+      "startMs": 146820,
+      "endMs": 147400
+    },
+    {
+      "word": "through!)",
+      "startMs": 147460,
+      "endMs": 148430
+    },
+    {
+      "word": "In",
+      "startMs": 148460,
+      "endMs": 148580
+    },
+    {
+      "word": "the",
+      "startMs": 148620,
+      "endMs": 148700
+    },
+    {
+      "word": "middle",
+      "startMs": 148760,
+      "endMs": 149200
+    },
+    {
+      "word": "of",
+      "startMs": 149260,
+      "endMs": 149620
+    },
+    {
+      "word": "the",
+      "startMs": 149700,
+      "endMs": 149769
+    },
+    {
+      "word": "night!",
+      "startMs": 149900,
+      "endMs": 150600
+    },
+    {
+      "word": "(Got",
+      "startMs": 151820,
+      "endMs": 152320
+    },
+    {
+      "word": "through!)",
+      "startMs": 152460,
+      "endMs": 154780
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.26,
+    "truePeakDb": -2.44,
+    "loudnessRangeLu": 3.2
+  },
+  "preview": {
+    "file": "previews/e08-the-agent-picked-up.mp3",
+    "startS": 12.58,
+    "durationS": 60,
+    "vocalEntryS": 15.58
+  }
+}

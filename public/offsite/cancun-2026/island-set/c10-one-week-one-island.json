@@ -1,0 +1,1305 @@
+{
+  "id": "C10",
+  "set": "cancun",
+  "title": "One Week, One Island",
+  "concept": "The closing-night singalong. Everybody on the dance floor, nobody checking email.",
+  "genre": "tropical pop anthem",
+  "bpm": 108,
+  "key": "E major",
+  "lengthS": 180,
+  "prompt": "Big tropical pop anthem, 108 BPM, E major, polished festival production — steel pan and marimba hooks, live-feel percussion, bright acoustic guitar, warm synth bass, soaring brass in the final chorus. Male and female duet lead vocals in clear neutral American English trading lines, enormous gang-vocal singalong chorus about one week on one island with the whole team, handclaps and crowd shouts. Sung in English only, every word intelligible, no Spanish lyrics. Gentle guitar intro, full band by the first chorus, stripped-back bridge, maximal celebratory last chorus with everyone singing.",
+  "slug": "c10-one-week-one-island",
+  "file": "c10-one-week-one-island.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "One Island, One Team",
+  "genres": [
+    "pop",
+    "tropical house",
+    "electronic"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 34,
+  "lyrics": [
+    "Sunrise paints the window pane",
+    "Seven days since the journey came",
+    "Got a feeling I can't explain",
+    "Washing over like the morning rain",
+    "Yeah, every face I see",
+    "Is part of the family",
+    "Oh, oh, what a week on this island!",
+    "Oh, oh, with the whole team beside us!",
+    "Sun up to sun down, we're making the memories",
+    "Oh, oh, we're right where we're meant to be!",
+    "Remember dancing in the sand?",
+    "A local song from a local band",
+    "Didn't need to have a plan",
+    "Just living life, hand in hand",
+    "Yeah, every voice I hear",
+    "Is making it all so clear",
+    "Oh, oh, what a week on this island!",
+    "Oh, oh, with the whole team beside us!",
+    "Sun up to sun down, we're making the memories",
+    "Oh, oh, we're right where we're meant to be!",
+    "And when this chapter ends",
+    "We'll still be more than friends",
+    "This moment never fades",
+    "(No, it never fades)",
+    "In a hundred different ways",
+    "(Hey! Hey!)",
+    "Oh, oh, what a week on this island!",
+    "Oh, oh, with the whole team beside us!",
+    "Sun up to sun down, we're making the memories",
+    "Oh, oh, we're right where we're meant to be!",
+    "Right where we're meant to be!",
+    "(Oh, oh, oh!)",
+    "On this island!",
+    "(Oh, oh, oh!)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 13000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Gentle intro",
+          "Bright acoustic guitar melody",
+          "Soft ocean wave sounds",
+          "Warm ambient synth pad",
+          "Anticipatory feel",
+          "Clean production"
+        ],
+        "negativeStyles": [
+          "no drums",
+          "no bass"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nSunrise paints the window pane\nSeven days since the journey came\nGot a feeling I can't explain\nWashing over like the morning rain",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Male lead vocal",
+          "Clean, clear American English male vocal",
+          "Bright acoustic guitar strumming",
+          "Light live-feel percussion enters",
+          "Shaker and bongos",
+          "Warm synth bassline",
+          "Building energy",
+          "Polished pop production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nYeah, every face I see\nIs part of the family",
+        "durationMs": 11000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Female lead vocal",
+          "Clear, bright American English female vocal",
+          "Marimba melody hook enters",
+          "Percussion builds with handclaps",
+          "Acoustic guitar continues",
+          "Rising synth pad creates tension",
+          "Uplifting and expectant mood"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nOh, oh, what a week on this island!\nOh, oh, with the whole team beside us!\nSun up to sun down, we're making the memories\nOh, oh, we're right where we're meant to be!",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Huge gang vocal singalong",
+          "Male and female duet leads",
+          "Steel pan melody hook",
+          "Driving live-feel drum kit",
+          "Punchy synth bass",
+          "Full band energy",
+          "Festival anthem feel",
+          "Crowd shouts and handclaps",
+          "Bright, polished production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nRemember dancing in the sand?\nA local song from a local band\nDidn't need to have a plan\nJust living life, hand in hand",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Female lead vocal",
+          "Conversational American English female vocal",
+          "Acoustic guitar and bass groove",
+          "Marimba counter-melody",
+          "Steady drums and percussion",
+          "Slightly relaxed energy post-chorus",
+          "Warm and friendly tone"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nYeah, every voice I hear\nIs making it all so clear",
+        "durationMs": 11000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Male lead vocal",
+          "Strong American English male vocal",
+          "Marimba hook prominent",
+          "Handclaps and percussion drive forward",
+          "Builds intensity again",
+          "Anticipation for the chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nOh, oh, what a week on this island!\nOh, oh, with the whole team beside us!\nSun up to sun down, we're making the memories\nOh, oh, we're right where we're meant to be!",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Massive gang vocal singalong",
+          "Male and female duet leads more prominent",
+          "Layered steel pan and marimba hooks",
+          "Full, energetic live drum kit",
+          "Driving synth bass",
+          "High-energy festival pop",
+          "Enthusiastic crowd shouts",
+          "Wide stereo mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nAnd when this chapter ends\nWe'll still be more than friends\nThis moment never fades\n(No, it never fades)\nIn a hundred different ways",
+        "durationMs": 22000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Stripped-back arrangement",
+          "Duet vocals, gentle and close-mic'd",
+          "Male and female vocal harmony",
+          "Warm synth pad holds chords",
+          "Soft acoustic guitar arpeggios",
+          "Intimate and reflective mood",
+          "Breakdown section"
+        ],
+        "negativeStyles": [
+          "no drums",
+          "no bass"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Final Chorus]\n(Hey! Hey!)\nOh, oh, what a week on this island!\nOh, oh, with the whole team beside us!\nSun up to sun down, we're making the memories\nOh, oh, we're right where we're meant to be!\nRight where we're meant to be!\n(Oh, oh, oh!)\nOn this island!\n(Oh, oh, oh!)",
+        "durationMs": 35000,
+        "positiveStyles": [
+          "108 BPM",
+          "E major key",
+          "Maximal celebratory peak",
+          "Huge gang vocals, everyone singing",
+          "Soaring brass section with triumphant lines",
+          "Layered steel pan, marimba, and acoustic guitar",
+          "Powerful, driving festival drums",
+          "Sub-heavy synth bass",
+          "Explosive energy drop",
+          "Bright, polished, compressed festival production",
+          "Loud crowd shouts and claps"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Sunrise",
+      "startMs": 19100,
+      "endMs": 19660
+    },
+    {
+      "word": "paints",
+      "startMs": 19700,
+      "endMs": 19880
+    },
+    {
+      "word": "the",
+      "startMs": 19900,
+      "endMs": 19970
+    },
+    {
+      "word": "window",
+      "startMs": 20040,
+      "endMs": 20460
+    },
+    {
+      "word": "pane",
+      "startMs": 20600,
+      "endMs": 22020
+    },
+    {
+      "word": "Seven",
+      "startMs": 23020,
+      "endMs": 23300
+    },
+    {
+      "word": "days",
+      "startMs": 23340,
+      "endMs": 23580
+    },
+    {
+      "word": "since",
+      "startMs": 23580,
+      "endMs": 23740
+    },
+    {
+      "word": "the",
+      "startMs": 23780,
+      "endMs": 23830
+    },
+    {
+      "word": "journey",
+      "startMs": 23920,
+      "endMs": 24220
+    },
+    {
+      "word": "came",
+      "startMs": 24340,
+      "endMs": 24960
+    },
+    {
+      "word": "Got",
+      "startMs": 28040,
+      "endMs": 28180
+    },
+    {
+      "word": "a",
+      "startMs": 28240,
+      "endMs": 28280
+    },
+    {
+      "word": "feeling",
+      "startMs": 28340,
+      "endMs": 28620
+    },
+    {
+      "word": "I",
+      "startMs": 28740,
+      "endMs": 28760
+    },
+    {
+      "word": "can't",
+      "startMs": 28880,
+      "endMs": 29180
+    },
+    {
+      "word": "explain",
+      "startMs": 29220,
+      "endMs": 30800
+    },
+    {
+      "word": "Washing",
+      "startMs": 31680,
+      "endMs": 32100
+    },
+    {
+      "word": "over",
+      "startMs": 32160,
+      "endMs": 32439
+    },
+    {
+      "word": "like",
+      "startMs": 32480,
+      "endMs": 32619
+    },
+    {
+      "word": "the",
+      "startMs": 32640,
+      "endMs": 32710
+    },
+    {
+      "word": "morning",
+      "startMs": 32759,
+      "endMs": 33140
+    },
+    {
+      "word": "rain",
+      "startMs": 33240,
+      "endMs": 34940
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 37480,
+      "endMs": 37769
+    },
+    {
+      "word": "every",
+      "startMs": 37920,
+      "endMs": 38720
+    },
+    {
+      "word": "face",
+      "startMs": 38900,
+      "endMs": 39380
+    },
+    {
+      "word": "I",
+      "startMs": 39680,
+      "endMs": 40100
+    },
+    {
+      "word": "see",
+      "startMs": 40300,
+      "endMs": 41080
+    },
+    {
+      "word": "Is",
+      "startMs": 41960,
+      "endMs": 42200
+    },
+    {
+      "word": "part",
+      "startMs": 42260,
+      "endMs": 42820
+    },
+    {
+      "word": "of",
+      "startMs": 42880,
+      "endMs": 43020
+    },
+    {
+      "word": "the",
+      "startMs": 43100,
+      "endMs": 43170
+    },
+    {
+      "word": "family",
+      "startMs": 43340,
+      "endMs": 45239
+    },
+    {
+      "word": "Oh,",
+      "startMs": 46740,
+      "endMs": 47210
+    },
+    {
+      "word": "oh,",
+      "startMs": 47580,
+      "endMs": 48560
+    },
+    {
+      "word": "what",
+      "startMs": 48600,
+      "endMs": 48740
+    },
+    {
+      "word": "a",
+      "startMs": 48780,
+      "endMs": 48860
+    },
+    {
+      "word": "week",
+      "startMs": 48920,
+      "endMs": 49300
+    },
+    {
+      "word": "on",
+      "startMs": 49420,
+      "endMs": 49680
+    },
+    {
+      "word": "this",
+      "startMs": 49740,
+      "endMs": 49960
+    },
+    {
+      "word": "island!",
+      "startMs": 50180,
+      "endMs": 51060
+    },
+    {
+      "word": "Oh,",
+      "startMs": 51180,
+      "endMs": 51920
+    },
+    {
+      "word": "oh,",
+      "startMs": 51980,
+      "endMs": 53020
+    },
+    {
+      "word": "with",
+      "startMs": 53020,
+      "endMs": 53160
+    },
+    {
+      "word": "the",
+      "startMs": 53220,
+      "endMs": 53280
+    },
+    {
+      "word": "whole",
+      "startMs": 53360,
+      "endMs": 53700
+    },
+    {
+      "word": "team",
+      "startMs": 53760,
+      "endMs": 54140
+    },
+    {
+      "word": "beside",
+      "startMs": 54180,
+      "endMs": 54980
+    },
+    {
+      "word": "us!",
+      "startMs": 55080,
+      "endMs": 55480
+    },
+    {
+      "word": "Sun",
+      "startMs": 55520,
+      "endMs": 56020
+    },
+    {
+      "word": "up",
+      "startMs": 56060,
+      "endMs": 56300
+    },
+    {
+      "word": "to",
+      "startMs": 56380,
+      "endMs": 56560
+    },
+    {
+      "word": "sun",
+      "startMs": 56640,
+      "endMs": 57040
+    },
+    {
+      "word": "down,",
+      "startMs": 57080,
+      "endMs": 57480
+    },
+    {
+      "word": "we're",
+      "startMs": 57540,
+      "endMs": 57740
+    },
+    {
+      "word": "making",
+      "startMs": 57800,
+      "endMs": 58560
+    },
+    {
+      "word": "the",
+      "startMs": 58620,
+      "endMs": 58740
+    },
+    {
+      "word": "memories",
+      "startMs": 58880,
+      "endMs": 59960
+    },
+    {
+      "word": "Oh,",
+      "startMs": 60080,
+      "endMs": 60800
+    },
+    {
+      "word": "oh,",
+      "startMs": 60900,
+      "endMs": 61900
+    },
+    {
+      "word": "we're",
+      "startMs": 61920,
+      "endMs": 62180
+    },
+    {
+      "word": "right",
+      "startMs": 62260,
+      "endMs": 62740
+    },
+    {
+      "word": "where",
+      "startMs": 62800,
+      "endMs": 63040
+    },
+    {
+      "word": "we're",
+      "startMs": 63100,
+      "endMs": 63300
+    },
+    {
+      "word": "meant",
+      "startMs": 63360,
+      "endMs": 63820
+    },
+    {
+      "word": "to",
+      "startMs": 63920,
+      "endMs": 64060
+    },
+    {
+      "word": "be!",
+      "startMs": 64200,
+      "endMs": 64390
+    },
+    {
+      "word": "Remember",
+      "startMs": 66960,
+      "endMs": 72700
+    },
+    {
+      "word": "dancing",
+      "startMs": 72760,
+      "endMs": 73260
+    },
+    {
+      "word": "in",
+      "startMs": 73380,
+      "endMs": 73560
+    },
+    {
+      "word": "the",
+      "startMs": 73600,
+      "endMs": 73740
+    },
+    {
+      "word": "sand?",
+      "startMs": 73860,
+      "endMs": 76240
+    },
+    {
+      "word": "A",
+      "startMs": 76260,
+      "endMs": 76320
+    },
+    {
+      "word": "local",
+      "startMs": 76380,
+      "endMs": 76600
+    },
+    {
+      "word": "song",
+      "startMs": 76660,
+      "endMs": 76900
+    },
+    {
+      "word": "from",
+      "startMs": 76960,
+      "endMs": 77060
+    },
+    {
+      "word": "a",
+      "startMs": 77120,
+      "endMs": 77160
+    },
+    {
+      "word": "local",
+      "startMs": 77240,
+      "endMs": 77580
+    },
+    {
+      "word": "band",
+      "startMs": 77660,
+      "endMs": 78580
+    },
+    {
+      "word": "Didn't",
+      "startMs": 80800,
+      "endMs": 81660
+    },
+    {
+      "word": "need",
+      "startMs": 81680,
+      "endMs": 81880
+    },
+    {
+      "word": "to",
+      "startMs": 81960,
+      "endMs": 82160
+    },
+    {
+      "word": "have",
+      "startMs": 82240,
+      "endMs": 82520
+    },
+    {
+      "word": "a",
+      "startMs": 82580,
+      "endMs": 82680
+    },
+    {
+      "word": "plan",
+      "startMs": 82700,
+      "endMs": 84140
+    },
+    {
+      "word": "Just",
+      "startMs": 85220,
+      "endMs": 85380
+    },
+    {
+      "word": "living",
+      "startMs": 85400,
+      "endMs": 85760
+    },
+    {
+      "word": "life,",
+      "startMs": 85820,
+      "endMs": 86060
+    },
+    {
+      "word": "hand",
+      "startMs": 86100,
+      "endMs": 86360
+    },
+    {
+      "word": "in",
+      "startMs": 86400,
+      "endMs": 86500
+    },
+    {
+      "word": "hand",
+      "startMs": 86580,
+      "endMs": 87620
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 90860,
+      "endMs": 91060
+    },
+    {
+      "word": "every",
+      "startMs": 91160,
+      "endMs": 92060
+    },
+    {
+      "word": "voice",
+      "startMs": 92240,
+      "endMs": 92760
+    },
+    {
+      "word": "I",
+      "startMs": 93020,
+      "endMs": 93520
+    },
+    {
+      "word": "hear",
+      "startMs": 93560,
+      "endMs": 94680
+    },
+    {
+      "word": "Is",
+      "startMs": 95320,
+      "endMs": 95520
+    },
+    {
+      "word": "making",
+      "startMs": 95600,
+      "endMs": 96420
+    },
+    {
+      "word": "it",
+      "startMs": 96500,
+      "endMs": 96700
+    },
+    {
+      "word": "all",
+      "startMs": 96780,
+      "endMs": 97060
+    },
+    {
+      "word": "so",
+      "startMs": 97260,
+      "endMs": 97700
+    },
+    {
+      "word": "clear",
+      "startMs": 97740,
+      "endMs": 99640
+    },
+    {
+      "word": "Oh,",
+      "startMs": 100100,
+      "endMs": 100780
+    },
+    {
+      "word": "oh,",
+      "startMs": 100800,
+      "endMs": 100810
+    },
+    {
+      "word": "what",
+      "startMs": 101880,
+      "endMs": 102120
+    },
+    {
+      "word": "a",
+      "startMs": 102140,
+      "endMs": 102180
+    },
+    {
+      "word": "week",
+      "startMs": 102240,
+      "endMs": 102620
+    },
+    {
+      "word": "on",
+      "startMs": 102700,
+      "endMs": 103020
+    },
+    {
+      "word": "this",
+      "startMs": 103080,
+      "endMs": 103300
+    },
+    {
+      "word": "island!",
+      "startMs": 103480,
+      "endMs": 104420
+    },
+    {
+      "word": "Oh,",
+      "startMs": 104520,
+      "endMs": 106320
+    },
+    {
+      "word": "oh,",
+      "startMs": 106320,
+      "endMs": 106330
+    },
+    {
+      "word": "with",
+      "startMs": 106360,
+      "endMs": 106460
+    },
+    {
+      "word": "the",
+      "startMs": 106520,
+      "endMs": 106590
+    },
+    {
+      "word": "whole",
+      "startMs": 106680,
+      "endMs": 107020
+    },
+    {
+      "word": "team",
+      "startMs": 107100,
+      "endMs": 107460
+    },
+    {
+      "word": "beside",
+      "startMs": 107500,
+      "endMs": 108300
+    },
+    {
+      "word": "us!",
+      "startMs": 108380,
+      "endMs": 108800
+    },
+    {
+      "word": "Sun",
+      "startMs": 108860,
+      "endMs": 109200
+    },
+    {
+      "word": "up",
+      "startMs": 109480,
+      "endMs": 109640
+    },
+    {
+      "word": "to",
+      "startMs": 109700,
+      "endMs": 109840
+    },
+    {
+      "word": "sun",
+      "startMs": 109980,
+      "endMs": 110380
+    },
+    {
+      "word": "down,",
+      "startMs": 110460,
+      "endMs": 110780
+    },
+    {
+      "word": "we're",
+      "startMs": 110920,
+      "endMs": 111060
+    },
+    {
+      "word": "making",
+      "startMs": 111140,
+      "endMs": 111920
+    },
+    {
+      "word": "the",
+      "startMs": 111960,
+      "endMs": 112080
+    },
+    {
+      "word": "memories",
+      "startMs": 112240,
+      "endMs": 113320
+    },
+    {
+      "word": "Oh,",
+      "startMs": 113420,
+      "endMs": 115240
+    },
+    {
+      "word": "oh,",
+      "startMs": 115240,
+      "endMs": 115250
+    },
+    {
+      "word": "we're",
+      "startMs": 115300,
+      "endMs": 115440
+    },
+    {
+      "word": "right",
+      "startMs": 115600,
+      "endMs": 116080
+    },
+    {
+      "word": "where",
+      "startMs": 116120,
+      "endMs": 116360
+    },
+    {
+      "word": "we're",
+      "startMs": 116420,
+      "endMs": 116600
+    },
+    {
+      "word": "meant",
+      "startMs": 116680,
+      "endMs": 117150
+    },
+    {
+      "word": "to",
+      "startMs": 117260,
+      "endMs": 117400
+    },
+    {
+      "word": "be!",
+      "startMs": 117520,
+      "endMs": 123120
+    },
+    {
+      "word": "And",
+      "startMs": 126420,
+      "endMs": 126620
+    },
+    {
+      "word": "when",
+      "startMs": 126660,
+      "endMs": 127180
+    },
+    {
+      "word": "this",
+      "startMs": 127240,
+      "endMs": 127680
+    },
+    {
+      "word": "chapter",
+      "startMs": 127760,
+      "endMs": 128840
+    },
+    {
+      "word": "ends",
+      "startMs": 128960,
+      "endMs": 129780
+    },
+    {
+      "word": "We'll",
+      "startMs": 130800,
+      "endMs": 130940
+    },
+    {
+      "word": "still",
+      "startMs": 131020,
+      "endMs": 131640
+    },
+    {
+      "word": "be",
+      "startMs": 131700,
+      "endMs": 132060
+    },
+    {
+      "word": "more",
+      "startMs": 132140,
+      "endMs": 132680
+    },
+    {
+      "word": "than",
+      "startMs": 132760,
+      "endMs": 133160
+    },
+    {
+      "word": "friends",
+      "startMs": 133300,
+      "endMs": 134200
+    },
+    {
+      "word": "This",
+      "startMs": 135260,
+      "endMs": 135500
+    },
+    {
+      "word": "moment",
+      "startMs": 135560,
+      "endMs": 136500
+    },
+    {
+      "word": "never",
+      "startMs": 136700,
+      "endMs": 137760
+    },
+    {
+      "word": "fades",
+      "startMs": 138020,
+      "endMs": 138380
+    },
+    {
+      "word": "(No,",
+      "startMs": 138380,
+      "endMs": 138650
+    },
+    {
+      "word": "it",
+      "startMs": 138700,
+      "endMs": 138820
+    },
+    {
+      "word": "never",
+      "startMs": 138940,
+      "endMs": 139340
+    },
+    {
+      "word": "fades)",
+      "startMs": 139380,
+      "endMs": 139400
+    },
+    {
+      "word": "In",
+      "startMs": 139720,
+      "endMs": 139840
+    },
+    {
+      "word": "a",
+      "startMs": 139880,
+      "endMs": 139920
+    },
+    {
+      "word": "hundred",
+      "startMs": 140040,
+      "endMs": 141080
+    },
+    {
+      "word": "different",
+      "startMs": 141140,
+      "endMs": 142060
+    },
+    {
+      "word": "ways",
+      "startMs": 142200,
+      "endMs": 144420
+    },
+    {
+      "word": "(Hey!",
+      "startMs": 144440,
+      "endMs": 145220
+    },
+    {
+      "word": "Hey!)",
+      "startMs": 145400,
+      "endMs": 145769
+    },
+    {
+      "word": "Oh,",
+      "startMs": 146600,
+      "endMs": 146609
+    },
+    {
+      "word": "oh,",
+      "startMs": 146740,
+      "endMs": 148540
+    },
+    {
+      "word": "what",
+      "startMs": 148580,
+      "endMs": 148780
+    },
+    {
+      "word": "a",
+      "startMs": 148800,
+      "endMs": 148840
+    },
+    {
+      "word": "week",
+      "startMs": 148920,
+      "endMs": 149240
+    },
+    {
+      "word": "on",
+      "startMs": 149360,
+      "endMs": 149640
+    },
+    {
+      "word": "this",
+      "startMs": 149740,
+      "endMs": 149980
+    },
+    {
+      "word": "island!",
+      "startMs": 150220,
+      "endMs": 151090
+    },
+    {
+      "word": "Oh,",
+      "startMs": 151140,
+      "endMs": 151950
+    },
+    {
+      "word": "oh,",
+      "startMs": 152040,
+      "endMs": 153000
+    },
+    {
+      "word": "with",
+      "startMs": 153000,
+      "endMs": 153140
+    },
+    {
+      "word": "the",
+      "startMs": 153180,
+      "endMs": 153260
+    },
+    {
+      "word": "whole",
+      "startMs": 153320,
+      "endMs": 153700
+    },
+    {
+      "word": "team",
+      "startMs": 153760,
+      "endMs": 154140
+    },
+    {
+      "word": "beside",
+      "startMs": 154180,
+      "endMs": 154980
+    },
+    {
+      "word": "us!",
+      "startMs": 155080,
+      "endMs": 155460
+    },
+    {
+      "word": "Sun",
+      "startMs": 155520,
+      "endMs": 156000
+    },
+    {
+      "word": "up",
+      "startMs": 156080,
+      "endMs": 156320
+    },
+    {
+      "word": "to",
+      "startMs": 156360,
+      "endMs": 156500
+    },
+    {
+      "word": "sun",
+      "startMs": 156640,
+      "endMs": 157040
+    },
+    {
+      "word": "down,",
+      "startMs": 157060,
+      "endMs": 157480
+    },
+    {
+      "word": "we're",
+      "startMs": 157540,
+      "endMs": 157740
+    },
+    {
+      "word": "making",
+      "startMs": 157820,
+      "endMs": 158540
+    },
+    {
+      "word": "the",
+      "startMs": 158620,
+      "endMs": 158740
+    },
+    {
+      "word": "memories",
+      "startMs": 158900,
+      "endMs": 159940
+    },
+    {
+      "word": "Oh,",
+      "startMs": 160080,
+      "endMs": 160269
+    },
+    {
+      "word": "oh,",
+      "startMs": 160260,
+      "endMs": 161900
+    },
+    {
+      "word": "we're",
+      "startMs": 161920,
+      "endMs": 162160
+    },
+    {
+      "word": "right",
+      "startMs": 162240,
+      "endMs": 162720
+    },
+    {
+      "word": "where",
+      "startMs": 162760,
+      "endMs": 163020
+    },
+    {
+      "word": "we're",
+      "startMs": 163100,
+      "endMs": 163280
+    },
+    {
+      "word": "meant",
+      "startMs": 163360,
+      "endMs": 163820
+    },
+    {
+      "word": "to",
+      "startMs": 163920,
+      "endMs": 164060
+    },
+    {
+      "word": "be!",
+      "startMs": 164180,
+      "endMs": 164989
+    },
+    {
+      "word": "Right",
+      "startMs": 166640,
+      "endMs": 167200
+    },
+    {
+      "word": "where",
+      "startMs": 167320,
+      "endMs": 167480
+    },
+    {
+      "word": "we're",
+      "startMs": 167560,
+      "endMs": 167750
+    },
+    {
+      "word": "meant",
+      "startMs": 167840,
+      "endMs": 168280
+    },
+    {
+      "word": "to",
+      "startMs": 168380,
+      "endMs": 168520
+    },
+    {
+      "word": "be!",
+      "startMs": 168660,
+      "endMs": 169560
+    },
+    {
+      "word": "(Oh,",
+      "startMs": 169560,
+      "endMs": 170240
+    },
+    {
+      "word": "oh,",
+      "startMs": 170240,
+      "endMs": 170250
+    },
+    {
+      "word": "oh!)",
+      "startMs": 170400,
+      "endMs": 171380
+    },
+    {
+      "word": "On",
+      "startMs": 171420,
+      "endMs": 171620
+    },
+    {
+      "word": "this",
+      "startMs": 171960,
+      "endMs": 172220
+    },
+    {
+      "word": "island!",
+      "startMs": 172460,
+      "endMs": 173049
+    },
+    {
+      "word": "(Oh,",
+      "startMs": 173280,
+      "endMs": 174370
+    },
+    {
+      "word": "oh,",
+      "startMs": 174360,
+      "endMs": 175350
+    },
+    {
+      "word": "oh!)",
+      "startMs": 175340,
+      "endMs": 179900
+    }
+  ],
+  "attempts": 1
+}

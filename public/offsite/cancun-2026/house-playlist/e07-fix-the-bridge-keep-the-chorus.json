@@ -1,0 +1,1194 @@
+{
+  "id": "E07",
+  "set": "eleven",
+  "title": "Fix The Bridge, Keep The Chorus",
+  "concept": "Inpainting as a song. The bridge is the only part that changes \u2014 and you can hear it get replaced.",
+  "genre": "power pop",
+  "bpm": 132,
+  "key": "G major",
+  "lengthS": 160,
+  "prompt": "Power pop, 132 BPM, G major, late-1970s production \u2014 bright overdriven guitars, punchy live drums, melodic bass, tambourine, stacked harmonies. Cheerful male lead about regenerating one section without touching the rest. Verses and choruses stay consistent and dry; the bridge shifts to a completely different texture \u2014 sparse, filtered, synthetic \u2014 before snapping back to the original band sound for the last chorus.",
+  "slug": "e07-fix-the-bridge-keep-the-chorus",
+  "file": "e07-fix-the-bridge-keep-the-chorus.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Regenerate Again",
+  "genres": [
+    "power pop",
+    "rock"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 29,
+  "lyrics": [
+    "I got a system and it's working fine",
+    "Every part is humming right in line",
+    "The code is clean, the logic's holding true",
+    "Don't need to change a thing, it's good as new",
+    "But just this one piece, I wanna tear it down",
+    "Make it all again from the ground",
+    "Just one little spot, a little tweak and then",
+    "Let the whole machine regenerate again!",
+    "Some people say if it's not broke, you know",
+    "You gotta leave it well enough alone",
+    "But I see a vision, polished and so bright",
+    "Just gotta isolate and make it right",
+    "Because just this one piece, I wanna tear it down",
+    "Make it all again from the ground",
+    "Just one little spot, a little tweak and then",
+    "Let the whole machine regenerate again!",
+    "Everything goes quiet, a different space",
+    "(ah-ah-ah)",
+    "Just a single line without a trace",
+    "Of the noise it came from",
+    "The form it's taking on...",
+    "And just this one piece, I'm gonna tear it down!",
+    "Build it all again from the ground!",
+    "Just one perfect spot, a little tweak and then",
+    "Watch the whole machine regenerate again!",
+    "Regenerate again!",
+    "(Oh-oh-oh)",
+    "Yeah, regenerate again!",
+    "(Yeah!)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 10909,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "power pop",
+          "bright overdriven electric guitars",
+          "punchy live drums with tight hi-hats",
+          "melodic bass holding the root",
+          "crisp late-70s production",
+          "upbeat and energetic"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nI got a system and it's working fine\nEvery part is humming right in line\nThe code is clean, the logic's holding true\nDon't need to change a thing, it's good as new",
+        "durationMs": 21818,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "power pop band arrangement",
+          "two distinct overdriven guitar parts",
+          "driving eighth-note rhythm",
+          "melodic bassline moves between chords",
+          "punchy live drums",
+          "dry studio room sound",
+          "cheerful male lead vocal",
+          "tambourine enters"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nBut just this one piece, I wanna tear it down\nMake it all again from the ground\nJust one little spot, a little tweak and then\nLet the whole machine regenerate again!",
+        "durationMs": 21818,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "anthemic power pop chorus",
+          "big open guitar chords",
+          "energetic drum fills",
+          "walking bassline",
+          "bright tambourine hits",
+          "stacked multi-track male vocal harmonies",
+          "main vocal is powerful and clear"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nSome people say if it's not broke, you know\nYou gotta leave it well enough alone\nBut I see a vision, polished and so bright\nJust gotta isolate and make it right",
+        "durationMs": 21818,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "consistent verse groove",
+          "overdriven rhythm guitar holds chord progression",
+          "melodic lead guitar fills",
+          "steady live drum beat",
+          "melodic bass",
+          "dry vocal production",
+          "forward and confident male vocal"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nBecause just this one piece, I wanna tear it down\nMake it all again from the ground\nJust one little spot, a little tweak and then\nLet the whole machine regenerate again!",
+        "durationMs": 21818,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "full energy power pop chorus",
+          "layered overdriven guitars",
+          "crashing cymbals and drum fills",
+          "high-energy bassline",
+          "constant bright tambourine",
+          "rich, stacked male vocal harmonies",
+          "lead vocal with soaring energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nEverything goes quiet, a different space\n(ah-ah-ah)\nJust a single line without a trace\nOf the noise it came from\nThe form it's taking on...",
+        "durationMs": 21819,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "dramatic texture shift",
+          "heavily filtered band, low-pass sweep",
+          "synthetic drum machine pattern",
+          "arpeggiated synth patch",
+          "thumping synth bass pluck",
+          "sparse and spacious arrangement",
+          "processed, distant vocals"
+        ],
+        "negativeStyles": [
+          "live drums",
+          "overdriven guitars"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nAnd just this one piece, I'm gonna tear it down!\nBuild it all again from the ground!\nJust one perfect spot, a little tweak and then\nWatch the whole machine regenerate again!",
+        "durationMs": 21818,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "explosive return to full band sound",
+          "big distorted power chords",
+          "loud, powerful live drums with splashy cymbals",
+          "driving bassline",
+          "loud tambourine",
+          "massive stacked vocal harmonies",
+          "belting male lead vocal",
+          "final peak energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nRegenerate again!\n(Oh-oh-oh)\nYeah, regenerate again!\n(Yeah!)",
+        "durationMs": 18182,
+        "positiveStyles": [
+          "132 BPM",
+          "G Major",
+          "power pop outro",
+          "repeating guitar riff",
+          "big rock ending",
+          "final cymbal crash",
+          "energetic and final",
+          "fades out on ringing chord"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "I",
+      "startMs": 14820,
+      "endMs": 14960
+    },
+    {
+      "word": "got",
+      "startMs": 15000,
+      "endMs": 15220
+    },
+    {
+      "word": "a",
+      "startMs": 15240,
+      "endMs": 15340
+    },
+    {
+      "word": "system",
+      "startMs": 15380,
+      "endMs": 15900
+    },
+    {
+      "word": "and",
+      "startMs": 15940,
+      "endMs": 16140
+    },
+    {
+      "word": "it's",
+      "startMs": 16180,
+      "endMs": 16320
+    },
+    {
+      "word": "working",
+      "startMs": 16379,
+      "endMs": 16900
+    },
+    {
+      "word": "fine",
+      "startMs": 17040,
+      "endMs": 17919
+    },
+    {
+      "word": "Every",
+      "startMs": 18740,
+      "endMs": 19040
+    },
+    {
+      "word": "part",
+      "startMs": 19100,
+      "endMs": 19340
+    },
+    {
+      "word": "is",
+      "startMs": 19400,
+      "endMs": 19500
+    },
+    {
+      "word": "humming",
+      "startMs": 19540,
+      "endMs": 19940
+    },
+    {
+      "word": "right",
+      "startMs": 20000,
+      "endMs": 20280
+    },
+    {
+      "word": "in",
+      "startMs": 20360,
+      "endMs": 20520
+    },
+    {
+      "word": "line",
+      "startMs": 20640,
+      "endMs": 21980
+    },
+    {
+      "word": "The",
+      "startMs": 22020,
+      "endMs": 22180
+    },
+    {
+      "word": "code",
+      "startMs": 22240,
+      "endMs": 22500
+    },
+    {
+      "word": "is",
+      "startMs": 22520,
+      "endMs": 22640
+    },
+    {
+      "word": "clean,",
+      "startMs": 22700,
+      "endMs": 22940
+    },
+    {
+      "word": "the",
+      "startMs": 22960,
+      "endMs": 23060
+    },
+    {
+      "word": "logic's",
+      "startMs": 23160,
+      "endMs": 23600
+    },
+    {
+      "word": "holding",
+      "startMs": 23620,
+      "endMs": 24220
+    },
+    {
+      "word": "true",
+      "startMs": 24300,
+      "endMs": 24920
+    },
+    {
+      "word": "Don't",
+      "startMs": 25660,
+      "endMs": 25860
+    },
+    {
+      "word": "need",
+      "startMs": 25920,
+      "endMs": 26080
+    },
+    {
+      "word": "to",
+      "startMs": 26120,
+      "endMs": 26220
+    },
+    {
+      "word": "change",
+      "startMs": 26320,
+      "endMs": 26580
+    },
+    {
+      "word": "a",
+      "startMs": 26660,
+      "endMs": 26680
+    },
+    {
+      "word": "thing,",
+      "startMs": 26800,
+      "endMs": 27040
+    },
+    {
+      "word": "it's",
+      "startMs": 27080,
+      "endMs": 27240
+    },
+    {
+      "word": "good",
+      "startMs": 27300,
+      "endMs": 27520
+    },
+    {
+      "word": "as",
+      "startMs": 27600,
+      "endMs": 27900
+    },
+    {
+      "word": "new",
+      "startMs": 27980,
+      "endMs": 28400
+    },
+    {
+      "word": "But",
+      "startMs": 36120,
+      "endMs": 36280
+    },
+    {
+      "word": "just",
+      "startMs": 36360,
+      "endMs": 36800
+    },
+    {
+      "word": "this",
+      "startMs": 37020,
+      "endMs": 37440
+    },
+    {
+      "word": "one",
+      "startMs": 37520,
+      "endMs": 37840
+    },
+    {
+      "word": "piece,",
+      "startMs": 37920,
+      "endMs": 38400
+    },
+    {
+      "word": "I",
+      "startMs": 38520,
+      "endMs": 38560
+    },
+    {
+      "word": "wanna",
+      "startMs": 38680,
+      "endMs": 38960
+    },
+    {
+      "word": "tear",
+      "startMs": 39060,
+      "endMs": 39340
+    },
+    {
+      "word": "it",
+      "startMs": 39380,
+      "endMs": 39500
+    },
+    {
+      "word": "down",
+      "startMs": 39580,
+      "endMs": 39980
+    },
+    {
+      "word": "Make",
+      "startMs": 40460,
+      "endMs": 40680
+    },
+    {
+      "word": "it",
+      "startMs": 40720,
+      "endMs": 40920
+    },
+    {
+      "word": "all",
+      "startMs": 40980,
+      "endMs": 41180
+    },
+    {
+      "word": "again",
+      "startMs": 41240,
+      "endMs": 41740
+    },
+    {
+      "word": "from",
+      "startMs": 41820,
+      "endMs": 42020
+    },
+    {
+      "word": "the",
+      "startMs": 42080,
+      "endMs": 42150
+    },
+    {
+      "word": "ground",
+      "startMs": 42240,
+      "endMs": 42980
+    },
+    {
+      "word": "Just",
+      "startMs": 43420,
+      "endMs": 43760
+    },
+    {
+      "word": "one",
+      "startMs": 44140,
+      "endMs": 44460
+    },
+    {
+      "word": "little",
+      "startMs": 44540,
+      "endMs": 44840
+    },
+    {
+      "word": "spot,",
+      "startMs": 44960,
+      "endMs": 45660
+    },
+    {
+      "word": "a",
+      "startMs": 45760,
+      "endMs": 45820
+    },
+    {
+      "word": "little",
+      "startMs": 45940,
+      "endMs": 46220
+    },
+    {
+      "word": "tweak",
+      "startMs": 46300,
+      "endMs": 46600
+    },
+    {
+      "word": "and",
+      "startMs": 46640,
+      "endMs": 46800
+    },
+    {
+      "word": "then",
+      "startMs": 46840,
+      "endMs": 47260
+    },
+    {
+      "word": "Let",
+      "startMs": 47720,
+      "endMs": 47920
+    },
+    {
+      "word": "the",
+      "startMs": 47980,
+      "endMs": 48120
+    },
+    {
+      "word": "whole",
+      "startMs": 48200,
+      "endMs": 48360
+    },
+    {
+      "word": "machine",
+      "startMs": 48420,
+      "endMs": 49040
+    },
+    {
+      "word": "regenerate",
+      "startMs": 49320,
+      "endMs": 50240
+    },
+    {
+      "word": "again!",
+      "startMs": 50300,
+      "endMs": 53380
+    },
+    {
+      "word": "Some",
+      "startMs": 58380,
+      "endMs": 58600
+    },
+    {
+      "word": "people",
+      "startMs": 58640,
+      "endMs": 58930
+    },
+    {
+      "word": "say",
+      "startMs": 59000,
+      "endMs": 59320
+    },
+    {
+      "word": "if",
+      "startMs": 59400,
+      "endMs": 59520
+    },
+    {
+      "word": "it's",
+      "startMs": 59580,
+      "endMs": 59740
+    },
+    {
+      "word": "not",
+      "startMs": 59780,
+      "endMs": 59940
+    },
+    {
+      "word": "broke,",
+      "startMs": 60000,
+      "endMs": 60280
+    },
+    {
+      "word": "you",
+      "startMs": 60440,
+      "endMs": 60560
+    },
+    {
+      "word": "know",
+      "startMs": 60660,
+      "endMs": 61260
+    },
+    {
+      "word": "You",
+      "startMs": 62060,
+      "endMs": 62140
+    },
+    {
+      "word": "gotta",
+      "startMs": 62240,
+      "endMs": 62660
+    },
+    {
+      "word": "leave",
+      "startMs": 62680,
+      "endMs": 62940
+    },
+    {
+      "word": "it",
+      "startMs": 63000,
+      "endMs": 63080
+    },
+    {
+      "word": "well",
+      "startMs": 63180,
+      "endMs": 63400
+    },
+    {
+      "word": "enough",
+      "startMs": 63460,
+      "endMs": 63920
+    },
+    {
+      "word": "alone",
+      "startMs": 64019,
+      "endMs": 64959
+    },
+    {
+      "word": "But",
+      "startMs": 65620,
+      "endMs": 65680
+    },
+    {
+      "word": "I",
+      "startMs": 65740,
+      "endMs": 65800
+    },
+    {
+      "word": "see",
+      "startMs": 65900,
+      "endMs": 66080
+    },
+    {
+      "word": "a",
+      "startMs": 66200,
+      "endMs": 66280
+    },
+    {
+      "word": "vision,",
+      "startMs": 66340,
+      "endMs": 66780
+    },
+    {
+      "word": "polished",
+      "startMs": 66820,
+      "endMs": 67260
+    },
+    {
+      "word": "and",
+      "startMs": 67300,
+      "endMs": 67460
+    },
+    {
+      "word": "so",
+      "startMs": 67560,
+      "endMs": 67840
+    },
+    {
+      "word": "bright",
+      "startMs": 67940,
+      "endMs": 68500
+    },
+    {
+      "word": "Just",
+      "startMs": 69320,
+      "endMs": 69460
+    },
+    {
+      "word": "gotta",
+      "startMs": 69540,
+      "endMs": 69880
+    },
+    {
+      "word": "isolate",
+      "startMs": 70040,
+      "endMs": 70700
+    },
+    {
+      "word": "and",
+      "startMs": 70720,
+      "endMs": 70860
+    },
+    {
+      "word": "make",
+      "startMs": 70940,
+      "endMs": 71200
+    },
+    {
+      "word": "it",
+      "startMs": 71260,
+      "endMs": 71460
+    },
+    {
+      "word": "right",
+      "startMs": 71580,
+      "endMs": 74280
+    },
+    {
+      "word": "Because",
+      "startMs": 79260,
+      "endMs": 79940
+    },
+    {
+      "word": "just",
+      "startMs": 80020,
+      "endMs": 80420
+    },
+    {
+      "word": "this",
+      "startMs": 80660,
+      "endMs": 81080
+    },
+    {
+      "word": "one",
+      "startMs": 81160,
+      "endMs": 81440
+    },
+    {
+      "word": "piece,",
+      "startMs": 81560,
+      "endMs": 82040
+    },
+    {
+      "word": "I",
+      "startMs": 82140,
+      "endMs": 82200
+    },
+    {
+      "word": "wanna",
+      "startMs": 82300,
+      "endMs": 82620
+    },
+    {
+      "word": "tear",
+      "startMs": 82680,
+      "endMs": 82980
+    },
+    {
+      "word": "it",
+      "startMs": 83020,
+      "endMs": 83140
+    },
+    {
+      "word": "down",
+      "startMs": 83200,
+      "endMs": 84020
+    },
+    {
+      "word": "Make",
+      "startMs": 84100,
+      "endMs": 84340
+    },
+    {
+      "word": "it",
+      "startMs": 84400,
+      "endMs": 84540
+    },
+    {
+      "word": "all",
+      "startMs": 84640,
+      "endMs": 84760
+    },
+    {
+      "word": "again",
+      "startMs": 84880,
+      "endMs": 85340
+    },
+    {
+      "word": "from",
+      "startMs": 85460,
+      "endMs": 85680
+    },
+    {
+      "word": "the",
+      "startMs": 85740,
+      "endMs": 85840
+    },
+    {
+      "word": "ground",
+      "startMs": 85880,
+      "endMs": 86640
+    },
+    {
+      "word": "Just",
+      "startMs": 87060,
+      "endMs": 87660
+    },
+    {
+      "word": "one",
+      "startMs": 87820,
+      "endMs": 88040
+    },
+    {
+      "word": "little",
+      "startMs": 88200,
+      "endMs": 88480
+    },
+    {
+      "word": "spot,",
+      "startMs": 88600,
+      "endMs": 89300
+    },
+    {
+      "word": "a",
+      "startMs": 89400,
+      "endMs": 89440
+    },
+    {
+      "word": "little",
+      "startMs": 89600,
+      "endMs": 89860
+    },
+    {
+      "word": "tweak",
+      "startMs": 89920,
+      "endMs": 90240
+    },
+    {
+      "word": "and",
+      "startMs": 90240,
+      "endMs": 90400
+    },
+    {
+      "word": "then",
+      "startMs": 90440,
+      "endMs": 91280
+    },
+    {
+      "word": "Let",
+      "startMs": 91360,
+      "endMs": 91560
+    },
+    {
+      "word": "the",
+      "startMs": 91620,
+      "endMs": 91760
+    },
+    {
+      "word": "whole",
+      "startMs": 91820,
+      "endMs": 92000
+    },
+    {
+      "word": "machine",
+      "startMs": 92060,
+      "endMs": 92660
+    },
+    {
+      "word": "regenerate",
+      "startMs": 92980,
+      "endMs": 93880
+    },
+    {
+      "word": "again!",
+      "startMs": 93940,
+      "endMs": 94960
+    },
+    {
+      "word": "Everything",
+      "startMs": 101900,
+      "endMs": 102460
+    },
+    {
+      "word": "goes",
+      "startMs": 102480,
+      "endMs": 102640
+    },
+    {
+      "word": "quiet,",
+      "startMs": 102760,
+      "endMs": 103420
+    },
+    {
+      "word": "a",
+      "startMs": 103460,
+      "endMs": 103520
+    },
+    {
+      "word": "different",
+      "startMs": 103640,
+      "endMs": 104120
+    },
+    {
+      "word": "space",
+      "startMs": 104340,
+      "endMs": 105259
+    },
+    {
+      "word": "(ah-ah-ah)",
+      "startMs": 106340,
+      "endMs": 107240
+    },
+    {
+      "word": "Just",
+      "startMs": 109540,
+      "endMs": 109720
+    },
+    {
+      "word": "a",
+      "startMs": 109800,
+      "endMs": 109900
+    },
+    {
+      "word": "single",
+      "startMs": 109980,
+      "endMs": 110380
+    },
+    {
+      "word": "line",
+      "startMs": 110400,
+      "endMs": 110680
+    },
+    {
+      "word": "without",
+      "startMs": 110720,
+      "endMs": 111240
+    },
+    {
+      "word": "a",
+      "startMs": 111300,
+      "endMs": 111420
+    },
+    {
+      "word": "trace",
+      "startMs": 111540,
+      "endMs": 112540
+    },
+    {
+      "word": "Of",
+      "startMs": 113240,
+      "endMs": 113340
+    },
+    {
+      "word": "the",
+      "startMs": 113420,
+      "endMs": 113480
+    },
+    {
+      "word": "noise",
+      "startMs": 113620,
+      "endMs": 114080
+    },
+    {
+      "word": "it",
+      "startMs": 114120,
+      "endMs": 114200
+    },
+    {
+      "word": "came",
+      "startMs": 114340,
+      "endMs": 114700
+    },
+    {
+      "word": "from",
+      "startMs": 114780,
+      "endMs": 115400
+    },
+    {
+      "word": "The",
+      "startMs": 116600,
+      "endMs": 116720
+    },
+    {
+      "word": "form",
+      "startMs": 116820,
+      "endMs": 117060
+    },
+    {
+      "word": "it's",
+      "startMs": 117100,
+      "endMs": 117240
+    },
+    {
+      "word": "taking",
+      "startMs": 117300,
+      "endMs": 117720
+    },
+    {
+      "word": "on...",
+      "startMs": 117920,
+      "endMs": 118850
+    },
+    {
+      "word": "And",
+      "startMs": 121140,
+      "endMs": 121300
+    },
+    {
+      "word": "just",
+      "startMs": 121400,
+      "endMs": 121700
+    },
+    {
+      "word": "this",
+      "startMs": 121820,
+      "endMs": 122880
+    },
+    {
+      "word": "one",
+      "startMs": 122960,
+      "endMs": 123340
+    },
+    {
+      "word": "piece,",
+      "startMs": 123380,
+      "endMs": 123840
+    },
+    {
+      "word": "I'm",
+      "startMs": 123960,
+      "endMs": 124070
+    },
+    {
+      "word": "gonna",
+      "startMs": 124080,
+      "endMs": 124460
+    },
+    {
+      "word": "tear",
+      "startMs": 124520,
+      "endMs": 124800
+    },
+    {
+      "word": "it",
+      "startMs": 124820,
+      "endMs": 124940
+    },
+    {
+      "word": "down!",
+      "startMs": 125040,
+      "endMs": 125860
+    },
+    {
+      "word": "Build",
+      "startMs": 125900,
+      "endMs": 126160
+    },
+    {
+      "word": "it",
+      "startMs": 126240,
+      "endMs": 126380
+    },
+    {
+      "word": "all",
+      "startMs": 126460,
+      "endMs": 126580
+    },
+    {
+      "word": "again",
+      "startMs": 126680,
+      "endMs": 127180
+    },
+    {
+      "word": "from",
+      "startMs": 127260,
+      "endMs": 127500
+    },
+    {
+      "word": "the",
+      "startMs": 127540,
+      "endMs": 127660
+    },
+    {
+      "word": "ground!",
+      "startMs": 127700,
+      "endMs": 128780
+    },
+    {
+      "word": "Just",
+      "startMs": 128840,
+      "endMs": 129220
+    },
+    {
+      "word": "one",
+      "startMs": 129560,
+      "endMs": 129860
+    },
+    {
+      "word": "perfect",
+      "startMs": 129979,
+      "endMs": 130340
+    },
+    {
+      "word": "spot,",
+      "startMs": 130420,
+      "endMs": 131120
+    },
+    {
+      "word": "a",
+      "startMs": 131220,
+      "endMs": 131280
+    },
+    {
+      "word": "little",
+      "startMs": 131380,
+      "endMs": 131720
+    },
+    {
+      "word": "tweak",
+      "startMs": 131760,
+      "endMs": 132060
+    },
+    {
+      "word": "and",
+      "startMs": 132080,
+      "endMs": 132240
+    },
+    {
+      "word": "then",
+      "startMs": 132320,
+      "endMs": 133100
+    },
+    {
+      "word": "Watch",
+      "startMs": 133160,
+      "endMs": 133400
+    },
+    {
+      "word": "the",
+      "startMs": 133440,
+      "endMs": 133560
+    },
+    {
+      "word": "whole",
+      "startMs": 133620,
+      "endMs": 133820
+    },
+    {
+      "word": "machine",
+      "startMs": 133880,
+      "endMs": 134480
+    },
+    {
+      "word": "regenerate",
+      "startMs": 134760,
+      "endMs": 135700
+    },
+    {
+      "word": "again!",
+      "startMs": 135760,
+      "endMs": 137020
+    },
+    {
+      "word": "Regenerate",
+      "startMs": 142020,
+      "endMs": 142980
+    },
+    {
+      "word": "again!",
+      "startMs": 143040,
+      "endMs": 145860
+    },
+    {
+      "word": "(Oh-oh-oh)",
+      "startMs": 146060,
+      "endMs": 148840
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 148840,
+      "endMs": 148850
+    },
+    {
+      "word": "regenerate",
+      "startMs": 149300,
+      "endMs": 150240
+    },
+    {
+      "word": "again!",
+      "startMs": 150280,
+      "endMs": 151120
+    },
+    {
+      "word": "(Yeah!)",
+      "startMs": 151120,
+      "endMs": 155769
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -3.73,
+    "loudnessRangeLu": 4.3
+  },
+  "preview": {
+    "file": "previews/e07-fix-the-bridge-keep-the-chorus.mp3",
+    "startS": 11.82,
+    "durationS": 60,
+    "vocalEntryS": 14.82
+  }
+}

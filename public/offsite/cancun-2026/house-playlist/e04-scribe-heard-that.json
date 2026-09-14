@@ -1,0 +1,915 @@
+{
+  "id": "E04",
+  "set": "eleven",
+  "title": "Scribe Heard That",
+  "concept": "You thought the recording had stopped. The transcript disagrees. Ninety-plus languages of receipts.",
+  "genre": "sly noir funk",
+  "bpm": 104,
+  "key": "C minor",
+  "lengthS": 145,
+  "prompt": "Sly noir funk, 104 BPM, C minor, late-1960s spy-soundtrack production \u2014 muted trumpet, tremolo guitar, walking bass, brushed drums, vibraphone stabs. Smooth male vocal, amused and faintly menacing, about a transcript that captured the part you thought was off the record. Close-mic'd and dry, one dramatic brass hit at the reveal.",
+  "slug": "e04-scribe-heard-that",
+  "file": "e04-scribe-heard-that.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Off The Record",
+  "genres": [
+    "funk",
+    "jazz",
+    "soul"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 23,
+  "lyrics": [
+    "Funny you should mention that.",
+    "A little slip of the tongue.",
+    "Thought we were just shooting the breeze,",
+    "thought the job was already done.",
+    "But the tape was rolling...",
+    "(ooh, the tape was rolling)",
+    "And the little red light was on bright.",
+    "Every word accounted for...",
+    "I got the transcript, baby,",
+    "every single printed line.",
+    "It captured the part you thought was off the record,",
+    "and now I'm gonna make it mine.",
+    "A casual confession...",
+    "A name you let drop by mistake.",
+    "You tried to laugh it off so cool,",
+    "but that was your first big break... in the case.",
+    "See, that's the thing about this business.",
+    "You're always on.",
+    "There's no such thing as 'off the record'.",
+    "Yeah, I got the transcript...",
+    "(got it all in black and white)",
+    "The part you thought was safe.",
+    "Read all about it."
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 16000,
+        "positiveStyles": [
+          "104 BPM",
+          "noir funk groove",
+          "sly walking bassline in C minor",
+          "light brushed drums on hi-hat and snare",
+          "tasteful tremolo electric guitar chords",
+          "smoky atmosphere",
+          "dry, intimate production",
+          "instrumental intro"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nFunny you should mention that.\nA little slip of the tongue.\nThought we were just shooting the breeze,\nthought the job was already done.",
+        "durationMs": 23000,
+        "positiveStyles": [
+          "104 BPM",
+          "walking bass and brushed drums continue",
+          "sparse, cool-toned vibraphone stabs enter",
+          "tremolo guitar plays muted counter-melodies",
+          "smooth, close-mic'd male tenor vocal",
+          "amused, confident vocal delivery",
+          "minimalist arrangement",
+          "C minor harmony"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Pre-Chorus]\nBut the tape was rolling...\n(ooh, the tape was rolling)\nAnd the little red light was on bright.\nEvery word accounted for...",
+        "durationMs": 18000,
+        "positiveStyles": [
+          "104 BPM",
+          "arrangement builds slightly",
+          "ride cymbal pattern added to drums",
+          "muted trumpet enters with a simple, tense motif",
+          "bassline becomes more melodic",
+          "vocal delivery gains a faintly menacing edge",
+          "rising tension",
+          "anticipatory feel"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nI got the transcript, baby,\nevery single printed line.\nIt captured the part you thought was off the record,\nand now I'm gonna make it mine.",
+        "durationMs": 23000,
+        "positiveStyles": [
+          "104 BPM",
+          "fuller noir funk arrangement",
+          "muted trumpet plays a catchy, sinister lead line",
+          "vibraphone chords shimmer",
+          "walking bass is prominent and driving",
+          "confident, ironic male vocal",
+          "brushed drums with more snare presence",
+          "dynamic peak of the song"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nA casual confession...\nA name you let drop by mistake.\nYou tried to laugh it off so cool,\nbut that was your first big break... in the case.",
+        "durationMs": 23000,
+        "positiveStyles": [
+          "104 BPM",
+          "arrangement drops back slightly",
+          "tremolo guitar melody prominent again",
+          "vibraphone provides gentle, sparse chords",
+          "bass and drums hold down the steady groove",
+          "smooth male vocal, sounds like sharing a secret",
+          "intimate, close-mic'd sound",
+          "laid-back but tense"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nSee, that's the thing about this business.\nYou're always on.\nThere's no such thing as 'off the record'.",
+        "durationMs": 19000,
+        "positiveStyles": [
+          "104 BPM",
+          "breakdown section",
+          "walking bass solo feature",
+          "only sparse hi-hats and single tremolo guitar notes",
+          "muted trumpet echoes a faint, distant phrase",
+          "tense, spacious, and suspenseful mood",
+          "spoken-word vocal delivery, low and conspiratorial",
+          "minimalist harmony"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nYeah, I got the transcript...\n(got it all in black and white)\nThe part you thought was safe.\n{dramatic orchestral brass hit}\nRead all about it.",
+        "durationMs": 23000,
+        "positiveStyles": [
+          "104 BPM",
+          "full groove returns",
+          "muted trumpet and vibraphone trade short, cool licks",
+          "confident, almost taunting male vocal ad-libs",
+          "walking bass and brushed drums drive to the end",
+          "includes one dramatic, final orchestral brass hit",
+          "sharp, clean ending",
+          "fade to silence over the last 2 seconds"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Funny",
+      "startMs": 19540,
+      "endMs": 20120
+    },
+    {
+      "word": "you",
+      "startMs": 20240,
+      "endMs": 20320
+    },
+    {
+      "word": "should",
+      "startMs": 20440,
+      "endMs": 20680
+    },
+    {
+      "word": "mention",
+      "startMs": 20800,
+      "endMs": 21300
+    },
+    {
+      "word": "that.",
+      "startMs": 21380,
+      "endMs": 23240
+    },
+    {
+      "word": "A",
+      "startMs": 23400,
+      "endMs": 23480
+    },
+    {
+      "word": "little",
+      "startMs": 23600,
+      "endMs": 24120
+    },
+    {
+      "word": "slip",
+      "startMs": 24140,
+      "endMs": 24500
+    },
+    {
+      "word": "of",
+      "startMs": 24580,
+      "endMs": 24780
+    },
+    {
+      "word": "the",
+      "startMs": 24840,
+      "endMs": 24900
+    },
+    {
+      "word": "tongue.",
+      "startMs": 25080,
+      "endMs": 27080
+    },
+    {
+      "word": "Thought",
+      "startMs": 28820,
+      "endMs": 29120
+    },
+    {
+      "word": "we",
+      "startMs": 29180,
+      "endMs": 29380
+    },
+    {
+      "word": "were",
+      "startMs": 29440,
+      "endMs": 29660
+    },
+    {
+      "word": "just",
+      "startMs": 29720,
+      "endMs": 29900
+    },
+    {
+      "word": "shooting",
+      "startMs": 29980,
+      "endMs": 30550
+    },
+    {
+      "word": "the",
+      "startMs": 30600,
+      "endMs": 30700
+    },
+    {
+      "word": "breeze,",
+      "startMs": 30840,
+      "endMs": 31700
+    },
+    {
+      "word": "thought",
+      "startMs": 32259,
+      "endMs": 32560
+    },
+    {
+      "word": "the",
+      "startMs": 32600,
+      "endMs": 32720
+    },
+    {
+      "word": "job",
+      "startMs": 32860,
+      "endMs": 33160
+    },
+    {
+      "word": "was",
+      "startMs": 33220,
+      "endMs": 33460
+    },
+    {
+      "word": "already",
+      "startMs": 33560,
+      "endMs": 34240
+    },
+    {
+      "word": "done.",
+      "startMs": 34300,
+      "endMs": 36600
+    },
+    {
+      "word": "But",
+      "startMs": 39740,
+      "endMs": 41200
+    },
+    {
+      "word": "the",
+      "startMs": 41240,
+      "endMs": 41440
+    },
+    {
+      "word": "tape",
+      "startMs": 41520,
+      "endMs": 41820
+    },
+    {
+      "word": "was",
+      "startMs": 41880,
+      "endMs": 42060
+    },
+    {
+      "word": "rolling...",
+      "startMs": 42120,
+      "endMs": 44750
+    },
+    {
+      "word": "(ooh,",
+      "startMs": 44740,
+      "endMs": 45840
+    },
+    {
+      "word": "the",
+      "startMs": 45880,
+      "endMs": 46000
+    },
+    {
+      "word": "tape",
+      "startMs": 46080,
+      "endMs": 46380
+    },
+    {
+      "word": "was",
+      "startMs": 46460,
+      "endMs": 46680
+    },
+    {
+      "word": "rolling)",
+      "startMs": 46740,
+      "endMs": 47860
+    },
+    {
+      "word": "And",
+      "startMs": 49080,
+      "endMs": 49280
+    },
+    {
+      "word": "the",
+      "startMs": 49340,
+      "endMs": 49480
+    },
+    {
+      "word": "little",
+      "startMs": 49640,
+      "endMs": 50100
+    },
+    {
+      "word": "red",
+      "startMs": 50220,
+      "endMs": 50400
+    },
+    {
+      "word": "light",
+      "startMs": 50500,
+      "endMs": 51020
+    },
+    {
+      "word": "was",
+      "startMs": 51080,
+      "endMs": 51300
+    },
+    {
+      "word": "on",
+      "startMs": 51360,
+      "endMs": 51580
+    },
+    {
+      "word": "bright.",
+      "startMs": 51640,
+      "endMs": 52360
+    },
+    {
+      "word": "Every",
+      "startMs": 53720,
+      "endMs": 54100
+    },
+    {
+      "word": "word",
+      "startMs": 54260,
+      "endMs": 55100
+    },
+    {
+      "word": "accounted",
+      "startMs": 55140,
+      "endMs": 56000
+    },
+    {
+      "word": "for...",
+      "startMs": 56220,
+      "endMs": 58550
+    },
+    {
+      "word": "I",
+      "startMs": 58720,
+      "endMs": 59120
+    },
+    {
+      "word": "got",
+      "startMs": 59420,
+      "endMs": 59660
+    },
+    {
+      "word": "the",
+      "startMs": 59700,
+      "endMs": 59820
+    },
+    {
+      "word": "transcript,",
+      "startMs": 59980,
+      "endMs": 61120
+    },
+    {
+      "word": "baby,",
+      "startMs": 61160,
+      "endMs": 62860
+    },
+    {
+      "word": "every",
+      "startMs": 63500,
+      "endMs": 63840
+    },
+    {
+      "word": "single",
+      "startMs": 63960,
+      "endMs": 64440
+    },
+    {
+      "word": "printed",
+      "startMs": 64580,
+      "endMs": 65400
+    },
+    {
+      "word": "line.",
+      "startMs": 65480,
+      "endMs": 66780
+    },
+    {
+      "word": "It",
+      "startMs": 67800,
+      "endMs": 67940
+    },
+    {
+      "word": "captured",
+      "startMs": 68060,
+      "endMs": 68640
+    },
+    {
+      "word": "the",
+      "startMs": 68700,
+      "endMs": 68810
+    },
+    {
+      "word": "part",
+      "startMs": 68940,
+      "endMs": 69440
+    },
+    {
+      "word": "you",
+      "startMs": 69540,
+      "endMs": 69680
+    },
+    {
+      "word": "thought",
+      "startMs": 69760,
+      "endMs": 70060
+    },
+    {
+      "word": "was",
+      "startMs": 70140,
+      "endMs": 70380
+    },
+    {
+      "word": "off",
+      "startMs": 70460,
+      "endMs": 70880
+    },
+    {
+      "word": "the",
+      "startMs": 70940,
+      "endMs": 71180
+    },
+    {
+      "word": "record,",
+      "startMs": 71280,
+      "endMs": 72380
+    },
+    {
+      "word": "and",
+      "startMs": 72420,
+      "endMs": 72620
+    },
+    {
+      "word": "now",
+      "startMs": 72720,
+      "endMs": 73000
+    },
+    {
+      "word": "I'm",
+      "startMs": 73080,
+      "endMs": 73240
+    },
+    {
+      "word": "gonna",
+      "startMs": 73260,
+      "endMs": 73780
+    },
+    {
+      "word": "make",
+      "startMs": 73860,
+      "endMs": 74160
+    },
+    {
+      "word": "it",
+      "startMs": 74220,
+      "endMs": 74660
+    },
+    {
+      "word": "mine.",
+      "startMs": 74720,
+      "endMs": 75450
+    },
+    {
+      "word": "A",
+      "startMs": 79080,
+      "endMs": 83840
+    },
+    {
+      "word": "casual",
+      "startMs": 85380,
+      "endMs": 86130
+    },
+    {
+      "word": "confession...",
+      "startMs": 86260,
+      "endMs": 88550
+    },
+    {
+      "word": "A",
+      "startMs": 88560,
+      "endMs": 88660
+    },
+    {
+      "word": "name",
+      "startMs": 88800,
+      "endMs": 89160
+    },
+    {
+      "word": "you",
+      "startMs": 89200,
+      "endMs": 89300
+    },
+    {
+      "word": "let",
+      "startMs": 89420,
+      "endMs": 89840
+    },
+    {
+      "word": "drop",
+      "startMs": 89960,
+      "endMs": 90240
+    },
+    {
+      "word": "by",
+      "startMs": 90320,
+      "endMs": 90520
+    },
+    {
+      "word": "mistake.",
+      "startMs": 90600,
+      "endMs": 91580
+    },
+    {
+      "word": "You",
+      "startMs": 93180,
+      "endMs": 93320
+    },
+    {
+      "word": "tried",
+      "startMs": 93420,
+      "endMs": 93740
+    },
+    {
+      "word": "to",
+      "startMs": 93780,
+      "endMs": 93860
+    },
+    {
+      "word": "laugh",
+      "startMs": 94040,
+      "endMs": 94360
+    },
+    {
+      "word": "it",
+      "startMs": 94400,
+      "endMs": 94600
+    },
+    {
+      "word": "off",
+      "startMs": 94660,
+      "endMs": 94840
+    },
+    {
+      "word": "so",
+      "startMs": 94920,
+      "endMs": 95040
+    },
+    {
+      "word": "cool,",
+      "startMs": 95180,
+      "endMs": 95460
+    },
+    {
+      "word": "but",
+      "startMs": 95500,
+      "endMs": 95720
+    },
+    {
+      "word": "that",
+      "startMs": 95760,
+      "endMs": 96160
+    },
+    {
+      "word": "was",
+      "startMs": 96240,
+      "endMs": 96580
+    },
+    {
+      "word": "your",
+      "startMs": 96640,
+      "endMs": 96780
+    },
+    {
+      "word": "first",
+      "startMs": 96940,
+      "endMs": 97260
+    },
+    {
+      "word": "big",
+      "startMs": 97360,
+      "endMs": 97640
+    },
+    {
+      "word": "break...",
+      "startMs": 97780,
+      "endMs": 99510
+    },
+    {
+      "word": "in",
+      "startMs": 99600,
+      "endMs": 99780
+    },
+    {
+      "word": "the",
+      "startMs": 99860,
+      "endMs": 99960
+    },
+    {
+      "word": "case.",
+      "startMs": 100080,
+      "endMs": 100830
+    },
+    {
+      "word": "See,",
+      "startMs": 108320,
+      "endMs": 108440
+    },
+    {
+      "word": "that's",
+      "startMs": 108480,
+      "endMs": 108680
+    },
+    {
+      "word": "the",
+      "startMs": 108720,
+      "endMs": 108840
+    },
+    {
+      "word": "thing",
+      "startMs": 108880,
+      "endMs": 109060
+    },
+    {
+      "word": "about",
+      "startMs": 109160,
+      "endMs": 109380
+    },
+    {
+      "word": "this",
+      "startMs": 109440,
+      "endMs": 109580
+    },
+    {
+      "word": "business.",
+      "startMs": 109620,
+      "endMs": 111620
+    },
+    {
+      "word": "You're",
+      "startMs": 111680,
+      "endMs": 111810
+    },
+    {
+      "word": "always",
+      "startMs": 111880,
+      "endMs": 112110
+    },
+    {
+      "word": "on.",
+      "startMs": 112180,
+      "endMs": 114160
+    },
+    {
+      "word": "There's",
+      "startMs": 117440,
+      "endMs": 117600
+    },
+    {
+      "word": "no",
+      "startMs": 117640,
+      "endMs": 117740
+    },
+    {
+      "word": "such",
+      "startMs": 117800,
+      "endMs": 118040
+    },
+    {
+      "word": "thing",
+      "startMs": 118100,
+      "endMs": 118500
+    },
+    {
+      "word": "as",
+      "startMs": 118540,
+      "endMs": 118740
+    },
+    {
+      "word": "'off",
+      "startMs": 119280,
+      "endMs": 119540
+    },
+    {
+      "word": "the",
+      "startMs": 119600,
+      "endMs": 119680
+    },
+    {
+      "word": "record'.",
+      "startMs": 119720,
+      "endMs": 123140
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 123200,
+      "endMs": 124300
+    },
+    {
+      "word": "I",
+      "startMs": 124820,
+      "endMs": 124860
+    },
+    {
+      "word": "got",
+      "startMs": 124900,
+      "endMs": 125020
+    },
+    {
+      "word": "the",
+      "startMs": 125060,
+      "endMs": 125140
+    },
+    {
+      "word": "transcript...",
+      "startMs": 125180,
+      "endMs": 125930
+    },
+    {
+      "word": "(got",
+      "startMs": 125920,
+      "endMs": 126240
+    },
+    {
+      "word": "it",
+      "startMs": 126280,
+      "endMs": 126380
+    },
+    {
+      "word": "all",
+      "startMs": 126460,
+      "endMs": 126600
+    },
+    {
+      "word": "in",
+      "startMs": 126680,
+      "endMs": 126780
+    },
+    {
+      "word": "black",
+      "startMs": 126900,
+      "endMs": 127220
+    },
+    {
+      "word": "and",
+      "startMs": 127260,
+      "endMs": 127440
+    },
+    {
+      "word": "white)",
+      "startMs": 127540,
+      "endMs": 127920
+    },
+    {
+      "word": "The",
+      "startMs": 127940,
+      "endMs": 128039
+    },
+    {
+      "word": "part",
+      "startMs": 128100,
+      "endMs": 128340
+    },
+    {
+      "word": "you",
+      "startMs": 128380,
+      "endMs": 128460
+    },
+    {
+      "word": "thought",
+      "startMs": 128520,
+      "endMs": 128720
+    },
+    {
+      "word": "was",
+      "startMs": 128759,
+      "endMs": 128900
+    },
+    {
+      "word": "safe.",
+      "startMs": 128979,
+      "endMs": 130900
+    },
+    {
+      "word": "{dramatic",
+      "startMs": 131000,
+      "endMs": 131600
+    },
+    {
+      "word": "orchestral",
+      "startMs": 131620,
+      "endMs": 132080
+    },
+    {
+      "word": "brass",
+      "startMs": 132160,
+      "endMs": 133030
+    },
+    {
+      "word": "hit}",
+      "startMs": 133020,
+      "endMs": 133070
+    },
+    {
+      "word": "Read",
+      "startMs": 133100,
+      "endMs": 133220
+    },
+    {
+      "word": "all",
+      "startMs": 133260,
+      "endMs": 133320
+    },
+    {
+      "word": "about",
+      "startMs": 133380,
+      "endMs": 133650
+    },
+    {
+      "word": "it.",
+      "startMs": 133680,
+      "endMs": 139160
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.25,
+    "truePeakDb": -1.49,
+    "loudnessRangeLu": 4.7
+  },
+  "preview": {
+    "file": "previews/e04-scribe-heard-that.mp3",
+    "startS": 16.54,
+    "durationS": 60,
+    "vocalEntryS": 19.54
+  }
+}

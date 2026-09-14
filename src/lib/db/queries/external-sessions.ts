@@ -178,7 +178,12 @@ export async function upsertExternalSession(input: {
           externalMetadata: input.body.metadata ?? {},
           requestsOpen: settings.requestsOpen ?? true,
           autoApprove: settings.autoApprove ?? true,
-          autoDjEnabled: autoDj.enabled ?? false,
+          // On by default for Offsite rooms: a paired room screen should never
+          // sit in silence waiting for the first request. It costs nothing to
+          // leave on now that AutoDJ fills from the curated house playlist
+          // before it generates anything (see src/lib/autodj-pool.ts). The
+          // integration can still pass settings.autoDj.enabled = false.
+          autoDjEnabled: autoDj.enabled ?? true,
           autoDjTarget: autoDj.target ?? 2,
           autoDjBrief: autoDj.brief?.trim() || null,
           autoDjAutoplay: autoDj.autoplay ?? true,

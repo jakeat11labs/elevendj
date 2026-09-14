@@ -1,0 +1,645 @@
+{
+  "id": "E09",
+  "set": "eleven",
+  "title": "Isolate Me",
+  "concept": "Voice Isolator, demonstrated. The track is buried in noise until suddenly it is not.",
+  "genre": "cinematic electronic soul",
+  "bpm": 100,
+  "key": "D minor",
+  "lengthS": 155,
+  "prompt": "Cinematic electronic soul, 100 BPM, D minor \u2014 deep sub bass, filtered pads, restrained electronic drums, distant piano. Expressive female vocal asking to be heard clearly. Open the track buried under heavy room noise, hiss and crowd murmur with the vocal barely audible; at the halfway point cut every layer of noise away in one move leaving the vocal completely clean and close-mic'd, then rebuild the music underneath it. Dramatic, spacious, modern.",
+  "slug": "e09-isolate-me",
+  "file": "e09-isolate-me.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Hear Me Now",
+  "genres": [
+    "electronic",
+    "soul",
+    "cinematic"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 20,
+  "lyrics": [
+    "Can you hear me through the noise?",
+    "A faded signal, a buried voice",
+    "I'm calling out",
+    "Lost in the sound",
+    "Every word's a wave that breaks too soon",
+    "Underneath a pale and hazy moon",
+    "Am I getting through?",
+    "Trying to reach you",
+    "Just a whisper in the static's hum",
+    "Waiting for the quiet to come",
+    "Now... can you hear me now?",
+    "This is my voice, this is my sound",
+    "On solid ground",
+    "No more distortion, no more doubt",
+    "I'm finally breaking out",
+    "Hear me clearly now",
+    "(ooh, hear me now)",
+    "(ohhh)",
+    "(hear me)",
+    "(finally clear)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]\nCan you hear me through the noise?\nA faded signal, a buried voice\nI'm calling out\nLost in the sound",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "100 BPM",
+          "cinematic electronic soul",
+          "heavy room noise",
+          "tape hiss",
+          "distant crowd murmur",
+          "indistinct distant piano melody in D minor",
+          "muffled female vocal, heavily reverbed",
+          "lo-fi aesthetic",
+          "deep filtered sub bass rumble"
+        ],
+        "negativeStyles": [
+          "clear vocals",
+          "prominent drums",
+          "clean production"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse]\nEvery word's a wave that breaks too soon\nUnderneath a pale and hazy moon\nAm I getting through?\nTrying to reach you\nJust a whisper in the static's hum\nWaiting for the quiet to come",
+        "durationMs": 47500,
+        "positiveStyles": [
+          "100 BPM",
+          "dense atmospheric layers continue",
+          "restrained electronic drum loop enters, filtered and distant",
+          "filtered pads swell subtly",
+          "vocal remains washed out and hard to hear",
+          "distant piano in D minor continues",
+          "growing sense of longing",
+          "sub bass provides a deep cushion",
+          "lo-fi character"
+        ],
+        "negativeStyles": [
+          "clean vocals",
+          "loud drums"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[The Cut]\nNow... can you hear me now?",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "100 BPM",
+          "abrupt silence",
+          "all noise and music cut out completely",
+          "stark, dramatic shift",
+          "intimate female vocal, close-mic'd, dry",
+          "completely clean vocal sound",
+          "spacious",
+          "acappella"
+        ],
+        "negativeStyles": [
+          "any background noise",
+          "reverb",
+          "instrumentation"
+        ],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nThis is my voice, this is my sound\nOn solid ground\nNo more distortion, no more doubt\nI'm finally breaking out\nHear me clearly now\n(ooh, hear me now)",
+        "durationMs": 37500,
+        "positiveStyles": [
+          "100 BPM",
+          "clean piano chords in D minor re-enter",
+          "expressive female vocal, clear and upfront",
+          "deep, clean sub bass re-enters with purpose",
+          "crisp electronic drums build a solid groove",
+          "warm, evolving synth pads create a spacious bed",
+          "modern soul production",
+          "emotive and powerful delivery",
+          "wide stereo mix"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\n(ohhh)\n(hear me)\n(finally clear)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "100 BPM",
+          "instrumental coda",
+          "lush synth pads and piano intertwine",
+          "clean electronic drums and sub-bass continue",
+          "sentimental and hopeful mood",
+          "gradual fade out over the last 8 seconds",
+          "spacious reverb tails on piano",
+          "final chord held and fades to silence"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Can",
+      "startMs": 14100,
+      "endMs": 14320
+    },
+    {
+      "word": "you",
+      "startMs": 14400,
+      "endMs": 14480
+    },
+    {
+      "word": "hear",
+      "startMs": 14580,
+      "endMs": 14720
+    },
+    {
+      "word": "me",
+      "startMs": 14800,
+      "endMs": 14880
+    },
+    {
+      "word": "through",
+      "startMs": 14960,
+      "endMs": 15260
+    },
+    {
+      "word": "the",
+      "startMs": 15340,
+      "endMs": 15500
+    },
+    {
+      "word": "noise?",
+      "startMs": 15680,
+      "endMs": 16460
+    },
+    {
+      "word": "A",
+      "startMs": 17540,
+      "endMs": 17620
+    },
+    {
+      "word": "faded",
+      "startMs": 17720,
+      "endMs": 18080
+    },
+    {
+      "word": "signal,",
+      "startMs": 18200,
+      "endMs": 18660
+    },
+    {
+      "word": "a",
+      "startMs": 18680,
+      "endMs": 18690
+    },
+    {
+      "word": "buried",
+      "startMs": 18700,
+      "endMs": 19220
+    },
+    {
+      "word": "voice",
+      "startMs": 19460,
+      "endMs": 20060
+    },
+    {
+      "word": "I'm",
+      "startMs": 21260,
+      "endMs": 21420
+    },
+    {
+      "word": "calling",
+      "startMs": 21480,
+      "endMs": 22400
+    },
+    {
+      "word": "out",
+      "startMs": 22500,
+      "endMs": 22900
+    },
+    {
+      "word": "Lost",
+      "startMs": 25160,
+      "endMs": 25500
+    },
+    {
+      "word": "in",
+      "startMs": 25580,
+      "endMs": 25780
+    },
+    {
+      "word": "the",
+      "startMs": 25840,
+      "endMs": 25960
+    },
+    {
+      "word": "sound",
+      "startMs": 26020,
+      "endMs": 26940
+    },
+    {
+      "word": "Every",
+      "startMs": 43640,
+      "endMs": 44000
+    },
+    {
+      "word": "word's",
+      "startMs": 44080,
+      "endMs": 44340
+    },
+    {
+      "word": "a",
+      "startMs": 44360,
+      "endMs": 44460
+    },
+    {
+      "word": "wave",
+      "startMs": 44580,
+      "endMs": 45360
+    },
+    {
+      "word": "that",
+      "startMs": 45500,
+      "endMs": 46300
+    },
+    {
+      "word": "breaks",
+      "startMs": 46380,
+      "endMs": 47240
+    },
+    {
+      "word": "too",
+      "startMs": 47320,
+      "endMs": 47740
+    },
+    {
+      "word": "soon",
+      "startMs": 47980,
+      "endMs": 49060
+    },
+    {
+      "word": "Underneath",
+      "startMs": 50980,
+      "endMs": 51700
+    },
+    {
+      "word": "a",
+      "startMs": 51740,
+      "endMs": 51820
+    },
+    {
+      "word": "pale",
+      "startMs": 51960,
+      "endMs": 52860
+    },
+    {
+      "word": "and",
+      "startMs": 52880,
+      "endMs": 53640
+    },
+    {
+      "word": "hazy",
+      "startMs": 53780,
+      "endMs": 55220
+    },
+    {
+      "word": "moon",
+      "startMs": 55360,
+      "endMs": 56060
+    },
+    {
+      "word": "Am",
+      "startMs": 57900,
+      "endMs": 58140
+    },
+    {
+      "word": "I",
+      "startMs": 58220,
+      "endMs": 58260
+    },
+    {
+      "word": "getting",
+      "startMs": 58380,
+      "endMs": 59000
+    },
+    {
+      "word": "through?",
+      "startMs": 59060,
+      "endMs": 61040
+    },
+    {
+      "word": "Trying",
+      "startMs": 61120,
+      "endMs": 61600
+    },
+    {
+      "word": "to",
+      "startMs": 61660,
+      "endMs": 61800
+    },
+    {
+      "word": "reach",
+      "startMs": 61880,
+      "endMs": 62500
+    },
+    {
+      "word": "you",
+      "startMs": 62580,
+      "endMs": 63320
+    },
+    {
+      "word": "Just",
+      "startMs": 64360,
+      "endMs": 64580
+    },
+    {
+      "word": "a",
+      "startMs": 64620,
+      "endMs": 64760
+    },
+    {
+      "word": "whisper",
+      "startMs": 64820,
+      "endMs": 65280
+    },
+    {
+      "word": "in",
+      "startMs": 65360,
+      "endMs": 65480
+    },
+    {
+      "word": "the",
+      "startMs": 65540,
+      "endMs": 65620
+    },
+    {
+      "word": "static's",
+      "startMs": 65680,
+      "endMs": 66400
+    },
+    {
+      "word": "hum",
+      "startMs": 66460,
+      "endMs": 66860
+    },
+    {
+      "word": "Waiting",
+      "startMs": 72180,
+      "endMs": 72580
+    },
+    {
+      "word": "for",
+      "startMs": 72680,
+      "endMs": 72880
+    },
+    {
+      "word": "the",
+      "startMs": 72920,
+      "endMs": 73000
+    },
+    {
+      "word": "quiet",
+      "startMs": 73100,
+      "endMs": 73540
+    },
+    {
+      "word": "to",
+      "startMs": 73600,
+      "endMs": 73780
+    },
+    {
+      "word": "come",
+      "startMs": 73840,
+      "endMs": 74520
+    },
+    {
+      "word": "Now...",
+      "startMs": 81440,
+      "endMs": 83710
+    },
+    {
+      "word": "can",
+      "startMs": 83720,
+      "endMs": 83960
+    },
+    {
+      "word": "you",
+      "startMs": 84020,
+      "endMs": 84160
+    },
+    {
+      "word": "hear",
+      "startMs": 84240,
+      "endMs": 84640
+    },
+    {
+      "word": "me",
+      "startMs": 84720,
+      "endMs": 84900
+    },
+    {
+      "word": "now?",
+      "startMs": 85160,
+      "endMs": 86020
+    },
+    {
+      "word": "This",
+      "startMs": 87880,
+      "endMs": 88120
+    },
+    {
+      "word": "is",
+      "startMs": 88200,
+      "endMs": 88360
+    },
+    {
+      "word": "my",
+      "startMs": 88420,
+      "endMs": 88640
+    },
+    {
+      "word": "voice,",
+      "startMs": 88820,
+      "endMs": 90440
+    },
+    {
+      "word": "this",
+      "startMs": 91580,
+      "endMs": 91800
+    },
+    {
+      "word": "is",
+      "startMs": 91900,
+      "endMs": 92040
+    },
+    {
+      "word": "my",
+      "startMs": 92120,
+      "endMs": 92420
+    },
+    {
+      "word": "sound",
+      "startMs": 92460,
+      "endMs": 93120
+    },
+    {
+      "word": "On",
+      "startMs": 94820,
+      "endMs": 95060
+    },
+    {
+      "word": "solid",
+      "startMs": 95240,
+      "endMs": 95820
+    },
+    {
+      "word": "ground",
+      "startMs": 96020,
+      "endMs": 96660
+    },
+    {
+      "word": "No",
+      "startMs": 98480,
+      "endMs": 98720
+    },
+    {
+      "word": "more",
+      "startMs": 98980,
+      "endMs": 99360
+    },
+    {
+      "word": "distortion,",
+      "startMs": 99480,
+      "endMs": 102420
+    },
+    {
+      "word": "no",
+      "startMs": 102480,
+      "endMs": 102660
+    },
+    {
+      "word": "more",
+      "startMs": 102920,
+      "endMs": 103340
+    },
+    {
+      "word": "doubt",
+      "startMs": 103400,
+      "endMs": 104260
+    },
+    {
+      "word": "I'm",
+      "startMs": 105200,
+      "endMs": 105280
+    },
+    {
+      "word": "finally",
+      "startMs": 105440,
+      "endMs": 106040
+    },
+    {
+      "word": "breaking",
+      "startMs": 106120,
+      "endMs": 107080
+    },
+    {
+      "word": "out",
+      "startMs": 107180,
+      "endMs": 107740
+    },
+    {
+      "word": "Hear",
+      "startMs": 109400,
+      "endMs": 109740
+    },
+    {
+      "word": "me",
+      "startMs": 109840,
+      "endMs": 109980
+    },
+    {
+      "word": "clearly",
+      "startMs": 110040,
+      "endMs": 110640
+    },
+    {
+      "word": "now",
+      "startMs": 110780,
+      "endMs": 111200
+    },
+    {
+      "word": "(ooh,",
+      "startMs": 112360,
+      "endMs": 117320
+    },
+    {
+      "word": "hear",
+      "startMs": 117440,
+      "endMs": 117800
+    },
+    {
+      "word": "me",
+      "startMs": 117900,
+      "endMs": 118080
+    },
+    {
+      "word": "now)",
+      "startMs": 118120,
+      "endMs": 118820
+    },
+    {
+      "word": "(ohhh)",
+      "startMs": 121360,
+      "endMs": 136600
+    },
+    {
+      "word": "(hear",
+      "startMs": 136680,
+      "endMs": 137680
+    },
+    {
+      "word": "me)",
+      "startMs": 137780,
+      "endMs": 139580
+    },
+    {
+      "word": "(finally",
+      "startMs": 139580,
+      "endMs": 144980
+    },
+    {
+      "word": "clear)",
+      "startMs": 145060,
+      "endMs": 154960
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.26,
+    "truePeakDb": -1.39,
+    "loudnessRangeLu": 7.1
+  },
+  "preview": {
+    "file": "previews/e09-isolate-me.mp3",
+    "startS": 11.1,
+    "durationS": 60,
+    "vocalEntryS": 14.1
+  }
+}

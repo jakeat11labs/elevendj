@@ -27,6 +27,8 @@ export type AutoDjConfig = {
   durationMs: number;
   forceInstrumental: boolean;
   agendaEndsAt: Date | null;
+  /** "integration" = Offsite agenda room, which gets the curated playlist. */
+  source: string;
 };
 
 export async function getAutoDjConfig(
@@ -46,6 +48,7 @@ export async function getAutoDjConfig(
         durationMs: sessions.defaultDurationMs,
         forceInstrumental: sessions.forceInstrumental,
         agendaEndsAt: sessions.agendaEndsAt,
+        source: sessions.source,
       })
       .from(sessions)
       .where(eq(sessions.id, sessionId))
@@ -63,6 +66,7 @@ export async function getAutoDjConfig(
       durationMs: row.durationMs,
       forceInstrumental: row.forceInstrumental,
       agendaEndsAt: row.agendaEndsAt,
+      source: row.source,
     };
   });
 }
@@ -106,6 +110,200 @@ export async function countReadyRequests(sessionId: string): Promise<number> {
         )
       );
     return value ?? 0;
+  });
+}
+
+/**
+ * Per-track play history for a room, keyed by curated house-track id. Drives
+ * rotation: the in-memory shuffle bag the players use for station IDs is no use
+ * here because each serverless invocation starts with an empty one, so the
+ * ordering has to come from the database instead.
+ */
+export type HouseTrackUsage = {
+  /** Already queued/generating/ready in this room — must not be added twice. */
+  active: Set<string>;
+  /** Last time each track was added to this room. */
+  lastUsedAt: Map<string, number>;
+};
+
+export async function getHouseTrackUsage(
+  sessionId: string
+): Promise<HouseTrackUsage> {
+  return dbCall(async () => {
+    const result = await db.execute<{
+      house_track_id: string;
+      active: boolean;
+      last_used: string;
+    }>(sql`
+      select
+        metadata->>'houseTrackId' as house_track_id,
+        bool_or(status in ('queued', 'generating', 'ready')) as active,
+        max(created_at) as last_used
+      from song_requests
+      where session_id = ${sessionId}::uuid
+        and metadata ? 'houseTrackId'
+      group by 1
+    `);
+
+    const active = new Set<string>();
+    const lastUsedAt = new Map<string, number>();
+    for (const row of result.rows) {
+      if (!row.house_track_id) continue;
+      if (row.active) active.add(row.house_track_id);
+      lastUsedAt.set(row.house_track_id, new Date(row.last_used).getTime());
+    }
+    return { active, lastUsedAt };
+  });
+}
+
+/** The curated-track fields this layer needs, structurally typed to keep the
+ * DB layer from importing the (server-only, ~200 KB) playlist manifest. */
+export type HouseTrackInput = {
+  id: string;
+  set: string;
+  title: string;
+  blurb: string;
+  genre: string;
+  url: string;
+  durationMs: number;
+  lyrics: unknown;
+};
+
+/**
+ * Drop a pre-rendered house track straight into the queue as `ready`.
+ *
+ * Unlike createAutoDjRequest there is nothing to generate — the audio already
+ * exists — so the row is inserted complete with audioUrl, title and timed
+ * lyrics and never touches the generation pipeline or costs credits. It is
+ * otherwise an ordinary `kind: "request"` row, so it plays, crossfades, drives
+ * karaoke and anchors station IDs exactly like an audience request.
+ *
+ * The result distinguishes "room is full" from "another pass claimed this
+ * track" so the caller knows whether to stop or try the next candidate —
+ * without it, a room sitting at target would re-probe every track in the
+ * playlist on every one-second player poll.
+ */
+export type HouseTrackInsert =
+  | { status: "created"; id: string }
+  | { status: "at-target" }
+  | { status: "taken" };
+
+export async function createHouseTrackRequest(
+  config: AutoDjConfig,
+  track: HouseTrackInput
+): Promise<HouseTrackInsert> {
+  return dbCall(async () => {
+    const stamp = randomUUID();
+    const clientTokenHash = hashValue(
+      `house:${config.sessionId}`,
+      "client-token"
+    );
+    const idempotencyKey = hashValue(
+      `house:${config.sessionId}:${track.id}:${stamp}`,
+      "idempotency"
+    );
+    const normalizedPrompt = `${normalizePrompt(track.blurb)}:house:${track.id}:${stamp}`;
+    const metadata = JSON.stringify({
+      houseTrackId: track.id,
+      houseSet: track.set,
+      genre: track.genre,
+    });
+
+    // Same advisory lock as the generated path so concurrent player polls can't
+    // both observe the same shortfall. The extra `not exists` guard is what
+    // stops two passes racing the same track into one room's queue.
+    const result = await db.execute<{
+      id: string | null;
+      depth: number;
+    }>(sql`
+      with room_lock as (
+        select pg_advisory_xact_lock(
+          hashtextextended(${config.sessionId}, 0)
+        )
+      ),
+      queue_state as (
+        select
+          (
+            select count(*)
+            from song_requests
+            where session_id = ${config.sessionId}::uuid
+              and kind = 'request'
+              and status in ('queued', 'generating', 'ready')
+          )::int as depth,
+          (
+            select coalesce(max(position), 0)
+            from song_requests
+            where session_id = ${config.sessionId}::uuid
+              and position is not null
+          )::int as last_position
+        from room_lock
+      ),
+      inserted as (
+      insert into song_requests (
+        session_id,
+        client_token_hash,
+        requester_name,
+        source,
+        kind,
+        prompt,
+        normalized_prompt,
+        status,
+        position,
+        duration_ms,
+        force_instrumental,
+        idempotency_key,
+        audio_url,
+        title,
+        lyrics,
+        metadata,
+        completed_at
+      )
+      select
+        ${config.sessionId}::uuid,
+        ${clientTokenHash},
+        null,
+        'auto',
+        'request',
+        ${track.blurb},
+        ${normalizedPrompt},
+        'ready',
+        queue_state.last_position + 1,
+        ${track.durationMs},
+        false,
+        ${idempotencyKey},
+        ${track.url},
+        ${track.title},
+        ${JSON.stringify(track.lyrics)}::jsonb,
+        ${metadata}::jsonb,
+        now()
+      from queue_state
+      where queue_state.depth < ${config.target}
+        and not exists (
+          select 1
+          from song_requests existing
+          where existing.session_id = ${config.sessionId}::uuid
+            and existing.metadata->>'houseTrackId' = ${track.id}
+            and existing.status in ('queued', 'generating', 'ready')
+        )
+      returning id
+      )
+      select
+        (select id from inserted) as id,
+        (select depth from queue_state) as depth
+    `);
+
+    const row = result.rows[0];
+    if (!row?.id) {
+      return (row?.depth ?? 0) >= config.target
+        ? { status: "at-target" }
+        : { status: "taken" };
+    }
+
+    await recordEvent(row.id, "house_track_queued", {
+      houseTrackId: track.id,
+      title: track.title,
+    });
+    return { status: "created", id: row.id };
   });
 }
 

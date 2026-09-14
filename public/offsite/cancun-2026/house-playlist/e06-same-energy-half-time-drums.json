@@ -1,0 +1,886 @@
+{
+  "id": "E06",
+  "set": "eleven",
+  "title": "Same Energy, Half-Time Drums",
+  "concept": "Audio Reference explained in one sentence \u2014 a line lifted straight from the docs \u2014 then demonstrated.",
+  "genre": "neo-soul",
+  "bpm": 92,
+  "key": "B flat minor",
+  "lengthS": 160,
+  "prompt": "Neo-soul, 92 BPM, B flat minor \u2014 silky electric piano chords, pocket drums, round fretless bass, soft horn pad. Warm female vocal, conversational, about pointing at a feeling instead of describing it. Play the first half with a straight backbeat, then drop to half-time drums for the second half while everything else keeps the same energy. Warm analog glue, close and intimate.",
+  "slug": "e06-same-energy-half-time-drums",
+  "file": "e06-same-energy-half-time-drums.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Point Instead",
+  "genres": [
+    "neo-soul",
+    "r&b",
+    "soul"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 27,
+  "lyrics": [
+    "You know when the light hits the window just so?",
+    "Not the color, not the shape",
+    "But the way it holds the dust",
+    "Like a thousand tiny stars...",
+    "That's the thing I'm trying to show",
+    "It lives right there, behind the words",
+    "A feeling you can't name",
+    "(Can't name it)",
+    "I can't explain it, I just point instead",
+    "And that quiet in the car",
+    "After the rain has finally stopped",
+    "Yeah, that part...",
+    "That's what I mean.",
+    "And it lives right there, behind the words",
+    "(Oh, right there)",
+    "A feeling you can't name",
+    "I can't explain it, I just point instead",
+    "(Just point instead)",
+    "Some things don't fit in a sentence",
+    "They just hang in the air",
+    "And you either get it...",
+    "Or you don't",
+    "See? Right there.",
+    "(Uhm, that's the one)",
+    "Yeah...",
+    "(Ooooh)",
+    "Just like that."
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 10000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Silky electric piano chords with light tremolo",
+          "Minimalist pocket drum groove, just kick and hi-hat",
+          "Soft, atmospheric horn pad swell",
+          "Warm analog production",
+          "Intimate and spacious mix",
+          "Instrumental intro"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nYou know when the light hits the window just so?\nNot the color, not the shape\nBut the way it holds the dust\nLike a thousand tiny stars...\nThat's the thing I'm trying to show",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Conversational, warm female lead vocal",
+          "Steady, in-the-pocket drum backbeat with crisp snare",
+          "Round, melodic fretless bass line enters",
+          "Silky electric piano provides harmonic foundation",
+          "Subtle horn pad in the background",
+          "Close-mic'd vocal for an intimate feel"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus]\nIt lives right there, behind the words\nA feeling you can't name\n(Can't name it)\nI can't explain it, I just point instead",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Slightly more dynamic female vocal, soulful",
+          "Full pocket drum groove, a little more cymbal work",
+          "Fretless bass becomes more expressive",
+          "Lush electric piano chords",
+          "Horn pad swells gently with more presence",
+          "Warm analog glue across the mix",
+          "Subtle layered backing vocals"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nAnd that quiet in the car\nAfter the rain has finally stopped\nYeah, that part...\nThat's what I mean.",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Return to a conversational, intimate vocal delivery",
+          "Steady backbeat drum pattern",
+          "Melodic fretless bass supporting the vocal",
+          "Electric piano chords with slightly different voicings",
+          "Gentle horn pad weaving in and out",
+          "Focused, dry production"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus (Half-Time)]\nAnd it lives right there, behind the words\n(Oh, right there)\nA feeling you can't name\nI can't explain it, I just point instead\n(Just point instead)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Half-time drum feel, deep pocket",
+          "Soulful and emotive female vocal",
+          "Electric piano and horn pad maintain original energy",
+          "Fretless bass locks into the new deep groove",
+          "Spacious, laid-back but powerful feel",
+          "More prominent backing vocals"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Bridge]\nSome things don't fit in a sentence\nThey just hang in the air\nAnd you either get it...\nOr you don't",
+        "durationMs": 20000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Half-time groove continues, but more stripped back",
+          "Drums reduce to kick, snare, and hi-hats",
+          "Breathy, close-up female vocal",
+          "Electric piano plays a simple, questioning motif",
+          "Fretless bass holds long, sustained notes",
+          "Horns are silent, creating space"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\nSee? Right there.\n(Uhm, that's the one)\nYeah...\n(Ooooh)\nJust like that.",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "92 BPM",
+          "B-flat minor",
+          "Deep half-time pocket drum groove",
+          "Ad-libbing, soulful female vocal riffs",
+          "Fretless bass solo, melodic and lyrical",
+          "Silky electric piano chords fade slowly",
+          "Warm horn pad returns for a final swell",
+          "Warm analog tape saturation",
+          "Fade out over the last 5 seconds"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "You",
+      "startMs": 20620,
+      "endMs": 20720
+    },
+    {
+      "word": "know",
+      "startMs": 20840,
+      "endMs": 21220
+    },
+    {
+      "word": "when",
+      "startMs": 21240,
+      "endMs": 21500
+    },
+    {
+      "word": "the",
+      "startMs": 21580,
+      "endMs": 21800
+    },
+    {
+      "word": "light",
+      "startMs": 21880,
+      "endMs": 22420
+    },
+    {
+      "word": "hits",
+      "startMs": 22800,
+      "endMs": 23100
+    },
+    {
+      "word": "the",
+      "startMs": 23160,
+      "endMs": 23420
+    },
+    {
+      "word": "window",
+      "startMs": 23460,
+      "endMs": 24000
+    },
+    {
+      "word": "just",
+      "startMs": 24100,
+      "endMs": 24340
+    },
+    {
+      "word": "so?",
+      "startMs": 24440,
+      "endMs": 25380
+    },
+    {
+      "word": "Not",
+      "startMs": 25420,
+      "endMs": 25620
+    },
+    {
+      "word": "the",
+      "startMs": 25740,
+      "endMs": 25920
+    },
+    {
+      "word": "color,",
+      "startMs": 26040,
+      "endMs": 26680
+    },
+    {
+      "word": "not",
+      "startMs": 26780,
+      "endMs": 27000
+    },
+    {
+      "word": "the",
+      "startMs": 27040,
+      "endMs": 27120
+    },
+    {
+      "word": "shape",
+      "startMs": 27180,
+      "endMs": 27840
+    },
+    {
+      "word": "But",
+      "startMs": 29860,
+      "endMs": 31150
+    },
+    {
+      "word": "the",
+      "startMs": 31160,
+      "endMs": 31280
+    },
+    {
+      "word": "way",
+      "startMs": 31360,
+      "endMs": 31600
+    },
+    {
+      "word": "it",
+      "startMs": 31740,
+      "endMs": 31860
+    },
+    {
+      "word": "holds",
+      "startMs": 31920,
+      "endMs": 32259
+    },
+    {
+      "word": "the",
+      "startMs": 32280,
+      "endMs": 32380
+    },
+    {
+      "word": "dust",
+      "startMs": 32460,
+      "endMs": 33200
+    },
+    {
+      "word": "Like",
+      "startMs": 33260,
+      "endMs": 33560
+    },
+    {
+      "word": "a",
+      "startMs": 33660,
+      "endMs": 33800
+    },
+    {
+      "word": "thousand",
+      "startMs": 33880,
+      "endMs": 34440
+    },
+    {
+      "word": "tiny",
+      "startMs": 34540,
+      "endMs": 34940
+    },
+    {
+      "word": "stars...",
+      "startMs": 35040,
+      "endMs": 36150
+    },
+    {
+      "word": "That's",
+      "startMs": 36160,
+      "endMs": 36320
+    },
+    {
+      "word": "the",
+      "startMs": 36340,
+      "endMs": 36420
+    },
+    {
+      "word": "thing",
+      "startMs": 36500,
+      "endMs": 36840
+    },
+    {
+      "word": "I'm",
+      "startMs": 36960,
+      "endMs": 37100
+    },
+    {
+      "word": "trying",
+      "startMs": 37140,
+      "endMs": 37480
+    },
+    {
+      "word": "to",
+      "startMs": 37520,
+      "endMs": 37560
+    },
+    {
+      "word": "show",
+      "startMs": 37640,
+      "endMs": 38220
+    },
+    {
+      "word": "It",
+      "startMs": 41480,
+      "endMs": 41700
+    },
+    {
+      "word": "lives",
+      "startMs": 41760,
+      "endMs": 42260
+    },
+    {
+      "word": "right",
+      "startMs": 42320,
+      "endMs": 42640
+    },
+    {
+      "word": "there,",
+      "startMs": 42760,
+      "endMs": 43980
+    },
+    {
+      "word": "behind",
+      "startMs": 44060,
+      "endMs": 44820
+    },
+    {
+      "word": "the",
+      "startMs": 44900,
+      "endMs": 45120
+    },
+    {
+      "word": "words",
+      "startMs": 45360,
+      "endMs": 46280
+    },
+    {
+      "word": "A",
+      "startMs": 46680,
+      "endMs": 46740
+    },
+    {
+      "word": "feeling",
+      "startMs": 46940,
+      "endMs": 47940
+    },
+    {
+      "word": "you",
+      "startMs": 48060,
+      "endMs": 48440
+    },
+    {
+      "word": "can't",
+      "startMs": 48560,
+      "endMs": 49210
+    },
+    {
+      "word": "name",
+      "startMs": 49280,
+      "endMs": 50080
+    },
+    {
+      "word": "(Can't",
+      "startMs": 50140,
+      "endMs": 50840
+    },
+    {
+      "word": "name",
+      "startMs": 50920,
+      "endMs": 51540
+    },
+    {
+      "word": "it)",
+      "startMs": 51640,
+      "endMs": 51880
+    },
+    {
+      "word": "I",
+      "startMs": 51920,
+      "endMs": 52100
+    },
+    {
+      "word": "can't",
+      "startMs": 52180,
+      "endMs": 52860
+    },
+    {
+      "word": "explain",
+      "startMs": 52900,
+      "endMs": 53820
+    },
+    {
+      "word": "it,",
+      "startMs": 53900,
+      "endMs": 54460
+    },
+    {
+      "word": "I",
+      "startMs": 54620,
+      "endMs": 54900
+    },
+    {
+      "word": "just",
+      "startMs": 55180,
+      "endMs": 55740
+    },
+    {
+      "word": "point",
+      "startMs": 55800,
+      "endMs": 56480
+    },
+    {
+      "word": "instead",
+      "startMs": 56560,
+      "endMs": 58020
+    },
+    {
+      "word": "And",
+      "startMs": 62140,
+      "endMs": 62260
+    },
+    {
+      "word": "that",
+      "startMs": 62320,
+      "endMs": 62540
+    },
+    {
+      "word": "quiet",
+      "startMs": 62600,
+      "endMs": 63300
+    },
+    {
+      "word": "in",
+      "startMs": 63380,
+      "endMs": 63540
+    },
+    {
+      "word": "the",
+      "startMs": 63580,
+      "endMs": 63640
+    },
+    {
+      "word": "car",
+      "startMs": 63760,
+      "endMs": 64400
+    },
+    {
+      "word": "After",
+      "startMs": 66960,
+      "endMs": 67460
+    },
+    {
+      "word": "the",
+      "startMs": 67520,
+      "endMs": 67640
+    },
+    {
+      "word": "rain",
+      "startMs": 67720,
+      "endMs": 68160
+    },
+    {
+      "word": "has",
+      "startMs": 68200,
+      "endMs": 68380
+    },
+    {
+      "word": "finally",
+      "startMs": 68480,
+      "endMs": 68900
+    },
+    {
+      "word": "stopped",
+      "startMs": 68960,
+      "endMs": 69550
+    },
+    {
+      "word": "Yeah,",
+      "startMs": 72040,
+      "endMs": 72380
+    },
+    {
+      "word": "that",
+      "startMs": 72420,
+      "endMs": 72660
+    },
+    {
+      "word": "part...",
+      "startMs": 72700,
+      "endMs": 77210
+    },
+    {
+      "word": "That's",
+      "startMs": 77240,
+      "endMs": 77580
+    },
+    {
+      "word": "what",
+      "startMs": 77620,
+      "endMs": 77820
+    },
+    {
+      "word": "I",
+      "startMs": 77920,
+      "endMs": 78100
+    },
+    {
+      "word": "mean.",
+      "startMs": 78200,
+      "endMs": 80440
+    },
+    {
+      "word": "And",
+      "startMs": 83000,
+      "endMs": 83180
+    },
+    {
+      "word": "it",
+      "startMs": 83220,
+      "endMs": 83440
+    },
+    {
+      "word": "lives",
+      "startMs": 83480,
+      "endMs": 83980
+    },
+    {
+      "word": "right",
+      "startMs": 84060,
+      "endMs": 84440
+    },
+    {
+      "word": "there,",
+      "startMs": 84500,
+      "endMs": 85700
+    },
+    {
+      "word": "behind",
+      "startMs": 85780,
+      "endMs": 86580
+    },
+    {
+      "word": "the",
+      "startMs": 86640,
+      "endMs": 86840
+    },
+    {
+      "word": "words",
+      "startMs": 87080,
+      "endMs": 88020
+    },
+    {
+      "word": "(Oh,",
+      "startMs": 88360,
+      "endMs": 88560
+    },
+    {
+      "word": "right",
+      "startMs": 88560,
+      "endMs": 88570
+    },
+    {
+      "word": "there)",
+      "startMs": 88560,
+      "endMs": 88570
+    },
+    {
+      "word": "A",
+      "startMs": 88560,
+      "endMs": 88580
+    },
+    {
+      "word": "feeling",
+      "startMs": 88620,
+      "endMs": 89660
+    },
+    {
+      "word": "you",
+      "startMs": 89800,
+      "endMs": 90160
+    },
+    {
+      "word": "can't",
+      "startMs": 90360,
+      "endMs": 90910
+    },
+    {
+      "word": "name",
+      "startMs": 91040,
+      "endMs": 91820
+    },
+    {
+      "word": "I",
+      "startMs": 93780,
+      "endMs": 93860
+    },
+    {
+      "word": "can't",
+      "startMs": 93980,
+      "endMs": 94620
+    },
+    {
+      "word": "explain",
+      "startMs": 94660,
+      "endMs": 95580
+    },
+    {
+      "word": "it,",
+      "startMs": 95640,
+      "endMs": 96200
+    },
+    {
+      "word": "I",
+      "startMs": 96340,
+      "endMs": 96500
+    },
+    {
+      "word": "just",
+      "startMs": 96900,
+      "endMs": 97400
+    },
+    {
+      "word": "point",
+      "startMs": 97520,
+      "endMs": 98200
+    },
+    {
+      "word": "instead",
+      "startMs": 98300,
+      "endMs": 100080
+    },
+    {
+      "word": "(Just",
+      "startMs": 101020,
+      "endMs": 101360
+    },
+    {
+      "word": "point",
+      "startMs": 101420,
+      "endMs": 102100
+    },
+    {
+      "word": "instead)",
+      "startMs": 102180,
+      "endMs": 104300
+    },
+    {
+      "word": "Some",
+      "startMs": 114040,
+      "endMs": 114380
+    },
+    {
+      "word": "things",
+      "startMs": 114460,
+      "endMs": 115060
+    },
+    {
+      "word": "don't",
+      "startMs": 115120,
+      "endMs": 115680
+    },
+    {
+      "word": "fit",
+      "startMs": 115800,
+      "endMs": 116460
+    },
+    {
+      "word": "in",
+      "startMs": 116580,
+      "endMs": 116760
+    },
+    {
+      "word": "a",
+      "startMs": 116820,
+      "endMs": 116900
+    },
+    {
+      "word": "sentence",
+      "startMs": 117040,
+      "endMs": 118600
+    },
+    {
+      "word": "They",
+      "startMs": 119040,
+      "endMs": 119300
+    },
+    {
+      "word": "just",
+      "startMs": 119380,
+      "endMs": 119580
+    },
+    {
+      "word": "hang",
+      "startMs": 119700,
+      "endMs": 120620
+    },
+    {
+      "word": "in",
+      "startMs": 121660,
+      "endMs": 121900
+    },
+    {
+      "word": "the",
+      "startMs": 121960,
+      "endMs": 122180
+    },
+    {
+      "word": "air",
+      "startMs": 122420,
+      "endMs": 122900
+    },
+    {
+      "word": "And",
+      "startMs": 123620,
+      "endMs": 123900
+    },
+    {
+      "word": "you",
+      "startMs": 123980,
+      "endMs": 124180
+    },
+    {
+      "word": "either",
+      "startMs": 124340,
+      "endMs": 124760
+    },
+    {
+      "word": "get",
+      "startMs": 124920,
+      "endMs": 125260
+    },
+    {
+      "word": "it...",
+      "startMs": 125320,
+      "endMs": 127470
+    },
+    {
+      "word": "Or",
+      "startMs": 127520,
+      "endMs": 127620
+    },
+    {
+      "word": "you",
+      "startMs": 127660,
+      "endMs": 127740
+    },
+    {
+      "word": "don't",
+      "startMs": 127840,
+      "endMs": 128360
+    },
+    {
+      "word": "See?",
+      "startMs": 132680,
+      "endMs": 134000
+    },
+    {
+      "word": "Right",
+      "startMs": 134640,
+      "endMs": 134920
+    },
+    {
+      "word": "there.",
+      "startMs": 135040,
+      "endMs": 135960
+    },
+    {
+      "word": "(Uhm,",
+      "startMs": 137260,
+      "endMs": 137910
+    },
+    {
+      "word": "that's",
+      "startMs": 137920,
+      "endMs": 138080
+    },
+    {
+      "word": "the",
+      "startMs": 138140,
+      "endMs": 138250
+    },
+    {
+      "word": "one)",
+      "startMs": 138340,
+      "endMs": 139780
+    },
+    {
+      "word": "Yeah...",
+      "startMs": 139820,
+      "endMs": 143120
+    },
+    {
+      "word": "(Ooooh)",
+      "startMs": 145020,
+      "endMs": 148340
+    },
+    {
+      "word": "Just",
+      "startMs": 150360,
+      "endMs": 150620
+    },
+    {
+      "word": "like",
+      "startMs": 150700,
+      "endMs": 150960
+    },
+    {
+      "word": "that.",
+      "startMs": 151020,
+      "endMs": 154640
+    }
+  ],
+  "attempts": 1,
+  "measured": {
+    "integratedLufs": -14.26,
+    "truePeakDb": -2.36,
+    "loudnessRangeLu": 4.2
+  },
+  "preview": {
+    "file": "previews/e06-same-energy-half-time-drums.mp3",
+    "startS": 17.62,
+    "durationS": 60,
+    "vocalEntryS": 20.62
+  }
+}

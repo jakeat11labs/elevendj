@@ -1,0 +1,766 @@
+{
+  "id": "C01",
+  "set": "cancun",
+  "title": "Sand In The Slide Deck",
+  "concept": "You flew four hours for strategy and there is sand in your keynote. Nobody minds.",
+  "genre": "tropical house",
+  "bpm": 112,
+  "key": "A major",
+  "lengthS": 165,
+  "prompt": "Tropical house, 112 BPM, A major, bright sunlit production — plucked marimba lead, soft steel-pan stabs, warm sub bass, shuffled shaker groove, airy pad. Relaxed male lead vocal singing in clear neutral American English, easy melodic hook, light gang-vocal answer on the chorus about arriving for the offsite with sand already in the slide deck. Sung in English only, every lyric intelligible, no Spanish lyrics, no mumbling. Short marimba intro, drop by fifteen seconds, big open chorus, warm analog tape sheen.",
+  "slug": "c01-sand-in-the-slide-deck",
+  "file": "c01-sand-in-the-slide-deck.mp3",
+  "modelId": "music_v2_5",
+  "outputFormat": "mp3_48000_192",
+  "generatedTitle": "Sand In The Slide Deck",
+  "genres": [
+    "tropical house",
+    "pop",
+    "electronic"
+  ],
+  "languages": [
+    "en"
+  ],
+  "isExplicit": false,
+  "lyricLineCount": 21,
+  "lyrics": [
+    "Screen glare on my sunglasses",
+    "Another tuesday, feeling hazy",
+    "Got the email, packed my cases",
+    "Left the high-rise for something crazy",
+    "Hello offsite, goodbye timezone",
+    "We finally made it, feeling brand new",
+    "Got sand in the slide deck, yeah",
+    "(We got sand in the slide deck)",
+    "Left the real world all alone",
+    "Trading spreadsheets for a coastline view",
+    "No more status meetings, it's true",
+    "Just the sound of the ocean breaking",
+    "And a new perspective we're all making",
+    "Hello offsite, goodbye timezone",
+    "We finally made it, feeling brand new",
+    "Got sand in the slide deck, yeah",
+    "(We got sand in the slide deck)",
+    "Left the real world all alone",
+    "(Sand in the slide deck)",
+    "(Oh yeah)",
+    "(Feeling brand new)"
+  ],
+  "compositionPlan": {
+    "chunks": [
+      {
+        "text": "[Intro]",
+        "durationMs": 15000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "bright sunlit production",
+          "plucked marimba lead melody",
+          "light shakers",
+          "gentle ocean wave soundscape",
+          "clean mix",
+          "intro section"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 1]\nScreen glare on my sunglasses\nAnother tuesday, feeling hazy\nGot the email, packed my cases\nLeft the high-rise for something crazy",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "relaxed male lead vocal",
+          "clear American English diction",
+          "warm sub bass enters",
+          "four-on-the-floor kick drum",
+          "shuffled shaker groove",
+          "airy pad background",
+          "verse builds gently"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 1]\nHello offsite, goodbye timezone\nWe finally made it, feeling brand new\nGot sand in the slide deck, yeah\n(We got sand in the slide deck)\nLeft the real world all alone",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "big open chorus",
+          "plucked marimba lead hook",
+          "soft steel-pan stabs",
+          "light gang-vocal harmony on chorus hook",
+          "driving sub bass",
+          "shuffled shaker groove is prominent",
+          "warm analog tape sheen",
+          "euphoric peak"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Verse 2]\nTrading spreadsheets for a coastline view\nNo more status meetings, it's true\nJust the sound of the ocean breaking\nAnd a new perspective we're all making",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "relaxed male lead vocal",
+          "intimate vocal delivery",
+          "kick and bass continue",
+          "marimba melody is more sparse",
+          "subtle synth arpeggio",
+          "airy pad swells slightly",
+          "building anticipation for chorus"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Chorus 2]\nHello offsite, goodbye timezone\nWe finally made it, feeling brand new\nGot sand in the slide deck, yeah\n(We got sand in the slide deck)\nLeft the real world all alone",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "energetic chorus reprise",
+          "plucked marimba lead hook prominent",
+          "layered steel-pan stabs",
+          "stronger gang-vocal harmony",
+          "driving sub bass with sidechain compression",
+          "full shaker and percussion groove",
+          "warm analog tape saturation",
+          "peak energy"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      },
+      {
+        "text": "[Outro]\n(Sand in the slide deck)\n(Oh yeah)\n(Feeling brand new)",
+        "durationMs": 30000,
+        "positiveStyles": [
+          "112 BPM",
+          "A major",
+          "instrumental outro",
+          "plucked marimba lead melody fades out",
+          "kick and bass fade",
+          "airy pad and shaker groove continue then fade",
+          "gentle ocean wave soundscape returns",
+          "warm analog tape sheen",
+          "long slow fade out"
+        ],
+        "negativeStyles": [],
+        "contextAdherence": "high",
+        "conditioningRef": null,
+        "conditionStrength": null
+      }
+    ]
+  },
+  "wordsTimestamps": [
+    {
+      "word": "Screen",
+      "startMs": 18360,
+      "endMs": 18940
+    },
+    {
+      "word": "glare",
+      "startMs": 18980,
+      "endMs": 19540
+    },
+    {
+      "word": "on",
+      "startMs": 19640,
+      "endMs": 20260
+    },
+    {
+      "word": "my",
+      "startMs": 20900,
+      "endMs": 21000
+    },
+    {
+      "word": "sunglasses",
+      "startMs": 21180,
+      "endMs": 23360
+    },
+    {
+      "word": "Another",
+      "startMs": 26840,
+      "endMs": 27520
+    },
+    {
+      "word": "tuesday,",
+      "startMs": 27580,
+      "endMs": 29120
+    },
+    {
+      "word": "feeling",
+      "startMs": 29180,
+      "endMs": 29660
+    },
+    {
+      "word": "hazy",
+      "startMs": 29720,
+      "endMs": 31040
+    },
+    {
+      "word": "Got",
+      "startMs": 35600,
+      "endMs": 35840
+    },
+    {
+      "word": "the",
+      "startMs": 35920,
+      "endMs": 36120
+    },
+    {
+      "word": "email,",
+      "startMs": 36240,
+      "endMs": 37720
+    },
+    {
+      "word": "packed",
+      "startMs": 37780,
+      "endMs": 38020
+    },
+    {
+      "word": "my",
+      "startMs": 38080,
+      "endMs": 38240
+    },
+    {
+      "word": "cases",
+      "startMs": 38320,
+      "endMs": 39280
+    },
+    {
+      "word": "Left",
+      "startMs": 39880,
+      "endMs": 40200
+    },
+    {
+      "word": "the",
+      "startMs": 40220,
+      "endMs": 40360
+    },
+    {
+      "word": "high-rise",
+      "startMs": 40480,
+      "endMs": 41480
+    },
+    {
+      "word": "for",
+      "startMs": 41780,
+      "endMs": 41920
+    },
+    {
+      "word": "something",
+      "startMs": 42020,
+      "endMs": 42520
+    },
+    {
+      "word": "crazy",
+      "startMs": 42560,
+      "endMs": 43480
+    },
+    {
+      "word": "Hello",
+      "startMs": 51380,
+      "endMs": 53240
+    },
+    {
+      "word": "offsite,",
+      "startMs": 53340,
+      "endMs": 54860
+    },
+    {
+      "word": "goodbye",
+      "startMs": 54900,
+      "endMs": 55340
+    },
+    {
+      "word": "timezone",
+      "startMs": 55420,
+      "endMs": 56720
+    },
+    {
+      "word": "We",
+      "startMs": 56800,
+      "endMs": 56900
+    },
+    {
+      "word": "finally",
+      "startMs": 57060,
+      "endMs": 57440
+    },
+    {
+      "word": "made",
+      "startMs": 57620,
+      "endMs": 58140
+    },
+    {
+      "word": "it,",
+      "startMs": 58240,
+      "endMs": 59100
+    },
+    {
+      "word": "feeling",
+      "startMs": 59220,
+      "endMs": 59660
+    },
+    {
+      "word": "brand",
+      "startMs": 59740,
+      "endMs": 60200
+    },
+    {
+      "word": "new",
+      "startMs": 60280,
+      "endMs": 60620
+    },
+    {
+      "word": "Got",
+      "startMs": 60780,
+      "endMs": 60980
+    },
+    {
+      "word": "sand",
+      "startMs": 61060,
+      "endMs": 61360
+    },
+    {
+      "word": "in",
+      "startMs": 61420,
+      "endMs": 61580
+    },
+    {
+      "word": "the",
+      "startMs": 61620,
+      "endMs": 61760
+    },
+    {
+      "word": "slide",
+      "startMs": 61840,
+      "endMs": 62300
+    },
+    {
+      "word": "deck,",
+      "startMs": 62460,
+      "endMs": 62750
+    },
+    {
+      "word": "yeah",
+      "startMs": 62780,
+      "endMs": 62890
+    },
+    {
+      "word": "(We",
+      "startMs": 62880,
+      "endMs": 62990
+    },
+    {
+      "word": "got",
+      "startMs": 62980,
+      "endMs": 63160
+    },
+    {
+      "word": "sand",
+      "startMs": 63220,
+      "endMs": 63500
+    },
+    {
+      "word": "in",
+      "startMs": 63520,
+      "endMs": 63660
+    },
+    {
+      "word": "the",
+      "startMs": 63660,
+      "endMs": 63670
+    },
+    {
+      "word": "slide",
+      "startMs": 63960,
+      "endMs": 64519
+    },
+    {
+      "word": "deck)",
+      "startMs": 64580,
+      "endMs": 65019
+    },
+    {
+      "word": "Left",
+      "startMs": 65620,
+      "endMs": 65860
+    },
+    {
+      "word": "the",
+      "startMs": 65940,
+      "endMs": 66100
+    },
+    {
+      "word": "real",
+      "startMs": 66220,
+      "endMs": 66520
+    },
+    {
+      "word": "world",
+      "startMs": 66660,
+      "endMs": 67080
+    },
+    {
+      "word": "all",
+      "startMs": 68380,
+      "endMs": 68860
+    },
+    {
+      "word": "alone",
+      "startMs": 68940,
+      "endMs": 69880
+    },
+    {
+      "word": "Trading",
+      "startMs": 72140,
+      "endMs": 87440
+    },
+    {
+      "word": "spreadsheets",
+      "startMs": 87500,
+      "endMs": 88070
+    },
+    {
+      "word": "for",
+      "startMs": 88160,
+      "endMs": 88400
+    },
+    {
+      "word": "a",
+      "startMs": 88460,
+      "endMs": 88540
+    },
+    {
+      "word": "coastline",
+      "startMs": 88660,
+      "endMs": 89680
+    },
+    {
+      "word": "view",
+      "startMs": 89740,
+      "endMs": 90240
+    },
+    {
+      "word": "No",
+      "startMs": 91340,
+      "endMs": 91440
+    },
+    {
+      "word": "more",
+      "startMs": 91600,
+      "endMs": 91780
+    },
+    {
+      "word": "status",
+      "startMs": 91860,
+      "endMs": 92320
+    },
+    {
+      "word": "meetings,",
+      "startMs": 92420,
+      "endMs": 92940
+    },
+    {
+      "word": "it's",
+      "startMs": 93080,
+      "endMs": 93160
+    },
+    {
+      "word": "true",
+      "startMs": 93180,
+      "endMs": 93720
+    },
+    {
+      "word": "Just",
+      "startMs": 95640,
+      "endMs": 95860
+    },
+    {
+      "word": "the",
+      "startMs": 95900,
+      "endMs": 96020
+    },
+    {
+      "word": "sound",
+      "startMs": 96140,
+      "endMs": 96720
+    },
+    {
+      "word": "of",
+      "startMs": 96820,
+      "endMs": 97000
+    },
+    {
+      "word": "the",
+      "startMs": 97020,
+      "endMs": 97140
+    },
+    {
+      "word": "ocean",
+      "startMs": 97320,
+      "endMs": 98200
+    },
+    {
+      "word": "breaking",
+      "startMs": 98280,
+      "endMs": 99280
+    },
+    {
+      "word": "And",
+      "startMs": 100200,
+      "endMs": 100300
+    },
+    {
+      "word": "a",
+      "startMs": 100340,
+      "endMs": 100380
+    },
+    {
+      "word": "new",
+      "startMs": 100480,
+      "endMs": 100660
+    },
+    {
+      "word": "perspective",
+      "startMs": 100700,
+      "endMs": 101460
+    },
+    {
+      "word": "we're",
+      "startMs": 101560,
+      "endMs": 102020
+    },
+    {
+      "word": "all",
+      "startMs": 102160,
+      "endMs": 102460
+    },
+    {
+      "word": "making",
+      "startMs": 102640,
+      "endMs": 103640
+    },
+    {
+      "word": "Hello",
+      "startMs": 108400,
+      "endMs": 108960
+    },
+    {
+      "word": "offsite,",
+      "startMs": 109060,
+      "endMs": 110580
+    },
+    {
+      "word": "goodbye",
+      "startMs": 110640,
+      "endMs": 111120
+    },
+    {
+      "word": "timezone",
+      "startMs": 111200,
+      "endMs": 112180
+    },
+    {
+      "word": "We",
+      "startMs": 112500,
+      "endMs": 112660
+    },
+    {
+      "word": "finally",
+      "startMs": 112740,
+      "endMs": 113240
+    },
+    {
+      "word": "made",
+      "startMs": 113320,
+      "endMs": 113860
+    },
+    {
+      "word": "it,",
+      "startMs": 113940,
+      "endMs": 114780
+    },
+    {
+      "word": "feeling",
+      "startMs": 114920,
+      "endMs": 115400
+    },
+    {
+      "word": "brand",
+      "startMs": 115460,
+      "endMs": 115920
+    },
+    {
+      "word": "new",
+      "startMs": 116000,
+      "endMs": 116380
+    },
+    {
+      "word": "Got",
+      "startMs": 116520,
+      "endMs": 116700
+    },
+    {
+      "word": "sand",
+      "startMs": 116740,
+      "endMs": 117080
+    },
+    {
+      "word": "in",
+      "startMs": 117140,
+      "endMs": 117300
+    },
+    {
+      "word": "the",
+      "startMs": 117340,
+      "endMs": 117460
+    },
+    {
+      "word": "slide",
+      "startMs": 117560,
+      "endMs": 118080
+    },
+    {
+      "word": "deck,",
+      "startMs": 118160,
+      "endMs": 118460
+    },
+    {
+      "word": "yeah",
+      "startMs": 118520,
+      "endMs": 118570
+    },
+    {
+      "word": "(We",
+      "startMs": 118580,
+      "endMs": 118610
+    },
+    {
+      "word": "got",
+      "startMs": 118700,
+      "endMs": 118860
+    },
+    {
+      "word": "sand",
+      "startMs": 118960,
+      "endMs": 119220
+    },
+    {
+      "word": "in",
+      "startMs": 119260,
+      "endMs": 119390
+    },
+    {
+      "word": "the",
+      "startMs": 119440,
+      "endMs": 119450
+    },
+    {
+      "word": "slide",
+      "startMs": 119440,
+      "endMs": 119539
+    },
+    {
+      "word": "deck)",
+      "startMs": 119560,
+      "endMs": 121200
+    },
+    {
+      "word": "Left",
+      "startMs": 121320,
+      "endMs": 121530
+    },
+    {
+      "word": "the",
+      "startMs": 121640,
+      "endMs": 121730
+    },
+    {
+      "word": "real",
+      "startMs": 121900,
+      "endMs": 122280
+    },
+    {
+      "word": "world",
+      "startMs": 122360,
+      "endMs": 122900
+    },
+    {
+      "word": "all",
+      "startMs": 124120,
+      "endMs": 124560
+    },
+    {
+      "word": "alone",
+      "startMs": 124660,
+      "endMs": 125560
+    },
+    {
+      "word": "(Sand",
+      "startMs": 126400,
+      "endMs": 136340
+    },
+    {
+      "word": "in",
+      "startMs": 136400,
+      "endMs": 136640
+    },
+    {
+      "word": "the",
+      "startMs": 136680,
+      "endMs": 136790
+    },
+    {
+      "word": "slide",
+      "startMs": 136860,
+      "endMs": 137340
+    },
+    {
+      "word": "deck)",
+      "startMs": 137460,
+      "endMs": 138440
+    },
+    {
+      "word": "(Oh",
+      "startMs": 140060,
+      "endMs": 140460
+    },
+    {
+      "word": "yeah)",
+      "startMs": 143060,
+      "endMs": 154290
+    },
+    {
+      "word": "(Feeling",
+      "startMs": 154280,
+      "endMs": 162800
+    },
+    {
+      "word": "brand",
+      "startMs": 163160,
+      "endMs": 164989
+    },
+    {
+      "word": "new)",
+      "startMs": 164980,
+      "endMs": 164989
+    }
+  ],
+  "attempts": 1
+}
