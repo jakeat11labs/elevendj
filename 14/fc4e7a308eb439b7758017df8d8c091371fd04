@@ -1,0 +1,124 @@
+public/offsite/cancun-2026/island-set/c09-sunset-session-sunrise-slack.json
+  s_4ff0480a11b441::t_571393ac54386d 1-841
+src/lib/autodj-pool.ts
+  s_4ff0480a11b441::t_c70c403f775820 61-65
+  s_4ff0480a11b441::t_ad81ca16929645 95-101
+  s_4ff0480a11b441::t_d1c9f089fed2c0 37-42
+  s_4ff0480a11b441::t_2a434ec2191938 25-36,43-44,49-50,59-60,66-69
+  s_4ff0480a11b441::t_d9f32bb9ae53a5 3,8,10,17
+  s_4ff0480a11b441::t_a224e2cabe50af 45-48,51-58
+  s_4ff0480a11b441::t_b60f9e243a0415 24
+public/offsite/cancun-2026/house-playlist/e04-scribe-heard-that.json
+  s_4ff0480a11b441::t_5b53761aac4637 908-913
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-902,915
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,903-907,914
+public/offsite/cancun-2026/house-playlist/e05-give-everybody-a-voice.json
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-1097,1110
+  s_4ff0480a11b441::t_5b53761aac4637 1103-1108
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,1098-1102,1109
+public/offsite/cancun-2026/house-playlist/e11-section-by-section.json
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-833,846
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,834-838,845
+  s_4ff0480a11b441::t_5b53761aac4637 839-844
+public/offsite/cancun-2026/island-set/c08-slow-dance-with-the-roadmap.json
+  s_4ff0480a11b441::t_571393ac54386d 1-1498
+docs/OFFSITE_INTEGRATION.md
+  s_4ff0480a11b441::t_8148c616c13cba 101-104
+  s_4ff0480a11b441::t_1c0c0af0eaa533 74-97
+public/offsite/cancun-2026/island-set/c07-golf-cart-down-the-coast-road.json
+  s_4ff0480a11b441::t_571393ac54386d 1-952
+public/offsite/cancun-2026/island-set/c01-sand-in-the-slide-deck.json
+  s_4ff0480a11b441::t_571393ac54386d 1-766
+public/offsite/cancun-2026/island-set/c02-room-block-riddim.json
+  s_4ff0480a11b441::t_571393ac54386d 1-1030
+public/offsite/cancun-2026/house-playlist/e02-seventy-five-milliseconds.json
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,28-30,34,44,54,74,114,241,266,336,436,711,791-795,802
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-27,31-33,35-43,45-53,55-73,75-113,115-240,242-265,267-335,337-435,437-710,712-790,803
+  s_4ff0480a11b441::t_5b53761aac4637 796-801
+scripts/generate-house-playlist.mjs
+  s_4ff0480a11b441::t_e92ab92c169d7c 6
+  s_4ff0480a11b441::t_75089f9f54f9d2 1-5,7-114
+public/offsite/cancun-2026/island-set/c05-two-bars-one-beach.json
+  s_4ff0480a11b441::t_571393ac54386d 1-1057
+src/lib/db/queries/external-sessions.ts
+  s_4ff0480a11b441::t_b9c6dea332dda2 181-186
+public/offsite/cancun-2026/house-playlist/e10-cleared-for-commercial-use.json
+  s_4ff0480a11b441::t_5b53761aac4637 904-909
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,899-903,910
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-898,911
+public/offsite/cancun-2026/house-playlist/e09-isolate-me.json
+  s_4ff0480a11b441::t_5b53761aac4637 638-643
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-632,645
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,633-637,644
+public/offsite/cancun-2026/island-set/c06-the-cenote-deep-dive.json
+  s_4ff0480a11b441::t_571393ac54386d 1-650
+public/offsite/cancun-2026/island-set/c10-one-week-one-island.json
+  s_4ff0480a11b441::t_571393ac54386d 1-1305
+scripts/cut-previews.mjs
+  s_4ff0480a11b441::t_aa325df2a2378e 1-59
+public/offsite/cancun-2026/island-set/c04-out-of-office-in-the-ocean.json
+  s_4ff0480a11b441::t_571393ac54386d 1-800
+scripts/build-offsite-house-playlist.mjs
+  s_4ff0480a11b441::t_41600db1634a1d 72-75
+  s_4ff0480a11b441::t_6fbf5eab4637f2 136-138
+  s_4ff0480a11b441::t_13f766f8acfa92 99-102
+  s_4ff0480a11b441::t_cd09374c2a961d 114-119
+  s_4ff0480a11b441::t_71ce12fc0f8092 1-71,76-98,103-113,120-135,139-178
+public/offsite/cancun-2026/house-playlist/e06-same-energy-half-time-drums.json
+  s_4ff0480a11b441::t_5b53761aac4637 879-884
+  s_4ff0480a11b441::t_76042ce944ed73 1-4,6-9,11-873,886
+  s_4ff0480a11b441::t_7f99c30fd84d1b 5,10,874-878,885
+public/offsite/cancun-2026/island-set/c03-salt-rim-standup.json
+  s_4ff0480a11b441::t_571393ac54386d 1-988
+public/offsite/cancun-2026/house-playlist/e07-fix-the-bridge-keep-the-chorus.json
+  s_4ff0480a11b441::t_76042ce944ed73 1-4,6-9,11-1181,1194
+  s_4ff0480a11b441::t_5b53761aac4637 1187-1192
+  s_4ff0480a11b441::t_7f99c30fd84d1b 5,10,1182-1186,1193
+src/lib/offsite-house-playlist.ts
+  s_4ff0480a11b441::t_1d3238f0b6ea55 37-46,48-56
+  s_4ff0480a11b441::t_02af8ee25fc145 12-15,17-18,35-36,47
+  s_4ff0480a11b441::t_5e17f4ff3acab3 1-11,16,19-34,57-90
+public/offsite/cancun-2026/house-playlist/e12-everything-is-an-instrument.json
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,494-498,505
+  s_4ff0480a11b441::t_5b53761aac4637 499-504
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-493,506
+public/offsite/cancun-2026/house-playlist/e08-the-agent-picked-up.json
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,1085-1089,1096
+  s_4ff0480a11b441::t_5b53761aac4637 1090-1095
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-1084,1097
+public/offsite/cancun-2026/house-playlist/e01-two-bars.json
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-1068,1081
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,1069-1073,1080
+  s_4ff0480a11b441::t_5b53761aac4637 1074-1079
+public/offsite/cancun-2026/house-playlist/e03-say-it-in-seventy-languages.json
+  s_4ff0480a11b441::t_76042ce944ed73 1-9,11-42,44,49,52,54,61,64-67,69-127,129-145,147-164,166-182,184-200,202-218,220-555,557-565,567-615,617-625,627-640,642-645,647-680,682-715,717-770,772-825,827-855,857-860,862-865,867-870,872-875,877-895,897-925,927-970,972-985,987-1015,1017-1130,1132-1135,1148
+  s_4ff0480a11b441::t_5b53761aac4637 1141-1146
+  s_4ff0480a11b441::t_7f99c30fd84d1b 10,43,45-48,50-51,53,55-60,62-63,68,128,146,165,183,201,219,556,566,616,626,641,646,681,716,771,826,856,861,866,871,876,896,926,971,986,1016,1131,1136-1140,1147
+public/offsite/cancun-2026/island-set/c11-island-time-agenda.json
+  s_4ff0480a11b441::t_ef3cafb04529dc 1-908
+src/lib/db/queries/autodj.ts
+  s_4ff0480a11b441::t_fad91e71cbfc9b 240-241
+  s_4ff0480a11b441::t_716d7926aa1885 289-292,295-302,306
+  s_4ff0480a11b441::t_6539385622a09b 30-31
+  s_4ff0480a11b441::t_8b07723fb7015b 69
+  s_4ff0480a11b441::t_accfaa01c5b19f 215-218
+  s_4ff0480a11b441::t_6619376abdfca7 51
+  s_4ff0480a11b441::t_3f86d92ec58e8b 116-180,185,191-193,195-214,219-239,242-288,293-294,303-305,307-309
+  s_4ff0480a11b441::t_a1c6cc98d8dc0c 181-184,186-190,194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "14fc4e7a308eb439b7758017df8d8c091371fd04",
+  "prompts": {},
+  "sessions": {
+    "s_4ff0480a11b441": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "88d24a80-4236-4b89-9fea-fa87d1a4b01b",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Jake Rains <jake@elevenlabs.io>"
+    }
+  }
+}
